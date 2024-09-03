@@ -736,6 +736,75 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="Bloques ESP-NOW">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#bloque-iniciar" class="md-nav__link">
+    <span class="md-ellipsis">
+      Bloque iniciar
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#bloque-establecer-canal" class="md-nav__link">
+    <span class="md-ellipsis">
+      Bloque establecer canal
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#emparejar-nodo-remoto" class="md-nav__link">
+    <span class="md-ellipsis">
+      Emparejar nodo remoto
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#enviar-a-un-nodo" class="md-nav__link">
+    <span class="md-ellipsis">
+      Enviar a un nodo
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#enviar-a-todos" class="md-nav__link">
+    <span class="md-ellipsis">
+      Enviar a todos
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ultimo-envio-correcto" class="md-nav__link">
+    <span class="md-ellipsis">
+      ¿Último envio correcto?
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#evento-al-recibir-datos" class="md-nav__link">
+    <span class="md-ellipsis">
+      Evento al recibir datos
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
     </ul>
@@ -1510,6 +1579,75 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="Bloques ESP-NOW">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#bloque-iniciar" class="md-nav__link">
+    <span class="md-ellipsis">
+      Bloque iniciar
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#bloque-establecer-canal" class="md-nav__link">
+    <span class="md-ellipsis">
+      Bloque establecer canal
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#emparejar-nodo-remoto" class="md-nav__link">
+    <span class="md-ellipsis">
+      Emparejar nodo remoto
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#enviar-a-un-nodo" class="md-nav__link">
+    <span class="md-ellipsis">
+      Enviar a un nodo
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#enviar-a-todos" class="md-nav__link">
+    <span class="md-ellipsis">
+      Enviar a todos
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ultimo-envio-correcto" class="md-nav__link">
+    <span class="md-ellipsis">
+      ¿Último envio correcto?
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#evento-al-recibir-datos" class="md-nav__link">
+    <span class="md-ellipsis">
+      Evento al recibir datos
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
     </ul>
@@ -1559,9 +1697,110 @@
 <p></center></p>
 <div class="admonition example">
 <p class="admonition-title">Consejo</p>
-<p><b>A la hora de trabajar con proyectos ESP-NOW es recomendable etiquetar físicamente cada placa con la dirección MAC obtenida para poder fácilmente identificar cada una de ellas durante la programación.</b></p>
+<p><b>A la hora de trabajar con proyectos ESP-NOW es recomendable etiquetar físicamente cada placa con la dirección MAC obtenida para poder fácilmente identificar cada una de ellas durante la programación.</b>  </p>
+<p><a class="glightbox" href="../../img/wifi/espnow/etiquetas.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Placas micro:STEAMakers etiquetadas con su MAC" src="../../img/wifi/espnow/etiquetas.png" /></a></p>
 </div>
 <h2 id="bloques-esp-now"><FONT COLOR=#007575><strong>Bloques ESP-NOW</strong></font><a class="headerlink" href="#bloques-esp-now" title="Permanent link">&para;</a></h2>
+<h3 id="bloque-iniciar"><FONT COLOR=#AA0000>Bloque iniciar</font><a class="headerlink" href="#bloque-iniciar" title="Permanent link">&para;</a></h3>
+<p>Es obligatorio para iniciar el protocolo ESP-NOW y lo pondremos en el bloque de inicialización de nuestros programas.</p>
+<p>El bloque permite activar o no la encriptación de las comunicaciones. La encriptación es muy importante para hacer proyectos seguros y evitar que espien nuestras comunicaciones, o que puedan inundarnos (flooding) con paquetes de datos ajenos. Los dos tipos de claves son:</p>
+<ul>
+<li>
+<p><strong>PMK</strong> (Private Master Key) o clave maestra: es la usada para encriptar la clave LMK con <a href="https://es.wikipedia.org/wiki/Advanced_Encryption_Standard">cifrado AES128</a>. Es obligatorio definir esta clave, por lo que si no modificamos nada la clave son los 16 guiones (bytes) por defecto ("----------------"). Ya que vamos a añadir seguridad lo suyo es cambiarla.</p>
+</li>
+<li>
+<p><strong>LMK</strong> (Local Master Key) o clave local: es la clave que se utiliza para encriptar action frames (tipo de trama de gestión que se utiliza para desencadenar una acción) con el método de criptografía <a href="https://en.wikipedia.org/wiki/CCMP_(cryptography)">CCMP</a>. Es la encriptación a nivel de dispositivo. Tiene la misma composición que la clave PMK.</p>
+</li>
+</ul>
+<div class="admonition info">
+<p class="admonition-title">Importante</p>
+<p>En los dispositivos emparejados en la red ESP-NOW deberán coincidir las claves para poder establecer comunicación.</p>
+</div>
+<p>El aspecto del bloque es el siguiente:</p>
+<p><center></p>
+<p><a class="glightbox" href="../../img/wifi/espnow/Biniciar.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Bloque iniciar" src="../../img/wifi/espnow/Biniciar.png" /></a><br />
+<em>Bloque iniciar</em></p>
+<p></center></p>
+<h3 id="bloque-establecer-canal"><FONT COLOR=#AA0000>Bloque establecer canal</font><a class="headerlink" href="#bloque-establecer-canal" title="Permanent link">&para;</a></h3>
+<p>Bloque para establecer el canal WiFi de nuestra red ESP-NOW.</p>
+<p>Sin entrar en detalles diremos como simil que un canal de una red inalámbrica y las diferentes frecuencias que utiliza funciona de manera similar a la radio y sus frecuencias. Las redes WiFi trabajan en frecuencia de GHz, indicando la frecuencia a la que se transmiten los datos. Si cambiamos de canal estamos cambiando la frecuencia de transmisión.</p>
+<p>El estándar WiFi 802.11 b/g/n indica que en redes WiFi de 2.4GHz se pueden configurar anchos de canal de 20 y 40 MHz.</p>
+<p>En la banda de 2.4 GHz el estándar WiFi establece la separación de canales en 5 MHz. Si representamos cada canal por un cono truncado con su base inferior de 20MHz (para 40MHz se daria la misma situación) y su base superior de 5MHz. Cada canal empieza 5MHz por encima del anterior. Si representamos esto obtenemos, de forma simplificada, una representación de los canales WiFi del espectro de 2.4GHz que vemos a continuación:</p>
+<p><center></p>
+<p><a class="glightbox" href="../../img/wifi/espnow/canales.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Canales Wifi en 2.4GHz" src="../../img/wifi/espnow/canales.png" /></a><br />
+<em>Canales Wifi en 2.4GHz</em><br />
+<strong><em>Imagen obtenida de <a href="https://www.acrylicwifi.com/blog/por-que-se-utilizan-canales-wifi-1-6-y-11-en-2-4ghz/">¿Por qué se utilizan los canales WiFi 1, 6 y 11 en 2.4GHz?</a> de <a href="https://www.acrylicwifi.com/">ACRYLIC</a></em></strong></p>
+<p></center></p>
+<p>Cuando por ejemplo situamos la banda en el canal 6, este se solapa con parte del 4,5,7 y 8; en concreto 15MHz de solapamiento.</p>
+<p>En la figura se aprecia el motivo de por qué se dice que los mejores canales son el 1,6,11 o 2,6,10 o 1,5,9 o 3,7,11 ya que para un ancho de banda de 20MHz no se solaparian. Pero la imagen es una representación idealizada y en realidad es mas complejo tal y como se explica en los artículos (ambos en inglés) citados en la imagen siguiente:</p>
+<p><center></p>
+<p><a class="glightbox" href="../../img/wifi/espnow/640px-2.4_GHz_Wi-Fi_channels_%28802.11b%2Cg_WLAN%29.svg.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Representación gráfica del solapamiento de canales de 22 MHz en la banda de 2,4 GHz" src="../../img/wifi/espnow/640px-2.4_GHz_Wi-Fi_channels_%28802.11b%2Cg_WLAN%29.svg.png" /></a><br />
+<em>Representación gráfica del solapamiento de canales de 22 MHz en la banda de 2,4 GHz</em><br />
+<strong><em>Imagen obtenida del enlace <a href="https://en.wikipedia.org/wiki/Electromagnetic_interference_at_2.4_GHz#Wi-Fi">Electromagnetic interference at 2.4 GHz § Wi-Fi</a> en el artículo <a href="https://en.wikipedia.org/wiki/List_of_WLAN_channels">List of WLAN channels</a> de <a href="https://en.wikipedia.org/wiki/Main_Page">Wikipedia</a></em></strong></p>
+<p></center></p>
+<div class="admonition info">
+<p class="admonition-title"><mark>Atribución imagen anterior</mark></p>
+<p><strong><em>By Michael Gauthier, Wireless Networking in the Developing WorldKelleyCook, image improvementsWhidou, French translation - This file was derived from: 2.4 GHz Wi-Fi channels (802.11b,g WLAN).png by Michael Gauthier, CC BY-SA 3.0, https://commons.wikimedia.org/w/index.php?curid=8353678</em></strong></p>
+</div>
+<p>Vemos que en realidad el ancho de banda es 22MHz por lo que se produce un pequeño solapamiento. En la imagen anterior vemos también que aparecen los canales 12 y 13, lo que tiene que ver con la zona geográfica en que nos encontremos. En USA va del 1 al 11, Japón del 1 al 14 y el resto del mundo del 1 al 13.</p>
+<p>El aspecto del bloque es el siguiente:</p>
+<p><center></p>
+<p><a class="glightbox" href="../../img/wifi/espnow/B_canal.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Bloque establecer canal" src="../../img/wifi/espnow/B_canal.png" /></a><br />
+<em>Bloque establecer canal</em></p>
+<p></center></p>
+<h3 id="emparejar-nodo-remoto"><FONT COLOR=#AA0000>Emparejar nodo remoto</font><a class="headerlink" href="#emparejar-nodo-remoto" title="Permanent link">&para;</a></h3>
+<p>Bloque para añadir un nodo a partir de su dirección MAC. Una vez emparejado ya podemos enviar datos a ese nodo.</p>
+<p>El aspecto del bloque es el siguiente:</p>
+<p><center></p>
+<p><a class="glightbox" href="../../img/wifi/espnow/Bemparejar.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Bloque Emparejar nodo remoto" src="../../img/wifi/espnow/Bemparejar.png" /></a><br />
+<em>Bloque Emparejar nodo remoto</em></p>
+<p></center></p>
+<p>En las <a href="https://randomnerdtutorials.com/esp-now-esp32-arduino-ide/">especificaciones de ESP-NOW (limitations)</a> indica que el número de pares cifrados máximo es de 10 en modo emisor; 6 en modo receptor y emisor. Se admiten varios (sin indicar número) pares no cifrados, pero el número total debe ser inferior a 20, incluidos los cifrados.</p>
+<h3 id="enviar-a-un-nodo"><FONT COLOR=#AA0000>Enviar a un nodo</font><a class="headerlink" href="#enviar-a-un-nodo" title="Permanent link">&para;</a></h3>
+<p>Bloque para enviar datos (en forma de trama de texto) a un nodo remoto con una longitud máxima de 250 caracteres.</p>
+<div class="admonition warning">
+<p class="admonition-title"><mark>Muy importante</mark></p>
+<p><strong>El nodo debe estar previamente emparejado.</strong></p>
+</div>
+<p>El aspecto del bloque es el siguiente:</p>
+<p><center></p>
+<p><a class="glightbox" href="../../img/wifi/espnow/Benviar.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Bloque enviar a nodo remoto" src="../../img/wifi/espnow/Benviar.png" /></a><br />
+<em>Bloque enviar a nodo remoto</em></p>
+<p></center></p>
+<h3 id="enviar-a-todos"><FONT COLOR=#AA0000>Enviar a todos</font><a class="headerlink" href="#enviar-a-todos" title="Permanent link">&para;</a></h3>
+<p>Bloque para enviar datos (en forma de trama de texto) a todos los nodos emparejados con una longitud máxima de 250 caracteres.</p>
+<div class="admonition warning">
+<p class="admonition-title"><mark>Muy importante</mark></p>
+<p><strong>Todos los nodos deben estar previamente emparejados.</strong></p>
+</div>
+<p>El aspecto del bloque es el siguiente:</p>
+<p><center></p>
+<p><a class="glightbox" href="../../img/wifi/espnow/Benviar_todos.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Bloque enviar a todos" src="../../img/wifi/espnow/Benviar_todos.png" /></a><br />
+<em>Bloque enviar a todos</em></p>
+<p></center></p>
+<h3 id="ultimo-envio-correcto"><FONT COLOR=#AA0000>¿Último envio correcto?</font><a class="headerlink" href="#ultimo-envio-correcto" title="Permanent link">&para;</a></h3>
+<p>Bloque para comprobar si el último envio de datos se ha realizado correctamente. Con el podemos detectar si ha habido acuse de recibo del nodo remoto o no.</p>
+<p>El aspecto del bloque es el siguiente:</p>
+<p><center></p>
+<p><a class="glightbox" href="../../img/wifi/espnow/Benvio_correcto.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="¿Último envio correcto?" src="../../img/wifi/espnow/Benvio_correcto.png" /></a><br />
+<em>¿Último envio correcto?</em></p>
+<p></center></p>
+<h3 id="evento-al-recibir-datos"><FONT COLOR=#AA0000>Evento al recibir datos</font><a class="headerlink" href="#evento-al-recibir-datos" title="Permanent link">&para;</a></h3>
+<p>Evento que se produce cuando se reciben datos de un nodo remoto.</p>
+<p>El aspecto del bloque es el siguiente:</p>
+<p><center></p>
+<p><a class="glightbox" href="../../img/wifi/espnow/BAl_recibir.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Evento al recibir datos" src="../../img/wifi/espnow/BAl_recibir.png" /></a><br />
+<em>Evento al recibir datos</em></p>
+<p></center></p>
+<p>Dentro del evento podemos utilizar el bloque de la imagen siguiente para tener los valores válidos tanto de los datos recibidos como la dirección MAC del nodo remitente.</p>
+<p><center></p>
+<p><a class="glightbox" href="../../img/wifi/espnow/BDatos_recibidos.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Datos recibidos" src="../../img/wifi/espnow/BDatos_recibidos.png" /></a><br />
+<em>Datos recibidos</em></p>
+<p></center></p>
+<div class="admonition danger">
+<p class="admonition-title">Importante</p>
+<p>El evento <strong><em>“Al recibir datos”</em></strong> se puede bloquear internamente si realizamos esperas bloqueantes en nuestro programa. Por tanto evitar usar el bloque <strong>“esperar”</strong>, y en su lugar utilizar el <strong><em>“ejecutar cada”</em></strong> u otros esquemas de programación similares no bloqueantes.</p>
+</div>
 
 
 
