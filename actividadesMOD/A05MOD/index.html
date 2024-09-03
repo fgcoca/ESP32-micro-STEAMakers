@@ -15,6 +15,10 @@
         <link rel="canonical" href="https://fgcoca.github.io/....https:/fgcoca.github.io/ESP32-micro-STEAMakers/actividadesMOD/A05MOD/">
       
       
+        <link rel="prev" href="../A04MOD/">
+      
+      
+        <link rel="next" href="../../Miscelanea/about/">
       
       
       <link rel="icon" href="../../img/favicon.png">
@@ -22,7 +26,7 @@
     
     
       
-        <title>A05-WiFiMesh - ESP32 micro:STEAMakers</title>
+        <title>A05-ESP-NOW - ESP32 micro:STEAMakers</title>
       
     
     
@@ -83,7 +87,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#a05-wifimesh" class="md-skip">
+        <a href="#a05-esp-now" class="md-skip">
           Saltar a contenido
         </a>
       
@@ -118,7 +122,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              A05-WiFiMesh
+              A05-ESP-NOW
             
           </span>
         </div>
@@ -1135,17 +1139,19 @@
       
   
   
+    
   
   
+  
     
     
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9" checked>
         
           
           <label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="0">
@@ -1159,7 +1165,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_9">
             <span class="md-nav__icon md-icon"></span>
             Actividades avanzadas y con shield modular
@@ -1254,10 +1260,19 @@
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="../espnow.md" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   <span class="md-ellipsis">
@@ -1266,6 +1281,7 @@
   
 
       </a>
+      
     </li>
   
 
@@ -1424,41 +1440,6 @@
     
   
   
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Tabla de contenidos
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#a05_1-wifimesh-un-emisor-a-varios-receptores" class="md-nav__link">
-    <span class="md-ellipsis">
-      A05_1-WiFiMesh un emisor a varios receptores
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#a05_2-mensaje-y-datos" class="md-nav__link">
-    <span class="md-ellipsis">
-      A05_2-Mensaje y datos
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#a05_3-todas-emisores-y-receptores" class="md-nav__link">
-    <span class="md-ellipsis">
-      A05_3-Todas emisores y receptores
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
 </nav>
                   </div>
                 </div>
@@ -1472,76 +1453,9 @@
                   
 
 
-<h1 id="a05-wifimesh"><FONT COLOR=#8B008B>A05-WiFiMesh</font><a class="headerlink" href="#a05-wifimesh" title="Permanent link">&para;</a></h1>
-<p>Se realizan varias actividades comunicando placas micro:STEAMakers entre si por WiFi Mesh.</p>
-<div class="admonition failure">
-<p class="admonition-title"><FONT COLOR=#FF0000>¡¡ ADVERTENCIA !!</font></p>
-<p><FONT COLOR=#0000FF><b>WiFiMesh presente, en algunas ocasiones, un problema, y es se pierden más mensajes de los que deberían, y a veces a unos les llegan y a otros no, o incluso no le llegan a ningún nodo.<br />
-Es posible que en el momento que leas esto los bloques para WiFiMesh de arduinoblocks estén considerados como obsoletos (deprecated) y por lo tanto estén desabilitados. Pero las mismas o similares actividades se pueden realizar con ESPNOW.</b></font></p>
-</div>
-<h2 id="a05_1-wifimesh-un-emisor-a-varios-receptores"><FONT COLOR=#007575><strong>A05_1-WiFiMesh un emisor a varios receptores</strong></font><a class="headerlink" href="#a05_1-wifimesh-un-emisor-a-varios-receptores" title="Permanent link">&para;</a></h2>
-<p>Se trata de hacer que una placa micro:STEAMakers actúe como emisor de mensajes diferentes según se pulse botón A, botón B o ambos:</p>
-<ul>
-<li>Botón A -&gt; se emite el mensaje "blanco" y se iluminan todos los LEDs RGB en ese color.</li>
-<li>Botón B - &gt; se emite el mensaje "magenta" y se iluminan todos los LEDs en ese color.</li>
-<li>Botón A + Botón B -&gt; se emite el mensaje "OFF" y se apagan todos los LEDs RGB.</li>
-</ul>
-<p>Las placas que actúan de receptores reciben esos mensajes y tras una breve espera tendrán que repetir lo que ha enviado la placa emisora.</p>
-<p>El programa de la placa emisora es:</p>
-<p><center></p>
-<p><a class="glightbox" href="../../img/actividadesMOD/A05_1_MOD_emi.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="A05_1-WiFiMesh un emisor a varios receptores" src="../../img/actividadesMOD/A05_1_MOD_emi.png" /></a><br />
-<em><a href="../../program/actividadesAB/MOD/A05_1_MOD_emisor-WiFiMesh.abp">A05_1-WiFiMesh un emisor a varios receptores</a></em></p>
-<p></center></p>
-<p>El programa de las placas receptoras es:</p>
-<p><center></p>
-<p><a class="glightbox" href="../../img/actividadesMOD/A05_1_MOD_rec.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="A05_1-WiFiMesh un emisor a varios receptores" src="../../img/actividadesMOD/A05_1_MOD_rec.png" /></a><br />
-<em><a href="../../program/actividadesAB/MOD/A05_1_MOD_receptor-WiFiMesh.abp">A05_1-WiFiMesh un emisor a varios receptores</a></em></p>
-<p></center></p>
-<p>A continuación vemos el funcionamiento de los programas entre una placa emisora y dos receptoras. Debemos tener presente que al principio puede darnos la impresión de que el sistema no funciona, pero si damos unos segundos de tiempo a que se difundan las redes creadas todo comenzará a funcionar. </p>
-<p><center></p>
-<p><a class="glightbox" href="../../img/actividadesMOD/A05_1_MOD.gif" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Funcionamiento A05_1-WiFiMesh un emisor a varios receptores" src="../../img/actividadesMOD/A05_1_MOD.gif" /></a><br />
-<em>Funcionamiento A05_1-WiFiMesh un emisor a varios receptores</em></p>
-<p></center></p>
-<p>Observese que para el mensaje OFF hay que mantener pulsado un segundo o mas ambos pulsadores o prevalecerá el mensaje del botón que se pulse primero.</p>
-<p>Podemos ampliar el sistema a una tercera placa de otro tipo, en este caso un conjunto ESP32 STEAMakers + TdR STEAM con LCD, en la que haremos funcionar al LED RGB de la misma forma que a las pantallas y además pondremos en la LCD los mensajes recibidos. El programa receptor en este caso es:</p>
-<p><center></p>
-<p><a class="glightbox" href="../../img/actividadesMOD/A05_1_MOD_rec_SM.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="A05_1-WiFiMesh un emisor a varios receptores, uno STEAMakers" src="../../img/actividadesMOD/A05_1_MOD_rec_SM.png" /></a><br />
-<em><a href="../../program/actividadesAB/MOD/A05_1_MOD_receptor-WiFiMesh-STEAMakers.abp">A05_1-WiFiMesh un emisor a varios receptores, uno STEAMakers</a></em></p>
-<p></center></p>
-<p>A continuación vemos el sistema en funcionamiento:</p>
-<p><center></p>
-<p><a class="glightbox" href="../../img/actividadesMOD/A05_1_MOD_SM.gif" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Funcionamiento A05_1-WiFiMesh un emisor a varios receptores, uno STEAMakers" src="../../img/actividadesMOD/A05_1_MOD_SM.gif" /></a><br />
-<em>Funcionamiento A05_1-WiFiMesh un emisor a varios receptores, uno STEAMakers</em></p>
-<p></center></p>
-<p>Ya nos podemos ir imaginando la cantidad de posibilidades que nos ofrece el sistema.</p>
-<h2 id="a05_2-mensaje-y-datos"><FONT COLOR=#007575><strong>A05_2-Mensaje y datos</strong></font><a class="headerlink" href="#a05_2-mensaje-y-datos" title="Permanent link">&para;</a></h2>
-<p>En esta ocasión vamos a utilizar el bloque que combina un mensaje con un dato para hacer que una pantalla OLED I2C conectada en la placa receptora nos muestre la información remitida por la placa emisora. Vamos a enviar la temperatura mientras se enciende en blanco la pantalla y se emite un sonido que va de menos a mas agudo. Cuando se recibe el dato en otra placa, esta ilumina su pantalla en blanco y muestra el valor de la temperatura en una pantalla OLED I2C conectada a ella.</p>
-<p>El programa emisor es:</p>
-<p><center></p>
-<p><a class="glightbox" href="../../img/actividadesMOD/A05_2_MOD_emisor.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="A05_2-Mensaje y datos" src="../../img/actividadesMOD/A05_2_MOD_emisor.png" /></a><br />
-<em><a href="../../program/actividadesAB/MOD/A05_2_MOD_emisor-WiFiMesh.abp">A05_2-Mensaje y datos</a></em></p>
-<p></center></p>
-<p>Y el programa receptor es:</p>
-<p><center></p>
-<p><a class="glightbox" href="../../img/actividadesMOD/A05_2_MOD_receptor.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="A05_2-Mensaje y datos" src="../../img/actividadesMOD/A05_2_MOD_receptor.png" /></a><br />
-<em><a href="../../program/actividadesAB/MOD/A05_2_MOD_receptor-WiFiMesh.abp">A05_2-Mensaje y datos</a></em></p>
-<p></center></p>
-<p>En la animación siguiente vemos lo que ocurre cuando pulsamos el botón A y para hacerlo mas evidente hay unos instantes en que se sujeta la placa emisora tocando el sensor para que suba la temperatura.</p>
-<p><center></p>
-<p><a class="glightbox" href="../../img/actividadesMOD/A05_2_MOD.gif" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Funcionamiento de A05_2-Mensaje y datos" src="../../img/actividadesMOD/A05_2_MOD.gif" /></a><br />
-<em>Funcionamiento de A05_2-Mensaje y datos</em></p>
-<p></center></p>
-<h2 id="a05_3-todas-emisores-y-receptores"><FONT COLOR=#007575><strong>A05_3-Todas emisores y receptores</strong></font><a class="headerlink" href="#a05_3-todas-emisores-y-receptores" title="Permanent link">&para;</a></h2>
-<p>Haremos que todas las placas sean emisoras y receptoras con un sólo programa. Vamos a mandar dos mensajes diferentes, uno será "color" con el nombre del color como "Dato" y el otro será "temp" con el dato temperatura del sensor de la micro:STEAMakers, las placas receptoras deben mostrar el la temperatura por la pantalla como un texto con scroll y cuando finalice emitir 3 pitidos. El programa que debemos subir a todas las placas es el siguiente:</p>
-<p><center></p>
-<p><a class="glightbox" href="../../img/actividadesMOD/A05_3_MOD_Emisor_Receptor.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="A05_3-Todas emisores y receptores" src="../../img/actividadesMOD/A05_3_MOD_Emisor_Receptor.png" /></a><br />
-<em><a href="../../program/actividadesAB/MOD/A05_3_MOD_Emisor_Receptor.abp">A05_3-Todas emisores y receptores</a></em></p>
-<p></center></p>
-<p>A continuación se muestra una animación donde se puede apreciar que hay mensajes que no llegan o que llegan mal a su destino. Incluso, aunque en la animación no se escucha el sonido, hay momentos en que el conjunto se vuelve inestable y no deja de repetir los pitidos sin responder a otras acciones.</p>
-<p><center></p>
-<p><a class="glightbox" href="../img/actividadesMOD/A05_3_MOD_Emisor_Receptor.gif" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Funcionamiento de A05_3-Todas emisores y receptores" src="../img/actividadesMOD/A05_3_MOD_Emisor_Receptor.gif" /></a><br />
-<em>Funcionamiento de A05_3-Todas emisores y receptores</em></p>
-<p></center></p>
+<h1 id="a05-esp-now"><FONT COLOR=#8B008B>A05-ESP-NOW</font><a class="headerlink" href="#a05-esp-now" title="Permanent link">&para;</a></h1>
+<p>Se realizan varias actividades comunicando placas micro:STEAMakers entre si por ESP_NOW.</p>
+<p>EN DESARROLLO</p>
 
 
 
