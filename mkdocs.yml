@@ -76,7 +76,7 @@ nav:
     - A02-Temperatura y Humedad con DHT11 via web: actividadesMOD/A02MOD.md
     - A03-Temperatura y Humedad con Telegram: actividadesMOD/A03MOD.md
     - A04-Temperatura y Humedad con Thingspeak: actividadesMOD/A04MOD.md
-    - A05-ESP-NOW: actividadesMOD/espnow.md
+    - A05-ESP-NOW: actividadesMOD/A05MOD.md
     #- A05-WiFiMesh (obsoleto): actividadesMOD/A05MOD.md
   - Miscelanea:
     - Autoria: Miscelanea/about.md 
