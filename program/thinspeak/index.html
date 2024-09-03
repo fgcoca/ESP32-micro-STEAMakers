@@ -1,0 +1,2287 @@
+
+<!doctype html>
+<html lang="es" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Una introducción a la placa ESP32 micro:steamakers que es muy similar a la Placa ESP32 STEAMakers, pero en este caso tiene el formato de la micro:bit.">
+      
+      
+        <meta name="author" content="Federico Coca">
+      
+      
+        <link rel="canonical" href="https://fgcoca.github.io/....https:/fgcoca.github.io/ESP32-micro-STEAMakers/program/thinspeak/">
+      
+      
+        <link rel="prev" href="../../EasyPlug/EP1_1/">
+      
+      
+        <link rel="next" href="../espnow/">
+      
+      
+      <link rel="icon" href="../../img/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.0, mkdocs-material-9.5.31">
+    
+    
+      
+        <title>Teoría básica de IoT - ESP32 micro:STEAMakers</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.3cba04c6.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+   <link href="../../assets/stylesheets/glightbox.min.css" rel="stylesheet"/><style>
+    html.glightbox-open { overflow: initial; height: 100%; }
+    .gslide-title { margin-top: 0px; user-select: text; }
+    .gslide-desc { color: #666; user-select: text; }
+    .gslide-image img { background: white; }
+    .gscrollbar-fixer { padding-right: 15px; }
+    .gdesc-inner { font-size: 0.75rem; }
+    body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color);}
+    body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color);}
+    body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color);}</style> <script src="../../assets/javascripts/glightbox.min.js"></script></head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="light-blue" data-md-color-accent="deep-purple">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#teoria-basica-de-iot" class="md-skip">
+          Saltar a contenido
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Cabecera">
+    <a href="../.." title="ESP32 micro:STEAMakers" class="md-header__button md-logo" aria-label="ESP32 micro:STEAMakers" data-md-component="logo">
+      
+  <img src="../../img/favicon.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            ESP32 micro:STEAMakers
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Teoría básica de IoT
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="light-blue" data-md-color-accent="deep-purple"  aria-label="Modo Oscuro"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Modo Oscuro" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2a7 7 0 0 0-7 7c0 2.38 1.19 4.47 3 5.74V17a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-2.26c1.81-1.27 3-3.36 3-5.74a7 7 0 0 0-7-7M9 21a1 1 0 0 0 1 1h4a1 1 0 0 0 1-1v-1H9v1Z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="light-blue" data-md-color-accent="deep-purple"  aria-label="Modo Claro"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Modo Claro" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2a7 7 0 0 1 7 7c0 2.38-1.19 4.47-3 5.74V17a1 1 0 0 1-1 1H9a1 1 0 0 1-1-1v-2.26C6.19 13.47 5 11.38 5 9a7 7 0 0 1 7-7M9 21v-1h6v1a1 1 0 0 1-1 1h-4a1 1 0 0 1-1-1m3-17a5 5 0 0 0-5 5c0 2.05 1.23 3.81 3 4.58V16h4v-2.42c1.77-.77 3-2.53 3-4.58a5 5 0 0 0-5-5Z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var media,input,key,value,palette=__md_get("__palette");if(palette&&palette.color){"(prefers-color-scheme)"===palette.color.media&&(media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']"),palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent"));for([key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Búsqueda" placeholder="Búsqueda" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Buscar">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Limpiar" aria-label="Limpiar" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Inicializando búsqueda
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/fgcoca/ESP32-micro-STEAMakers" title="Ir al repositorio" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    fgcoca/ESP32-micro-STEAMakers
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navegación" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="ESP32 micro:STEAMakers" class="md-nav__button md-logo" aria-label="ESP32 micro:STEAMakers" data-md-component="logo">
+      
+  <img src="../../img/favicon.png" alt="logo">
+
+    </a>
+    ESP32 micro:STEAMakers
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/fgcoca/ESP32-micro-STEAMakers" title="Ir al repositorio" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    fgcoca/ESP32-micro-STEAMakers
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_1" id="__nav_1_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Presentación y elementos
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1">
+            <span class="md-nav__icon md-icon"></span>
+            Presentación y elementos
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Introducción
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../zumbador/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Zumbador
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../microf/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Micrófonos
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../giroscopio/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Acelerómetro + giroscopio
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SD/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Tarjeta microSD
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../CO2/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Conceptos sobre CO2 y VOC
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../MiCS4514/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Sensor MiCS4514 de NO2 y CO
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../modular/modV2/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Sensor shield modular
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../EasyPlug/EP1_1/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Shield EASY Plug 1.1
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    Teoría básica de IoT
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    Teoría básica de IoT
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Tabla de contenidos">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Tabla de contenidos
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#que-es-la-internet-de-las-cosas" class="md-nav__link">
+    <span class="md-ellipsis">
+      ¿Qué es la Internet de las Cosas?
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#trabajo-con-placas-tradicionales" class="md-nav__link">
+    <span class="md-ellipsis">
+      Trabajo con placas tradicionales
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Trabajo con placas tradicionales">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#modulo-esp8266-esp-01" class="md-nav__link">
+    <span class="md-ellipsis">
+      Módulo ESP8266 ESP-01
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Módulo ESP8266 ESP-01">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#introduccion" class="md-nav__link">
+    <span class="md-ellipsis">
+      Introducción
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#programacion" class="md-nav__link">
+    <span class="md-ellipsis">
+      Programación
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#comandos-at-en-el-esp8266" class="md-nav__link">
+    <span class="md-ellipsis">
+      Comandos AT en el ESP8266
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#preparacion-del-modulo-esp-01" class="md-nav__link">
+    <span class="md-ellipsis">
+      Preparación del módulo ESP-01
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#introduccion-al-iot-a-traves-de-mqtt" class="md-nav__link">
+    <span class="md-ellipsis">
+      Introducción al IoT a través de MQTT
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#creacion-de-un-canal-en-un-servidor-mqtt" class="md-nav__link">
+    <span class="md-ellipsis">
+      Creación de un canal en un servidor MQTT
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#filtrado-por-mac" class="md-nav__link">
+    <span class="md-ellipsis">
+      Filtrado por MAC
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#crear-un-canal-en-thingspeak" class="md-nav__link">
+    <span class="md-ellipsis">
+      Crear un canal en Thingspeak
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#visualizacion-de-resultados" class="md-nav__link">
+    <span class="md-ellipsis">
+      Visualización de resultados
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Visualización de resultados">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#navegador" class="md-nav__link">
+    <span class="md-ellipsis">
+      Navegador
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#aplicaciones-para-android" class="md-nav__link">
+    <span class="md-ellipsis">
+      Aplicaciones para Android
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Aplicaciones para Android">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#thingview" class="md-nav__link">
+    <span class="md-ellipsis">
+      ThingView
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#widget" class="md-nav__link">
+    <span class="md-ellipsis">
+      Widget
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../espnow/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    ESP-NOW
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Programación con arduinoblocks
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            Programación con arduinoblocks
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../inicio/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Inicio
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../RTTTL/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Formato RTTTL
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../server/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Servidor web
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tm/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    micro:STEAMakers + Telegram
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../iotAB/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    IoT con arduinoblocks
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../espnowAB/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    ESP-NOW en arduinoblocks
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Actividades iniciales
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            Actividades iniciales
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../actividadesAB/A01/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    A01-Hola Mundo
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../actividadesAB/A02/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    A02-Medio relleno
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../actividadesAB/A03/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    A03-Pixel de color aleatorio
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../actividadesAB/A04/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    A04-Botones
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../actividadesAB/A05/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    A05-Sensores integrados
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../actividadesAB/A06/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    A06-Actuadores integrados
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../actividadesAB/A07/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    A07-Acelerómetro y giroscopio
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../actividadesAB/A08/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    A08-Tarjeta microSD
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Actividades EASY Plug
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            Actividades EASY Plug
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../actividadesEP/A01EP/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    A01-LEDs y pantalla
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../actividadesEP/A02EP/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    A02-Mostrar datos del DHT22
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../actividadesEP/A03EP/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    A03-Servomotor
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../actividadesEP/A04EP/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    A04-Motor DC
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../actividadesEP/A05EP/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    A05-Matriz de 8x8 LEDs
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../actividadesEP/A06EP/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    A06-Neopixels Shield
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../actividadesEP/A07EP/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    A07-Sensor de CO2
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../actividadesEP/A08EP/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    A08-Particulas
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../actividadesEP/A09EP/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    A09-Sensor MiCS4114 (NO2 y CO)
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9" >
+        
+          
+          <label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Actividades avanzadas y con shield modular
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_9">
+            <span class="md-nav__icon md-icon"></span>
+            Actividades avanzadas y con shield modular
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../actividadesMOD/A01MOD/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    A01-Temperatura y Humedad con DHT11
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../actividadesMOD/A02MOD/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    A02-Temperatura y Humedad con DHT11 via web
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../actividadesMOD/A03MOD/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    A03-Temperatura y Humedad con Telegram
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../actividadesMOD/A04MOD/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    A04-Temperatura y Humedad con Thingspeak
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../actividadesMOD/espnow.md" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    A05-ESP-NOW
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_10" >
+        
+          
+          <label class="md-nav__link" for="__nav_10" id="__nav_10_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Miscelanea
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_10_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_10">
+            <span class="md-nav__icon md-icon"></span>
+            Miscelanea
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Miscelanea/about/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Autoria
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Miscelanea/lic/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Licencias
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Miscelanea/webgrafia/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Webgrafia/Bibliografía
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Miscelanea/soft/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Software utilizado
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Tabla de contenidos">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Tabla de contenidos
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#que-es-la-internet-de-las-cosas" class="md-nav__link">
+    <span class="md-ellipsis">
+      ¿Qué es la Internet de las Cosas?
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#trabajo-con-placas-tradicionales" class="md-nav__link">
+    <span class="md-ellipsis">
+      Trabajo con placas tradicionales
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Trabajo con placas tradicionales">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#modulo-esp8266-esp-01" class="md-nav__link">
+    <span class="md-ellipsis">
+      Módulo ESP8266 ESP-01
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Módulo ESP8266 ESP-01">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#introduccion" class="md-nav__link">
+    <span class="md-ellipsis">
+      Introducción
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#programacion" class="md-nav__link">
+    <span class="md-ellipsis">
+      Programación
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#comandos-at-en-el-esp8266" class="md-nav__link">
+    <span class="md-ellipsis">
+      Comandos AT en el ESP8266
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#preparacion-del-modulo-esp-01" class="md-nav__link">
+    <span class="md-ellipsis">
+      Preparación del módulo ESP-01
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#introduccion-al-iot-a-traves-de-mqtt" class="md-nav__link">
+    <span class="md-ellipsis">
+      Introducción al IoT a través de MQTT
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#creacion-de-un-canal-en-un-servidor-mqtt" class="md-nav__link">
+    <span class="md-ellipsis">
+      Creación de un canal en un servidor MQTT
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#filtrado-por-mac" class="md-nav__link">
+    <span class="md-ellipsis">
+      Filtrado por MAC
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#crear-un-canal-en-thingspeak" class="md-nav__link">
+    <span class="md-ellipsis">
+      Crear un canal en Thingspeak
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#visualizacion-de-resultados" class="md-nav__link">
+    <span class="md-ellipsis">
+      Visualización de resultados
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Visualización de resultados">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#navegador" class="md-nav__link">
+    <span class="md-ellipsis">
+      Navegador
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#aplicaciones-para-android" class="md-nav__link">
+    <span class="md-ellipsis">
+      Aplicaciones para Android
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Aplicaciones para Android">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#thingview" class="md-nav__link">
+    <span class="md-ellipsis">
+      ThingView
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#widget" class="md-nav__link">
+    <span class="md-ellipsis">
+      Widget
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+<h1 id="teoria-basica-de-iot"><FONT COLOR=#8B008B>Teoría básica de IoT</font><a class="headerlink" href="#teoria-basica-de-iot" title="Permanent link">&para;</a></h1>
+<h2 id="que-es-la-internet-de-las-cosas"><FONT COLOR=#007575><strong>¿Qué es la Internet de las Cosas?</strong></font><a class="headerlink" href="#que-es-la-internet-de-las-cosas" title="Permanent link">&para;</a></h2>
+<p>La expresión “Internet de las cosas” o IoT (del inglés, Internet of Things), internet de todas las cosas o internet en las cosas, hace referencia al uso que hacen de Internet los dispositivos conectados (las cosas) para comunicarse sin intervención humana directa. También se usa el término IoT para referirse al conjunto de estos dispositivos conectados comunicando “entre máquinas” (M2M) sin requerir interacción humana. No existe una Internet especial o diferente para “las cosas”, en principio, se opera con las mismas redes que en otros usos de Internet. En la imagen siguiente se grafica la conexión de elementos con la nube a través de la red.</p>
+<p><center></p>
+<p><a class="glightbox" href="../../img/iot/mapa-IoT.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Conexión de elementos IoT con la nube" src="../../img/iot/mapa-IoT.png" /></a><br />
+<em>Conexión de elementos IoT con la nube</em></p>
+<p></center></p>
+<p>El IoT sirve para monitorización y control electrónico y toma de decisiones inteligente. Es decir, conectar dispositivos a Internet permite enviar y recibir información usando una infraestructura global y así poder monitorizar y/o controlar automáticamente y a distancia multitud de contextos. Por ejemplo, en entornos urbanos (ciudades inteligentes) se puede conocer la actividad humana, del medio ambiente, del tráfico… tanto para informar de su estado (como las plazas de aparcamiento disponibles, la densidad o velocidad de la circulación, la contaminación…) como para tomar decisiones de forma manual o automática para optimizar los recursos disponibles (iluminación, riego de jardines, funcionamiento de los semáforos…)</p>
+<h2 id="trabajo-con-placas-tradicionales"><FONT COLOR=#007575><strong>Trabajo con placas tradicionales</strong></font><a class="headerlink" href="#trabajo-con-placas-tradicionales" title="Permanent link">&para;</a></h2>
+<p>Para conectar a la red las placas tipo Arduino, sus clones o basadas en el mismo usaremos los módulos ESP8266. El ESP8266 es un chip de bajo costo Wi-Fi que contiene su propio microcontrolador, un Tensilica L106 de 32-bit. Es un chip de bajo bajo coste y reducido tamaño. El chip ESP8266 forma parte de multitud de módulos comerciales a través de diferentes soluciones con distintas funciones, pines, tamaños y precios.</p>
+<p><center></p>
+<p><a class="glightbox" href="../../img/iot/esp8266.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Modelos ESP" src="../../img/iot/esp8266.png" /></a><br />
+<em>Modelos ESP</em></p>
+<p></center></p>
+<p>El más simple es el ESP-01, que solo dispone de 2 puertos digitales y necesita un adaptador USB para poder ser programado. Hay otros muchos sistemas como por ejemplo la placa ESP32 STEAMakers, ESP-12E de ESP8266, la placa de desarrollo NodeMCU, también basada en el ESP-12E, Además, hay placas con WiFi que usan otros chip WiFi diferentes, como la Arduino MKR1000.</p>
+<p><center></p>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;">ESP32 STEAMakers</th>
+<th style="text-align: center;">ESP-12E</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;"><a class="glightbox" href="../../img/iot/p-ESP32-STEAMakers.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="ESP32 STEAMakers" src="../../img/iot/p-ESP32-STEAMakers.png" /></a></td>
+<td style="text-align: center;"><a class="glightbox" href="../../img/iot/microSM.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="ESP32 micro:STEAMakers" src="../../img/iot/microSM.png" /></a></td>
+</tr>
+<tr>
+<td style="text-align: center;">NodeMCU de Keyestudio</td>
+<td style="text-align: center;">Arduino MKR1000</td>
+</tr>
+<tr>
+<td style="text-align: center;"><a class="glightbox" href="../../img/iot/Node-MCU.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="NodeMCU de Keyestudio" src="../../img/iot/Node-MCU.png" /></a></td>
+<td style="text-align: center;"><a class="glightbox" href="../../img/iot/Arduino-MKR1000.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Arduino MKR1000" src="../../img/iot/Arduino-MKR1000.png" /></a></td>
+</tr>
+</tbody>
+</table>
+<p></center></p>
+<h3 id="modulo-esp8266-esp-01"><FONT COLOR=#AA0000><strong>Módulo ESP8266 ESP-01</strong></font><a class="headerlink" href="#modulo-esp8266-esp-01" title="Permanent link">&para;</a></h3>
+<h4 id="introduccion"><FONT COLOR=#a303a3>Introducción</font><a class="headerlink" href="#introduccion" title="Permanent link">&para;</a></h4>
+<p>El módulo WiFi ESP-01 es uno de las más populares y económicos, pese a no ser el más potente ni versátil. Actualmente, otros modelos como la ESP-12 o el el ESP32 se están integrando en la mayoría de placas de desarrollo, cobrando un peso e importancia mucho mayor. Sin embargo, podemos asociar nuestro pequeño ESP-01 a, por ejemplo, una placa UNO, con el único fin de darle conectividad WiFi.</p>
+<p>El ESP-01 trae instalado una versión de firmware con la que podemos comunicarnos con el ESP8266 mediante comandos AT (veremos a continuación algunos de ellos) a través del puerto serie. Este tipo de comunicación nos va a permitir crear un puente entre la placa TdR STEAM y el ESP8266, consiguiendo así conectar a una red WiFi y dar un primer paso de gigantes en el mundo IoT.</p>
+<p>Veamos el aspecto del ESP-01 y algunas de sus características:</p>
+<p><center></p>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;">Imagen ESP-01</th>
+<th>Descripción</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;"><a class="glightbox" href="../../img/iot/ESP-01.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Imagen ESP-01" src="../../img/iot/ESP-01.png" /></a></td>
+<td><br>- ESP8266 es el microcontrolador del módulo ESP-01.</br><br>- La memoria flash es la BG25Q80A</br><br>- Los LEDs informan de si está encendido o no y de la transmisión de datos (Tx y Rx).</br><br>- La antena WiFi para la conexión a una internet.</br><br>- Los pines permiten conectar alimentación, sensores, …</br><br>Toda la información en el <a href="https://www.microchip.ua/wireless/esp01.pdf">datasheet</a> del fabricante</br></td>
+</tr>
+</tbody>
+</table>
+<p></center></p>
+<p>Los pines están distribuidos de la siguiente forma:</p>
+<p><center></p>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;">Pines ESP-01</th>
+<th>Descripción</th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;"><a class="glightbox" href="../../img/iot/pines-ESP-01.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Pines ESP-01" src="../../img/iot/pines-ESP-01.png" /></a></td>
+<td><br>1 - GND</br><br>2 - Pin digital número 2</br><br>3 - Pin digital número 0</br><br>4 - RXD es el pin por donde se van a recibir los datos del puerto serie. Trabaja a 3,3 V. También puede ser el pin digital GPIO3</br> <br>5 - TXD es el pin por donde se van a transmitir los datos del puerto serie. Trabaja a 3,3 V. También puede ser el pin digital GPIO1</br></td>
+<td><br>6 - CH_PD es el pin para apagar y encender el ESP-01: si lo ponemos a 0 V (LOW) se apaga, y a 3,3 V (HIGH) se enciende.</br><br>7 - RESET pin a 0V resetea el ESP-01</br><br>- Vcc es el pin de alimentación. Funciona a 3,3V y admite un máximo de 3,6 V. La corriente suministrada debe ser mayor que 200 mA.</br></td>
+</tr>
+</tbody>
+</table>
+<p></center></p>
+<p>GPIO (del inglés, General Purpose Input Output) son entradas o salidas de propósito general, o sea pines digitales.</p>
+<p>El ESP-01 soporta comunicación I2C, por lo que, pese a tener solo un par de GPIOs, podemos conectarle multitud de sensores y actuadores a través del mencionado bus de datos I2C.</p>
+<h4 id="programacion"><FONT COLOR=#a303a3>Programación</font><a class="headerlink" href="#programacion" title="Permanent link">&para;</a></h4>
+<p>El ESP-01 dispone de un microcontrolador y una memoria donde poder almacenar programas, luego es un dispositivo programable en si mismo. Cargar programas en el dispositivo es algo mas complejo de lo que hemos visto hasta ahora dado que tiene dos modos de operación, el modo flash o de ejecución y el modo UART o de grabación y debemos ser nosotros quienes activemos un modo u otro, cosa que hasta ahora el entorno ArduinoBlocks ha sido el encargado de hacerlo. Los modos de operación se configuran a través de los puertos GPIO0 y GPIO2.</p>
+<p>Para programar el ESP-01 hay que usar los pines Rx y Tx para transmitir los datos a la memoria Flash, donde se almacenará el sketch o programa.</p>
+<p>En las placas de control los pines Rx y Tx están en los pines D0 y D1 respectivamente y también son los que se utilizan para cargar programas a una velocidad de 115200 baudios, así que si estos pines los ocupamos con el ESP8266 no podremos cargar programas en nuestra placa. Ahora bien, es posible utilizar otros pines para usar WiFi y evitar este problema, pero el resto de pines digitales solamente trabajan a 9600 baudios y el ESP-01 por defecto viene a 115200, luego para utilizarlo en pines distintos a los D0 y D1 de la placa tendremos que reprogramarlo para que la velocidad sea de 9600 baudios.</p>
+<p>Aunque sea bastante técnico debemos exponer cómo configurar los dos modos de funcionamiento de forma breve.</p>
+<ul>
+<li>
+<p><strong>Modo de funcionamiento UART</strong>. Para cargar un programa en el ESP-01 debemos o bien encenderlo o bien resetearlo pero teniendo los siguientes estados de pines:GPIO0 = 0 (nivel bajo o LOW = 0 V).</p>
+</li>
+<li>
+<p>GPIO2 = 1 (nivel alto o HIGH = 3,3 V = Vcc).</p>
+</li>
+<li>Recordemos siempre que el ESP8266 trabaja con niveles lógicos de 3,3 V.</li>
+</ul>
+<p>El pin GPIO2 está por defecto a HIGH, ya que tiene un pull-up interno, por lo que podemos dejarlo simplemente desconectado.</p>
+<ul>
+<li>
+<p><strong>Modo de funcionamiento Flash</strong>. Para ejecutar un programa en el ESP-01 una vez cargado debemos tener la siguiente configuración de pines:</p>
+</li>
+<li>
+<p>GPIO0 = 1</p>
+</li>
+<li>GPIO2 = 1</li>
+</ul>
+<p>Tanto el GPIO0 como el GPIO2 están por defecto a HIGH, ya que ambos tienen un pull-up interno, por lo que podemos dejarlos simplemente desconectados.</p>
+<p>En este momento reflexionamos sobre el uso de Rx y Tx ya que si los estamos utilizando para cargar el programa en la placa y GPIO0 y GPIO2 para indicar el modo de trabajo ¿cómo conectamos los sensores y actuadores al ESP-01?. Veamos:</p>
+<ol>
+<li>Rx y Tx los utilizamos para cargar el programa. Una vez finalizada la carga los podemos utilizar como pines de entrada y salida digitales.</li>
+<li>Los modos de trabajo se indican cuando se resetea o reinicia la placa. Una vez que tengamos el modo de ejecución podemos conectar cualquier componente a estos pines.</li>
+</ol>
+<p>Los programas los podemos subir a nuestro ESP-01 mediante el IDE de Arduino o por medio de un convertidor USB-serie igual o similar al de la imagen siguiente:</p>
+<p><center></p>
+<p><a class="glightbox" href="../../img/iot/conversor-USB-serial.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Conversor USB-serial" src="../../img/iot/conversor-USB-serial.png" /></a><br />
+<em>Conversor USB-serial</em></p>
+<p></center></p>
+<p>Se trata de un escudo o shield para el módulo WiFi ESP-01 que está provisto de un chip conversor de USB a puerto serie, en concreto el CH340G. El proceso de reprogramación con esta placa es bastante sencillo pero requiere de comandos AT que pasamos a introducir antes de continuar.</p>
+<h4 id="comandos-at-en-el-esp8266"><FONT COLOR=#a303a3>Comandos AT en el ESP8266</font><a class="headerlink" href="#comandos-at-en-el-esp8266" title="Permanent link">&para;</a></h4>
+<p>El ESP-01 viene por defecto con el firmware AT ai-thinker V0.9.2.4. Los módems venían con un conjunto de comandos que permiten que nos podamos comunicar con ellos para configurarlos y que lo podamos hacer a través del puerto serie de ordenador al que están conectados. A estos comandos se les llama AT (de attention).</p>
+<p>Después de cada comando AT, el ESP8266 espera los caracteres especiales de nueva linea <CR><LF> para ejecutar el comando. El carácter no imprimible CR (del inglés, Carriage Return) significa retorno de carro y LF ( del inglés, Line Feed) es salto de línea. El origen de la nomenclatura está en las máquinas de escribir.</p>
+<p>En el enlace tenemos un pdf de la empresa <a href="https://www.espressif.com/sites/default/files/documentation/4a-esp8266_at_instruction_set_en.pdf">Espressif Systems</a> con el juego de comandos AT para el ESP8266.</p>
+<p>En la tabla siguiente damos un resumen de los comandos con una información ampliada de los que mas vamos a usar para la configuración inicial que necesitamos.</p>
+<p><center></p>
+<p><a class="glightbox" href="../../img/iot/comandos-AT.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Unos comandos AT" src="../../img/iot/comandos-AT.png" /></a><br />
+<em>Unos comandos AT</em></p>
+<p></center></p>
+<h4 id="preparacion-del-modulo-esp-01"><FONT COLOR=#a303a3>Preparación del módulo ESP-01</font><a class="headerlink" href="#preparacion-del-modulo-esp-01" title="Permanent link">&para;</a></h4>
+<p>Primero conectamos el módulo ESP8266 a la shield USB-serie y este a su vez a un puerto USB de nuestro ordenador. Nos aseguramos de que el interruptor está en modo Flash Boot.</p>
+<p>Entramos en ArduinoBlocks con ArduinoBlocks-Connector en funcionamiento, realizamos un refresco de la lectura del puerto para que detecte a la shield del módulo WiFi si es necesario, abrimos la consola, escogeremos la opción de 115200 en baudrate y también la de NL + LF (NL + LF es igual que CR + LF) para comunicarnos con el módulo WiFi. Hacemos clic en Conectar y conectamos la consola, escribimos “AT” en ella y clic en enviar. La situación es la de la imagen siguiente:</p>
+<p><center></p>
+<p><a class="glightbox" href="../../img/iot/comando-AT.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Comando AT en consola arduinoblocks" src="../../img/iot/comando-AT.png" /></a><br />
+<em>Comando AT en consola arduinoblocks</em></p>
+<p></center></p>
+<p>Si todo es correcto debe respondernos “OK”. Si responde algo sin sentido o no contesta, significa que está configurado en alguna otra velocidad. En este segundo caso deberemos cambiar la opción de baudrate y repetir la operación con diferentes velocidades hasta que nos responda “OK”. La situación correcta en la consola de comandos es la siguiente:</p>
+<p><center></p>
+<p><a class="glightbox" href="../../img/iot/respuesta-AT.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Respuesta al comando AT" src="../../img/iot/respuesta-AT.png" /></a><br />
+<em>Respuesta al comando AT</em></p>
+<p></center></p>
+<p>Una vez que nos responda “OK”, le enviamos el texto “AT+UART_DEF=9600,8,1,0,0” y nos debe responder otra vez “OK”.</p>
+<p><center></p>
+<p><a class="glightbox" href="../../img/iot/AT-9600.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Comando AT para establecer velocidad a 9600 baudios" src="../../img/iot/AT-9600.png" /></a><br />
+<em>Comando AT para establecer velocidad a 9600 baudios</em></p>
+<p></center></p>
+<p>Con esto hemos cambiado la velocidad a 9600 baudios mediante el comando AT+UART_DEF que nos permite cambiar la definición a 9600 baudios, con 8 bits de datos, 1 bit de parada, sin paridad y sin habilitar el control de flujo.</p>
+<p>Una vez que hemos configurado el módulo WiFi a la velocidad que nos interesa debemos crear un canal en un servidor MQTT donde enviar los datos y visualizarlos. Esto lo vamos a hacer a través de la web de <a href="https://thingspeak.com/">Thingspeak</a>, pero antes de nada vamos a describir que es MQTT.</p>
+<p>Para saber mas acerca de la reprogramación de la velocidad de comunicación con ESP8266 visita el enlace: <a href="http://arduinoblocks.didactronica.com/2019/02/reprogramacion-del-modulo-esp-01-para/">Reprogramar la velocidad de comunicación del ESP8266</a>.</p>
+<h2 id="introduccion-al-iot-a-traves-de-mqtt"><FONT COLOR=#007575><strong>Introducción al IoT a través de MQTT</strong></font><a class="headerlink" href="#introduccion-al-iot-a-traves-de-mqtt" title="Permanent link">&para;</a></h2>
+<p>Si queremos trabajar en tareas de IoT debemos de utilizar algún protocolo de comunicación y hoy por hoy el principal es MQTT, pero antes de citar protocolos vamos a tratar algunos conceptos necesarios. Un protocolo de comunicación no es otra cosa que una serie de normas definidas para que dos o más dispositivos puedan comunicarse entre si de forma comprensible para ambos.</p>
+<ul>
+<li><strong>Requisitos del IoT</strong></li>
+</ul>
+<p>Estamos bastante acostumbrados a realizar un tipo de comunicación denominada M2M (machine-to-machine) utilizando internet, pero cuando trabajamos en IoT debemos establecer una serie de requisitos que hacen que la comunicación M2M no sea la mas adecuada. Algunos de estos requisitos son:</p>
+<ul>
+<li>Cantidad: se puede llegar a tener un gran número de dispositivos diferentes, desde sensores, actuadores, servidores, etc.</li>
+<li>Escalabilidad: los sistemas deben permitir añadir o eliminar dispositivos sin que el sistema global resulte afectado.</li>
+<li>Variedad: normalmente necesitaremos que el sistema funcione con diferentes sistemas operativos, lenguajes de programación y el mayor número posible de dispositivos.</li>
+<li>Simultaneidad: gran cantidad de comunicaciones simultaneas, lo que requiere respuestas rápidas para lo que es necesario que los mensajes transmitidos sean lo mas cortos posibles.</li>
+<li>Seguridad: internet no es un sitio muy seguro y estos dispositivos van a estar conectados a internet controlando dispositivos físicos.</li>
+<li>Accesibilidad: tendremos que trabajar en condiciones muy variadas en lo que se refiere a ancho de banda, firewall, direccionamiento,…</li>
+</ul>
+<p>La solución mas común consiste en disponer un servidor denominado ‘broker’, o a veces ‘Router’, que será el que reciba los mensajes de los dispositivos emisores y los distribuirá a los receptores.</p>
+<p><center></p>
+<p><a class="glightbox" href="../../img/iot/broker.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Broker" src="../../img/iot/broker.png" /></a><br />
+<em>Broker</em></p>
+<p></center></p>
+<p>El broker va a tener una dirección IP fija y será accesible para todos los dispositivos, puede mantener un registro de los dispositivos conectados, recibir y distribuir mensajes y establecer filtros de destinatarios. Esto permite algo fundamental, y es que cada dispositivo no dependa del resto de dispositivos.</p>
+<p>Veamos algunos conceptos que nos permitan entender las infraestructuras de los servicios IoT:</p>
+<ul>
+<li><mark><strong>Message Queue o cola de mensajes</strong></mark>. En este tipo el broker genera una cola de mensajes única para cada uno de los clientes que inician la suscripción.</li>
+<li><mark><strong>Message Service o servicio de mensajería</strong></mark>. En este tipo el broker distribuye inmediatamente los mensajes filtrados por algún criterio a los clientes conectados. A diferencia de Message Queue, los mensajes entregados mientras el cliente está desconectado se pierden. </li>
+<li><mark><strong>Publish/Susbcribe (PubSub)</strong></mark>. Se trata de un sistema de mensajería donde el 'Subscriber' informa al broker de que quiere recibir un tipo de mensajes y el 'Publisher' entonces puede publicarlos. </li>
+<li><mark><strong>Router Remoder Procedure Calls (RRPC)</strong></mark>. Se trata de la ejecución remota de procedimientos donde 'Callee' comunica al broker que proporciona un procedimiento y el 'Caller', puede llamar a este procedimiento.</li>
+</ul>
+<p>Algunos de los protocolos para IoT son:</p>
+<ul>
+<li><strong>MQTT</strong> (del inglés Message Queuing Telemetry Transport) es un protocolo PubSub de servicio de mensajería que actúa sobre TCP. Es ligero y fácil de implementar resultando apropiado para dispositivos de baja potencia, tan habituales en IoT. TCP es un protocolo de control de transmisión (del inglés, Transmission Control Protocol) fundamental en Internet.</li>
+<li><strong>AMQP</strong> (Advanced Message Queuing Protocol) es un protocolo PubSub de cola de mensajes que asegura la confiabilidad e interoperabilidad necesaria en aplicaciones corporativas.</li>
+<li><strong>STOMP</strong> (Streaming Text Oriented Messaging Protocol). Es un protocolo sencillo que emplea HTTP y mensajes de texto.</li>
+<li><strong>XMPP</strong> (Extensible Messaging and Presence Protocol). Es un protocolo abierto basado en XML diseñado para aplicaciones de mensajería instantánea.</li>
+<li><strong>WAMP</strong> (Web Application Messaging Protocol). Es un protocolo abierto que se ejecuta sobre WebSockets, y provee tanto aplicaciones de PubSub como RRPC.</li>
+<li><strong>CoAP</strong> (Constrained Application Protocol) es un protocolo pensado para emplearse en dispositivos de IoT de baja capacidad.</li>
+</ul>
+<p><FONT COLOR=#BB00FF><font size="5"><b>MQTT</font color></font size></b></p>
+<p>Dentro de una arquitectura de MQTT, es muy importante el concepto topic (tema en español) ya que la comunicación se realiza a través de topics debiendo estar los emisores y receptores subscritos a un topic común para poder establecer la comunicación. Este tipo de arquitectura permite que la comunicación pueda ser de uno a uno o de uno a muchos.<br />
+Los topics tienen estructura jerárquica pudiendo establecer relaciones padre-hijo de manera que cuando nos suscribimos a un topic padre podemos recibir también la información de sus hijos. En un ejemplo lo podemos ver más claramente.</p>
+<p><center></p>
+<p><a class="glightbox" href="../../img/iot/estructura-topic.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Estructura jerarquica de un topic" src="../../img/iot/estructura-topic.png" /></a><br />
+<em>Estructura jerarquica de un topic</em></p>
+<p></center></p>
+<p>Un topic se representa mediante una cadena con las jerarquias separadas por /. Por ejemplo:<br />
+- Vivienda/Planta baja/Cocina/Arduino/Luz<br />
+- Vivienda/Planta alta/Dorm.1/Arduino/Temperatura.</p>
+<p>De esta forma podemos suscribirnos a un topic concActividad o a varios, por ejemplo:<br />
+- Un topic: Vivienda/Planta baja/Cocina/Arduino/Luz<br />
+- Varios topics: Vivienda/Planta baja/#</p>
+<p>Existen básicamente tres tipos de brokers, los privados, los públicos y los locales. A continuación citamos alguno de los más utilizados:</p>
+<p><strong>a</strong>.- Private MQTT Broker: solamente los dispositivos que establezcamos pueden publicar o suscribirse a un topic. Se utiliza en producción y prototipado. Algunos de ellos son:</p>
+<ul>
+<li><a href="https://docs.microsoft.com/en-us/azure/iot-hub/iot-hub-mqtt-support">Azure</a> de Microsoft.</li>
+<li><a href="https://docs.aws.amazon.com/iot/latest/developerguide/mqtt.html">AWS</a> de Amazon.</li>
+<li><a href="https://www.cloudmqtt.com/plans.html">CloudMQTT</a> disponible en: <a href="https://www.cloudmqtt.com/plans.html">https://www.cloudmqtt.com/plans.html</a>.</li>
+<li><a href="https://thingspeak.com/login?skipSSOCheck=true">ThingSpeak</a> de <a href="https://es.mathworks.com/">Mathworks</a> (MATLAB).</li>
+</ul>
+<p><strong>b</strong>.- Public MQTT Broker: cualquier dispositivo puede publicar y suscribirse a topics. Algunos de ellos son:</p>
+<ul>
+<li><a href="https://iot.eclipse.org/">Eclipse</a></li>
+<li><a href="http://test.mosquitto.org/">Mosquitto</a></li>
+<li>HiveMQ: <a href="https://www.hivemq.com/downloads/">Enlace</a> - <a href="http://www.mqtt-dashboard.com/">Dirección del broker</a></li>
+<li><a href="https://flespi.com/mqtt-broker">Flespi</a></li>
+<li><a href="http://www.dioty.co/">Dioty</a></li>
+<li><a href="https://fluux.io/">Fluux</a></li>
+<li><a href="https://thingspeak.com/login?skipSSOCheck=true">Thingspeak</a></li>
+</ul>
+<p>Si queremos instalar nuestro propio broker en una raspberry o PC, sin duda <a href="http://test.mosquitto.org/">Mosquito</a> es la opción más extendida.</p>
+<h2 id="creacion-de-un-canal-en-un-servidor-mqtt"><FONT COLOR=#007575><strong>Creación de un canal en un servidor MQTT</strong></font><a class="headerlink" href="#creacion-de-un-canal-en-un-servidor-mqtt" title="Permanent link">&para;</a></h2>
+<p>En nuestro caso vamos a utilizar Thingspeak en su versión pública. Lo primero que debemos hacer es crear una cuenta, para lo que clicamos en Sign Up. Seguidamente, introducimos un correo electrónico válido y el resto de datos que nos pide. Lo vemos en la imagen siguiente:</p>
+<p><center></p>
+<p><a class="glightbox" href="../../img/iot/crear-cuenta-TS.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Pagina inicial de Thingspeaks" src="../../img/iot/crear-cuenta-TS.png" /></a><br />
+<em>Pagina inicial de Thingspeaks</em></p>
+<p></center></p>
+<p>Debemos aceptar que use la dirección de correo electrónico para nuestra cuenta de MathWorks, como se ve en la imagen siguiente:</p>
+<p><center></p>
+<p><a class="glightbox" href="../../img/iot/aceptacion-mathwork.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Aceptación a Mathwork" src="../../img/iot/aceptacion-mathwork.png" /></a><br />
+<em>Aceptación a Mathwork</em></p>
+<p></center></p>
+<p>Tras esto recibiremos un correo en la dirección que hemos dado para confirmar la creación de la cuenta y confirmarla. Debemos ver algo similar a la imagen siguiente:</p>
+<p><center></p>
+<p><a class="glightbox" href="../../img/iot/confirma-aceptacion.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Confirmacion aceptación cuenta correo" src="../../img/iot/confirma-aceptacion.png" /></a><br />
+  Confirmacion aceptación cuenta correo*</p>
+<p></center></p>
+<p>Una vez confirmada la dirección de correo electrónico, volvemos a la página donde estábamos y hacemos click en continuar. Nos pedirá un nombre de usuario y una contraseña que usaremos a partir de ahora para iniciar sesión.</p>
+<p>Finalizada la creación de la cuenta iniciamos sesión desde la página principal haciendo clic en “Sign In”. Veremos una ventana como la de la imagen siguiente:</p>
+<p><center></p>
+<p><a class="glightbox" href="../../img/iot/acceso-TS.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Ventana para identificación en Thingspeaks" src="../../img/iot/acceso-TS.png" /></a><br />
+<em>Ventana para identificación en Thingspeaks</em></p>
+<p></center></p>
+<p>Escribimos nuestra contraseña y hacemos clic en el botón Sign in.</p>
+<p><center></p>
+<p><a class="glightbox" href="../../img/iot/acceso-identificado.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Acceso a Thingspeaks" src="../../img/iot/acceso-identificado.png" /></a><br />
+<em>Acceso a Thingspeaks</em></p>
+<p></center></p>
+<p>Con esto entramos en el broker y está todo listo para iniciar el trabajo.</p>
+<p><center></p>
+<p><a class="glightbox" href="../../img/iot/dentro-broker.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Acceso correcto al broker" src="../../img/iot/dentro-broker.png" /></a><br />
+<em>Acceso correcto al broker</em></p>
+<p></center></p>
+<p>Podemos aprender mas sobre el tema visitando los siguientes enlaces:</p>
+<ul>
+<li><a href="https://www.youtube.com/watch?v=p9Fn7AEJJjo">Primeros pasos con Wifi: Servidor sin clave y contraseña</a></li>
+<li><a href="https://youtu.be/AvXWOroK8BI">Wifi con servidor gratuito con clave y contraseña y app móvil</a></li>
+<li><a href="https://didactronica.com/como-publicar-y-almacena-datos-por-wifi-en-internet/">Cómo publicar y almacenar datos por Wifi en Internet con Thingspeak</a></li>
+</ul>
+<h2 id="filtrado-por-mac"><FONT COLOR=#007575><strong>Filtrado por MAC</strong></font><a class="headerlink" href="#filtrado-por-mac" title="Permanent link">&para;</a></h2>
+<p>Si por cualquier motivo nuestra red WiFi tiene filtrado MAC debemos de dar de alta en la misma de nuestro dispositivo ESP-01. Esta es una tarea que va a depender de nuestro router y suministrador y que no resulta especialmente complicada. Lo primero que debemos hacer es averiguar la dirección MAC de nuestro dispositivo ESP8266. Esta tarea no la vamos a hacer desde ArduinoBlocks sino que vamos a recurrir al IDE de Arduino.</p>
+<p>Si necesitas ayuda para este tema seguro que la encuentras en estos <a href="https://www.luisllamas.es/tutoriales-de-arduino/">tutoriales de Luis Llamas</a>, o también puedes buscar información en tu navegador pues existen multitud de páginas referentes al tema de programación desde el IDE de Arduino.</p>
+<h2 id="crear-un-canal-en-thingspeak"><FONT COLOR=#007575><strong>Crear un canal en Thingspeak</strong></font><a class="headerlink" href="#crear-un-canal-en-thingspeak" title="Permanent link">&para;</a></h2>
+<p>Iniciamos sesión en Thingspeak y sos dirigimos a "Channels" para mostrar "My Channels" si no estamos ya en esa ventana. Nos aparecerá la opción "New Channel":</p>
+<p><center></p>
+<p><a class="glightbox" href="../../img/iot/acc_mychannels.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Acceso a My Channels en Thingspeak" src="../../img/iot/acc_mychannels.png" /></a><br />
+<em>Acceso a My Channels en Thingspeak</em></p>
+<p></center></p>
+<p>Elegimos un nombre para el canal, activamos los campos que necesitamos marcándolos y les damos un nombre. Tenemos hasta 8
+campos por cada uno de los 4 canales de la versión gratuita de Thingspeak. Abajo del todo tenemos la opción para guardar los cambios realizados en el canal.</p>
+<p><center></p>
+<p><a class="glightbox" href="../../img/iot/crea_canal.gif" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Creación canal y campos en Thingspeak" src="../../img/iot/crea_canal.gif" /></a><br />
+<em>Creación canal y campos en Thingspeak</em></p>
+<p></center></p>
+<p>Una vez hemos creado el canal necesitaremos conocer un poco los menús de la página que nos permitirán, entre otras cosas, obtener los datos que necesitaremos para que desde arduinoblocks y la placa ESP32 micro:STEAMakers se puedan enviar datos a
+este canal.</p>
+<ul>
+<li><mark><strong>Private View</strong></mark>. Es lo que nosotros, y solamente nosotros, veremos.</li>
+<li><mark><strong>Public View</strong></mark>. Es como se verá nuestro canal si lo hacemos público desde <mark><strong>Sharing</strong></mark>.</li>
+<li><mark><strong>Channel Settings</strong></mark>. Es el menú de configuración del canal desde el que podemos cambiar el nombre del canal, añadir campos, renombrarlos, eliminarlos, etc. En la parte inferior del menú encontramos botones salvar los cambios, limpiar (borrar) los datos que actualmente tiene el canal almacenados o eliminar el canal.</li>
+</ul>
+<p><center></p>
+<p><a class="glightbox" href="../../img/iot/chann_sett.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Opciones de Channel Settings en Thingspeak" src="../../img/iot/chann_sett.png" /></a><br />
+<em>Opciones de Channel Settings en Thingspeak</em></p>
+<p></center></p>
+<ul>
+<li><mark><strong>Sharing</strong></mark>. Nos va a permitir las tres opciones siguiente:</li>
+</ul>
+<p><center></p>
+<p><a class="glightbox" href="../../img/iot/sharing.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Opciones de Sharing en Thingspeak" src="../../img/iot/sharing.png" /></a><br />
+<em>Opciones de Sharing en Thingspeak</em></p>
+<p></center></p>
+<ul>
+<li><mark><strong>API Keys</strong></mark>. Claves necesarias para leer o grabar datos en de un canal privado.</li>
+<li><mark><strong>Data Import / Export</strong></mark>. Se pueden importar datos al canal a partir de la plantilla de importanción CSV. Se pueden exportar todos los datos almacenados en el canal en formato CSV para tratarlos localmente con una hoja de cálculo, Python, etc.</li>
+</ul>
+<p>El siguiente paso es imprescindible para poder enviar datos a Thingspeak desde nuestra placa. Arduinoblocks nos pedirá los datos (credenciales) de este dispositivo cuando hacemos el programa que envíe los datos de los sensores.</p>
+<p>Nos dirigimos a "Devices" y hacemos clic en "MQTT". En la ventana que se abre debemos teclear un nombre para el dispositivo, si queremos una descripción y asigamos los canales a los que podrá acceder el dispositivo. El ID del canal lo podemos escribir (si lo conocemos) o buscarlo en la lista de canales.</p>
+<p><center></p>
+<p><a class="glightbox" href="../../img/iot/crea_mqtt.gif" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Crear dispositivo MQTT en Thingspeak" src="../../img/iot/crea_mqtt.gif" /></a><br />
+<em>Crear dispositivo MQTT en Thingspeak</em></p>
+<p></center></p>
+<p>Después de añadir el dispositivo y guardar en sitio seguro las credenciales hacemos clic en el botón "Done" y hemos terminado con las tareas en Thingspeak. Las credenciales es importante guardarlas en un lugar seguro y conocido porque si no las recordamos no podremos enviar datos al canal. Además la contraseña no se guarda remotamente por lo que si la perdemos tendremos que, en el mejor de los casos, regenerarla o solicitar a quien nos dió las credenciales que lo haga.</p>
+<p>En el apartado <a href="../iotAB/">IoT con arduinoblocks</a> vemos como trabajar con todo esto y se pone un sencillo ejemplo de uso.</p>
+<h2 id="visualizacion-de-resultados"><FONT COLOR=#007575><strong>Visualización de resultados</strong></font><a class="headerlink" href="#visualizacion-de-resultados" title="Permanent link">&para;</a></h2>
+<p>En este apartado veremos como mostrar los resultados obtenidos desde un navegador web, desde una aplicación para smathphone y desde un widget, e indicaremos como localizar las aplicaciones que vamos a ver.</p>
+<div class="admonition info">
+<p class="admonition-title">Info</p>
+<p>Este apartado está relacionado estrechamente con el apartado <a href="http://127.0.0.1:8000/....https://fgcoca.github.io/ESP32-micro-STEAMakers/program/iotAB/">IoT con arduinoblocks</a></p>
+</div>
+<h3 id="navegador"><FONT COLOR=#AA0000>Navegador</font><a class="headerlink" href="#navegador" title="Permanent link">&para;</a></h3>
+<p>Para localizar un canal debemos conocer algún Tag (etiqueta) que le habremos puesto previamente en la configuración o bien el ID del autor (localizará todos sus canales públicos). Si conocemos alguna de estas dos cosas, y el canal es público, podemos visualizar los datos del mismo localizándolo, tal y como se aprecia en la imagen siguiente, desde la entrada Channels cumplimentando al menos uno de los campos indicados. En este caso hemos colocado <strong>"microSM"</strong> como etiqueta:</p>
+<p><center></p>
+<p><a class="glightbox" href="../../img/prog/iotAB/localiza_tag.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Localizar un canal Thingspeak conociendo un Tag" src="../../img/prog/iotAB/localiza_tag.png" /></a><br />
+<em>Localizar un canal Thingspeak conociendo un Tag</em></p>
+<p></center></p>
+<p>Que nos devuelve el siguiente resultado:</p>
+<p><center></p>
+<p><a class="glightbox" href="../../img/prog/iotAB/localiza_tagR.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Resultado de la búsqueda de un canal Thingspeak conociendo un Tag" src="../../img/prog/iotAB/localiza_tagR.png" /></a><br />
+<em>Resultado de la búsqueda de un canal Thingspeak conociendo un Tag</em></p>
+<p></center></p>
+<p>Si hacemos clic en la zona marcada en amarillo accederemos a los datos del canal:</p>
+<p><center></p>
+<p><a class="glightbox" href="../../img/prog/iotAB/canal_local.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Canal Thingspeak localizado por un Tag" src="../../img/prog/iotAB/canal_local.png" /></a><br />
+<em>Canal Thingspeak localizado por un Tag</em></p>
+<p></center></p>
+<p>Además de visualizar de forma gráfica los datos recibidos, disponemos de un botón que nos permite exportar los datos para trabajar con ellos de forma local. Si pulsamos el botón <strong>"Export recent data"</strong> obtendremos algo similar a la imagen siguiente:</p>
+<p><center></p>
+<p><a class="glightbox" href="../../img/prog/iotAB/Export_recent_data.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Export recent data" src="../../img/prog/iotAB/Export_recent_data.png" /></a><br />
+<em>Export recent data</em></p>
+<p></center></p>
+<p>Podemos exportar en cualquiera de los tres formatos disponibles todas las medidas o cada una de forma individual.</p>
+<p>Los resultados de exportar todo el canal vistos en la hoja de cálculo de LibreOffice Calc tienen el siguiente aspecto:</p>
+<p><center></p>
+<p><a class="glightbox" href="../../img/prog/iotAB/Export_recent_data_calc.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Export recent data en Calc" src="../../img/prog/iotAB/Export_recent_data_calc.png" /></a><br />
+<em>Export recent data en Calc</em></p>
+<p></center></p>
+<h3 id="aplicaciones-para-android"><FONT COLOR=#AA0000>Aplicaciones para Android</font><a class="headerlink" href="#aplicaciones-para-android" title="Permanent link">&para;</a></h3>
+<p>MATLAB a través de su servidor (broker) <a href="https://thingspeak.com/">thingspeak</a> ofrece varias aplicaciones para dispositivos smartphone. En la imagen siguiente vemos el resultado de una búsqueda en Play Store.</p>
+<p><center></p>
+<p><a class="glightbox" href="../../img/prog/iotAB/apps.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Apps de Thingspeak" src="../../img/prog/iotAB/apps.png" /></a><br />
+<em>Apps de Thingspeak</em></p>
+<p></center></p>
+<h4 id="thingview"><FONT COLOR=#a303a3>ThingView</font><a class="headerlink" href="#thingview" title="Permanent link">&para;</a></h4>
+<p>Una vez instalada la App podemos añadir los canales que deseemos, simplemente clicando sobre el signo más, seguir los pasos y dando el identificador del canal. En la imagen siguiente observamos el  canal creado para el ejemplo anterior.</p>
+<p><center></p>
+<p><a class="glightbox" href="../../img/prog/iotAB/thingview_canal.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Thingview con canal añadido" src="../../img/prog/iotAB/thingview_canal.png" /></a><br />
+<em>Thingview con canal añadido</em></p>
+<p></center></p>
+<p>Tocando sobre el mismo accedemos a los datos del canal:</p>
+<p><center></p>
+<p><a class="glightbox" href="../../img/prog/iotAB/thingview_canal_datos.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Datos en Thingview del canal añadido" src="../../img/prog/iotAB/thingview_canal_datos.png" /></a><br />
+<em>Datos en Thingview del canal añadido</em></p>
+<p></center></p>
+<p>Si tocamos sobre alguna de las gráficas, accedemos a las opciones disponibles para esa variable concreta, tal y como vemos en la imagen siguiente:</p>
+<p><center></p>
+<p><a class="glightbox" href="../../img/prog/iotAB/thingview_canal_datosLH.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Datos en Thingview del canal añadido" src="../../img/prog/iotAB/thingview_canal_datosLH.png" /></a><br />
+<em>Datos en Thingview del canal añadido</em></p>
+<p></center></p>
+<h4 id="widget"><FONT COLOR=#a303a3>Widget</font><a class="headerlink" href="#widget" title="Permanent link">&para;</a></h4>
+<p>La segunda opción de descarga es una microaplicación widget para la pantalla de nuestro móvil que nos va a permitir estar viendo dos de las variables que tengamos en nuestro canal. En este caso, además del número de canal debemos conocer la API key de lectura. El widget permite establecer alarmas cuando se superan, por encima o por abajo, los valores de la variable establecidos. En la imagen siguiente vemos el aspecto del mismo con una variable. Las tres líneas de la esquina superior derecha nos permiten entrar en la configuración del widget.</p>
+<p><center></p>
+<p><a class="glightbox" href="../../img/prog/iotAB/widget.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Widget en la pantalla de un móbil" src="../../img/prog/iotAB/widget.png" /></a><br />
+<em>Widget en la pantalla de un móbil</em></p>
+<p></center></p>
+<p>El icono de la esquina inferior derecha nos da acceso a los datos del canal y la variable mostrada en formato gráfico, tal y como observamos en la imagen siguiente:</p>
+<p><center></p>
+<p><a class="glightbox" href="../../img/prog/iotAB/widget_graf.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Gráfica de humedad desde el Widget" src="../../img/prog/iotAB/widget_graf.png" /></a><br />
+<em>Gráfica de humedad desde el Widget</em></p>
+<p></center></p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2023 - 2035 Federico Coca
+    </div>
+  
+  
+</div>
+      
+        <div class="md-social">
+  
+    
+    
+    
+    
+    <a href="https://x.com/fgcoca" target="_blank" rel="noopener" title="X de Federico Coca" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M389.2 48h70.6L305.6 224.2 487 464H345L233.7 318.6 106.5 464H35.8l164.9-188.5L26.8 48h145.6l100.5 132.9L389.2 48zm-24.8 373.8h39.1L151.1 88h-42l255.3 333.8z"/></svg>
+    </a>
+  
+    
+    
+    
+    
+    <a href="https://github.com/fgcoca" target="_blank" rel="noopener" title="Github de Federico Coca" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+    </a>
+  
+    
+    
+    
+    
+    <a href="https://www.instagram.com/cocafederico/?hl=es" target="_blank" rel="noopener" title="Instagram de Federico Coca" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M224.1 141c-63.6 0-114.9 51.3-114.9 114.9s51.3 114.9 114.9 114.9S339 319.5 339 255.9 287.7 141 224.1 141zm0 189.6c-41.1 0-74.7-33.5-74.7-74.7s33.5-74.7 74.7-74.7 74.7 33.5 74.7 74.7-33.6 74.7-74.7 74.7zm146.4-194.3c0 14.9-12 26.8-26.8 26.8-14.9 0-26.8-12-26.8-26.8s12-26.8 26.8-26.8 26.8 12 26.8 26.8zm76.1 27.2c-1.7-35.9-9.9-67.7-36.2-93.9-26.2-26.2-58-34.4-93.9-36.2-37-2.1-147.9-2.1-184.9 0-35.8 1.7-67.6 9.9-93.9 36.1s-34.4 58-36.2 93.9c-2.1 37-2.1 147.9 0 184.9 1.7 35.9 9.9 67.7 36.2 93.9s58 34.4 93.9 36.2c37 2.1 147.9 2.1 184.9 0 35.9-1.7 67.7-9.9 93.9-36.2 26.2-26.2 34.4-58 36.2-93.9 2.1-37 2.1-147.8 0-184.8zM398.8 388c-7.8 19.6-22.9 34.7-42.6 42.6-29.5 11.7-99.5 9-132.1 9s-102.7 2.6-132.1-9c-19.6-7.8-34.7-22.9-42.6-42.6-11.7-29.5-9-99.5-9-132.1s-2.6-102.7 9-132.1c7.8-19.6 22.9-34.7 42.6-42.6 29.5-11.7 99.5-9 132.1-9s102.7-2.6 132.1 9c19.6 7.8 34.7 22.9 42.6 42.6 11.7 29.5 9 99.5 9 132.1s2.7 102.7-9 132.1z"/></svg>
+    </a>
+  
+    
+    
+    
+    
+    <a href="https://x.com/clubroboticagra" target="_blank" rel="noopener" title="X de Club Robótica Granada" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M389.2 48h70.6L305.6 224.2 487 464H345L233.7 318.6 106.5 464H35.8l164.9-188.5L26.8 48h145.6l100.5 132.9L389.2 48zm-24.8 373.8h39.1L151.1 88h-42l255.3 333.8z"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": [], "search": "../../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copiado al portapapeles", "clipboard.copy": "Copiar al portapapeles", "search.result.more.one": "1 m\u00e1s en esta p\u00e1gina", "search.result.more.other": "# m\u00e1s en esta p\u00e1gina", "search.result.none": "No se encontraron documentos", "search.result.one": "1 documento encontrado", "search.result.other": "# documentos encontrados", "search.result.placeholder": "Teclee para comenzar b\u00fasqueda", "search.result.term.missing": "Falta", "select.version": "Seleccionar versi\u00f3n"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.fe8b6f2b.min.js"></script>
+      
+        <script src="../../plugins/mathjax.js"></script>
+      
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  <script id="init-glightbox">const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});
+document$.subscribe(() => { lightbox.reload() });
+</script></body>
+</html>
