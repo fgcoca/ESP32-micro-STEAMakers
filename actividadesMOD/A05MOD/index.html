@@ -1272,6 +1272,17 @@
         
       
       
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    A05-ESP-NOW
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
       <a href="./" class="md-nav__link md-nav__link--active">
         
   
@@ -1281,6 +1292,70 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Tabla de contenidos">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Tabla de contenidos
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#a05_1-unidireccional-1-a-1" class="md-nav__link">
+    <span class="md-ellipsis">
+      A05_1-Unidireccional 1 a 1
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#a05_2-unidireccional-encriptada-1-a-1" class="md-nav__link">
+    <span class="md-ellipsis">
+      A05_2-Unidireccional encriptada 1 a 1
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#a05_3-unidireccional-1-a-2-json" class="md-nav__link">
+    <span class="md-ellipsis">
+      A05_3-Unidireccional 1 a 2 + JSON
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#a05_4-unidireccional-2-a-1-json" class="md-nav__link">
+    <span class="md-ellipsis">
+      A05_4-Unidireccional 2 a 1 + JSON
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#a05_5-latidos" class="md-nav__link">
+    <span class="md-ellipsis">
+      A05_5-Latidos
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
       
     </li>
   
@@ -1440,6 +1515,59 @@
     
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Tabla de contenidos
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#a05_1-unidireccional-1-a-1" class="md-nav__link">
+    <span class="md-ellipsis">
+      A05_1-Unidireccional 1 a 1
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#a05_2-unidireccional-encriptada-1-a-1" class="md-nav__link">
+    <span class="md-ellipsis">
+      A05_2-Unidireccional encriptada 1 a 1
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#a05_3-unidireccional-1-a-2-json" class="md-nav__link">
+    <span class="md-ellipsis">
+      A05_3-Unidireccional 1 a 2 + JSON
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#a05_4-unidireccional-2-a-1-json" class="md-nav__link">
+    <span class="md-ellipsis">
+      A05_4-Unidireccional 2 a 1 + JSON
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#a05_5-latidos" class="md-nav__link">
+    <span class="md-ellipsis">
+      A05_5-Latidos
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -1455,7 +1583,119 @@
 
 <h1 id="a05-esp-now"><FONT COLOR=#8B008B>A05-ESP-NOW</font><a class="headerlink" href="#a05-esp-now" title="Permanent link">&para;</a></h1>
 <p>Se realizan varias actividades comunicando placas micro:STEAMakers entre si por ESP_NOW.</p>
-<p>EN DESARROLLO</p>
+<p>Las direcciones MAC van a ser:</p>
+<ul>
+<li>Nodo 1: 4C:11:AE:D3:99:18</li>
+<li>Nodo 2: 34:98:7A:A9:D1:A8</li>
+<li>Nodo 3: 4C:11:AE:D3:98:C8</li>
+</ul>
+<h2 id="a05_1-unidireccional-1-a-1"><FONT COLOR=#007575><strong>A05_1-Unidireccional 1 a 1</strong></font><a class="headerlink" href="#a05_1-unidireccional-1-a-1" title="Permanent link">&para;</a></h2>
+<p>Se trata de implementar la comunicación mas simple posible, un emisor y un receptor. Hacemos un contador de segundos en la placa emisora que serán mostrados en una pantalla OLED en la placa receptora.</p>
+<p>Los nodos van a actuar de la siguiente forma:</p>
+<ul>
+<li>Emisor: Nodo 2</li>
+<li>Receptor: Nodo 1</li>
+</ul>
+<p>El programa emisor es:</p>
+<p><center></p>
+<p><a class="glightbox" href="../../img/actividadesMOD/A05_1_ESPNOW_Emisor.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="A05_1-Unidireccional 1 a 1" src="../../img/actividadesMOD/A05_1_ESPNOW_Emisor.png" /></a><br />
+<em><a href="../../program/actividadesAB/MOD/A05_1_ESPNOW_Emisor.abp">A05_1-Unidireccional 1 a 1</a></em></p>
+<p></center></p>
+<p>El programa receptor es:</p>
+<p><center></p>
+<p><a class="glightbox" href="../../img/actividadesMOD/A05_1_ESPNOW_Receptor.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="A05_1-Unidireccional 1 a 1" src="../../img/actividadesMOD/A05_1_ESPNOW_Receptor.png" /></a><br />
+<em><a href="../../program/actividadesAB/MOD/A05_1_ESPNOW_Receptor.abp">A05_1-Unidireccional 1 a 1</a></em></p>
+<p></center></p>
+<p>En la imagen siguiente vemos el resultado de la comunicación:</p>
+<p><center></p>
+<p><a class="glightbox" href="../../img/actividadesMOD/A05_1_ESPNOW_func.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Funcionamiento A05_1-Unidireccional 1 a 1" src="../../img/actividadesMOD/A05_1_ESPNOW_func.png" /></a><br />
+<em>Funcionamiento A05_1-Unidireccional 1 a 1</em></p>
+<p></center></p>
+<h2 id="a05_2-unidireccional-encriptada-1-a-1"><FONT COLOR=#007575><strong>A05_2-Unidireccional encriptada 1 a 1</strong></font><a class="headerlink" href="#a05_2-unidireccional-encriptada-1-a-1" title="Permanent link">&para;</a></h2>
+<p>Es el mismo ejemplo que en la actividad anterior, pero podemos comprobar que simplemente con activar la encriptación, poner las claves y dejando los programas tal cual están el sistema no funciona. Los programas siguientes no dan resultado alguno:</p>
+<ul>
+<li>Programa emisor:</li>
+</ul>
+<p><center></p>
+<p><a class="glightbox" href="../../img/actividadesMOD/A05_2_ESPNOW_Emisor.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="A05_2-Unidireccional encriptada 1 a 1" src="../../img/actividadesMOD/A05_2_ESPNOW_Emisor.png" /></a><br />
+<em><a href="../../program/actividadesAB/MOD/A05_2_ESPNOW_Emisor.abp">A05_1-Unidireccional encriptada 1 a 1</a></em></p>
+<p></center></p>
+<ul>
+<li>Programa receptor:</li>
+</ul>
+<p><center></p>
+<p><a class="glightbox" href="../../img/actividadesMOD/A05_2_ESPNOW_Receptor.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="A05_2-Unidireccional encriptada 1 a 1" src="../../img/actividadesMOD/A05_2_ESPNOW_Receptor.png" /></a><br />
+<em><a href="../../program/actividadesAB/MOD/A05_2_ESPNOW_Receptor.abp">A05_2-Unidireccional encriptada 1 a 1</a></em></p>
+<p></center></p>
+<p>Una vez subidos los programas comprobamos como el contador del receptor (OLED) no cambia y siempre se mantiene en el mismo estado. Es evidente que si el receptor recibe datos encriptados, por el mismo protocolo de seguridad, debe saber quien se los envía por lo que la solución es bien simple, hay que emparejar ambos nodos. </p>
+<div class="admonition warning">
+<p class="admonition-title">IMPORTANTE</p>
+<p>Si encriptamos la información, aunque el envío sea en una dirección debemos emparejar también al nodo emisor con el receptor.</p>
+</div>
+<p>Los programas funcionales los vemos a continuación:</p>
+<p>El programa emisor es:</p>
+<p><center></p>
+<p><a class="glightbox" href="../../img/actividadesMOD/A05_2_ESPNOW_Emisor.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="A05_2-Unidireccional encriptada 1 a 1" src="../../img/actividadesMOD/A05_2_ESPNOW_Emisor.png" /></a><br />
+<em><a href="../../program/actividadesAB/MOD/A05_1_ESPNOW_EmisorOK.abp">A05_2-Unidireccional encriptada 1 a 1</a></em></p>
+<p></center></p>
+<p>El programa receptor es:</p>
+<p><center></p>
+<p><a class="glightbox" href="../../img/actividadesMOD/A05_1_ESPNOW_ReceptorOK.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="A05_2-Unidireccional encriptada 1 a 1" src="../../img/actividadesMOD/A05_1_ESPNOW_ReceptorOK.png" /></a><br />
+<em><a href="../../program/actividadesAB/MOD/A05_1_ESPNOW_ReceptorOK.abp">A05_2-Unidireccional encriptada 1 a 1</a></em></p>
+<p></center></p>
+<p>El funcionamiento es idéntico al de la actividad A05_1.</p>
+<h2 id="a05_3-unidireccional-1-a-2-json"><FONT COLOR=#007575><strong>A05_3-Unidireccional 1 a 2 + JSON</strong></font><a class="headerlink" href="#a05_3-unidireccional-1-a-2-json" title="Permanent link">&para;</a></h2>
+<p>En esta actividad seguimos con la comunicación unidireccional de datos, pero los enviaremos desde un emisor a dos receptores, enviaremos mas de un datos y les daremos para ello formato JSON (JavaScript Object Notation). En mi caso concreto en un nodo voy a mostrar los datos recibidos en una OLED y en el otro en la consola serie. El programa permite utilizar uno u otro sin cambiar nada, es decir cargamos el mismo programa a todos los nodos receptores.</p>
+<p>La codificación JSON encapsula los datos en forma de clave-valor (key-value) de una forma sencilla de tratar en arduinoblocks. Si quieres aprender mas sobre JSON en arduinoblocks aquí tienes el enlace al tema <a href="https://drive.google.com/file/d/1r290vEJVVZtt8yp4PELnxgTEFWqUUBZk/view">Análisis básico de datos en formato JSON</a>.</p>
+<p>El programa emisor es el siguiente:</p>
+<p><center></p>
+<p><a class="glightbox" href="../../img/actividadesMOD/A05_3_ESPNOW_Emisor.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="A05_3-Unidireccional 1 a 2 + JSON" src="../../img/actividadesMOD/A05_3_ESPNOW_Emisor.png" /></a><br />
+<em><a href="../../program/actividadesAB/MOD/A05_3_ESPNOW_Emisor.abp">A05_3-Unidireccional 1 a 2 + JSON</a></em></p>
+<p></center></p>
+<p>El programa receptor es el siguiente:</p>
+<p><center></p>
+<p><a class="glightbox" href="../../img/actividadesMOD/A05_3_ESPNOW_Receptor.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="A05_3-Unidireccional 1 a 2 + JSON" src="../../img/actividadesMOD/A05_3_ESPNOW_Receptor.png" /></a><br />
+<em><a href="../../program/actividadesAB/MOD/A05_3_ESPNOW_Receptor.abp">A05_3-Unidireccional 1 a 2 + JSON</a></em></p>
+<p></center></p>
+<p>A continuación vemos los resultados en uno y otro modo:</p>
+<p><center></p>
+<p><a class="glightbox" href="../../img/actividadesMOD/A05_3_ESPNOW_F.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="A05_3-Unidireccional 1 a 2 + JSON" src="../../img/actividadesMOD/A05_3_ESPNOW_F.png" /></a><br />
+<em>A05_3-Unidireccional 1 a 2 + JSON</em></p>
+<p></center></p>
+<h2 id="a05_4-unidireccional-2-a-1-json"><FONT COLOR=#007575><strong>A05_4-Unidireccional 2 a 1 + JSON</strong></font><a class="headerlink" href="#a05_4-unidireccional-2-a-1-json" title="Permanent link">&para;</a></h2>
+<p>En esta actividad construimos un datalogger con dos nodos distribuidos que envian periodicamente información a un nodo receptor que registra los datos recibidos en formato CSV (Comma Separated Values) que posteriormente podremos leer y visualizar en una hoja de cálculo. Para saber mas consultar <a href="http://127.0.0.1:8000/....https://fgcoca.github.io/ESP32-micro-STEAMakers/program/inicio/#tarjeta-microsd">Tarjeta microSD</a> y la actividad <a href="http://127.0.0.1:8000/....https://fgcoca.github.io/ESP32-micro-STEAMakers/actividadesAB/A08/">A08-Tarjeta microSD</a>.</p>
+<p>El programa para los emisores es el siguiente:</p>
+<div class="admonition info inline end">
+<p class="admonition-title">Nota</p>
+<p>Debemos recordar asignar un número de nodo diferente a cada emisor o no podremos saber de donde viene el dato.</p>
+</div>
+<p><center></p>
+<p><a class="glightbox" href="../../img/actividadesMOD/A05_4_ESPNOW_Emisores.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="A05_4-Unidireccional 2 a 1 + JSON" src="../../img/actividadesMOD/A05_4_ESPNOW_Emisores.png" /></a><br />
+<em><a href="../../program/actividadesAB/MOD/A05_4_ESPNOW_Emisores.abp">A05_4-Unidireccional 2 a 1 + JSON</a></em></p>
+<p></center></p>
+<p>El programa receptor es:</p>
+<p><center></p>
+<p><a class="glightbox" href="../../img/actividadesMOD/A05_4_ESPNOW_Receptor.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="A05_4-Unidireccional 2 a 1 + JSON" src="../../img/actividadesMOD/A05_4_ESPNOW_Receptor.png" /></a><br />
+<em><a href="../../program/actividadesAB/MOD/A05_4_ESPNOW_Receptor.abp">A05_4-Unidireccional 2 a 1 + JSON</a></em></p>
+<p></center></p>
+<p>El resultado que muestra la consola es:</p>
+<p><center></p>
+<p><a class="glightbox" href="../../img/actividadesMOD/A05_4_ESPNOW_consola.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="A05_4-Unidireccional 2 a 1 + JSON" src="../../img/actividadesMOD/A05_4_ESPNOW_consola.png" /></a><br />
+<em>Consola A05_4-Unidireccional 2 a 1 + JSON</em></p>
+<p></center></p>
+<p>Si extraemos la tarjeta microSD de su zócalo y abrimos el archivo en una hoja de cálculo podremos ver los mismos datos que en la consola.</p>
+<h2 id="a05_5-latidos"><FONT COLOR=#007575><strong>A05_5-Latidos</strong></font><a class="headerlink" href="#a05_5-latidos" title="Permanent link">&para;</a></h2>
+<p>En esta actividad haremos que cuando en un nodo emisor pulsamos A o B se muestre en pantalla una A o una B y cuando tocamos el botón táctil que se vea un corazón latiendo.</p>
+<p>El programa para emisor es el siguiente:</p>
+<p><center></p>
+<p><a class="glightbox" href="../../img/actividadesMOD/A05_5_ESPNOW_Emisor.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="A05_5-Latidos" src="../../img/actividadesMOD/A05_5_ESPNOW_Emisor.png" /></a><br />
+<em><a href="../../program/actividadesAB/MOD/A05_5_ESPNOW_Emisor.abp">A05_5-Latidos</a></em></p>
+<p></center></p>
+<p>El programa receptor es:</p>
+<p><center></p>
+<p><a class="glightbox" href="../../img/actividadesMOD/A05_5_ESPNOW_Receptor.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="A05_5-Latidos" src="../../img/actividadesMOD/A05_5_ESPNOW_Receptor.png" /></a><br />
+<em><a href="../../program/actividadesAB/MOD/A05_5_ESPNOW_Receptor.abp">A05_5-Latidos</a></em></p>
+<p></center></p>
 
 
 
