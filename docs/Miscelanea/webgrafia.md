@@ -4,14 +4,16 @@
 
 * [Libros & Documentación](http://www.arduinoblocks.com/web/site/doc) de arduinoblocks
 
-* [Git hub de Pedro Ruiz](https://github.com/pedroruizf)
+* Playlist [ESP32 micro:STEAMakers con arduinoblocks](https://www.youtube.com/playlist?list=PL1pKD-Bz2QBApBvH9_3hjr5Q6sORXN11h)
 
-* [Innova Didactic](https://shop.innovadidactic.com/es/standard-placas-shields-y-kits/1676-keyestudio-placa-esp32-micro-steamakers.html)
+* Impresionante [Documentación y manual de programación](https://www.dropbox.com/scl/fi/25ntls7xhvou5oyidylwb/Manual-ESP32-micro_STEAMakers.pdf?rlkey=vsa2hkyuduwawrbpbfuhxcycx&dl=0) de [Innova Didactic](https://shop.innovadidactic.com/es/standard-placas-shields-y-kits/1676-keyestudio-placa-esp32-micro-steamakers.html)
+
+* Impresionante documentación de Francisco Soldado: [Ardutaller](https://www.ardutaller.com.es/)
 
 * [Guia de trabajo para micro:bit](https://fgcoca.github.io/Guia-de-trabajo-para-microbit/)  
 
-* [ESP32 micro:STEAMakers con arduinoblocks](https://www.youtube.com/playlist?list=PL1pKD-Bz2QBApBvH9_3hjr5Q6sORXN11h)
-  
+* [Git hub de Pedro Ruiz](https://github.com/pedroruizf)
+ 
 * [Wikipedia](https://es.wikipedia.org/wiki/Wikipedia:Portada)
 
 * [Carburos metálicos](http://www.carburos.com/), páginas 8 y 9 de la [Ficha Técnica de Seguridad número 300000000020](http://www.carburos.com/microsite/es/selector-gases-soldadura/pdf/SDS/CO2.pdf)

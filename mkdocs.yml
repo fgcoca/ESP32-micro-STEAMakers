@@ -77,7 +77,7 @@ nav:
     - A03-Temperatura y Humedad con Telegram: actividadesMOD/A03MOD.md
     - A04-Temperatura y Humedad con Thingspeak: actividadesMOD/A04MOD.md
     - A05-ESP-NOW: actividadesMOD/A05MOD.md
-    #- A05-WiFiMesh (obsoleto): actividadesMOD/A05MOD.md
+    #- A05-WiFiMesh (obsoleto): actividadesMOD/A05MOD_Mesh.md
   - Miscelanea:
     - Autoria: Miscelanea/about.md 
     - Licencias: Miscelanea/lic.md

@@ -25,4 +25,3 @@
 * [X](https://x.com/fgcoca)
 * [Instagram](https://www.instagram.com/cocafederico/?hl=es)
 * [Mas información](https://fgcoca.github.io/Como-documento/about/)
-
