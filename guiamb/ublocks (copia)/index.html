@@ -1,0 +1,3001 @@
+
+<!doctype html>
+<html lang="es" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Una introducción a la placa ESP32 micro:steamakers que es muy similar a la Placa ESP32 STEAMakers, pero en este caso tiene el formato de la micro:bit.">
+      
+      
+        <meta name="author" content="Federico Coca">
+      
+      
+        <link rel="canonical" href="https://fgcoca.github.io/....https:/fgcoca.github.io/ESP32-micro-STEAMakers/guiamb/ublocks%20%28copia%29/">
+      
+      
+      
+      
+      <link rel="icon" href="../../img/favicon.png">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.4.5">
+    
+    
+      
+        <title>Programación con MicroBlocks - ESP32 micro:STEAMakers</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.6a10b989.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.356b1318.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+   <link href="../../assets/stylesheets/glightbox.min.css" rel="stylesheet"/><style>
+        html.glightbox-open { overflow: initial; height: 100%; }
+        .gslide-title { margin-top: 0px; user-select: text; }
+        .gslide-desc { color: #666; user-select: text; }
+        .gslide-image img { background: white; }
+        
+            .gscrollbar-fixer { padding-right: 15px; }
+            .gdesc-inner { font-size: 0.75rem; }
+            body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color);}
+            body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color);}
+            body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color);}
+            </style> <script src="../../assets/javascripts/glightbox.min.js"></script></head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="light-blue" data-md-color-accent="deep-purple">
+  
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&"object"==typeof palette.color)for(var key of Object.keys(palette.color))document.body.setAttribute("data-md-color-"+key,palette.color[key])</script>
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#programacion-con-microblocks" class="md-skip">
+          Saltar a contenido
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Cabecera">
+    <a href="../.." title="ESP32 micro:STEAMakers" class="md-header__button md-logo" aria-label="ESP32 micro:STEAMakers" data-md-component="logo">
+      
+  <img src="../../img/favicon.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            ESP32 micro:STEAMakers
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              <FONT COLOR=#8B008B>Programación con MicroBlocks</font>
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="light-blue" data-md-color-accent="deep-purple"  aria-label="Modo Oscuro"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Modo Oscuro" for="__palette_2" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2a7 7 0 0 0-7 7c0 2.38 1.19 4.47 3 5.74V17a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-2.26c1.81-1.27 3-3.36 3-5.74a7 7 0 0 0-7-7M9 21a1 1 0 0 0 1 1h4a1 1 0 0 0 1-1v-1H9v1Z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="light-blue" data-md-color-accent="deep-purple"  aria-label="Modo Claro"  type="radio" name="__palette" id="__palette_2">
+    
+      <label class="md-header__button md-icon" title="Modo Claro" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2a7 7 0 0 1 7 7c0 2.38-1.19 4.47-3 5.74V17a1 1 0 0 1-1 1H9a1 1 0 0 1-1-1v-2.26C6.19 13.47 5 11.38 5 9a7 7 0 0 1 7-7M9 21v-1h6v1a1 1 0 0 1-1 1h-4a1 1 0 0 1-1-1m3-17a5 5 0 0 0-5 5c0 2.05 1.23 3.81 3 4.58V16h4v-2.42c1.77-.77 3-2.53 3-4.58a5 5 0 0 0-5-5Z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Búsqueda" placeholder="Búsqueda" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Buscar">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Limpiar" aria-label="Limpiar" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Inicializando búsqueda
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/fgcoca/ESP32-micro-STEAMakers" title="Ir al repositorio" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    fgcoca/ESP32-micro-STEAMakers
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navegación" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="ESP32 micro:STEAMakers" class="md-nav__button md-logo" aria-label="ESP32 micro:STEAMakers" data-md-component="logo">
+      
+  <img src="../../img/favicon.png" alt="logo">
+
+    </a>
+    ESP32 micro:STEAMakers
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/fgcoca/ESP32-micro-STEAMakers" title="Ir al repositorio" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    fgcoca/ESP32-micro-STEAMakers
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_1" id="__nav_1_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Presentación y elementos
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1">
+            <span class="md-nav__icon md-icon"></span>
+            Presentación y elementos
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Introducción
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../zumbador/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Zumbador
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../microf/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Micrófonos
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../giroscopio/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Acelerómetro + giroscopio
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SD/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Tarjeta microSD
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../CO2/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Conceptos sobre CO2 y VOC
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../MiCS4514/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Sensor MiCS4514 de NO2 y CO
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../modular/modV2/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Sensor shield modular
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../EasyPlug/EP1_1/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Shield EASY Plug 1.1
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../program/thinspeak/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Teoría básica de IoT
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../program/espnow/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    ESP-NOW
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../mblocks/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Guía de MicroBlocks
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    IDE 2.0 de Arduino
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            IDE 2.0 de Arduino
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../IDE/introIDE/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Introducción
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../IDE/codigoAB/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Código en Arduinoblocks
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../IDE/descarga/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Descarga del IDE
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../IDE/ventanaIDE/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Ventana principal del IDE
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../IDE/caracteristicasIDE2_0/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Características principales del IDE 2.0
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Cámara de visión artificial Sentry 2
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            Cámara de visión artificial Sentry 2
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../sentry/inicio/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Inicio rápido
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../sentry/hard/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Hardware
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../sentry/manejo/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Manejo
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../sentry/vision/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Vision
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../sentry/wifi/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    WiFi
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../sentry/ab/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Sentry en arduinoblocks
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9" >
+        
+          
+          <label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Programación con arduinoblocks
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_9">
+            <span class="md-nav__icon md-icon"></span>
+            Programación con arduinoblocks
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../program/inicio/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Inicio
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../program/RTTTL/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Formato RTTTL
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../program/server/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Servidor web
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../program/tm/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    micro:STEAMakers + Telegram
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../program/iotAB/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    IoT con arduinoblocks
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../program/espnowAB/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    ESP-NOW en arduinoblocks
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ublocks/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Programación con MicroBlocks
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_11" >
+        
+          
+          <label class="md-nav__link" for="__nav_11" id="__nav_11_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Actividades iniciales
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_11_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_11">
+            <span class="md-nav__icon md-icon"></span>
+            Actividades iniciales
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../actividadesAB/A01/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    A01-Hola Mundo
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../actividadesAB/A02/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    A02-Medio relleno
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../actividadesAB/A03/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    A03-Pixel de color aleatorio
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../actividadesAB/A04/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    A04-Botones
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../actividadesAB/A05/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    A05-Sensores integrados
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../actividadesAB/A06/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    A06-Actuadores integrados
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../actividadesAB/A07/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    A07-Acelerómetro y giroscopio
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../actividadesAB/A08/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    A08-Tarjeta microSD
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_12" >
+        
+          
+          <label class="md-nav__link" for="__nav_12" id="__nav_12_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Actividades EASY Plug
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_12_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_12">
+            <span class="md-nav__icon md-icon"></span>
+            Actividades EASY Plug
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../actividadesEP/A01EP/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    A01-LEDs y pantalla
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../actividadesEP/A02EP/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    A02-Mostrar datos del DHT22
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../actividadesEP/A03EP/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    A03-Servomotor
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../actividadesEP/A04EP/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    A04-Motor DC
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../actividadesEP/A05EP/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    A05-Matriz de 8x8 LEDs
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../actividadesEP/A06EP/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    A06-Neopixels Shield
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../actividadesEP/A07EP/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    A07-Sensor de CO2
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../actividadesEP/A08EP/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    A08-Particulas
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../actividadesEP/A09EP/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    A09-Sensor MiCS4114 (NO2 y CO)
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_13" >
+        
+          
+          <label class="md-nav__link" for="__nav_13" id="__nav_13_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Actividades avanzadas y con shield modular
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_13_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_13">
+            <span class="md-nav__icon md-icon"></span>
+            Actividades avanzadas y con shield modular
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../actividadesMOD/A01MOD/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    A01-Temperatura y Humedad con DHT11
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../actividadesMOD/A02MOD/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    A02-Temperatura y Humedad con DHT11 via web
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../actividadesMOD/A03MOD/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    A03-Temperatura y Humedad con Telegram
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../actividadesMOD/A04MOD/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    A04-Temperatura y Humedad con Thingspeak
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../actividadesMOD/A05MOD/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    A05-ESP-NOW
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_14" >
+        
+          
+          <label class="md-nav__link" for="__nav_14" id="__nav_14_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Miscelanea
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_14_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_14">
+            <span class="md-nav__icon md-icon"></span>
+            Miscelanea
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Miscelanea/about/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Autoria
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Miscelanea/lic/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Licencias
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Miscelanea/webgrafia/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Webgrafia/Bibliografía
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Miscelanea/soft/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Software utilizado
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Tabla de contenidos">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Tabla de contenidos
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#conexion-y-carga-de-la-libreria" class="md-nav__link">
+    Conexión y carga de la libreria
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#comentarios" class="md-nav__link">
+    Comentarios
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#control" class="md-nav__link">
+    Control
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pantalla-leds-rgb" class="md-nav__link">
+    Pantalla LEDs RGB
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#operadores" class="md-nav__link">
+    Operadores
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#variables" class="md-nav__link">
+    Variables
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#bucles" class="md-nav__link">
+    Bucles
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#listas" class="md-nav__link">
+    Listas
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mas-operadores" class="md-nav__link">
+    Mas operadores
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#bloques-de-control" class="md-nav__link">
+    Bloques de control
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#bloques-de-entrada-para-los-botones" class="md-nav__link">
+    Bloques de 'Entrada' para los botones
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#graficado-de-datos" class="md-nav__link">
+    Graficado de datos
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pines" class="md-nav__link">
+    Pines
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#libreria-neopixeles" class="md-nav__link">
+    Libreria NeoPixeles
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sonidos" class="md-nav__link">
+    Sonidos
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mis-bloques-ampliacion-de-sonidos" class="md-nav__link">
+    Mis bloques. Ampliación de sonidos
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#comunicaciones" class="md-nav__link">
+    Comunicaciones
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#magnetometro-y-acelerometro" class="md-nav__link">
+    Magnetómetro y acelerómetro
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sensores-basicos" class="md-nav__link">
+    Sensores básicos
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#libreria-de-graficos-y-pantallas" class="md-nav__link">
+    Libreria de Gráficos y pantallas
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#microfono-solo-en-v2" class="md-nav__link">
+    Micrófono, solo en V2
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#radio" class="md-nav__link">
+    Radio
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+<h1 id="programacion-con-microblocks"><FONT COLOR=#8B008B>Programación con MicroBlocks</font><a class="headerlink" href="#programacion-con-microblocks" title="Permanent link">&para;</a></h1>
+<p>De manera muy resumida lo que haremos en esta sección es:</p>
+<ul>
+<li>Describir los bloques y conceptos relacionados con la micro:STEAMakers.</li>
+<li>Incluiremos esquemas si resultan necesarios.</li>
+</ul>
+<h2 id="conexion-y-carga-de-la-libreria"><FONT COLOR=#007575><strong>Conexión y carga de la libreria</strong></font><a class="headerlink" href="#conexion-y-carga-de-la-libreria" title="Permanent link">&para;</a></h2>
+<p>La primera tarea que vamos a realizar es conectar la placa micro:STEAMakers a un puerto USB del ordenador mediante un cable USB-A / USB-C y desde el menú MicroBlocks (el engranaje) proceder a actualizar el firmware de la placa.</p>
+<p><center></p>
+<p><a class="glightbox" href="../../img/guias/uB/act_firm.gif" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Actualizar el firmware de la placa" src="../../img/guias/uB/act_firm.gif" /></a><br />
+<em>Actualizar el firmware de la placa</em></p>
+<p></center></p>
+<p>Al final del todo vemos como se pone en verde el icono USB indicando que la conexión está realizada y en la micro:STEAMakers se está ejecutando y la máquina virtual se está ejecutando por lo que ya podemos trabajar en vivo con la placa.</p>
+<p><center></p>
+<p><a class="glightbox" href="../../img/guias/uB/vivo.gif" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Primer trabajo en vivo" src="../../img/guias/uB/vivo.gif" /></a><br />
+<em>Primer trabajo en vivo</em></p>
+<p></center></p>
+<p>Vamos a proceder a añadir la libreria (creada por Joan Guillén) con los bloques especificos de micro:STEAMakers. </p>
+<p><center></p>
+<p><a class="glightbox" href="../../img/guias/uB/libreria.gif" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Primer trabajo en vivo" src="../../img/guias/uB/libreria.gif" /></a><br />
+<em>Primer trabajo en vivo</em></p>
+<p></center></p>
+<h2 id="comentarios"><FONT COLOR=#007575><strong>Comentarios</strong></font><a class="headerlink" href="#comentarios" title="Permanent link">&para;</a></h2>
+<p>En MicroBlocks los comentarios son tratados desde un único bloque que podemos encontrar en el menú 'Control'. Es un bloque que no hace nada. Se utiliza para añadir notas y documentación a los scripts.</p>
+<p><center></p>
+<p><a class="glightbox" href="../../img/guias/uB/comentuB.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Comentarios" src="../../img/guias/uB/comentuB.png" /></a><br />
+<em>Comentarios</em></p>
+<p></center></p>
+<p>La ventana de entrada de texto se autodimensiona según introducimos texto y se pueden añadir líneas pulsando la tecla enter.</p>
+<h2 id="control"><FONT COLOR=#007575><strong>Control</strong></font><a class="headerlink" href="#control" title="Permanent link">&para;</a></h2>
+<p>En este grupo tenemos acceso a los bloques de control de la micro:bit.</p>
+<ul>
+<li><strong>al empezar</strong>. Los bloques debajo de este se ejecutan cuando se enciende la placa o cuando se hace clic en el icono verde EJECUTAR que tiene forma de flecha. Es uno de los bloques denominados sombrero.</li>
+</ul>
+<p><center></p>
+<p><a class="glightbox" href="../../img/guias/uB/B_al_empezar.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Bloque 'al empezar'" src="../../img/guias/uB/B_al_empezar.png" /></a><br />
+<em>Bloque 'al empezar'</em></p>
+<p></center></p>
+<ul>
+<li><strong>por siempre</strong>. Se trata del bloque de la imagen y es un bloque que se ejecuta de manera indefinida.</li>
+</ul>
+<p><center></p>
+<p><a class="glightbox" href="../../img/guias/uB/B_por_siempre.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Bloque 'por siempre'" src="../../img/guias/uB/B_por_siempre.png" /></a><br />
+<em>Bloque 'por siempre'</em></p>
+<p></center></p>
+<ul>
+<li><strong>espera xx milisegundos</strong>. Espera el número de milisegundos indicado antes de continuar.</li>
+</ul>
+<p><center></p>
+<p><a class="glightbox" href="../../img/guias/uB/B_espera_ms.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Bloque 'espera xx milisegundos'" src="../../img/guias/uB/B_espera_ms.png" /></a><br />
+<em>Bloque 'espera xx milisegundos'</em></p>
+<p></center></p>
+<h2 id="pantalla-leds-rgb"><FONT COLOR=#007575><strong>Pantalla LEDs RGB</strong></font><a class="headerlink" href="#pantalla-leds-rgb" title="Permanent link">&para;</a></h2>
+<p>Estos son los bloques de control de la matriz de 5x5 LEDs RGB.</p>
+<p><center></p>
+<p><a class="glightbox" href="../../img/guias/uB/B_pantalla.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Bloques Pantalla LEDs RGB" src="../../img/guias/uB/B_pantalla.png" /></a><br />
+<em>Bloques Pantalla LEDs RGB</em></p>
+<p></center></p>
+<ul>
+<li><strong>limpia pantalla</strong>. Apaga todos los LEDs.</li>
+</ul>
+<p><center></p>
+<p><a class="glightbox" href="../img/programacion/ublocks/B_limpia_pant.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Bloque 'limpia pantalla'" src="../img/programacion/ublocks/B_limpia_pant.png" /></a><br />
+<em>Bloque 'limpia pantalla'</em></p>
+<p></center></p>
+<ul>
+<li><strong>pantalla</strong>. Muestra una imagen de la pantalla que permite cambiar el estado de cada LED haciendo clic sobre el mismo.</li>
+</ul>
+<p><center></p>
+<p><a class="glightbox" href="../img/programacion/ublocks/B_pantalla.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Bloque 'pantalla'" src="../img/programacion/ublocks/B_pantalla.png" /></a><br />
+<em>Bloque 'pantalla'</em></p>
+<p></center></p>
+<ul>
+<li><strong>anima el texto</strong>. Muestra el texto introducido mediante desplazamiento caracter a caracter con el retardo en milisegundos que establezcamos.</li>
+</ul>
+<p><center></p>
+<p><a class="glightbox" href="../img/programacion/ublocks/B_anima_texto.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Bloque 'anima el texto'" src="../img/programacion/ublocks/B_anima_texto.png" /></a><br />
+<em>Bloque 'anima el texto'</em></p>
+<p></center></p>
+<ul>
+<li><strong>enciende x,y</strong>. Enciende el LED indicado en la coordenada x,y. La coordenadas x es la horizontal y la y es la vertical. La coordenada 1,1 es la esquina superior ezquierda, la 1,5 es la derecha, la 5,1 es la inferior izquierda y la 5,5 la inferior derecha.</li>
+</ul>
+<p><center></p>
+<p><a class="glightbox" href="../img/programacion/ublocks/B_enciende_xy.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Bloque 'enciende x,y'" src="../img/programacion/ublocks/B_enciende_xy.png" /></a><br />
+<em>Bloque 'enciende x,y'</em></p>
+<p></center></p>
+<h2 id="operadores"><FONT COLOR=#007575><strong>Operadores</strong></font><a class="headerlink" href="#operadores" title="Permanent link">&para;</a></h2>
+<p>Esta entrada se crea porque en MicroBlocks, en el menú específico, aparecen algunos operadores especiales. Las descripciones siguiente son las obtenidas de <a href="https://wiki.microblocks.fun/reference_manual/operators">MicroBlocks Wiki</a>.</p>
+<p>Dentro del grupo de bloques estándar tenemos los que se ven en la imagen.</p>
+<p><center></p>
+<p><a class="glightbox" href="../img/programacion/ublocks/uB/ub01.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Bloques estándar" src="../img/programacion/ublocks/uB/ub01.png" /></a><br />
+<em>Bloques estándar</em></p>
+<p></center></p>
+<ul>
+<li><a class="glightbox" href="../img/programacion/ublocks/uB/ub02.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Módulo" src="../img/programacion/ublocks/uB/ub02.png" /></a>  Devuelve el resto de la división entre los dos números introducidos, ambos inclusive.</li>
+<li><a class="glightbox" href="../img/programacion/ublocks/uB/ub03.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Aleatorio" src="../img/programacion/ublocks/uB/ub03.png" /></a> Devuelve un número aleatorio (al azar) entre el primer y el segundo valor indicado.</li>
+</ul>
+<p>En la imagen vemos un ejemplo donde se averigua si un número generado al azar es par o impar.</p>
+<p>A la variable <code>num_aleatorio</code> se le asigna un número aleatorio del 1 al 15. La operación <code>módulo</code> se utiliza para comprobar si el resto es 0 y así saber si el número es par. Si el resto de la operación <code>num_aleatorio</code> dividido por 2 da como resultado 0, el número es par, en caso contrario es impar.</p>
+<p><center></p>
+<p><a class="glightbox" href="../img/programacion/ublocks/uB/ub04.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Par o impar" src="../img/programacion/ublocks/uB/ub04.png" /></a><br />
+<em>Par o impar</em></p>
+<p></center></p>
+<p>Con este ejemplo comprobamos que una vez conectada la micro:bit (si no el programa nos indica que no lo está y no funcionará), el bloque <code>di</code> muestra como retorno un mensaje que aparece asociado al bloque <code>al empezar</code> en la pantalla del ordenador. Esta es la forma de trabajar de MicroBlocks y hace que el código se compruebe de manera instantánea siempre que los bloques estén acoplados a <code>al empezar</code>.</p>
+<p><a href="../ejemplos/par_impar.ubp">Descargar el programa</a></p>
+<ul>
+<li><a class="glightbox" href="../img/programacion/ublocks/uB/ub05.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="El dato es de tipo" src="../img/programacion/ublocks/uB/ub05.png" /></a>  Devuelve <code>True</code> si la expesión de entrada del lado izquierdo coincide con la selección del menú de tipos de datos realizada en el lado derecho. Los tipos de datos son importantes a la hora de programar. Aunque un entorno como MicroBlocks facilita las cosas a los usuarios principiantes al encargarse de las conversiones de tipos de datos, todavía es posible engañarse visualmente al comparar variables cuyos valores parecen iguales. Este bloque pertenece al grupo de condicionales, pero se describe ahora porque se utiliza en el ejemplo siguiente.</li>
+</ul>
+<p><center></p>
+<p><a class="glightbox" href="../img/programacion/ublocks/uB/ub06.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Número o cadena" src="../img/programacion/ublocks/uB/ub06.png" /></a><br />
+<em>Número o cadena</em></p>
+<p></center></p>
+<p><a href="../ejemplos/num_cad.ubp">Descargar el programa</a></p>
+<p>Desplegando la sección 'Avanzados' vemos algunos bloques que representan operaciones bit a bit. Los operadores bit a bit (bitwise) trabajan sobre representaciones binarias de datos y su utilidad está en cambiar bits individuales en un operando. Los dos operandos asociados al operador bit a bit deben ser enteros. En la imagen vemos los bloques que aparecen en avanzados.</p>
+<p><center></p>
+<p><a class="glightbox" href="../img/programacion/ublocks/uB/ub07.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Bloques de operadores avanzados" src="../img/programacion/ublocks/uB/ub07.png" /></a><br />
+<em>Bloques de operadores avanzados</em></p>
+<p></center></p>
+<ul>
+<li><a class="glightbox" href="../img/programacion/ublocks/uB/ub08.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Reescalado" src="../img/programacion/ublocks/uB/ub08.png" /></a> Permite modificar el rango de un valor o variable desde un rango origen a un rango destino. Esta función es especialmente útil para adaptar los valores leídos de sensores o para adaptar valores a aplicar en un actuador.</li>
+<li><a class="glightbox" href="../img/programacion/ublocks/uB/ub09.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Hexadecimal" src="../img/programacion/ublocks/uB/ub09.png" /></a> Convierte una cadena Hexadecimal en un número decimal. Por ejemplo, 5A hex. = 90 dec.</li>
+<li><a class="glightbox" href="../img/programacion/ublocks/uB/ub10.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Bitwise AND" src="../img/programacion/ublocks/uB/ub10.png" /></a>  El operador AND compara dos bits y genera un resultado igual a 1 si ambos bits son 1; en caso contrario, devuelve 0. Números de mas de un bit son comparados bit a bit. Un ejemplo de aplicación lo vemos en la imagen siguiente.</li>
+</ul>
+<p><center></p>
+<p><a class="glightbox" href="../img/programacion/ublocks/uB/ub11.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="bitwise AND" src="../img/programacion/ublocks/uB/ub11.png" /></a><br />
+<em>bitwise AND</em></p>
+<p></center></p>
+<p>La tabla siguiente muestra la forma de obtener el resultado de forma teórica.</p>
+<p><center></p>
+<p><a class="glightbox" href="../img/programacion/ublocks/uB/ub12.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="bitwise AND" src="../img/programacion/ublocks/uB/ub12.png" /></a>  </p>
+<p></center></p>
+<ul>
+<li><a class="glightbox" href="../img/programacion/ublocks/uB/ub13.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Bitwise OR" src="../img/programacion/ublocks/uB/ub13.png" /></a>  El operador OR compara dos bits y devuelve 1 si uno o ambos bits son 1 y da 0 si ambos bits son 0. Bitwise OR compara todas las posiciones de bits de ambos números e informa de aquellas en las que cualquiera de los dos está a 1.</li>
+</ul>
+<p>Un ejemplo de aplicación lo vemos en la imagen siguiente.</p>
+<p><center></p>
+<p><a class="glightbox" href="../img/programacion/ublocks/uB/ub14.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="bitwise OR" src="../img/programacion/ublocks/uB/ub14.png" /></a><br />
+<em>bitwise OR</em></p>
+<p></center></p>
+<p>La tabla siguiente muestra la forma de obtener el resultado de forma teórica.</p>
+<p><center></p>
+<p><a class="glightbox" href="../img/programacion/ublocks/uB/ub15.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="bitwise OR" src="../img/programacion/ublocks/uB/ub15.png" /></a>  </p>
+<p></center></p>
+<ul>
+<li><a class="glightbox" href="../img/programacion/ublocks/uB/ub16.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Bitwise XOR" src="../img/programacion/ublocks/uB/ub16.png" /></a>  El operador EXCLUSIVE-OR compara dos bits y genera un resultado de 1 si los bits son complementarios (el bit se establece en un operando pero no en ambos); en caso contrario, devuelve 0. Otra forma de pensar en la operación XOR es que invertirá las posiciones de los bits en las que el segundo operando tenga un 1. Todas las demás se copiarán igual.</li>
+</ul>
+<p>Un ejemplo de aplicación lo vemos en la imagen siguiente.</p>
+<p><center></p>
+<p><a class="glightbox" href="../img/programacion/ublocks/uB/ub17.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="bitwise XOR" src="../img/programacion/ublocks/uB/ub17.png" /></a><br />
+<em>bitwise XOR</em></p>
+<p></center></p>
+<p>La tabla siguiente muestra la forma de obtener el resultado de forma teórica.</p>
+<p><center></p>
+<p><a class="glightbox" href="../img/programacion/ublocks/uB/ub18.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="bitwise XOR" src="../img/programacion/ublocks/uB/ub18.png" /></a>  </p>
+<p></center></p>
+<ul>
+<li><a class="glightbox" href="../img/programacion/ublocks/uB/ub19.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Bitwise NOT" src="../img/programacion/ublocks/uB/ub19.png" /></a>  El operador NOT se utiliza para invertir (BIT FLIP) todos los bits del operando Cuando el bit de posición más alta de un número se convierte en 1, ese número se considera un número negativo. La representación informática real de un número entero con signo en MicroBlocks es de 31 bits. El bit de mayor peso es un bit de signo. Esto permite números en el rango de -1073741824 a 1073741823. Cuando el bit de signo es 0, el número es positivo; y cuando es 1, el número es negativo.</li>
+</ul>
+<p>Un ejemplo de aplicación lo vemos en la imagen siguiente.</p>
+<p><center></p>
+<p><a class="glightbox" href="../img/programacion/ublocks/uB/ub20.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="bitwise NOT" src="../img/programacion/ublocks/uB/ub20.png" /></a><br />
+<em>bitwise NOT</em></p>
+<p></center></p>
+<p>La explicación es sencilla, el número 3 (0011) se convierte al binario 1100 y como el bit de mayor peso es 1 indica que es negativo y el número es 4, por lo tanto el resultado es -4.</p>
+<ul>
+<li><a class="glightbox" href="../img/programacion/ublocks/uB/ub21.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Bitwise desplazamiento izquierda" src="../img/programacion/ublocks/uB/ub21.png" /></a> El valor del operando izquierdo se desplaza hacia la izquierda el número de bits especificado por el operando derecho. Los bits se desplazan hacia la izquierda, el bit situado más a la izquierda se descarta y al bit situado más a la derecha se le asigna el valor 0. Cada posición de bit desplazada a la izquierda equivale en binario a multiplicar por 2. En la imagen siguiente vemos el funcionamiento del desplazamiento a la izquierda a nivel de bit.</li>
+</ul>
+<p><center></p>
+<p><a class="glightbox" href="../img/programacion/ublocks/uB/ub22.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="bitwise desplazamiento izquierda" src="../img/programacion/ublocks/uB/ub22.png" /></a><br />
+<em>bitwise desplazamiento izquierda</em></p>
+<p></center></p>
+<ul>
+<li><a class="glightbox" href="../img/programacion/ublocks/uB/ub23.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Bitwise desplazamiento derecha" src="../img/programacion/ublocks/uB/ub23.png" /></a> El valor del operando izquierdo se desplaza hacia la derecha el número de bits especificado por el operando derecho. Los bits se desplazan hacia la derecha, el bit situado más a la derecha se descarta y al bit situado más a la izquierda se le asigna una copia del bit de signo. Esto se denomina desplazamiento aritmético. Por cada posición de bit desplazada a la derecha, esta operación es el equivalente binario de dividir por 2. En la imagen siguiente vemos el funcionamiento del desplazamiento a la derecha a nivel de bit.</li>
+</ul>
+<p><center></p>
+<p><a class="glightbox" href="../img/programacion/ublocks/uB/ub24.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="bitwise desplazamiento derecha" src="../img/programacion/ublocks/uB/ub24.png" /></a><br />
+<em>bitwise desplazamiento izquierda</em></p>
+<p></center></p>
+<h2 id="variables"><FONT COLOR=#007575>Variables</font><a class="headerlink" href="#variables" title="Permanent link">&para;</a></h2>
+<p>En MicroBlocks se contemplan dos tipos de variables, las globales y las locales. Cuando hablamos en estos términos hablamos de ámbito (scope) de las variables y determina la zona donde se define la variable, que son global y local.</p>
+<p>Las variables locales son las definidas dentro de una función y solamente está disponible para el código que se ejecuta dentro de la función.</p>
+<p>Las variables globales se definen en cualquier punto del programa, normalmente al principio, y pueden ser llamadas desde cualquier sitio del programa, incluso desde las funciones.</p>
+<ul>
+<li><a class="glightbox" href="../img/programacion/ublocks/uB/ub25.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Añadir o crear variable" src="../img/programacion/ublocks/uB/ub25.png" /></a> Este bloque es en realidad un botón que crea una nueva variable global. Si existe una variable con el mismo nombre, se creará una nueva con el mismo nombre y el número 2 añadido. Cuando creamos una variable se nos pide el nombre de la misma en una ventana emergente y una vez creada aparecerá un nuevo bloque para acceder al valor de la variable creada. Además esta nueva variable estará disponible para su selección en dos de los bloques que explicaremos después.</li>
+<li><a class="glightbox" href="../img/programacion/ublocks/uB/ub26.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Borrar variable" src="../img/programacion/ublocks/uB/ub26.png" /></a>  Este bloque es en realidad un botón que sirve para eliminar una variable previamente creada.</li>
+</ul>
+<p>En la animación siguiente vemos el proceso de creación y eliminación de variables.</p>
+<p><center></p>
+<p><a class="glightbox" href="../img/programacion/ublocks/uB/ub27.gif" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Creación y eliminación de variables" src="../img/programacion/ublocks/uB/ub27.gif" /></a><br />
+<em>Creación y eliminación de variables</em></p>
+<p></center></p>
+<p>La opción de mostrar el nombre de las variables mostrada desde el bloque se puede utilizar para añadir variables mientras se edita el código del programa, sin pasar a las opciones de la categoría variables.</p>
+<ul>
+<li><a class="glightbox" href="../img/programacion/ublocks/uB/ub28.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Asigna valor a variable" src="../img/programacion/ublocks/uB/ub28.png" /></a>  Este bloque asigna el valor a cualquier variable, global o local, en la cantidad especificada en el área de entrada. La cantidad que se asigna puede ser un número positivo o negativo. Para mostrar los nombres de las variables locales en el menú de selección, este bloque debe estar físicamente unido a la secuencia de bloques en la que se utiliza el bloque 'Inicializar local' que veremos a continuación.</li>
+<li><a class="glightbox" href="../img/programacion/ublocks/uB/ub29.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Aumenta el valor de una variable" src="../img/programacion/ublocks/uB/ub29.png" /></a>  Este bloque suma algebraicamente (cambia) el valor de cualquier variable, global o local, en la cantidad especificada en el área de entrada. La cantidad de cambio puede ser un número positivo o negativo.</li>
+<li><a class="glightbox" href="../img/programacion/ublocks/uB/ub30.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Inicializa variable local" src="../img/programacion/ublocks/uB/ub30.png" /></a>  Este bloque se utiliza para crear e inicializar variables locales. El nombre predeterminado de la variable 'var' puede cambiarse por cualquier otro haciendo clic en el nombre y escribiendo un nuevo nombre en el cuadro de diálogo que se abre. Despés, si es necesario cambiar el valor de la variable local, se puede utilizar el bloque 'asigna valor a' de la categoría variables. En la animación siguiente vemos este proceso y la disponibilidad o no de la variable local.</li>
+</ul>
+<p><center></p>
+<p><a class="glightbox" href="../img/programacion/ublocks/uB/ub31.gif" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Inicializa variable local" src="../img/programacion/ublocks/uB/ub31.gif" /></a><br />
+<em>Inicializa variable local</em></p>
+<p></center></p>
+<p>Una variable global tiene:</p>
+<ul>
+<li><strong>Alcance global</strong>: Una variable global puede utilizarse en cualquier script que no tenga una variable local del mismo nombre que la anule.</li>
+<li><strong>Tiempo de vida largo</strong>: Una variable global es creada explícitamente y vive hasta que es explícitamente borrada. Conserva su valor cuando los scripts se inician y detienen e incluso cuando no hay scripts en ejecución. Sin embargo, al hacer clic en el botón "Detener", todas las variables globales se borran e inicializan con el valor cero. Las variables globales también se inicializan a cero cuando se crean por primera vez y cuando se carga un proyecto.</li>
+</ul>
+<p>Por el contrario, una <strong>variable local</strong> tiene:</p>
+<ul>
+<li><strong>Ámbito local</strong>: Una variable local sólo puede utilizarse en el script en el que aparece. Si varios scripts utilizan variables locales con el mismo nombre, esas variables son independientes entre sí. Aunque esta práctica se desaconseja porque puede inducir a errores.</li>
+<li><strong>Tiempo de vida limitado</strong>: Una variable local de un script se crea cuando se inicia el script y se elimina cuando éste finaliza. Se crea una nueva variable local cada vez que se inicia un script (incluyendo un script de función), y las variables locales de cada invocación de script son independientes entre sí.</li>
+<li><strong>Precedencia sobre las globales</strong>: Si una variable local tiene el mismo nombre que una variable global, la variable local prevalece sobre la global en el script en el que aparece la variable local. Una variable es local en todo el script sin importar en qué parte del script aparezca "inicializar var local a", aunque es una buena práctica de codificación que "inicializar var local a" preceda a cualquier otra referencia a esa variable.</li>
+</ul>
+<p>Un ejemplo comentado de aplicación lo vemos en la imagen siguiente.</p>
+<p><center></p>
+<p><a class="glightbox" href="../img/programacion/ublocks/uB/ub32.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Variables" src="../img/programacion/ublocks/uB/ub32.png" /></a><br />
+<em>Variables</em></p>
+<p></center></p>
+<p><a href="../ejemplos/variables.ubp">Descargar el programa</a></p>
+<h2 id="bucles"><FONT COLOR=#007575>Bucles</font><a class="headerlink" href="#bucles" title="Permanent link">&para;</a></h2>
+<p>En el caso de MicroBlocks los bucles, condicionales y funciones están todos englobados en la categoría 'Control'. Vamos a ver algunos de ellos en esta ocasión y los que no veamos en esta actividad se irán viendo cuando los necesitemos.</p>
+<ul>
+<li><a class="glightbox" href="../img/programacion/ublocks/uB/ub33.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Al empezar" src="../img/programacion/ublocks/uB/ub33.png" /></a>  Los bloques con forma de sombrero forman parte de un grupo de bloques de control que comienzan a ejecutarse cuando se pulsa el icono verde <code>Inicia</code>. Este bloque se activa cuando se cumple la condición de inicio del programa.</li>
+<li><a class="glightbox" href="../img/programacion/ublocks/uB/ub34.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Bucle infinito" src="../img/programacion/ublocks/uB/ub34.png" /></a>  Los bloques con forma de "C" son un grupo de bloques de control que ejecutan el código colocado en su interior siempre que se cumplan las condiciones descritas en sus subtítulos. Estos son los bloques de tipo bucle. Este en particular ejecutará los bloques en su interior indefinidamente.</li>
+<li><a class="glightbox" href="../img/programacion/ublocks/uB/ub35.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Bucle para número de iteraciones" src="../img/programacion/ublocks/uB/ub35.png" /></a>  Este bloque C ejecuta el código colocado en su interior el número especificado de veces. En el ejemplo siguiente veremos tanto en el programa como en la pantalla la suma de los 10 primero números naturales.</li>
+</ul>
+<p><center></p>
+<p><a class="glightbox" href="../img/programacion/ublocks/uB/ub36.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Suma de los 10 primeros números" src="../img/programacion/ublocks/uB/ub36.png" /></a><br />
+<em>Suma de los 10 primeros números</em></p>
+<p></center></p>
+<p><a href="../ejemplos/suma_10__primeros_numeros.ubp">Descargar el programa</a></p>
+<ul>
+<li>
+<p><a class="glightbox" href="../img/programacion/ublocks/uB/ub37.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Bucle for" src="../img/programacion/ublocks/uB/ub37.png" /></a>  Este bloque estambién de tipo C y pertenece al grupo de los bucles. Funciona de dos formas distintas en función del tipo de entrada especificado.</p>
+</li>
+<li>
+<p>Si la <strong>entrada es un número</strong>, los bloques interiores se ejecutarán tantas veces como el número. En cada iteración del bucle, empezando por uno, el parámetro o variable de control es 'i' por defecto y se incrementará en uno. Este valor se puede utilizar en el código del programa como se crea conveniente.</p>
+</li>
+<li>El nombre del parámetro de control puede cambiarse por otro haciendo clic en la 'i' y escribiendo un nuevo nombre.</li>
+<li>Si la <strong>entrada es una lista</strong>, los bloques colocados dentro se ejecutarán tantas veces como elementos tenga la lista. En cada iteración, el parámetro de control 'i' tomará el valor de cada elemento de la lista de manera secuencia. En el ejemplo siguiente vemos una animación de un sencillo programa de como hacer un contador con los 5 primeros números y hacer que se muestre en el ordenador y en la pantalla de la micro:bit.</li>
+</ul>
+<p><center></p>
+<p><a class="glightbox" href="../img/programacion/ublocks/uB/ub38.gif" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Mostrar los 5 primeros números" src="../img/programacion/ublocks/uB/ub38.gif" /></a><br />
+<em>Mostrar los 5 primeros números</em></p>
+<p></center></p>
+<p><a href="../ejemplos/muestra_5_primeros_numeros.ubp">Descargar el programa</a></p>
+<ul>
+<li><a class="glightbox" href="../img/programacion/ublocks/uB/ub39.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="espera en milisegundos" src="../img/programacion/ublocks/uB/ub39.png" /></a>  Este bloque pausa el flujo de ejecución del programa por el tiempo especificado en milisegundos. Se utiliza para pausar y reanudar la ejecución de código de forma controlada.</li>
+<li><a class="glightbox" href="../img/programacion/ublocks/uB/ub40.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="espera en microsegundos" src="../img/programacion/ublocks/uB/ub40.png" /></a>  Este bloque pausa el flujo de ejecución del programa por el tiempo especificado en microsegundos. Se utiliza para pausar y reanudar la ejecución de código de forma controlada.</li>
+<li><a class="glightbox" href="../img/programacion/ublocks/uB/ub41.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="envía o broadcast" src="../img/programacion/ublocks/uB/ub41.png" /></a>  Emite el mensaje especificado. Véase en conjunto a <a class="glightbox" href="../img/programacion/ublocks/uB/ub42.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="al recibir" src="../img/programacion/ublocks/uB/ub42.png" /></a>. Este bloque envía el contenido del mensaje especificado. Todos los bloques de mensajes <code>al recibir</code> con el mismo mensaje en su contenido recibirán el mensaje y actuarán ejecutando su contenido.</li>
+<li><a class="glightbox" href="../img/programacion/ublocks/uB/ub42.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="al recibir" src="../img/programacion/ublocks/uB/ub42.png" /></a>  Ejecuta cuando se emita el mensaje especificado. Este bloque y su par funcional <a class="glightbox" href="../img/programacion/ublocks/uB/ub41.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="envía o broadcast" src="../img/programacion/ublocks/uB/ub41.png" /></a> se suelen utilizar juntos para conseguir un medio de comunicación dentro del programa. Cualquier mensaje enviado con el comando <code>envía</code> es detectado y recibido por este bloque. Así, los bloques colocados bajo este bloque se ejecutarán al recibir el mensaje correspondiente. Los mensajes pueden ser cadenas o números. Además, el bloque <a class="glightbox" href="../img/programacion/ublocks/uB/ub43.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="ultimo mensaje" src="../img/programacion/ublocks/uB/ub43.png" /></a> contiene el último mensaje emitido y recibido.</li>
+<li><a class="glightbox" href="../img/programacion/ublocks/uB/ub43.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="ultimo mensaje" src="../img/programacion/ublocks/uB/ub43.png" /></a>  Devuelve el último mensaje enviado en todo el programa, cronológicamente hablando. Nótese que <strong>NO</strong> es el último mensaje recibido por una secuencia de bloques concreta del programa, y es independiente de la ejecución del bloque <code>al recibir</code>. No hay colas de mensajes en el sistema. Si no hay ningún <code>al recibir</code> en espera cuando se envía un mensaje, se perderá y será sobrescrito por el siguiente mensaje.</li>
+</ul>
+<p>En el ejemplo siguiente vemos de forma sencilla el funcionamiento de estos tres últimos bloques.</p>
+<p><center></p>
+<p><a class="glightbox" href="../img/programacion/ublocks/uB/ub44.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Di el último mensaje" src="../img/programacion/ublocks/uB/ub44.png" /></a><br />
+<em>Di el último mensaje</em></p>
+<p></center></p>
+<p><a href="../ejemplos/ultimo_mensaje.ubp">Descargar el programa</a></p>
+<h2 id="listas"><FONT COLOR=#007575>Listas</font><a class="headerlink" href="#listas" title="Permanent link">&para;</a></h2>
+<p>Los bloques para trabajar con listas están en el menú 'Datos' y sus bloques los vemos en la imagen siguiente.</p>
+<p><center></p>
+<p><a class="glightbox" href="../img/programacion/ublocks/uB/ub45.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Bloques para Listas. Datos" src="../img/programacion/ublocks/uB/ub45.png" /></a><br />
+<em>Bloques para Listas. Datos</em></p>
+<p></center></p>
+<ul>
+<li><a class="glightbox" href="../img/programacion/ublocks/uB/listas/l1.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="" src="../img/programacion/ublocks/uB/listas/l1.png" /></a> Devuelve una lista corta que contiene algunos elementos en inglés. Con las flechas podemos añadir o eliminar elementos a la lista aunquw a partir del cuarto se repite siempre el mismo. Para crear una lista vacía (<a class="glightbox" href="../img/programacion/ublocks/uB/listas/l2.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="" src="../img/programacion/ublocks/uB/listas/l2.png" /></a>) basta con eliminar el único elemento existente cuando se crea una nueva.</li>
+<li><a class="glightbox" href="../img/programacion/ublocks/uB/listas/l3.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="" src="../img/programacion/ublocks/uB/listas/l3.png" /></a> Une (concatena) cadenas, listas o matrices de bytes y devuelve el resultado.</li>
+<li><a class="glightbox" href="../img/programacion/ublocks/uB/listas/l4.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="" src="../img/programacion/ublocks/uB/listas/l4.png" /></a> Devuelve el carácter <a href="https://en.wikipedia.org/wiki/List_of_Unicode_characters">Unicode</a> del número dado.</li>
+<li><a class="glightbox" href="../img/programacion/ublocks/uB/listas/l5.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="" src="../img/programacion/ublocks/uB/listas/l5.png" /></a> Devuelve el enésimo elemento de una lista, cadena o matriz de bytes.</li>
+<li><a class="glightbox" href="../img/programacion/ublocks/uB/listas/l6.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="" src="../img/programacion/ublocks/uB/listas/l6.png" /></a>  Combina los elementos de una lista en una cadena, opcionalmente se puede usar un carácter delimitador.</li>
+<li><a class="glightbox" href="../img/programacion/ublocks/uB/listas/l7.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="" src="../img/programacion/ublocks/uB/listas/l7.png" /></a>  Añade un elemento al final de una lista.</li>
+</ul>
+<p>En el ejemplo siguiente vemos el uso de estos bloques. Comenzamos por crear una cadena de caracteres de la que vamos a extraer la palabra un mediante la unión de los elementos 9 y 10 de la cadena. Se crea una lista con cuatros animales y finalmente se muestra la palabra 'un' seguida de la posición 3 de la lista creada.</p>
+<p><center></p>
+<p><a class="glightbox" href="../img/programacion/ublocks/uB/listas/l8.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Un pajaro" src="../img/programacion/ublocks/uB/listas/l8.png" /></a><br />
+<em>Un pajaro</em></p>
+<p></center></p>
+<p><a href="../ejemplos/un_pajaro.ubp">Descargar el programa</a></p>
+<p>En este otro ejemplo vemos como se generan los caracteres de latín básico comenzando por el espacio en blanco (32), diferentes símbolos, números, letras mayúsculas y letras minúsculas.</p>
+<p><center></p>
+<p><a class="glightbox" href="../img/programacion/ublocks/uB/listas/l9.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Caracteres Unicode de Latín básico" src="../img/programacion/ublocks/uB/listas/l9.png" /></a><br />
+<em>Caracteres Unicode de Latín básico</em></p>
+<p></center></p>
+<p><a href="../ejemplos/unicode.ubp">Descargar el programa</a></p>
+<ul>
+<li><a class="glightbox" href="../img/programacion/ublocks/uB/listas/l10.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="" src="../img/programacion/ublocks/uB/listas/l10.png" /></a> Devuelve el número de elementos de una lista, cadena o matriz de bytes.</li>
+<li><a class="glightbox" href="../img/programacion/ublocks/uB/listas/l11.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="" src="../img/programacion/ublocks/uB/listas/l11.png" /></a> Sustituye el enésimo elemento de una lista por el valor dado. También puede sustituir todos los elementos por un valor.</li>
+<li><a class="glightbox" href="../img/programacion/ublocks/uB/listas/l12.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="" src="../img/programacion/ublocks/uB/listas/l12.png" /></a> Elimina el elemento N de una lista. La lista resultante se reduce de tamaño. También puede eliminar todos los elementos.</li>
+</ul>
+<p>A continuación vemos un ejemplo en el que se demuestra la funcionalidad de estos tres bloques.</p>
+<p><center></p>
+<p><a class="glightbox" href="../img/programacion/ublocks/uB/listas/l13.gif" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Sustituir, eliminar y tamaño" src="../img/programacion/ublocks/uB/listas/l13.gif" /></a><br />
+<em>Sustituir, eliminar y tamaño</em></p>
+<p></center></p>
+<p><a href="../ejemplos/sustituir_eliminar_long.ubp">Descargar el programa</a></p>
+<ul>
+<li><a class="glightbox" href="../img/programacion/ublocks/uB/listas/l14.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="" src="../img/programacion/ublocks/uB/listas/l14.png" /></a> Devuelve la posición de la primera coincidencia de una subcadena dentro de una cadena o un elemento de una lista. Devuelve -1 si no encuentra coincidencias.</li>
+</ul>
+<p>En el ejemplo las variables locales <code>cadena</code> y <code>animales</code> se inicializan como de tipo string y list respectivamente. El primer conjunto de resultados opera sobre la cadena, buscando la posición de la primera apariciones de "es". La primera coincidencia se encuentra en el carácter número uno. La segunda búsqueda se inicia en el carácter número tres, y localiza el objetivo de la búsqueda en el carácter número seis. La búsqueda de "perro" en la lista 'animales' la encuentra en el elemento número dos de la lista. La segunda búsqueda de "perro" en la lista 'animales' comienza en el elemento número tres y devuelve -1 porque no lo encuentra. No hay ningún "raton" en la lista, por lo que la búsqueda devuelve -1.</p>
+<p><center></p>
+<p><a class="glightbox" href="../img/programacion/ublocks/uB/listas/l15.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Buscar" src="../img/programacion/ublocks/uB/listas/l15.png" /></a><br />
+<em>Buscar</em></p>
+<p></center></p>
+<p><a href="../ejemplos/buscar.ubp">Descargar el programa</a></p>
+<ul>
+<li><a class="glightbox" href="../img/programacion/ublocks/uB/listas/l16.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="" src="../img/programacion/ublocks/uB/listas/l16.png" /></a> Copia una cadena desde/hasta el caracter especificado, o una desde/hasta el elemento indicado. Como ya sabemos para mostrar el parámetro hasta hay que hacer clic en el triángulo negro.</li>
+</ul>
+<p><center></p>
+<p><a class="glightbox" href="../img/programacion/ublocks/uB/listas/l17.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Copiar" src="../img/programacion/ublocks/uB/listas/l17.png" /></a><br />
+<em>Copiar</em></p>
+<p></center></p>
+<p><a href="../ejemplos/copiar.ubp">Descargar el programa</a></p>
+<ul>
+<li><a class="glightbox" href="../img/programacion/ublocks/uB/listas/l18.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="" src="../img/programacion/ublocks/uB/listas/l18.png" /></a> Devuelve una lista separando la cadena especificada por el delimitador opcional. Si no se especifica ningún delimitador, la cadena se divide por cada carácter.</li>
+</ul>
+<p>En la imagen vemos una cadena delimitada por comas que separa los caracteres mediante el delimitador coma en una lista de tres elementos.</p>
+<p><center></p>
+<p><a class="glightbox" href="../img/programacion/ublocks/uB/listas/l19.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="" src="../img/programacion/ublocks/uB/listas/l19.png" /></a></p>
+<p></center></p>
+<p>A continuación vemos una cadena que incluye un carácter retorno de línea después del ABC y DEF que se separa mediante el caracter unicode de nueva línea (return) en una lista de tres elementos.</p>
+<p><center></p>
+<p><a class="glightbox" href="../img/programacion/ublocks/uB/listas/l20.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="" src="../img/programacion/ublocks/uB/listas/l20.png" /></a></p>
+<p></center></p>
+<p>En este otro caso separamos la URL de la descarga de MicroBlocks en partes mediante el delimitador /.</p>
+<p><center></p>
+<p><a class="glightbox" href="../img/programacion/ublocks/uB/listas/l21.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="" src="../img/programacion/ublocks/uB/listas/l21.png" /></a></p>
+<p></center></p>
+<ul>
+<li><a class="glightbox" href="../img/programacion/ublocks/uB/listas/l22.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="" src="../img/programacion/ublocks/uB/listas/l22.png" /></a>  Devuelve el valor Unicode del carácter enésimo de la cadena introducida. El número de caracteres introducido debe estar comprendido entre uno y la longitud de la cadena. Este bloque es el opuesto de <a class="glightbox" href="../img/programacion/ublocks/uB/listas/l4.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="" src="../img/programacion/ublocks/uB/listas/l4.png" /></a>.</li>
+</ul>
+<p><center></p>
+<p><a class="glightbox" href="../img/programacion/ublocks/uB/listas/l23.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="" src="../img/programacion/ublocks/uB/listas/l23.png" /></a></p>
+<p></center></p>
+<ul>
+<li><a class="glightbox" href="../img/programacion/ublocks/uB/listas/l24.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="" src="../img/programacion/ublocks/uB/listas/l24.png" /></a> Crea una nueva lista del número de elementos especificado. Hay que controlar la disponibilidad de memoria. Los elementos de la lista creada se pueden inicializar a cualquier valor utilizando la opción de bloque con todos.</li>
+<li><a class="glightbox" href="../img/programacion/ublocks/uB/listas/l25.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="" src="../img/programacion/ublocks/uB/listas/l25.png" /></a> Crea una matriz del número de elementos especificado en función de la disponibilidad de memoria. Cada elemento es de tamaño byte y se le pueden asignar valores en el rango de 0-255 (0-FF).</li>
+<li><a class="glightbox" href="../img/programacion/ublocks/uB/listas/l26.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="" src="../img/programacion/ublocks/uB/listas/l26.png" /></a> Devuelve una cadena que indica el número de palabras de 32 bits de memoria dinámica disponibles para asignar nuevos objetos (cadenas, listas o matrices de bytes). Al pulsar el botón de parada se libera toda la memoria. Justo después de pulsar el botón de parada, este bloque informa del total de memoria dinámica disponible en un dispositivo determinado. Los dispositivos tienen diferentes cantidades de memoria dinámica, basadas en la cantidad de RAM proporcionada por el hardware. Por ejemplo, la micro:bit v2 tiene mucha más RAM que la micro:bit original.</li>
+</ul>
+<p>Un ejemplo de uso.</p>
+<p><center></p>
+<p><a class="glightbox" href="../img/programacion/ublocks/uB/listas/l27.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Copiar" src="../img/programacion/ublocks/uB/listas/l27.png" /></a><br />
+<em>Copiar</em></p>
+<p></center></p>
+<p><a href="../ejemplos/nueva_lista_mem.ubp">Descargar el programa</a></p>
+<ul>
+<li><a class="glightbox" href="../img/programacion/ublocks/uB/listas/l28.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="" src="../img/programacion/ublocks/uB/listas/l28.png" /></a>  Convierte un byte, una lista o una cadena especificada en una matriz de bytes. Cada elemento es el valor unicode de las letras de la cadena en el rango de 0-255 (0-FF).</li>
+</ul>
+<h2 id="mas-operadores"><FONT COLOR=#007575><strong>Mas operadores</strong></font><a class="headerlink" href="#mas-operadores" title="Permanent link">&para;</a></h2>
+<p>Los operadores aún no vistos son:</p>
+<p><center></p>
+<p><a class="glightbox" href="../img/programacion/ublocks/O_arit_comp_bool.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Operadores aritméticos, de comparación y booleanos" src="../img/programacion/ublocks/O_arit_comp_bool.png" /></a></p>
+<p><em>Operadores aritméticos, de comparación y booleanos</em></p>
+<p></center></p>
+<p>Los operadores aritméticos y de comparación no requieren de mayor explicación por lo que nos vamos a centrar en los booleanos.</p>
+<ul>
+<li><a class="glightbox" href="../img/programacion/ublocks/bool/b1.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="" src="../img/programacion/ublocks/bool/b1.png" /></a> Operador booleano <code>True</code> o <code>False</code>. Devuelve verdadero o falso en función de la posición del selector, o de la evaluación binaria de la expresión utilizada como entrada. Este bloque se usa dentro de muchos otros bloques, donde se utiliza para controlar el flujo de las ejecuciones y eventos.</li>
+</ul>
+<p>El bloque <code>if</code> es un buen ejemplo para demostrar el uso del bloque verdadero/falso.</p>
+<p><center></p>
+<p><a class="glightbox" href="../img/programacion/ublocks/oper_T_F.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Uso sencillo del operador True/False" src="../img/programacion/ublocks/oper_T_F.png" /></a></p>
+<p><em>Uso sencillo del operador <code>True/False</code></em></p>
+<p></center></p>
+<p><a href="../ejemplos/verdadero_falso.ubp">Descargar el programa</a></p>
+<p>El código del ejemplo se ejecuta de dos maneras diferentes siempre dentro de un bucle infinito en el que se genera un número aleatorio que puede valer 1, 2 o 3:</p>
+<ul>
+<li>La primera es la condición de la rama <code>IF</code> que será verdadera si el número generado es 1.</li>
+<li>La segunda es la rama <code>ELSE IF</code> que se evalúa si la condición del <code>IF</code> no es verdadera y se pone a verdadero, ejecutando su código.</li>
+<li>
+<p>La tercera es la condición <code>ELSE</code> a la que nunca se llega porque si el número vale 1 se ejecuta el <code>IF</code> y si no se ejecuta el <code>ELSE IF</code> que siempre es cierto. Es decir, aunque se genere <code>variable = 3</code> la condición <code>ELSE</code> no se ejecuta.</p>
+</li>
+<li>
+<p><a class="glightbox" href="../img/programacion/ublocks/bool/b2.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="" src="../img/programacion/ublocks/bool/b2.png" /></a> Invierte el valor lógico asociado a la expresión sobre la que opera. Tal y como se muestra, <code>NOT</code> devolverá <code>FALSE</code> si el deslizador se establece en <code>TRUE</code>, y <code>TRUE</code> si se establece en <code>FALSE</code>.</p>
+</li>
+</ul>
+<p>En el ejemplo siguiente, una variable llamada <code>cadena</code> se inicializa como "MicroBlocks es genial", y una variable llamada <code>expresion</code> se inicializa en <code>TRUE</code> de una forma peculiar, diciendo que algo es igual a si mismo. Cuando se aplica <code>NOT</code> al resultado de la expresión de igualdad, se cambia a <code>FALSE</code>.</p>
+<p><center></p>
+<p><a class="glightbox" href="../img/programacion/ublocks/not.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Uso sencillo del operador NOT" src="../img/programacion/ublocks/not.png" /></a></p>
+<p><em>Uso sencillo del operador <code>NOT</code></em></p>
+<p></center></p>
+<p><a href="../ejemplos/not.ubp">Descargar el programa</a></p>
+<ul>
+<li><a class="glightbox" href="../img/programacion/ublocks/bool/b3.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="" src="../img/programacion/ublocks/bool/b3.png" /></a>  Devuelve verdadero sólo si todas sus entradas son verdadero y devuelve falso en caso contrario. Como ambas condiciones tienen que ser verdaderas para obtener un resultado verdadero, si se detecta un falso en la primera condición, no es necesario evaluar la segunda; se devuelve falso inmediatamente.</li>
+</ul>
+<p>En el ejemplo tenemos dos variables <code>salir</code> y <code>llueve</code> que se inicializan a verdadero. Se muestran una serie de mensajes y al final se evalúa si "necesito un paraguas" comprobando si es voy a salir y si llueve. Ambas condiciones tienen que ser verdaderas para que necesitemos un paraguas. Podemos cambiar el estado de las variables y comprobar lo que ocurre.</p>
+<p><center></p>
+<p><a class="glightbox" href="../img/programacion/ublocks/and.gif" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Uso sencillo del operador AND" src="../img/programacion/ublocks/and.gif" /></a></p>
+<p><em>Uso sencillo del operador <code>AND</code></em></p>
+<p></center></p>
+<p><a href="../ejemplos/and.ubp">Descargar el programa</a></p>
+<ul>
+<li><a class="glightbox" href="../img/programacion/ublocks/bool/b4.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="" src="../img/programacion/ublocks/bool/b4.png" /></a>  Devuelve verdadero si uno o ambos operandos son verdaderos y devuelve falso en caso contrario. Similar a <code>AND</code> pero opuesto a él, aquí sólo una de las dos condiciones tiene que ser verdadera para un resultado verdadero. Por lo tanto, si la primera condición es verdadera, no es necesario comprobar la segunda.</li>
+</ul>
+<p>En el ejemplo estamos generando aleatoriamente dos números en el rango de 1 a 5. A continuación, comprobamos si alguno de los dos números es igual al número que estamos buscando (3). El bloque <code>OR</code> se utiliza para verificar el resultado de la comparación.</p>
+<p><center></p>
+<p><a class="glightbox" href="../img/programacion/ublocks/or.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Uso sencillo del operador OR" src="../img/programacion/ublocks/or.png" /></a></p>
+<p><em>Uso sencillo del operador <code>OR</code></em></p>
+<p></center></p>
+<p><a href="../ejemplos/or.ubp">Descargar el programa</a></p>
+<p>Cada vez que pulsemos en 'Iniciar' se genera un nuevo resultado.</p>
+<h2 id="bloques-de-control"><FONT COLOR=#007575><strong>Bloques de control</strong></font><a class="headerlink" href="#bloques-de-control" title="Permanent link">&para;</a></h2>
+<ul>
+<li><a class="glightbox" href="../img/programacion/ublocks/C/c1.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="" src="../img/programacion/ublocks/C/c1.png" /></a>  Los bloques en este bloque de sombrero se ejecutan cuando se pulsan los botones A, B, o A+B. Se dispara una vez por cada pulsación de botón. Si se mantiene pulsado el botón, no se vuelve a disparar hasta que se suelta el botón y se vuelve a pulsar. Por ejemplo, cuando se pulsa el botón A aparece en pantalla una A.</li>
+</ul>
+<p><center></p>
+<p><a class="glightbox" href="../img/programacion/ublocks/cuando_pul_bot.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="cuando se pulsa el botón" src="../img/programacion/ublocks/cuando_pul_bot.png" /></a></p>
+<p><em>cuando se pulsa el botón</em></p>
+<p></center></p>
+<ul>
+<li><a class="glightbox" href="../img/programacion/ublocks/C/c2.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="" src="../img/programacion/ublocks/C/c2.png" /></a>  El bloque <code>IF</code> comprueba la condición booleana y ejecuta los bloques de una sola vez si la condición booleana se evalúa como verdadera. El triángulo negro permite la expansión del bloque <code>IF</code> con múltiples condiciones <code>ELSE IF</code> añadidas. En caso de que las ramas <code>IF</code> o <code>ELSE IF</code> anteriores no sean verdaderas, entonces se evalúan y ejecutan sucesivamente cada una de las siguientes <code>ELSE IF</code>.</li>
+</ul>
+<p>En el ejemplo, a la variable <code>aleatorio</code> se le asigna un número al azar entre el 1 y el 10. La operación MOD se utiliza para sondear el estado par/impar del número. Si el resto de la operación num dividido por 2 da como resultado 0, el número es par, en caso contrario es impar.</p>
+<p><center></p>
+<p><a class="glightbox" href="../img/programacion/ublocks/if.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Sentencia IF" src="../img/programacion/ublocks/if.png" /></a></p>
+<p><em>Sentencia <code>IF</code></em></p>
+<p></center></p>
+<p><a href="../ejemplos/if_else.ubp">Descargar el programa</a></p>
+<p>Cada vez que pulsemos en 'Iniciar' se genera un nuevo resultado.</p>
+<ul>
+<li><a class="glightbox" href="../img/programacion/ublocks/C/c3.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="" src="../img/programacion/ublocks/C/c3.png" /></a>  El bloque 'cuando' comprueba repetidamente una condición booleana. Cuando la condición se convierte en verdadera, se ejecutan los bloques bajo el sombrero. Si la condición sigue siendo verdadera al final de la ejecución, entonces los bloques se ejecutarán de nuevo, y ese proceso se repite hasta que la condición se convierte en falsa.</li>
+</ul>
+<p>Nota: El sombrero 'cuando' incluye una espera de 10 milisegundos entre ciclos. Esto es útil para eliminar ruido en las entradas, por ejemplo rebotes en los botones, pero limita el rendimiento a un máximo de 100 iteraciones/segundo.</p>
+<p>Vamos a ver el mismo ejemplo que en el bloque <code>IF</code> pero utilizando este bloque. Los tres bloques del tipo <code>WHEN</code> empiezan a funcionar simultáneamente cuando se pulsa el icono <code>START</code>. El bloque 'por siempre' debajo de 'al empezar' genera un número aleatorio cada segundo. Y de forma simultanea los otros dos bloques evaluan continuamente sus condiciones mostrando el resultado que corresponde a cada uno.</p>
+<p><center></p>
+<p><a class="glightbox" href="../img/programacion/ublocks/B_cuando.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Bloque 'cuando'" src="../img/programacion/ublocks/B_cuando.png" /></a></p>
+<p><em>Bloque 'cuando'</em></p>
+<p></center></p>
+<p><a href="../ejemplos/cuando.ubp">Descargar el programa</a></p>
+<ul>
+<li><a class="glightbox" href="../img/programacion/ublocks/C/c4.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="" src="../img/programacion/ublocks/C/c4.png" /></a>  Este bloque de control pausa la ejecución del programa y espera hasta que la condición booleana especificada se convierta en verdadera. Se puede utilizar para sincronizar bloques de código que se ejecutan en paralelo, basándose en los eventos monitorizados.</li>
+</ul>
+<p>En este ejemplo, el nivel de luz ambiental se controla mediante el sensor de luz integrado. El sensor de luz tiene un rango de 0-255, siendo 0 oscuridad total y 255 claridad máxima. Cuando se inicia el programa, ambos bloques 'cuando se pulse el boton' comienzan a ejecutarse y a comprobar el estado del botón.</p>
+<p>Al pulsar el botón A, se inicia la monitorización de la luz y el programa espera hasta que los sensores de la micro:bit informen de un nivel de luz &lt; 75. Cuando esa condición se cumple, se emite una alerta para avisar de que hay que encender las luces.</p>
+<p>El botón B está programado para detener el proceso de monitorización. Al pulsarlo, detiene la ejecución de esa rama del programa.</p>
+<p><center></p>
+<p><a class="glightbox" href="../img/programacion/ublocks/B_pulsa_bot.gif" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Bloque 'cuando se pulsa el boton'" src="../img/programacion/ublocks/B_pulsa_bot.gif" /></a></p>
+<p><em>Bloque 'cuando se pulsa el boton'</em></p>
+<p></center></p>
+<p><a href="../ejemplos/cuando_pulsa_boton.ubp">Descargar el programa</a></p>
+<p>El bloque 'nivel de luz' se encuentra en la libreria 'Sensores básicos' y el bloque 'deten las otras tareas' se explica un poco mas abajo.</p>
+<ul>
+<li>
+<p><a class="glightbox" href="../img/programacion/ublocks/C/c5.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="" src="../img/programacion/ublocks/C/c5.png" /></a>  El bloque <code>RETURN</code> se utiliza para devolver el valor especificado en su área de entrada. El valor retornado puede ser cualquier tipo de dato. Aunque es posible utilizar el bloque <code>RETURN</code> en cualquier parte de un programa para mostrar un valor, de forma similar al bloque <code>di</code>, su uso correcto y más común es en una función (o bloque personalizado) para devolver un valor como resultado del proceso realizado. Hay que tener en cuenta que los bloques colocados después del bloque <code>RETURN</code> no se ejecutarán.</p>
+</li>
+<li>
+<p><a class="glightbox" href="../img/programacion/ublocks/C/c6.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="" src="../img/programacion/ublocks/C/c6.png" /></a>  Este bloque tipo C es un bucle que se utiliza para ejecutar los bloques colocados dentro de él, hasta que la condición booleana especificada se convierte en verdadera. En ese momento, se ejecutará el siguiente bloque después del bloque en forma de C.</p>
+</li>
+</ul>
+<p>En el ejemplo vemos como se monitoriza si se ha pulsado el botón A enviando un mensaje</p>
+<p><center></p>
+<p><a class="glightbox" href="../img/programacion/ublocks/B_repetir.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Bloque 'repetir hasta que'" src="../img/programacion/ublocks/B_repetir.png" /></a></p>
+<p><em>Bloque 'repetir hasta que'</em></p>
+<p></center></p>
+<ul>
+<li><a class="glightbox" href="../img/programacion/ublocks/C/c7.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="" src="../img/programacion/ublocks/C/c7.png" /></a>  Este bloque, y su par relacionado <a class="glightbox" href="../img/actividades/A03/C/c8.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="" src="../img/actividades/A03/C/c8.png" /></a>, se utilizan para controlar el hilo de ejecución del programa. Este bloque detiene la ejecución de todos los bloques de los que forma parte, o que están bajo el mismo bloque sombrero. Una vez ejecutado este bloque en un grupo de bloques, no se ejecutará nada más en ese grupo.</li>
+</ul>
+<p>En el ejemplo, el grupo de bloques de la derecha está en un bucle continuo que cuenta hacia atrás y decrementa su variable local <code>numero</code>. El grupo de bloques de la izquierda también está en un bucle continuo, contando hacia abajo y decrementando su variable local <code>numero</code>. Cuando la cuenta atrás alcanza el valor 7 se cumple la condición del <code>else if</code> y se detiene la cuenta del bloque derecho, mientras que la secuencia del bloque izquierdo continua su ejecución hasta que se cumpla la condición del <code>if</code> que será cuando se alcance el número 2, momento en que se detiene esta tarea.</p>
+<p>Podemos comprobar como el último bloque <code>di</code> de la secuencia de la izquierda <strong>NUNCA</strong> se ejecuta porque una vez que el bloque 'deten esta tarea' se ejecuta, todas las actividades de este bloque izquierdo terminan.</p>
+<p><center></p>
+<p><a class="glightbox" href="../img/programacion/ublocks/B_deten_tar.gif" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Bloques 'deten esta tarea' y 'deten las otras tareas'" src="../img/programacion/ublocks/B_deten_tar.gif" /></a></p>
+<p><em>Bloques 'deten esta tarea' y 'deten las otras tareas'</em></p>
+<p></center></p>
+<p>Podemos observar como desaparece el marco verde de cada bloque cuando su tarea finaliza indicando precisamente eso, que el bloque no se está ejecutando.</p>
+<p><a href="../ejemplos/deten_tareas.ubp">Descargar el programa</a></p>
+<h2 id="bloques-de-entrada-para-los-botones"><FONT COLOR=#007575><strong>Bloques de 'Entrada' para los botones</strong></font><a class="headerlink" href="#bloques-de-entrada-para-los-botones" title="Permanent link">&para;</a></h2>
+<ul>
+<li><a class="glightbox" href="../img/programacion/ublocks/B/b1.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="" src="../img/programacion/ublocks/B/b1.png" /></a> y <a class="glightbox" href="../img/actividades/A03/B/b2.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="" src="../img/actividades/A03/B/b2.png" /></a>  Devuelve el estado del botón A o B. <code>true</code> = pulsado y <code>false</code> = no pulsado.</li>
+<li><a class="glightbox" href="../img/programacion/ublocks/B/b3.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="" src="../img/programacion/ublocks/B/b3.png" /></a> equivalente al bloque <a class="glightbox" href="../img/actividades/A03/B/b4.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="" src="../img/actividades/A03/B/b4.png" /></a> cuando lo configuramos con el pin 26, que es el correspondiente al logotipo <a class="glightbox" href="../img/actividades/A03/B/b5.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="" src="../img/actividades/A03/B/b5.png" /></a>.  Devuelve el estado del logo. <code>true</code> si lo tocamos (equivale a pulsador A o B pulsado) y <code>false</code> cuando no lo tocamos. Estos bloques están disponibles dentro la 'Libreria' 'Sensores[ ]' y aparece como 'Touch (microbit)'. El bloque para configurar el número de pin tiene su sentido en la existencia de sensores táctiles en el borde de placa, como veremos mas adelante.</li>
+</ul>
+<p>En el ejemplo vemos como chequear el estado de los botones mediante la sentencia <code>IF</code>.</p>
+<p><center></p>
+<p><a class="glightbox" href="../img/programacion/ublocks/B_che_bot.gif" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Bloques para chequear el estado de los botones" src="../img/programacion/ublocks/B_che_bot.gif" /></a></p>
+<p><em>Bloques para chequear el estado de los botones</em></p>
+<p></center></p>
+<p><a href="../ejemplos/chequeo_botones.ubp">Descargar el programa</a></p>
+<h2 id="graficado-de-datos"><FONT COLOR=#007575><strong>Graficado de datos</strong></font><a class="headerlink" href="#graficado-de-datos" title="Permanent link">&para;</a></h2>
+<p>En MicroBlocks es relativamente sencillo trabajar los datos de forma gráfica y para ello disponemos de un bloque para indicar el dato que queremos ver de manera gráfica y un icono en el menú que abre la ventana flotante 'Gráfico de datos'.</p>
+<p><center></p>
+<p><a class="glightbox" href="../img/programacion/ublocks/graph/bloque_grafico.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Bloque e icono para mostrar 'Gráfico de datos'" src="../img/programacion/ublocks/graph/bloque_grafico.png" /></a><br />
+<em>Bloque e icono para mostrar 'Gráfico de datos'</em></p>
+<p></center></p>
+<p><a name="item0"></a></p>
+<p><a href="#item1">Bloque</a>
+<br> <a href="#item2">Panel gráfico</a></br><br>
+<a href="#item3">Opciones del panel gráfico</a></br></p>
+<p><a name="item1"></a></p>
+<p><FONT COLOR=#AA0000>Bloque</font></p>
+<p>Está disponible en el menú 'Salida'.</p>
+<ul>
+<li><a class="glightbox" href="../img/programacion/ublocks/graph/bloque.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="" src="../img/programacion/ublocks/graph/bloque.png" /></a>. Graficará el valor introducido, en el panel de visualización de gráficos de datos. Se puede graficar cualquier tipo de dato: números, valores de pines digitales y analógicos, salidas de sensores, etc. Si tenemos que representar gráficamente más de un dato, hacemos clic en el triángulo negro para mostrar campos de datos adicionales. Se pueden graficar hasta seis valores simultáneos con diferentes colores.</li>
+</ul>
+<p>La representación gráfica sólo es posible en el IDE. Por lo tanto, sólo es posible realizar gráficos mientras el microdispositivo está conectado al ordenador. Si intentamos realizar un gráfico mientras no está conectado al ordenador, aparecerá el mensaje "Placa no conectada".</p>
+<p><a href="#item0">Volver</a>
+<a name="item2"></a></p>
+<p><FONT COLOR=#AA0000>Panel gráfico</font></p>
+<p>Se activa desde el icono y tiene el siguiente aspecto:</p>
+<p><center></p>
+<p><a class="glightbox" href="../img/programacion/ublocks/graph/panel.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Panel 'Gráfico de datos'" src="../img/programacion/ublocks/graph/panel.png" /></a><br />
+<em>Panel 'Gráfico de datos'</em></p>
+<p></center></p>
+<p>El panel <strong>Gráficos de datos</strong> muestra los valores utilizados con el bloque de gráficos. El eje y del panel puede escalarse utilizando los controles de zoom del propio panel, y el eje x se desplazará lateralmente a medida que se grafiquen más datos.</p>
+<p>La ventana de visualización del gráfico se puede redimensionar con el control situado en la esquina inferior derecha y puede colocarse en cualquier lugar de la ventana del IDE.</p>
+<p>Tras el registro de cualquier dato, la ventana de visualización de gráficos puede cerrarse y abrirse, si es necesario, sin que se pierda ningún dato ni la imagen visualizada, aunque si pierde la reconfiguración realizada en la misma, como la posición del cero, el tamaño, etc. Además, es posible desconectar y volver a conectar el dispositivo en uso, sin perder los datos del gráfico.</p>
+<p>En la animación vemos como funciona lo indicado. El escalado con la lupa del menos amplia el rango de valores del eje y, con la lupa del mas lo disminuye y la lupa del igual restaura la situación inicial tras el redimensionado de la ventana.</p>
+<p><center></p>
+<p><a class="glightbox" href="../img/programacion/ublocks/graph/func_panel.gif" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Funcionamiento de 'Gráfico de datos'" src="../img/programacion/ublocks/graph/func_panel.gif" /></a><br />
+<em>Funcionamiento de 'Gráfico de datos'</em></p>
+<p></center></p>
+<p><a href="#item0">Volver</a>
+<a name="item3"></a></p>
+<p><FONT COLOR=#AA0000>Opciones del panel gráfico</font></p>
+<p>Se accede haciendo clic con el botón derecho del ratón en cualquier zona del panel. Si tenemos el cursor del ratón sobre la zona de las lupas no funcionará.</p>
+<p><center></p>
+<p><a class="glightbox" href="../img/programacion/ublocks/graph/opciones_panel.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Opciones de 'Gráfico de datos'" src="../img/programacion/ublocks/graph/opciones_panel.png" /></a><br />
+<em>Opciones de 'Gráfico de datos'</em></p>
+<p></center></p>
+<p>El menú de opciones del gráfico permite controlar la visualización de los ejes, así como la importación/exportación de datos y el ajuste de la frecuencia de muestreo de datos.</p>
+<ul>
+<li><strong>limpiar gráfico</strong>. Borra cualquier gráfico de la ventana de visualización de datos.</li>
+<li><strong>cero abajo</strong>. Sitúa el punto de origen del eje y en la parte inferior del área de visualización del gráfico.</li>
+<li><strong>exportar datos a archivo CSV</strong>. Permite guardar los datos del gráfico en formato CSV. Se exportan los últimos diez mil (10000) valores.</li>
+<li><strong>importar datos desde archivo CSV</strong>. Permite cargar datos CSV desde el ordenador en el que se está ejecutando MicroBlocks. Los datos importados se grafican y se muestran en el 'Gráfico de datos'. Es posible importar 10000 valores. Si tenemos mas de un dato para graficar, estos no se exportan individualmente sino todos juntos eparados por comas.</li>
+<li><strong>copiar datos del gráfico al portapapeles</strong>. Se trata de una función avanzada que permite copiar en el portapapeles los últimos 10000 valores utilizados con el bloque gráfico.</li>
+<li><strong>ajustar latencia del puerto serie</strong>. Se trata de otro función avanzada que permite establecer la frecuencia de muestreo de datos o latencia entre 1 y 20ms. Los números más bajos dan como resultado frecuencias de muestreo más altas.</li>
+</ul>
+<p>Los archivos CSV (del inglés comma-separated values) son un tipo de documento no estandarizado que tiene la idea básica de separar los campos de datos por una coma, de ahí su nombre <a href="https://es.wikipedia.org/wiki/Valores_separados_por_comas">Valores separados por comas</a></p>
+<p>Vamos a ver un ejemplo de uso en el que se muestran de forma gráfica una serie de números aleatorio entre 1 y 100. El programa y el gráfico son:</p>
+<p><center></p>
+<p><a class="glightbox" href="../img/programacion/ublocks/graph/ejemplo.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Ejemplo de 'Gráfico de datos'" src="../img/programacion/ublocks/graph/ejemplo.png" /></a><br />
+<em>Ejemplo de 'Gráfico de datos'</em></p>
+<p></center></p>
+<p><a href="../ejemplos/grafico_aleatorios.ubp">Descargar el programa</a></p>
+<h2 id="pines"><FONT COLOR=#007575><strong>Pines</strong></font><a class="headerlink" href="#pines" title="Permanent link">&para;</a></h2>
+<p>En el menú 'Pines' disponemos de seis bloques que vamos a describir a continuación.</p>
+<ul>
+<li><a class="glightbox" href="../img/programacion/ublocks/pines//p/p1.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="" src="../img/programacion/ublocks/pines//p/p1.png" /></a>. Devuelve el valor (verdadero o falso) del pin digital indicado. Podemos acceder a la configuración pullup 'true/false' haciendo clic en el triángulo negro del extremo derecho, que se expande a <a class="glightbox" href="../img/programacion/ublocks/pines//p/p1a.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="" src="../img/programacion/ublocks/pines//p/p1a.png" /></a> sin pullup o bien <a class="glightbox" href="../img/programacion/ublocks/pines//p/p1b.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="" src="../img/programacion/ublocks/pines//p/p1b.png" /></a> con pullup. La configuración pullup a <code>true</code> fuerza la señal alta en caso de fluctuaciones de tensión en el pin.</li>
+</ul>
+<p>Vamos a ver un ejemplo de uso del bloque. El pin digital P0 lo leemos continuamente y los resultados se muestran y grafican mientras se va mostrando si el pin está en estado cero (false) o uno (true). El pullup está activado por lo que el estado normal de la línea es true o alto. El programa es:</p>
+<p><center></p>
+<p><a class="glightbox" href="../img/programacion/ublocks/pines/pines1.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Ejemplo de uso del bloque 'lectura digital'" src="../img/programacion/ublocks/pines/pines1.png" /></a><br />
+<em>Ejemplo de uso del bloque 'lectura digital'</em></p>
+<p></center></p>
+<p><a href="../ejemplos/func_B_lect_digit.ubp">Descargar el programa</a></p>
+<p>En la animación vemos el programa en funcionamiento y podemos observar los cambios de estado tanto en modo texto como en modo gráfico.</p>
+<p><center></p>
+<p><a class="glightbox" href="../img/programacion/ublocks/pines/func_B_lect_digit.gif" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Ejemplo de uso del bloque 'lectura digital'" src="../img/programacion/ublocks/pines/func_B_lect_digit.gif" /></a><br />
+<em>Ejemplo de uso del bloque 'lectura digital'</em></p>
+<p></center></p>
+<ul>
+<li><a class="glightbox" href="../img/programacion/ublocks/pines//p/p2.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="" src="../img/programacion/ublocks/pines//p/p2.png" /></a>. Devuelve el valor (0 - 1023) del pin analógico indicado. Devuelve el valor del pin analógico especificado como un número en el rango 0-1023. Se puede acceder a la configuración pullup true/false haciendo clic en el triángulo negro del extremo derecho. El ajuste pullup fuerza la señal a alto en caso de fluctuaciones de voltaje en el pin.</li>
+</ul>
+<p>Reutilizamos el ejemplo anterior cambiando el bloque por el de lectura analógica. El pin analógico 0 se lee continuamente y los resultados se muestran y se representan gráficamente. El pin 0 no está conectado a nada durante la prueba actuando como antena de la entrada analógica. El Pullup NO está habilitado, lo que significa que el estado de la señal de la línea fluctúa constantemente.</p>
+<p><center></p>
+<p><a class="glightbox" href="../img/programacion/ublocks/pines/pines2.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Ejemplo de uso del bloque 'lectura analógica'" src="../img/programacion/ublocks/pines/pines2.png" /></a><br />
+<em>Ejemplo de uso del bloque 'lectura analógica'</em></p>
+<p></center></p>
+<p><a href="../ejemplos/func_B_lect_analog.ubp">Descargar el programa</a></p>
+<p>En la animación vemos el programa en funcionamiento y podemos observar los cambios de estado tanto en modo texto como en modo gráfico.</p>
+<p><center></p>
+<p><a class="glightbox" href="../img/programacion/ublocks/pines/func_B_lect_analog.gif" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Ejemplo de uso del bloque 'lectura analógica'" src="../img/programacion/ublocks/pines/func_B_lect_analog.gif" /></a><br />
+<em>Ejemplo de uso del bloque 'lectura analógica'</em></p>
+<p></center></p>
+<ul>
+<li><a class="glightbox" href="../img/programacion/ublocks/pines//p/p3.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="" src="../img/programacion/ublocks/pines//p/p3.png" /></a>. Establece el valor (verdadero o falso) del pin digital indicado. Establece el estado del pin digital especificado como verdadero o falso. En un dispositivo de 3.3V, un valor alto pondrá 3.3V, y un valor bajo pondrá 0V en el pin.</li>
+</ul>
+<p>Se programan dos bucles, uno que se repite cinco veces para cambiar P0 entre 0 y 1 y el otro que se repite indefinidamente leyendo el estado del pin 1 y se representa graficamente. La lectura se hace en P1 porque se hacemos la lectura en P0 mientras está cambiando, podría afectar a su estado. El circuito a montar es simplemente conectar con un cable P0 y P1.</p>
+<p><center></p>
+<p><a class="glightbox" href="../img/programacion/ublocks/pines/pines3.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Circuito para probar 'pon pin digital'" src="../img/programacion/ublocks/pines/pines3.png" /></a><br />
+<em>Circuito para probar 'pon pin digital'</em></p>
+<p></center></p>
+<p>El programa es el siguiente:</p>
+<p><center></p>
+<p><a class="glightbox" href="../img/programacion/ublocks/pines/pines4.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Ejemplo de uso del bloque 'pon pin digital'" src="../img/programacion/ublocks/pines/pines4.png" /></a><br />
+<em>Ejemplo de uso del bloque 'pon pin digital'</em></p>
+<p></center></p>
+<p><a href="../ejemplos/func_B_pon_pin.ubp">Descargar el programa</a></p>
+<p>En la animación vemos el programa en funcionamiento y podemos observar los cambios de estado tanto en modo texto como en modo gráfico.</p>
+<p><center></p>
+<p><a class="glightbox" href="../img/programacion/ublocks/pines/func_B_pon_pin.gif" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Ejemplo de uso del bloque 'lectura analógica'" src="../img/programacion/ublocks/pines/func_B_pon_pin.gif" /></a><br />
+<em>Ejemplo de uso del bloque 'lectura analógica'</em></p>
+<p></center></p>
+<ul>
+<li><a class="glightbox" href="../img/programacion/ublocks/pines//p/p4.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="" src="../img/programacion/ublocks/pines//p/p4.png" /></a>. Establece el valor (0 - 1023) del pin analógico indicado. Genera PWM en el pin indicado con valores de 0 a 1023. El PWM funciona encendiendo y apagando el pin rápidamente. La potencia se controla variando el ciclo de trabajo o duty cycle, que es el porcentaje de tiempo durante cada ciclo que el pin está en alto. Un valor de 0 significa que el pin está apagado, mientras que un valor de 1023 significa que está a plena potencia (es decir, el pin está encendido el 100% del tiempo). Un valor de 512 da como resultado un ciclo de trabajo del 50%; que indica que el pin está encendido la mitad del tiempo y apagado la otra mitad.</li>
+</ul>
+<p>Cuando veamos algún dispositivo analógico será el momento de ver algún ejemplo de uso de este bloque. Por ahora podemos ver este <a href="https://wiki.microblocks.fun/reference_manual/pins/microbit_pwmloop.mp4">video</a> de la documentación oficial en el que se aprecia como se controla con PWM la velocidad de giro de un ventilador a partir de las variaciones que hagamos en un potenciómetro.</p>
+<ul>
+<li><a class="glightbox" href="../img/programacion/ublocks/pines//p/p5.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="" src="../img/programacion/ublocks/pines//p/p5.png" /></a>. Devuelve el número total de pines analógicos soportados por el dispositivo.</li>
+<li><a class="glightbox" href="../img/programacion/ublocks/pines//p/p6.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="" src="../img/programacion/ublocks/pines//p/p6.png" /></a>. Devuelve el número total de pines digitales soportados por el dispositivo.</li>
+</ul>
+<p>El programa siguiente muestra el tipo de dispositivo conectado y el tipo y número de pines de que dispone.</p>
+<p><center></p>
+<p><a class="glightbox" href="../img/programacion/ublocks/pines/pines_A_D.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Ejemplo de uso de los bloques 'pines analógicos y pines digitales'" src="../img/programacion/ublocks/pines/pines_A_D.png" /></a><br />
+<em>Ejemplo de uso de los bloques 'pines analógicos y pines digitales'</em></p>
+<p></center></p>
+<h2 id="libreria-neopixeles"><FONT COLOR=#007575><strong>Libreria NeoPixeles</strong></font><a class="headerlink" href="#libreria-neopixeles" title="Permanent link">&para;</a></h2>
+<p>Los NeoPixels son pequeños módulos LED que combinan LEDs rojos, verdes y azules montados en un solo encapsulado con un chip controlador. Los NeoPixels pueden ser controlados individualmente por una sola línea de datos desde un dispositivo microcontrolado para crear diferentes colores y patrones. Un solo pin del microcontrolador puede controlar docenas (o incluso cientos) de NeoPixels. Los NeoPixels se encuentran en muchas configuraciones diferentes, como son anillos, barras, matrices y tiras flexibles.</p>
+<ul>
+<li><a class="glightbox" href="../img/programacion/ublocks/NeoP//bNeo/b1.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="" src="../img/programacion/ublocks/NeoP//bNeo/b1.png" /></a>. Configura el pin de conexión de los Neopixels. Este bloque configura un dispositivo NeoPixel especificando cuántos LEDs hay en el dispositivo y qué pin se utilizará para controlarlos. El bloque debe ejecutarse antes de hacer nada con cualquiera de los otros bloques NeoPixel.</li>
+</ul>
+<p>El bloque se expande a <a class="glightbox" href="../img/programacion/ublocks/NeoP//bNeo/b2.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="" src="../img/programacion/ublocks/NeoP//bNeo/b2.png" /></a> para el trabajo con Neopixels blancos.</p>
+<ul>
+<li><a class="glightbox" href="../img/programacion/ublocks/NeoP//bNeo/b3.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="" src="../img/programacion/ublocks/NeoP//bNeo/b3.png" /></a>. Establece los colores de los diez primeros NeoPixels. Es especialmente útil cuando se utiliza con placas o tiras con este número de LEDs. La secuencia de numeración (1-10) es de izquierda a derecha y de arriba a abajo. La configuración del color se hace desde la paleta que se muestra sin poder establecer mayor precisión. La paleta muestra los valores RGB en decimal.</li>
+</ul>
+<p><center></p>
+<p><a class="glightbox" href="../img/programacion/ublocks/NeoP//bNeo/b4.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="" src="../img/programacion/ublocks/NeoP//bNeo/b4.png" /></a></p>
+<p></center></p>
+<ul>
+<li><a class="glightbox" href="../img/programacion/ublocks/NeoP//bNeo/b5.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="" src="../img/programacion/ublocks/NeoP//bNeo/b5.png" /></a>. Apaga todos los LEDs. Los pone a color negro.</li>
+<li><a class="glightbox" href="../img/programacion/ublocks/NeoP//bNeo/b6.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="" src="../img/programacion/ublocks/NeoP//bNeo/b6.png" /></a>. Pone todos los LEDs con el color indicado.</li>
+<li><a class="glightbox" href="../img/programacion/ublocks/NeoP//bNeo/b7.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="" src="../img/programacion/ublocks/NeoP//bNeo/b7.png" /></a>. Pone el número de LED especificado del color indicado. Los LEDs se numeran secuencialmente comenzando por uno.</li>
+<li><a class="glightbox" href="../img/programacion/ublocks/NeoP//bNeo/b8.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="" src="../img/programacion/ublocks/NeoP//bNeo/b8.png" /></a>. Desplaza la secuencia de colores NeoPixel el número de NeoPixels indicado. Los colores al final de la secuencia se desplazan y se insertan al principio de la secuencia. Si los NeoPixels forman un círculo, los colores giran alrededor del círculo. El argumento determina el número de posiciones que se desplazan los colores. Un valor negativo hará que los NeoPixels roten en la dirección opuesta.</li>
+<li><a class="glightbox" href="../img/programacion/ublocks/NeoP//bNeo/b9.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="" src="../img/programacion/ublocks/NeoP//bNeo/b9.png" /></a>. Devuelve un color definido especificando los valores de rojo (R), verde (G) y azul (B) entre 0 y255. El bloque puede utilizarse en cualquier bloque que reciba una entrada de color. Los valores inferiores a 40 pueden provocar que el LED no se encienda nada.</li>
+<li><a class="glightbox" href="../img/programacion/ublocks/NeoP//bNeo/b10.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="" src="../img/programacion/ublocks/NeoP//bNeo/b10.png" /></a>. Devuelve un color aleatorio. El bloque puede utilizarse en cualquier bloque que reciba una entrada de color.</li>
+</ul>
+<h2 id="sonidos"><FONT COLOR=#007575><strong>Sonidos</strong></font><a class="headerlink" href="#sonidos" title="Permanent link">&para;</a></h2>
+<p><a name="item0Ton"></a></p>
+<p><a href="#item1Ton">Tonos</a>
+<br> <a href="#item2Ton">Politonos</a></br></p>
+<p>En MicroBlocks tenemos tres opciones de reproducción de sonidos o música, un conjunto de librerías englobadas bajo el seudónimo "Sonido", una librería de "Politonos" y otra librería de "Tonos". En "Sonido" nos encontraremos bloques "MultiTone", opciones para reproducir mp3 o WAV, radio AM, etc. No veremos estas librerías por el momento y nos centraremos en "Tonos" y "Politonos".</p>
+<p><a href="#item0Ton">Volver</a>
+<a name="item1Ton"></a></p>
+<p><FONT COLOR=#AA0000>Tonos</font></p>
+<p>Añadimos la libreria "<strong>Tonos</strong>" a nuestro entorno y nos encontramos con los siguientes bloques:</p>
+<ul>
+<li><a class="glightbox" href="../img/programacion/ublocks/sonido/Btonos/Btonos1.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="" src="../img/programacion/ublocks/sonido/Btonos/Btonos1.png" /></a>. Reproduce la nota y la octava y por el tiempo indicados.</li>
+<li><a class="glightbox" href="../img/programacion/ublocks/sonido/Btonos/Btonos2.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="" src="../img/programacion/ublocks/sonido/Btonos/Btonos2.png" /></a>. Reproduce la nota indicada por el número de tecla en el teclado del piano (0-127) donde el Do central es 60. Este bloque es útil cuando se realizan transformaciones matemáticas de la música. MIDI es la abreviatura de "Musical Instrument Digital Interface", que se traduce como "Interfaz digital de instrumentos musicales", y es un estándar de la industria para controlar sintetizadores, cajas de ritmos y otros dispositivos musicales electrónicos.</li>
+<li><a class="glightbox" href="../img/programacion/ublocks/sonido/Btonos/Btonos3.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="" src="../img/programacion/ublocks/sonido/Btonos/Btonos3.png" /></a>. Reproduce la nota especificada en Hertz (Hz) durante el tiempo indicado.</li>
+<li><a class="glightbox" href="../img/programacion/ublocks/sonido/Btonos/Btonos4.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="" src="../img/programacion/ublocks/sonido/Btonos/Btonos4.png" /></a>. Reproduce el tono indicado en Hz.</li>
+<li><a class="glightbox" href="../img/programacion/ublocks/sonido/Btonos/Btonos5.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="" src="../img/programacion/ublocks/sonido/Btonos/Btonos5.png" /></a>. Detiene la reproducción del tono actual.</li>
+<li><a class="glightbox" href="../img/programacion/ublocks/sonido/Btonos/Btonos6.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="" src="../img/programacion/ublocks/sonido/Btonos/Btonos6.png" /></a>. Especifica el pin al que está conectado un zumbador piezoeléctrico o unos auriculares. En placas con altavoces integrados, se utilizará el altavoz integrado si se omite este bloque.</li>
+</ul>
+<p><a href="#item0Ton">Volver</a>
+<a name="item2Ton"></a></p>
+<p><FONT COLOR=#AA0000>Politonos</font></p>
+<p>El formato <a href="https://en.wikipedia.org/wiki/Ring_Tone_Text_Transfer_Language">RTTTL</a> (del inglés, Ring Tone Text Transfer Language) fue desarrollado por Nokia para codificar tonos de llamada a teléfonos móviles. El formato RTTTL es una cadena dividida en tres secciones: encabezado (nombre o título), valor predeterminado y datos. Por ejemplo, la siguiente cadena de texto se corresponde con la Intro de Donkey Kong:</p>
+<p><em>d=4,o=5,b=140:8a#,8p,8d6,16p,16f.6,16g.6,16f.6,8a#,8p,8d6,16p,16f.6,16g.6,<br>16f.6,8a#,8p,8d6,16p,16f.6,16g.6,16f.6,8a#,8p,8d6,16p,16f.6,16g.6,16f.6</em></br></p>
+<p>Añadimos la libreria "<strong>Politonos</strong>" a nuestro entorno y nos encontramos con los siguientes bloques:</p>
+<ul>
+<li><a class="glightbox" href="../img/programacion/ublocks/sonido/BPoli/BPolitonos1.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="" src="../img/programacion/ublocks/sonido/BPoli/BPolitonos1.png" /></a>. Reproduzca la cadena de tono de llamada indicada.</li>
+<li><a class="glightbox" href="../img/programacion/ublocks/sonido/BPoli/BPolitonos2.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="" src="../img/programacion/ublocks/sonido/BPoli/BPolitonos2.png" /></a>. Devuelve el nombre del tono de llamada que se está reproduciendo actualmente.</li>
+</ul>
+<p>Para reproducir una melodia simplemente la copiamos en el bloque <code>toca el politono</code>.</p>
+<p>Existen páginas de donde se pueden descargar tonos, o incluso podemos hacerlo nosotros mismos. A continuación ponemos algunos enlaces:</p>
+<ul>
+<li><a href="https://picaxe.com/rtttl-ringtones-for-tune-command/">RTTTL Ringtone Downloads</a> de Picaxe.</li>
+<li>Colecciones de <a href="http://arcadetones.emuunlim.com/">ArcadeTones</a> clasificados por temas.</li>
+<li>Archivo <a href="http://microblocks.fun/mbtest/NokringTunes.txt">NokringTunes.txt</a> que contiene más de once mil melodías en formato Nokring. </li>
+</ul>
+<p>Una vez descargado lo abrimos y buscamos la melodia para copiar y pegar en el bloque.</p>
+<h2 id="mis-bloques-ampliacion-de-sonidos"><FONT COLOR=#007575><strong>Mis bloques. Ampliación de sonidos</strong></font><a class="headerlink" href="#mis-bloques-ampliacion-de-sonidos" title="Permanent link">&para;</a></h2>
+<p><a name="item0mis"></a></p>
+<p><a href="#item1mis">Mis bloques</a>
+<br> <a href="#item2mis">Ampliación de sonidos</a></br></p>
+<p>Aprenderemos a crear nuestros propios bloques (funciones) y ampliaremos el tema de sonidos para ver los que están definidos en el propio programa, algunos de los cuales utilizan la definición de bloques.</p>
+<p><a href="#item0mis">Volver</a>
+<a name="item1mis"></a></p>
+<p><FONT COLOR=#BB00FF><font size="5"><b>Mis bloques</font color></font size></b></p>
+<p>Vamos a ver como trabajar con esta interesante funcionalidad. Acceder a ellos es sencillo ya que están en el menú de la aplicación. Basta con hacer clic en el apartado de color azul claro y veremos los dos bloques disponibles. Haciendo clic en cualquiera de ellos se nos abre una pequeña ventana emergente para ponerle un nombre, que por defecto es MyBlock.</p>
+<p><center></p>
+<p><a class="glightbox" href="../img/programacion/ublocks/mis_b/mis1.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Mis bloques" src="../img/programacion/ublocks/mis_b/mis1.png" /></a><br />
+<em>Mis bloques</em></p>
+<p></center></p>
+<p>Observamos que se pueden crear dos tipos de bloques:</p>
+<ul>
+<li>de comando. <a class="glightbox" href="../img/programacion/ublocks/mis_b/b1.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="" src="../img/programacion/ublocks/mis_b/b1.png" /></a>. Este bloque es en realidad un botón y al hacer clic sobre el mismo se inicia el proceso de creación de un bloque personalizado (función).</li>
+<li>reportador. <a class="glightbox" href="../img/programacion/ublocks/mis_b/b2.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="" src="../img/programacion/ublocks/mis_b/b2.png" /></a>. Este bloque también es un botón. Inicia el proceso de creación de un bloque personalizado (función) que puede devolver un resultado. Junto con este bloque se suelen utilizar los bloques del menú "Control" que veremos mas abajo.</li>
+</ul>
+<p><font size="5"><FONT COLOR=#0000FF><b><u>Descripción</u></b></font color></font size></p>
+<p>La principal diferencia entre el segundo y el primer bloque es que la definición del bloque personalizado que se cree en el segundo podrá devolver un valor mediante el bloque RETURN.</p>
+<p>Esta capacidad única permitirá que el bloque personalizado se utilice en cualquier bloque en el que se espere un parámetro de entrada, y pasará el valor que informe a esa operación.</p>
+<hr width=100%  size=10 noshade="noshade">
+<p>En cuanto al uso del bloque RETURN:</p>
+<p>Cualquier bloque colocado después de él no será ejecutado.</p>
+<p>Pueden existir múltiples bloques RETURN, manejando diferentes condiciones y devolviendo sus valores respectivos.</p>
+<hr width=100%  size=10 noshade="noshade">
+
+<p>La creación de un bloque personalizado es un proceso detallado con los siguientes pasos y opciones:</p>
+<ul>
+<li>Asignación de un nombre de bloque personalizado</li>
+<li>Añadir parámetros y sus etiquetas</li>
+<li>Modificación de los tipos de parámetros</li>
+<li>Asignación de valores por defecto a los parámetros</li>
+<li>Valores de color</li>
+</ul>
+<p>Los dos bloques citados de "Control" son los siguientes, que aunque de apariencia son idénticos, en realidad hay diferencias.</p>
+<ul>
+<li><a class="glightbox" href="../img/programacion/ublocks/mis_b/b3.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="" src="../img/programacion/ublocks/mis_b/b3.png" /></a>.  Llama al bloque personalizado que se seleccione de la lista 'function name'. La lista de parámetros es opcional.</li>
+<li><a class="glightbox" href="../img/programacion/ublocks/mis_b/b4.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="" src="../img/programacion/ublocks/mis_b/b4.png" /></a>.  Devuelve el resultado de la llamada del bloque personalizado que se seleccione de la lista 'function name'. La lista de parámetros es opcional.</li>
+</ul>
+<p><font size="5"><FONT COLOR=#0000FF><b><u>Operaciones comunes</u></b></font color></font size></p>
+<p>Antes de examinar el proceso de creación de un nuevo bloque personalizado, repasemos algunas de las operaciones habituales disponibles al trabajar con una cabecera de bloque personalizada:</p>
+<ul>
+<li><strong>MODO DE EDICIÓN</strong></li>
+</ul>
+<p>Cuando se hace clic en la parte púrpura del bloque con sombrero "define" o en la parte azul claro del bloque personalizado con el nombre del bloque, se entra en modo edición. Este modo puede identificarse por el cambio de aspecto de los parámetros de la cabecera, así como por la aparición de los triángulos negros. En la animación siguiente vemos como crear, activar y desactivar la edición y como añadir y eliminar casillas o etiquetas en un bloque.</p>
+<p><center></p>
+<p><a class="glightbox" href="../img/programacion/ublocks/mis_b/mis2.gif" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Crear un bloque" src="../img/programacion/ublocks/mis_b/mis2.gif" /></a><br />
+<em>Crear un bloque</em></p>
+<p></center></p>
+<p>Cada parámetro añadido debe tener un nombre diferente que MicroBlocks asigna de manera automática pero que podemos cambiar según nuestros intereses simplemente haciendo clic sobre el bloque del nombre.</p>
+<p><center></p>
+<p><a class="glightbox" href="../img/programacion/ublocks/mis_b/mis3.gif" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Cambios de nombre de parámetros y edición de un bloque" src="../img/programacion/ublocks/mis_b/mis3.gif" /></a><br />
+<em>Cambios de nombre de parámetros y edición de un bloque</em></p>
+<p></center></p>
+<p>El triángulo negro de la derecha sirve para añadir parámetros y etiquetas, mientras que el de la izquierda sirve para borrarlos. Al hacer clic en el mismo, se eliminará el elemento situado más a la derecha (ya sea un parámetro o una etiqueta).</p>
+<p>Si hay que borrar una etiqueta situada en el centro de la cabecera del bloque, basta con hacer doble clic para seleccionarla, dejarla vacia, y pulsar la tecla Supr.</p>
+<ul>
+<li><strong>RENOMBRAR PARÁMETROS Y ETIQUETAS</strong></li>
+</ul>
+<p>Para cambiar el nombre de una etiqueta de un bloque personalizado o de cualquier etiqueta de la cabecera, basta con hacer doble clic para seleccionarla y, a continuación, escribir un nuevo nombre. Dado que el nombre del bloque y las etiquetas son sólo campos de texto, es posible crear nombres con varias palabras separadas por espacios o caracteres de subrayado.</p>
+<p>Si se utilizan espacios al crear el nombre de la etiqueta, el nombre de la etiqueta resultante se tratará como etiquetas sucesivas separadas. Aunque aparezcan una tras otra y se perciban como un nombre continuo, en realidad son etiquetas de texto individuales. Esto sólo es importante si va a editarlas posteriormente.</p>
+<p>Si se utilizan caracteres de subrayado al crear el nombre de la etiqueta, el nombre de la etiqueta resultante se tratará como una sola etiqueta.</p>
+<p>Por lo tanto, dependiendo de cuáles sean nuestras intenciones, puede que encontremos un método u otro más adecuado a nuestras necesidades.</p>
+<p>Para cambiar el nombre de un parámetro, hacemos clic en el área ovalada marrón del parámetro y escribimos un nuevo nombre en la ventana de edición.</p>
+<ul>
+<li><strong>MOSTRAR EL CONTENIDO DE UN BLOQUE PERSONALIZADO</strong></li>
+</ul>
+<p>Una vez creado un bloque personalizado y cerrada su cabecera y definición, este aparecerá automáticamente en el área de bloques de la categoría Mis bloques. Como el bloque recién creado reside en el área Mis bloques, se verá como el formato de control o bloque informador de su definición. Para ver realmente los bloques que componen la definición del bloque personalizado, debemos hacer clic derecho en el bloque y seleccionar "mostrar definición de bloque" en el menú.</p>
+<p><center></p>
+<p><a class="glightbox" href="../img/programacion/ublocks/mis_b/mis4.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Mostrar la definición de un bloque" src="../img/programacion/ublocks/mis_b/mis4.png" /></a><br />
+<em>Mostrar la definición de un bloque</em></p>
+<p></center></p>
+<p>Al seleccionar esta opción, la definición del bloque personalizado aparecerá en el Área de trabajo, como apreciamos en la siguiente animación.</p>
+<p><center></p>
+<p><a class="glightbox" href="../img/programacion/ublocks/mis_b/mis5.gif" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Mostrar la definición de un bloque" src="../img/programacion/ublocks/mis_b/mis5.gif" /></a><br />
+<em>Mostrar la definición de un bloque</em></p>
+<p></center></p>
+<p>Si queremos borrar la definición de un bloque de la zona de programa basta con que lo arrastremos a la zona de menú, donde observaremos como aparece un ojo tachado en color gris (indicando ocultar) en lugar de la papelera habitual.</p>
+<p>Para elminar completamente la definición del bloque hay que escoger la opción "elimina la definición del bloque"</p>
+<p><font size="5"><FONT COLOR=#0000FF><b><u>Proceso de creación de un bloque personalizado</u></b></font color></font size></p>
+<p><font size="3"><FONT COLOR=#006400><b>Asignar nombre al bloque</b></font color></font size></p>
+<p>Al hacer clic en el botón añadir bloque, se abre un cuadro de diálogo en el que se introduce el nombre del bloque personalizado.</p>
+<p><center></p>
+<p><a class="glightbox" href="../img/programacion/ublocks/mis_b/mis6.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Creación de un bloque personalizado" src="../img/programacion/ublocks/mis_b/mis6.png" /></a><br />
+<em>Creación de un bloque personalizado</em></p>
+<p></center></p>
+<p>Tras pulsar el botón "De acuerdo", se coloca una cabecera de definición de bloque personalizada en el área de programación.</p>
+<p><center></p>
+<p><a class="glightbox" href="../img/programacion/ublocks/mis_b/mis7.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Bloque personalizado recien creado" src="../img/programacion/ublocks/mis_b/mis7.png" /></a><br />
+<em>Bloque personalizado recien creado</em></p>
+<p></center></p>
+<p>Ahora todos los bloques de código que compondrán este bloque personalizado pueden colocarse bajo el bloque de cabecera, y formarán parte de la nueva función programada. Observe también que se ha colocado un nuevo bloque que representa la función personalizada en la ventana de categoría Mis Bloques con el nombre predeterminado de miBloque.</p>
+<p>Aunque no siempre es un requisito, algunas funciones necesitarán parámetros para completar su funcionalidad programada. Éstos actuarán como entradas de la función y podrán ser utilizados por los bloques que componen el código de bloque personalizado.</p>
+<p><font size="3"><FONT COLOR=#006400><b>Modificación de los tipos de parámetros</b></font color></font size></p>
+<p>Cuando se añade un parámetro, MicroBlocks le asigna un nombre por defecto (foo, baz, etc) y un tipo por defecto (número/cadena).</p>
+<p><center></p>
+<p><a class="glightbox" href="../img/programacion/ublocks/mis_b/mis8.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Tipos de parámetros" src="../img/programacion/ublocks/mis_b/mis8.png" /></a><br />
+<em>Tipos de parámetros</em></p>
+<p></center></p>
+<p>Hay varios tipos de parámetros posibles: número/texto, booleano y color. Estos están disponibles para seleccionar en el menú que se abre al hacer clic en el triángulo negro que apunta hacia abajo en el bloque de parámetros oval marrón. Para los parámetros de tipo número/texto, es posible restringir sus tipos a sólo número o sólo texto. A continuación se expone un sencillo bloque que muestra datos de todos los tipos.</p>
+<p><center></p>
+<p><a class="glightbox" href="../img/programacion/ublocks/mis_b/mis9.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Ejemplo de tipos de parámetros" src="../img/programacion/ublocks/mis_b/mis9.png" /></a><br />
+<em>Ejemplo de tipos de parámetros</em></p>
+<p></center></p>
+<p>Vemos que el nombre de la función parece <code>Datos Nombre</code>. De hecho, el nombre de la función es <code>Datos</code>, mientras que <code>Nombre</code> es el nombre del primer parámetro. Sin embargo, dado que MicroBlocks no permite la entrada de una etiqueta seguida de otra, ha sido necesario crear primero el parámetro <code>nombre</code>, seguido de un doble clic en el nombre de la función <code>Datos</code> y añadir " <code>Nombre</code>" (espacio <code>Nombre</code>) al final de la misma.</p>
+<p>Esta técnica parece extraña, pero es totalmente correcta, ya que los nombres de función nunca se utilizan específicamente por sí solos como en un lenguaje de programación basado en texto. Los bloques personalizados, al igual que todos los demás, se arrastran y sueltan en el área de programación, independientemente de su nombre. No obstante, no debemos crear varios bloques personalizados en los que el nombre de la primera etiqueta sea idéntico. De hecho, <strong>NO</strong> podremos hacerlo, ya que MicroBlocks asignará un nombre numerado que lo hará único.</p>
+<p><font size="3"><FONT COLOR=#006400><b>Asignar valores por defecto a los parámetros</b></font color></font size></p>
+<p>Como se ve en la imágen anterior de definición de bloque personalizado, la vista final del bloque muestra valores para cada parámetro, "Juan", 55, true, y 16715550 para el color rojo. Estos valores se denominan valores por defecto y son los que hemos asignado al bloque en su cración y se pueden modificar en cualquier momento si los ponemos en modo edición.</p>
+<p>Los valores por defecto de los tipos cadena, número y booleano se explican por sí mismos. Sin embargo, el tipo de color necesita alguna explicación mas.</p>
+<p>Como puede verse en la muestra de resultados del bloque personalizado, el valor del color rojo se muestra como 16715550. Analicemos este valor y veamos qué representa.</p>
+<p>Si se hace clic en el círculo de color rojo del bloque, aparece un panel de color que muestra los valores decimales de R=255, G=015 y B=030 que componen este color rojo en particular.</p>
+<p><center></p>
+<p><a class="glightbox" href="../img/programacion/ublocks/mis_b/mis9.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Paleta de colores" src="../img/programacion/ublocks/mis_b/mis9.png" /></a><br />
+<em>Paleta de colores</em></p>
+<p></center></p>
+<p>Si cada uno de estos valores decimales se convierte a los equivalentes hexadecimales, se obtiene:</p>
+<p><center></p>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;">Color</th>
+<th style="text-align: center;">Decimal</th>
+<th style="text-align: center;">Hexadecimal!</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;">R</td>
+<td style="text-align: center;">255</td>
+<td style="text-align: center;">FF</td>
+</tr>
+<tr>
+<td style="text-align: center;">G</td>
+<td style="text-align: center;">015</td>
+<td style="text-align: center;">0F</td>
+</tr>
+<tr>
+<td style="text-align: center;">B</td>
+<td style="text-align: center;">030</td>
+<td style="text-align: center;">1E</td>
+</tr>
+</tbody>
+</table>
+<p></center></p>
+<p>Colocamos esos tres valores hexadecimales uno a continuación del otro en el orden RGB para obtener 0xFF0F1E, y este número expresado en el sistema de numeración decimal es el 16715550.</p>
+<p><font size="5"><FONT COLOR=#0000FF><b><u>Ejemplo de creación de bloque personalizado</u></b></font color></font size></p>
+<p>Ya se ha visto que no existen bloques con diferentes iconos predefinidos como ocurre en MakeCode. Vamos a definir algunos de ellos mediante Mis Bloques.</p>
+<p><center></p>
+<p><a class="glightbox" href="../img/programacion/ublocks/mis_b/mis11.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Creación de bloques para iconos" src="../img/programacion/ublocks/mis_b/mis11.png" /></a><br />
+<em>Creación de bloques para iconos</em></p>
+<p></center></p>
+<p>Ahora resolver el ejercicio de corazón que late tendría el aspecto siguiente:</p>
+<p><center></p>
+<p><a class="glightbox" href="../img/programacion/ublocks/mis_b/mis12.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Corazón que late con bloques personalizados" src="../img/programacion/ublocks/mis_b/mis12.png" /></a><br />
+<em>Corazón que late con bloques personalizados</em></p>
+<p></center></p>
+<p>En la imagen siguiente tenemos un sencillo ejemplo de uso de función con retorno de valor mediante bloque reportador.</p>
+<p><center></p>
+<p><a class="glightbox" href="../img/programacion/ublocks/mis_b/mis13.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Corazón que late con bloques personalizados" src="../img/programacion/ublocks/mis_b/mis13.png" /></a><br />
+<em>Corazón que late con bloques personalizados</em></p>
+<p></center></p>
+<p>El program con el bloque multiplicador y los bloques de iconos lo tenemos a continuación.</p>
+<p><a href="../ejemplos/multiplicador.ubp">Descargar programa</a></p>
+<hr width=100%  size=10 noshade="noshade">
+
+<p><a href="#item0mis">Volver</a>
+<a name="item2mis"></a></p>
+<p><FONT COLOR=#BB00FF><font size="5"><b>Ampliación de sonidos</font color></font size></b></p>
+<p>En este punto, una vez conocido el funcionamiento de "Mis bloques" vamos a retomar el tema de sonido ampliando la información sobre RTTTL vista, aprenderemos a abrir archivos desde el menú "Fichero" relacionados y veremos ejemplos sobre el tema.</p>
+<p><a name="item0ampli"></a></p>
+<p><a href="#item1ampli">Información complementaria de politonos</a>
+<br> <a href="#item2ampli">Abrir archivo</a></br></p>
+<p><a href="#item0ampli">Volver</a>
+<a name="item1ampli"></a></p>
+<p><font size="5"><FONT COLOR=#0000FF><b><u>Información complementaria de politonos</u></b></font color></font size></p>
+<p>Ya hemos visto como añadir la librería politonos, enlaces para obtenerlos y el uso de los mismos en MicroBlocks, pero vamos a profundizar un poco mas sobre el tema.</p>
+<p>El formato RTTTL es una cadena dividia en tres partes: nombre, valor por defecto y datos.</p>
+<ul>
+<li><strong>nombre</strong>. Es una cadena que describe el nombre del tono de llamada. En principio su longitud máxima es de 10 caracteres y no puede contener el signo de dos puntos (:).</li>
+<li><strong>valor por defecto</strong>. Lo forman un conjunto de valores separados por comas que son los que deben cumplirse durane la ejecución del tono de llamada. Cada valor es una clave a la que se asigna con una igualdad un valor, siendo los nombre posibles: <strong>D</strong> (duración), <strong>o</strong> (octava) y <strong>B</strong> (ritmo o tempo)</li>
+<li><strong>datos</strong>. Es un conjunto de cadenas de caracteres separadas por comas, estando cada cadena formada por una <em>duración</em>, un <em>tono</em>, una <em>octava</em> y opcionalmente <em>puntos</em> que aumentan la duración de la nota a la mitad.</li>
+</ul>
+<p>Un ejemplo de tono RTTTL puede ser:</p>
+<p><code>Abba - Money Money Money: d=4,o=5,b=112:8e7,8e7,8e7,8e7,8e7,8e7,16e6,16a6,16c7,16e7,8d#7,8d#7,8d#7,8d#7,8d#7,8d#7,16f6,16a6,16c7,16d#7,d7,8c7,8a6,8c7,c7,2a6,32a6,32c7,32e7,8a7</code></p>
+<p>donde se pueden distinguir facilmente las tres partes separadas por dos puntos (:):</p>
+<ul>
+<li><strong>nombre</strong>. Abba - Money Money Money.</li>
+<li><strong>valor por defecto</strong>. d=4,o=5,b=112 (d = duración; o = octava y b = tempo o ritmo). Mas abajo se describen mas estos conceptos.</li>
+<li><strong>datos</strong>. Las notas separadas por comas y formadas por una duración, una nota [a (La), b (Si), c (Do), d (Re), e (Mi), f (Fa) o g (Sol)] y la indicación de la octava, que si no se indica se aplica el valor predeterminado.</li>
+</ul>
+<p>La duración de las notas es:</p>
+<ul>
+<li><strong>1</strong> - nota entera</li>
+<li><strong>2</strong> - media nota</li>
+<li><strong>4</strong> - cuarto de nota</li>
+<li><strong>8</strong> - octavo de nota (octava)</li>
+<li><strong>16</strong> - dieciseisavo de nota</li>
+<li><strong>32</strong> - treintaidosavo de nota</li>
+</ul>
+<p>Los tonos pueden ser:</p>
+<ul>
+<li><strong>P</strong> – descanso o pausa</li>
+<li><strong>A</strong> – A (La)</li>
+<li><strong>A#</strong> – A♯ B♭ (La#/Si♭)</li>
+<li><strong>B</strong> – B/C♭ (Si/Do♭)</li>
+<li><strong>C</strong> – C (Do)</li>
+<li><strong>C#</strong> – C♯/D♭ (Do♯/Re♭)</li>
+<li><strong>D</strong> – D (Re)</li>
+<li><strong>D#</strong> – D♯/E♭ (Re♯/Mi♭)</li>
+<li><strong>E</strong> – E/F♭ (Mi/Fa♭)</li>
+<li><strong>F</strong> – F/E♯ (Fa/Mi♯)</li>
+<li><strong>F#</strong> – F♯/G♭ (Fa♯/Sol♭)</li>
+<li><strong>G</strong> – G (Sol)</li>
+<li><strong>G#</strong> – G♯/A♭ (Sol♯/La♭)</li>
+</ul>
+<p>En formato RTTTL se permiten octavas comenzando desde la A por debajo del do medio y subiendo cuatro octavas. Esto se debe a la imposibilidad de los teléfonos móviles para reproducir ciertos tonos de forma audible. Las octavas están numeradas desde el tono
+más bajo hasta el tono más alto de 4 a 7. La octava debe dejarse fuera de la notación en el caso de un descanso o pausa en el patrón.</p>
+<p><a href="#item0ampli">Volver</a>
+<a name="item2ampli"></a></p>
+<p><font size="5"><FONT COLOR=#0000FF><b><u>Abrir archivo</u></b></font color></font size></p>
+<p>En MicroBlocks tenemos disponibles una serie de ejemplos resueltos a los que se puede acceder des el menú "Fichero" escogiendo la opción "Abre" y dirigiendonos a la carpeta ejemplos, si no estamos ya en ella.</p>
+<p><center></p>
+<p><a class="glightbox" href="../img/programacion/ublocks/sonido/ej_music.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Ejemplos de música y sonido en MicroBlocks" src="../img/programacion/ublocks/sonido/ej_music.png" /></a><br />
+<em>Ejemplos de música y sonido en MicroBlocks</em></p>
+<p></center></p>
+<p>Podemos abrir cualquiera de los ejemplos de los directorios marcados. En el directorio "Sonido" basicamente hay diferentes ejemplos que trabajan con sonidos y vamos a abrir por ejemplo TempoMeter, que es un programa que si aplaudimos a un ritmo constante nos devuelve el tempo en pulsaciones por minuto (ppm). Además podemos verlo graficamente.</p>
+<p><center></p>
+<p><a class="glightbox" href="../img/programacion/ublocks/sonido/ej_tempometer.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Ejemplo de sonido TempoMeter" src="../img/programacion/ublocks/sonido/ej_tempometer.png" /></a><br />
+<em>Ejemplo de sonido TempoMeter</em></p>
+<p></center></p>
+<p>En el directorio "Music" hay varios ejemplos en los que se utilizan bloques propios. En la figura vemos el ejemplo HarryPotter mostrando la definición de uno de los bloques.</p>
+<p><center></p>
+<p><a class="glightbox" href="../img/programacion/ublocks/sonido/ej_harrypotter.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Ejemplo de sonido HarryPotter" src="../img/programacion/ublocks/sonido/ej_harrypotter.png" /></a><br />
+<em>Ejemplo de sonido HarryPotter</em></p>
+<p></center></p>
+<p>A simple vista se aprecia la utilidad de las funciones para simplificar el código y hacer mas sencilla la depuración del mismo.</p>
+<p>Otro ejemplo con todos los bloques desplegados lo vemos para el caso de Bach Bouree, que se corresponden con la pieza musical integrada como quinto movimiento en la Suite en Mi menor para Laúd BWV 996 Bourrée en mi menor compuesta por Johann Sebastian Bach.</p>
+<p><center></p>
+<p><a class="glightbox" href="../img/programacion/ublocks/sonido/ej_bach.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Ejemplo de sonido Bach Bouree" src="../img/programacion/ublocks/sonido/ej_bach.png" /></a><br />
+<em>Ejemplo de sonido Bach Bouree</em></p>
+<p></center></p>
+<p>El programa sin los bloques expandidos ni los comentarios es tan simple como:</p>
+<p><center></p>
+<p><a class="glightbox" href="../img/programacion/ublocks/sonido/ej_bach1.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Ejemplo de sonido Bach Bouree" src="../img/programacion/ublocks/sonido/ej_bach1.png" /></a><br />
+<em>Ejemplo de sonido Bach Bouree</em></p>
+<p></center></p>
+<h2 id="comunicaciones"><FONT COLOR=#007575><strong>Comunicaciones</strong></font><a class="headerlink" href="#comunicaciones" title="Permanent link">&para;</a></h2>
+<ul>
+<li><a class="glightbox" href="../img/programacion/ublocks/comm/comm1.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="" src="../img/programacion/ublocks/comm/comm1.png" /></a>. Abre el puerto serie a la velocidad en baudios especificada. Esto es necesario antes de empezar a utilizar la comunicación por puerto serie. El soporte de puerto serie NO está disponible para dispositivos micro:bit v1 debido a la falta de soporte de hardware.</li>
+<li><a class="glightbox" href="../img/programacion/ublocks/comm/comm2png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="" src="../img/programacion/ublocks/comm/comm2png" /></a>. Cierra el puerto y finaliza las comunicaciones serie.</li>
+<li><a class="glightbox" href="../img/programacion/ublocks/comm/comm3.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="" src="../img/programacion/ublocks/comm/comm3.png" /></a>. Devuelve una matriz de bytes de datos leídos desde el puerto serie. En los casos en que estos puedan representar valores de caracteres, es necesario convertirlos utilizando la cadena del bloque unicode en letras reales.</li>
+</ul>
+<p><center></p>
+<p><a class="glightbox" href="../img/programacion/ublocks/comm/comm4.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="" src="../img/programacion/ublocks/comm/comm4.png" /></a></p>
+<p></center></p>
+<p>Las matrices de bytes contienen bytes con valores de 0 a 255.</p>
+<ul>
+<li><a class="glightbox" href="../img/programacion/ublocks/comm/comm5.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="" src="../img/programacion/ublocks/comm/comm5.png" /></a>. Escribe un byte, una cadena o una matriz de bytes en el puerto serie. Los datos a escribir deben ser 128 bytes o menos. En caso de que querer escribir una matriz de bytes en el puerto serie, podemos crearla fácilmente con el bloque <a class="glightbox" href="../img/programacion/ublocks/comm/comm6.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="" src="../img/programacion/ublocks/comm/comm6.png" /></a> del menú Datos. A continuación se muestra una imagen de la salida de ese bloque:</li>
+</ul>
+<p><center></p>
+<p><a class="glightbox" href="../img/programacion/ublocks/comm/comm7.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="" src="../img/programacion/ublocks/comm/comm7.png" /></a></p>
+<p></center></p>
+<ul>
+<li><a class="glightbox" href="../img/programacion/ublocks/comm/comm8.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="" src="../img/programacion/ublocks/comm/comm8.png" /></a>. Escribe una matriz de bytes en el puerto serie comenzando en el bytes dado y devuelve el número de bytes escritos. Utilizando este bloque, un bucle de MicroBlocks puede escribir eficientemente una matriz de bytes larga en el puerto serie.</li>
+</ul>
+<h2 id="magnetometro-y-acelerometro"><FONT COLOR=#007575><strong>Magnetómetro y acelerómetro</strong></font><a class="headerlink" href="#magnetometro-y-acelerometro" title="Permanent link">&para;</a></h2>
+<p>En MicroBlocks solamente disponemos de unos cuanto bloques relacionados con el tema y los encontramos dentro de la Librería "Sensores básicos". Estos son:</p>
+<ul>
+<li><a class="glightbox" href="../img/programacion/ublocks/compass/b1.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="" src="../img/programacion/ublocks/compass/b1.png" /></a> <a class="glightbox" href="../img/programacion/ublocks/compass/b2.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="" src="../img/programacion/ublocks/compass/b2.png" /></a> <a class="glightbox" href="../img/programacion/ublocks/compass/b3.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="" src="../img/programacion/ublocks/compass/b3.png" /></a>. Estos tres bloques informan de los valores de inclinación en los tres ejes. El rango normal de valores es de -100 a +100, pero los valores pueden alcanzar valores entre -200 y 200 cuando se sacude. (100 equivale a 1G de aceleración).</li>
+</ul>
+<p><center></p>
+<p><a class="glightbox" href="../img/programacion/ublocks/compass/pitch_roll.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="" src="../img/programacion/ublocks/compass/pitch_roll.png" /></a></p>
+<p></center></p>
+<p>Podemos hacer un sencillo nivel con alguna referencia al eje Z. El nivel funciona igual que en el caso de MakeCode pero si ponemos la micro:bit vertical veremos un cero como valor de Yaw y como se alterna una V con una X en la pantalla.</p>
+<p><center></p>
+<p><a class="glightbox" href="../img/programacion/ublocks/compass/nivel.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Nivel" src="../img/programacion/ublocks/compass/nivel.png" /></a></p>
+<p></center></p>
+<p><a href="../ejemplos/nivel_uB.ubp">Descargar el programa</a></p>
+<ul>
+<li><a class="glightbox" href="../img/programacion/ublocks/compass/b4.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="" src="../img/programacion/ublocks/compass/b4.png" /></a>. Devuelve la aceleración total (o "fuerza G") experimentada por la micro:bit independientemente de la dirección. Siempre es positiva, con un rango de 0 a 346. En el ejemplo vemos el resultado de mover la micro:bit tanto en forma de texto como en forma de gráfico.</li>
+</ul>
+<p><center></p>
+<p><a class="glightbox" href="../img/programacion/ublocks/compass/acel.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Midiendo g" src="../img/programacion/ublocks/compass/acel.png" /></a></p>
+<p></center></p>
+<p><center></p>
+<p><a class="glightbox" href="../img/programacion/ublocks/compass/acel.gif" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Midiendo g" src="../img/programacion/ublocks/compass/acel.gif" /></a></p>
+<p></center></p>
+<p><a href="../ejemplos/aceleracion_uB.ubp">Descargar el programa</a></p>
+<ul>
+<li>
+<p><a class="glightbox" href="../img/programacion/ublocks/compass/b5.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="" src="../img/programacion/ublocks/compass/b5.png" /></a>. Por defecto, el rango completo del acelerómetro es &plusmn; 200, siendo 100 = 1G, que es la aceleración de la gravedad en la Tierra. Esta es la aceleración que experimenta la micro:bit cuando permanece inmóvil sobre una mesa. El rango por defecto es suficiente para medir la inclinación o detectar sacudidas suaves. Pero también puede ser interesante medir aceleraciones mayores, como la rápida deceleración... que se produce cuando chocan objetos. Este bloque avanzado permite cambiar el rango de aceleración máxima para medir esas aceleraciones mayores. Establecer su valor, por ejemplo en 4G hace que se divida por 4 el resultado final. Lo podemos probar facilmente introduciendo el bloque en el ejemplo anterior.</p>
+</li>
+<li>
+<p><a class="glightbox" href="../img/programacion/ublocks/compass/b6.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="" src="../img/programacion/ublocks/compass/b6.png" /></a>. Informa de la intensidad del campo magnético detectado por el acelerómetro. El rango es aproximadamente 0-100000 y el sensor es lo suficientemente sensible como para detectar el campo magnético de la Tierra o el campo magnético de la corriente eléctrica que fluye en un cable, si el cable está cerca del chip. A continuación vemos un ejemplo.</p>
+</li>
+</ul>
+<p><center></p>
+<p><a class="glightbox" href="../img/programacion/ublocks/compass/magnet.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Campo magnético" src="../img/programacion/ublocks/compass/magnet.png" /></a></p>
+<p></center></p>
+<p><a href="../ejemplos/campo_magnetico_uB.ubp">Descargar el programa</a></p>
+<h2 id="sensores-basicos"><FONT COLOR=#007575><strong>Sensores básicos</strong></font><a class="headerlink" href="#sensores-basicos" title="Permanent link">&para;</a></h2>
+<p>El bloque está en una librería que acompaña al programa que tiene por nombre "Sensores básicos" y que tenedremos que añadir a las librerias del proyecto para tenerlos disponibles. La mayoría de ellos ya se han explicado en otros apartados y ahora vamos a ver este en concreto.</p>
+<ul>
+<li><a class="glightbox" href="../img/programacion/ublocks/nivel_luz.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="" src="../img/programacion/ublocks/nivel_luz.png" /></a>. El nivel de luz tiene un rango de 0 a 1023. Los sensores de luz varían en sensibilidad, incluso entre placas micro:bits de la misma versión, por lo que tendremos que experimentar para descubrir el rango de trabajo del sensor de luz de nuestra placa. Este bloque trabaja con las lecturas de los LEDs de la pantalla.</li>
+<li><a class="glightbox" href="../img/programacion/ublocks/temp.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="" src="../img/programacion/ublocks/temp.png" /></a>. La temperatura se indica en grados Celsius. El rango del sensor de temperatura suele ser como mínimo de 0 a 50 °C. Estos sensores de temperatura integrados no están calibrados y suelen variar de una placa a otra. Podemos comparar la medida obtenida con nuestra placa con la de un termómetro externo y fiable para poder obtener la temperatura real. Una vez calibrado no será peor que muchos sensores de temperatura integrados, que tienen una precisión de hasta uno o dos grados centígrados.</li>
+</ul>
+<h2 id="libreria-de-graficos-y-pantallas"><FONT COLOR=#007575><strong>Libreria de Gráficos y pantallas</strong></font><a class="headerlink" href="#libreria-de-graficos-y-pantallas" title="Permanent link">&para;</a></h2>
+<p>Si accedemos a agregar libreria nos aparece una ventana donde se ofrecen todas las librerias disponibles, y entre ellas el grupo de "Gráficos y pantallas" que vemos:</p>
+<p><center></p>
+<p><a class="glightbox" href="../img/programacion/ublocks/LCD/lib_g.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Grupo de librerias de Gráficos y Pantallas" src="../img/programacion/ublocks/LCD/lib_g.png" /></a><br />
+<em>Grupo de librerias de Gráficos y Pantallas</em></p>
+<p></center></p>
+<p>Accediendo al grupo indicado vemos las librerias disponibles y entre las mismas está la que buscamos para la LCD:</p>
+<p><center></p>
+<p><a class="glightbox" href="../img/programacion/ublocks/LCD/lib_LCD.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Libreria LCD Display" src="../img/programacion/ublocks/LCD/lib_LCD.png" /></a><br />
+<em>Libreria LCD Display</em></p>
+<p></center></p>
+<p>Una vez añadida la librería se muestran los bloques que tenemos disponibles para trabajar con la LCD:</p>
+<p><center></p>
+<p><a class="glightbox" href="../img/programacion/ublocks/LCD/bloques_LCD.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Bloques LCD Display" src="../img/programacion/ublocks/LCD/bloques_LCD.png" /></a><br />
+<em>Bloques LCD Display</em></p>
+<p></center></p>
+<p>En MicroBlocks la línea superior es la 1 y la inferior la 2 y las columnas se numeran desde la 1 hasta la 16. Si ponemos como columna inicial la 0 no veremos nada en la pantalla. Curiosamente cuando damos a una fila el valor 0, esta pasa a sustituir a la línea 2.</p>
+<p>El ejemplo siguiente nos pone todo esto en claro.</p>
+<p><center></p>
+<p><a class="glightbox" href="../img/programacion/ublocks/LCD/HM_LCD.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Ejemplo hola mundo con LCD" src="../img/programacion/ublocks/LCD/HM_LCD.png" /></a><br />
+<em>Ejemplo hola mundo con LCD</em></p>
+<p></center></p>
+<p><a href="../ejemplos/Hola_mundo_LCD.ubp">Descargar el programa</a></p>
+<h2 id="microfono-solo-en-v2"><FONT COLOR=#007575><strong>Micrófono, solo en V2</strong></font><a class="headerlink" href="#microfono-solo-en-v2" title="Permanent link">&para;</a></h2>
+<p>En MicroBlocks la librería con los bloques para usar el micrófono se encuentra en "Sensores".</p>
+<p><center></p>
+<p><a class="glightbox" href="../img/programacion/ublocks/microf/libreria.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Localización libreria" src="../img/programacion/ublocks/microf/libreria.png" /></a><br />
+<em>Localización libreria</em></p>
+<p></center></p>
+<p>Esta librería da soporte de micrófono, volumen y recuento de palmadas. El bloque normalmente informa de valores entre -512 y 511, con cero para silencio. En la micro:bit V2, el micrófono debe estar encendido antes de su uso.</p>
+<p>Los bloques disponibles son:</p>
+<p><center></p>
+<p><a class="glightbox" href="../img/programacion/ublocks/microf/bloques.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Bloques para micrófono" src="../img/programacion/ublocks/microf/bloques.png" /></a><br />
+<em>Bloques para micrófono</em></p>
+<p></center></p>
+<h2 id="radio"><FONT COLOR=#007575><strong>Radio</strong></font><a class="headerlink" href="#radio" title="Permanent link">&para;</a></h2>
+<p>MicroBlocks dispone de libreria para trabajar con radio y que se añade haciendo clic en la opción "+" de la entrada de menú "Librerias" y seleccionándola en la ventana emergente.</p>
+<p><center></p>
+<p><a class="glightbox" href="../img/programacion/ublocks/radio/lib_radio.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Libreria radio" src="../img/programacion/ublocks/radio/lib_radio.png" /></a><br />
+<em>Libreria radio</em></p>
+<p></center></p>
+<p>Micro:bit y otras placas con chips Nordic soportan un sistema de mensajería por radio peer-to-peer (entre iguales) fácil de usar. En este caso es el mismo sistema que utiliza MakeCode, por lo que los programas MicroBlocks y Makecode pueden intercambiar información por radio.</p>
+<p>Un mensaje de radio consiste en una cadena corta de texto, un número, o ambos (un par).</p>
+<p>El uso de diferentes códigos de grupo (0-255) permite que varios proyectos de radio funcionen simultáneamente en el aula. Un grupo es un canal de comunicación independiente. Cada microcontrolador envía y recibe mensajes a otros miembros de su propio grupo. Cualquier mensaje intercambiado por otros grupos es ignorado.</p>
+<p>Los bloques de esta libreria son:</p>
+<p><center></p>
+<p><a class="glightbox" href="../img/programacion/ublocks/radio/bloq_lib_radio.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Bloques de la libreria radio" src="../img/programacion/ublocks/radio/bloq_lib_radio.png" /></a><br />
+<em>Bloques de la libreria radio</em></p>
+<p></center></p>
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2023 - 2035 Federico Coca
+    </div>
+  
+  
+</div>
+      
+        <div class="md-social">
+  
+    
+    
+    
+    
+    <a href="https://x.com/fgcoca" target="_blank" rel="noopener" title="X de Federico Coca" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M389.2 48h70.6L305.6 224.2 487 464H345L233.7 318.6 106.5 464H35.8l164.9-188.5L26.8 48h145.6l100.5 132.9L389.2 48zm-24.8 373.8h39.1L151.1 88h-42l255.3 333.8z"/></svg>
+    </a>
+  
+    
+    
+    
+    
+    <a href="https://github.com/fgcoca" target="_blank" rel="noopener" title="Github de Federico Coca" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+    </a>
+  
+    
+    
+    
+    
+    <a href="https://www.instagram.com/cocafederico/?hl=es" target="_blank" rel="noopener" title="Instagram de Federico Coca" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M224.1 141c-63.6 0-114.9 51.3-114.9 114.9s51.3 114.9 114.9 114.9S339 319.5 339 255.9 287.7 141 224.1 141zm0 189.6c-41.1 0-74.7-33.5-74.7-74.7s33.5-74.7 74.7-74.7 74.7 33.5 74.7 74.7-33.6 74.7-74.7 74.7zm146.4-194.3c0 14.9-12 26.8-26.8 26.8-14.9 0-26.8-12-26.8-26.8s12-26.8 26.8-26.8 26.8 12 26.8 26.8zm76.1 27.2c-1.7-35.9-9.9-67.7-36.2-93.9-26.2-26.2-58-34.4-93.9-36.2-37-2.1-147.9-2.1-184.9 0-35.8 1.7-67.6 9.9-93.9 36.1s-34.4 58-36.2 93.9c-2.1 37-2.1 147.9 0 184.9 1.7 35.9 9.9 67.7 36.2 93.9s58 34.4 93.9 36.2c37 2.1 147.9 2.1 184.9 0 35.9-1.7 67.7-9.9 93.9-36.2 26.2-26.2 34.4-58 36.2-93.9 2.1-37 2.1-147.8 0-184.8zM398.8 388c-7.8 19.6-22.9 34.7-42.6 42.6-29.5 11.7-99.5 9-132.1 9s-102.7 2.6-132.1-9c-19.6-7.8-34.7-22.9-42.6-42.6-11.7-29.5-9-99.5-9-132.1s-2.6-102.7 9-132.1c7.8-19.6 22.9-34.7 42.6-42.6 29.5-11.7 99.5-9 132.1-9s102.7-2.6 132.1 9c19.6 7.8 34.7 22.9 42.6 42.6 11.7 29.5 9 99.5 9 132.1s2.7 102.7-9 132.1z"/></svg>
+    </a>
+  
+    
+    
+    
+    
+    <a href="https://x.com/clubroboticagra" target="_blank" rel="noopener" title="X de Club Robótica Granada" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M389.2 48h70.6L305.6 224.2 487 464H345L233.7 318.6 106.5 464H35.8l164.9-188.5L26.8 48h145.6l100.5 132.9L389.2 48zm-24.8 373.8h39.1L151.1 88h-42l255.3 333.8z"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": [], "search": "../../assets/javascripts/workers/search.f886a092.min.js", "translations": {"clipboard.copied": "Copiado al portapapeles", "clipboard.copy": "Copiar al portapapeles", "search.result.more.one": "1 m\u00e1s en esta p\u00e1gina", "search.result.more.other": "# m\u00e1s en esta p\u00e1gina", "search.result.none": "No se encontraron documentos", "search.result.one": "1 documento encontrado", "search.result.other": "# documentos encontrados", "search.result.placeholder": "Teclee para comenzar b\u00fasqueda", "search.result.term.missing": "Falta", "select.version": "Seleccionar versi\u00f3n"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.aecac24b.min.js"></script>
+      
+        <script src="../../plugins/mathjax.js"></script>
+      
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  <script>document$.subscribe(() => {const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});})</script></body>
+</html>
