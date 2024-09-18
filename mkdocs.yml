@@ -44,6 +44,20 @@ nav:
   - Shield EASY Plug 1.1: EasyPlug/EP1_1.md
   - Teoría básica de IoT: program/thinspeak.md
   - ESP-NOW: program/espnow.md
+  - Guía de MicroBlocks: guiamb/mblocks.md
+  - IDE 2.0 de Arduino:
+    - Introducción: IDE/introIDE.md
+    - Código en Arduinoblocks: IDE/codigoAB.md
+    - Descarga del IDE: IDE/descarga.md
+    - Ventana principal del IDE: IDE/ventanaIDE.md
+    - Características principales del IDE 2.0: IDE/caracteristicasIDE2_0.md
+  - Cámara de visión artificial Sentry 2: 
+    - Inicio rápido: sentry/inicio.md
+    - Hardware: sentry/hard.md
+    - Manejo: sentry/manejo.md
+    - Vision: sentry/vision.md
+    - WiFi: sentry/wifi.md
+    - Sentry en arduinoblocks: sentry/ab.md
   - Programación con arduinoblocks:
     - Inicio: program/inicio.md
     - Formato RTTTL: program/RTTTL.md
@@ -52,6 +66,7 @@ nav:
     - IoT con arduinoblocks: program/iotAB.md
     #- WiFiMesh (obsoleto): program/mesh.md
     - ESP-NOW en arduinoblocks: program/espnowAB.md
+  - Programación con MicroBlocks: guiamb/ublocks.md
   - Actividades iniciales:
     - A01-Hola Mundo: actividadesAB/A01.md
     - A02-Medio relleno: actividadesAB/A02.md
