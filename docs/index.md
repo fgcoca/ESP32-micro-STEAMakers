@@ -53,6 +53,31 @@ La placa ESP32 micro:STEAMakers está equipada con pines de expansión tipo gold
 
 Esta placa es compatible con una gran variedad de lenguajes de programación, incluyendo arduinoblocks, MicroBlocks, Arduino, MicroPython y KidsBlock3.0. Es adecuada para usuarios con diferentes niveles de programación.
 
+## <FONT COLOR=#007575>**Compatibilidad de pines**</font>
+
+!!! warning "<FONT COLOR=#FF0000>**AVISO IMPORTANTE**</font>"
+    Cuando vamos a trabajar con señales analógicas debemos tener muy presente que, aunque todos los pines IOxx son entradas y salidas digitales, algunas incluso con más funciones. **Cuando tenemos que utilizar la comunicación WiFi el convertidor ADC2 NO funciona.**
+
+Las placas ESP32 tienen disponibles dos ADC (Analog to Digital Converter) de 12 bits que se denominan ADC1 y ADC2. Esos 12 bits dan una precisión de $2^{12} = 4096$. Por lo tanto, si tenemos 12 bits para 3.3V podemos asegurar que $3.3V/4096 = 0,8 mV$ es la tensión correspondiente a cada paso.
+
+!!! danger "<FONT COLOR=#FF0000>**Máxima tensión admisible en el ADC**</font>"
+    Aunque los pines GPIO de la ESP32 pueden funcionar a 5V, los conversores ADC no pueden. Debemos tener cuidado de no sobrepasar esos 3.3V si el pin es uno de los que están conectados a uno de los conversores.
+
+La placa ESP32 micro:STEAMakers es al fin y al cabo una ESP32 y la lectura de una entrada analógica se realiza de la forma habitual en entornos basados en Arduino, es decir con ```analogRead(pin_GPIO)```. Internamente la ESP32, de manera genérica, compara la tensión que pretendemos medir con un valor de referencia Vref mediante un circuito atenuador de ganancia variable, tipicamente de -11dB para poder medir hasta 3.3V.
+
+En la ESP32 micro:STEAMakers los pines que tienen conxión con los conversores ADC y que pueden ser utilizados como entradas analógicas están distribuidos de la siguiente forma:
+
+ * **ADC1** se conecta a 8 pines GPIO:
+
+<center>32 , 33, 34, 35, 36, 37, 38, 39</center>
+
+ * **ADC2** se conecta a 10 pines GPIO:
+
+<center>0, 2, 4, 12, 13, 14, 15, 25, 26, 27<br>
+<FONT COLOR=#FF00FF><b>WiFi ON → INHABILITA ADC2</b></font></center></br>
+
+A efectos prácticos, revisando el pinout de la placa podemos asegurar que todos los pines catalogados como entradas analógicas, con la única excepción de la patilla 2 que se conecta a io32 y que pertenece a ADC1, funcionarán correctamente siempre y cuando no realicemos configuración WiFi alguna, dado que están conectados a ADC2.
+
 ## <FONT COLOR=#007575>**Especificaciones técnicas**</font>
 * Alimentación: USB; conector JST PH2.0; puerto I/O gold-finger
 * Tensión de funcionamiento: 3.3V
@@ -70,14 +95,14 @@ Esta placa es compatible con una gran variedad de lenguajes de programación, in
 * Recursos incorporados:
 > * 2 botones digitales (botones A y B)
 > * Giroscopio acelerometro de seis ejes MPU6050 con Velocidad máxima de rotación de 2000°/s y un Rango de aceleración de ±2g，±4g，±8g，±16g
-> *Sensor de luz: fototransistor ALS-PT19-315C
-> Micrófono: 4013-SMD
-> Zumbador: MLT-8530AAC3V
-> 25 RGB: WS2812-2020 RGB-LED
-> Sensor de temperatura y humedad: AHT20
-> Interfaz de expansión de tarjeta microSD
-> Módulo de detección de consumo de corriente de alimentación: INA180A1IDBVR
-> Puerto de expansión I2C
+> * Sensor de luz: fototransistor ALS-PT19-315C
+> * Micrófono: 4013-SMD
+> * Zumbador: MLT-8530AAC3V
+> * 25 RGB: WS2812-2020 RGB-LED
+> * Sensor de temperatura y humedad: AHT20
+> * Interfaz de expansión de tarjeta microSD
+> * Módulo de detección de consumo de corriente de alimentación: INA180A1IDBVR
+> * Puerto de expansión I2C
 * Interface de extensión:
 > * 19 puertos de E/S digital (multiplexado parcialmente con recursos de a bordo)
 > * 2 DAC de 8 bits (io25, io26)

@@ -40,6 +40,7 @@ nav:
     - Tarjeta microSD: SD.md
     - Conceptos sobre CO2 y VOC: CO2.md
     - Sensor MiCS4514 de NO2 y CO: MiCS4514.md
+  - Diodos LEDs RGB y modelos de color: rgb.md
   - Sensor shield modular: modular/modV2.md
   - Shield EASY Plug 1.1: EasyPlug/EP1_1.md
   - Teoría básica de IoT: program/thinspeak.md
