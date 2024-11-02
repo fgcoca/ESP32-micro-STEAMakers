@@ -1,0 +1,2198 @@
+
+<!doctype html>
+<html lang="es" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Una introducción a la placa ESP32 micro:steamakers que es muy similar a la Placa ESP32 STEAMakers, pero en este caso tiene el formato de la micro:bit.">
+      
+      
+        <meta name="author" content="Federico Coca">
+      
+      
+        <link rel="canonical" href="https://fgcoca.github.io/....https:/fgcoca.github.io/ESP32-micro-STEAMakers/escudos/">
+      
+      
+        <link rel="prev" href="../otrohw/">
+      
+      
+        <link rel="next" href="../CO2/">
+      
+      
+      <link rel="icon" href="../img/favicon.png">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.4.5">
+    
+    
+      
+        <title>Escudos (Shields) - ESP32 micro:STEAMakers</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.6a10b989.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.356b1318.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+   <link href="../assets/stylesheets/glightbox.min.css" rel="stylesheet"/><style>
+        html.glightbox-open { overflow: initial; height: 100%; }
+        .gslide-title { margin-top: 0px; user-select: text; }
+        .gslide-desc { color: #666; user-select: text; }
+        .gslide-image img { background: white; }
+        
+            .gscrollbar-fixer { padding-right: 15px; }
+            .gdesc-inner { font-size: 0.75rem; }
+            body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color);}
+            body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color);}
+            body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color);}
+            </style> <script src="../assets/javascripts/glightbox.min.js"></script></head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="light-blue" data-md-color-accent="deep-purple">
+  
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&"object"==typeof palette.color)for(var key of Object.keys(palette.color))document.body.setAttribute("data-md-color-"+key,palette.color[key])</script>
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#sensor-shield-modular-v2" class="md-skip">
+          Saltar a contenido
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Cabecera">
+    <a href=".." title="ESP32 micro:STEAMakers" class="md-header__button md-logo" aria-label="ESP32 micro:STEAMakers" data-md-component="logo">
+      
+  <img src="../img/favicon.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            ESP32 micro:STEAMakers
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Escudos (Shields)
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="light-blue" data-md-color-accent="deep-purple"  aria-label="Modo Oscuro"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Modo Oscuro" for="__palette_2" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2a7 7 0 0 0-7 7c0 2.38 1.19 4.47 3 5.74V17a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-2.26c1.81-1.27 3-3.36 3-5.74a7 7 0 0 0-7-7M9 21a1 1 0 0 0 1 1h4a1 1 0 0 0 1-1v-1H9v1Z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="light-blue" data-md-color-accent="deep-purple"  aria-label="Modo Claro"  type="radio" name="__palette" id="__palette_2">
+    
+      <label class="md-header__button md-icon" title="Modo Claro" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2a7 7 0 0 1 7 7c0 2.38-1.19 4.47-3 5.74V17a1 1 0 0 1-1 1H9a1 1 0 0 1-1-1v-2.26C6.19 13.47 5 11.38 5 9a7 7 0 0 1 7-7M9 21v-1h6v1a1 1 0 0 1-1 1h-4a1 1 0 0 1-1-1m3-17a5 5 0 0 0-5 5c0 2.05 1.23 3.81 3 4.58V16h4v-2.42c1.77-.77 3-2.53 3-4.58a5 5 0 0 0-5-5Z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Búsqueda" placeholder="Búsqueda" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Buscar">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Limpiar" aria-label="Limpiar" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Inicializando búsqueda
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/fgcoca/ESP32-micro-STEAMakers" title="Ir al repositorio" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    fgcoca/ESP32-micro-STEAMakers
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="Pestañas" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../presenta/" class="md-tabs__link">
+          
+  
+  ESP32 micro:STEAMakers
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../CO2/" class="md-tabs__link">
+          
+  
+  Teoria general
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../guiamb/mblocks/" class="md-tabs__link">
+          
+  
+  MicroBlocks
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../IDE/introIDE/" class="md-tabs__link">
+          
+  
+  Arduino2.0
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../program/inicio/" class="md-tabs__link">
+          
+  
+  Arduinoblocks
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../sentry/inicio/" class="md-tabs__link">
+          
+  
+  Sentry 2
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../Miscelanea/about/" class="md-tabs__link">
+          
+  
+  Miscelanea
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navegación" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="ESP32 micro:STEAMakers" class="md-nav__button md-logo" aria-label="ESP32 micro:STEAMakers" data-md-component="logo">
+      
+  <img src="../img/favicon.png" alt="logo">
+
+    </a>
+    ESP32 micro:STEAMakers
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/fgcoca/ESP32-micro-STEAMakers" title="Ir al repositorio" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    fgcoca/ESP32-micro-STEAMakers
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+    
+  
+  
+    
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_1" id="__nav_1_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    ESP32 micro:STEAMakers
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_1_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_1">
+            <span class="md-nav__icon md-icon"></span>
+            ESP32 micro:STEAMakers
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../presenta/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Presentación
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    La ESP32 micro:STEAMakers
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../otrohw/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Otros elementos hardware
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    Escudos (Shields)
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    Escudos (Shields)
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Tabla de contenidos">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Tabla de contenidos
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#sensor-shield-modular-v2" class="md-nav__link">
+    Sensor shield modular V2
+  </a>
+  
+    <nav class="md-nav" aria-label="Sensor shield modular V2">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#introduccion" class="md-nav__link">
+    Introducción
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#seleccion-y-analisis-de-tensiones" class="md-nav__link">
+    Selección y análisis de tensiones
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#detalles-tecnicos" class="md-nav__link">
+    Detalles técnicos
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#diagrama-de-pines" class="md-nav__link">
+    Diagrama de pines
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#compatibilidad-de-pines" class="md-nav__link">
+    Compatibilidad de pines
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#shield-modular-90o" class="md-nav__link">
+    Shield modular 90º
+  </a>
+  
+    <nav class="md-nav" aria-label="Shield modular 90º">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#introduccion_1" class="md-nav__link">
+    Introducción
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#diagrama-de-pines_1" class="md-nav__link">
+    Diagrama de pines
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#compatibilidad-de-pines_1" class="md-nav__link">
+    Compatibilidad de pines
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#shield-easy-plug-11" class="md-nav__link">
+    Shield EASY Plug 1.1
+  </a>
+  
+    <nav class="md-nav" aria-label="Shield EASY Plug 1.1">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#introduccion_2" class="md-nav__link">
+    Introducción
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#analisis-alimentacion-shield" class="md-nav__link">
+    Análisis alimentación Shield
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#diagrama-de-pines_2" class="md-nav__link">
+    Diagrama de pines
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#compatibilidad-de-pines_2" class="md-nav__link">
+    Compatibilidad de pines
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+    
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Teoria general
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Teoria general
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../CO2/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Conceptos sobre CO2 y VOC
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../MiCS4514/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Sensor MiCS4514 de NO2 y CO
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../rgb/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Diodos LEDs RGB y modelos de color
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../program/thinspeak/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Teoría básica de IoT
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../program/espnow/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    ESP-NOW
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../bt/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Comunicaciones Bluetooth
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../servo/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Servomotor
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+    
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    MicroBlocks
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            MicroBlocks
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../guiamb/mblocks/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Guía de MicroBlocks
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../guiamb/webserial/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Web Serial ESPTool
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../guiamb/boardie/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Boardie:un tablero virtual para MicroBlocks
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../guiamb/ublocks/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Programación micro:STEAMakers
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../guiamb/ble_inventor/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Extensión BluetoothLE de App Inventor
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../guiamb/mb_inventor_BLE/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    mBlocks + App Inventor + BLE
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+    
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Arduino2.0
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            Arduino2.0
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../IDE/introIDE/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Introducción
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../IDE/codigoAB/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Código en Arduinoblocks
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../IDE/descarga/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Descarga del IDE
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../IDE/ventanaIDE/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Ventana principal del IDE
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../IDE/caracteristicasIDE2_0/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Características principales del IDE 2.0
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+    
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Arduinoblocks
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            Arduinoblocks
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../program/inicio/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Programación de micro:STEAMakers
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../program/RTTTL/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Formato RTTTL
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../program/server/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Servidor web
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../program/tm/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    micro:STEAMakers + Telegram
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../program/iotAB/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    IoT
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../program/espnowAB/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    ESP-NOW
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../actividadesAB/act_ini/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Actividades iniciales
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../actividadesAB/act_EP/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Actividades EASY Plug
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../actividadesAB/act_ava/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Actividades avanzadas y con shield modular
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+    
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Sentry 2
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            Sentry 2
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../sentry/inicio/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Inicio rápido
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../sentry/hard/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Hardware
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../sentry/manejo/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Manejo
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../sentry/vision/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Vision
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../sentry/wifi/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    WiFi
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+    
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Miscelanea
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            Miscelanea
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Miscelanea/about/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Autoria
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Miscelanea/lic/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Licencias
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Miscelanea/webgrafia/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Webgrafia/Bibliografía
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Miscelanea/soft/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Software utilizado
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Tabla de contenidos">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Tabla de contenidos
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#sensor-shield-modular-v2" class="md-nav__link">
+    Sensor shield modular V2
+  </a>
+  
+    <nav class="md-nav" aria-label="Sensor shield modular V2">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#introduccion" class="md-nav__link">
+    Introducción
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#seleccion-y-analisis-de-tensiones" class="md-nav__link">
+    Selección y análisis de tensiones
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#detalles-tecnicos" class="md-nav__link">
+    Detalles técnicos
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#diagrama-de-pines" class="md-nav__link">
+    Diagrama de pines
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#compatibilidad-de-pines" class="md-nav__link">
+    Compatibilidad de pines
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#shield-modular-90o" class="md-nav__link">
+    Shield modular 90º
+  </a>
+  
+    <nav class="md-nav" aria-label="Shield modular 90º">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#introduccion_1" class="md-nav__link">
+    Introducción
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#diagrama-de-pines_1" class="md-nav__link">
+    Diagrama de pines
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#compatibilidad-de-pines_1" class="md-nav__link">
+    Compatibilidad de pines
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#shield-easy-plug-11" class="md-nav__link">
+    Shield EASY Plug 1.1
+  </a>
+  
+    <nav class="md-nav" aria-label="Shield EASY Plug 1.1">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#introduccion_2" class="md-nav__link">
+    Introducción
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#analisis-alimentacion-shield" class="md-nav__link">
+    Análisis alimentación Shield
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#diagrama-de-pines_2" class="md-nav__link">
+    Diagrama de pines
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#compatibilidad-de-pines_2" class="md-nav__link">
+    Compatibilidad de pines
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  <h1>Escudos (Shields)</h1>
+
+<h2 id="sensor-shield-modular-v2"><FONT COLOR=#007575><strong>Sensor shield modular V2</strong></font><a class="headerlink" href="#sensor-shield-modular-v2" title="Permanent link">&para;</a></h2>
+<h3 id="introduccion"><FONT COLOR=#AA0000>Introducción</font><a class="headerlink" href="#introduccion" title="Permanent link">&para;</a></h3>
+<p>Se trata de un escudo con conexión rápida de sensores para la versión V2 de micro:bit. Su aspecto lo vemos en la imagen siguiente:</p>
+<p><center></p>
+<p><a class="glightbox" href="../img/modular/aspecto.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Aspecto de la shield" src="../img/modular/aspecto.png" /></a><br />
+<em>Aspecto de la shield</em></p>
+<p></center></p>
+<p>La shield V2 convierte todos los puertos PIO de la placa de control micro:STEAMakers en una interfaz de tres pines (GND, VCC, Señal), muy fácil para conectar la placa de control y módulos sensores.</p>
+<p>Por otra parte, también dispone pines hembra para interfaz de comunicación serie y pines macho de comunicación I2C y SPI. De modo que esta shield permitirá la comunicación entre la placa de control micro:STEAMakers y otros dispositivos de comunicación. La placa se puede alimentar a través de un jack DC negro (DC 7-9V) o un puerto USB micro (DC 5V). Cuando alimentemos a través de la shield, se puede seleccionar el voltaje de alimentación V1 y V2 a 3.3V o 5V a través de los jumpers V1 y V2.</p>
+<h3 id="seleccion-y-analisis-de-tensiones"><FONT COLOR=#AA0000>Selección y análisis de tensiones</font><a class="headerlink" href="#seleccion-y-analisis-de-tensiones" title="Permanent link">&para;</a></h3>
+<p>Las combinaciones posibles las vemos en la tabla siguiente:</p>
+<p><center></p>
+<table>
+<thead>
+<tr>
+<th>Posición</th>
+<th style="text-align: center;">V2 (V)</th>
+<th style="text-align: center;">V1 (V)</th>
+<th>Posición</th>
+<th style="text-align: center;">V2 (V)</th>
+<th style="text-align: center;">V1 (V)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a class="glightbox" href="../img/modular/V23_3_V13_3.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="" src="../img/modular/V23_3_V13_3.png" /></a></td>
+<td style="text-align: center;">3.3</td>
+<td style="text-align: center;">3.3</td>
+<td><a class="glightbox" href="../img/modular/V25_V15.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="" src="../img/modular/V25_V15.png" /></a></td>
+<td style="text-align: center;">5</td>
+<td style="text-align: center;">5</td>
+</tr>
+<tr>
+<td><a class="glightbox" href="../img/modular/V25_V13_3.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="" src="../img/modular/V25_V13_3.png" /></a></td>
+<td style="text-align: center;">5</td>
+<td style="text-align: center;">3.3</td>
+<td><a class="glightbox" href="../img/modular/V23_3_V15.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="" src="../img/modular/V23_3_V15.png" /></a></td>
+<td style="text-align: center;">3.3</td>
+<td style="text-align: center;">5</td>
+</tr>
+</tbody>
+</table>
+<p></center></p>
+<p>En la shield observamos como según estos selectores en los pines de alimentación positiva (rojos) estará presente una u otra tensión.</p>
+<div class="admonition failure">
+<p class="admonition-title">Aviso</p>
+<p>Sin alimentación externa de la shield en V1 y/o V2 no habrá 5V aunque alimentemos externamente a la placa micro:STEAMakers. Alimentando la shield la tensión en V1 y/o V2 depende de la posición de su jumper y será de 5V si la alimentamos a través del conector micro USB o a través del Jack de alimentación.</p>
+</div>
+<p>La shield va dotada de dos reguladores de tensión un ASM1117 para 3.3V y un 117-5 para 5V, ambos en encapsulado SOT-223. Ambos reguladores se configuran facilmente con muy pocos componentes externos para, junto con los jumpers, cumplir con su misión en la placa.</p>
+<h3 id="detalles-tecnicos"><FONT COLOR=#AA0000>Detalles técnicos</font><a class="headerlink" href="#detalles-tecnicos" title="Permanent link">&para;</a></h3>
+<p>Los principales detalles técnicos de la shield son:</p>
+<ul>
+<li>Entrada de alimentación externa: jack negro DC (DC 7-9V) o puerto micro USB (DC 5V)</li>
+<li>Tensión de salida: seleccionable a 3.3V o 5V a través de los jumpera V1/V2</li>
+<li>Indicador de alimentación externa.</li>
+<li>Convierte la interfaz de pines PIO de micro:STEAMakers a conectores de tres pines.</li>
+<li>Pines de comunicación serie.</li>
+<li>Pines de comunicación I2C.</li>
+<li>Pines de comunicación SPI.</li>
+<li>Dimensiones: 65mm x 58mm x 12mm.</li>
+</ul>
+<h3 id="diagrama-de-pines"><FONT COLOR=#AA0000>Diagrama de pines</font><a class="headerlink" href="#diagrama-de-pines" title="Permanent link">&para;</a></h3>
+<p>En la imagen siguiente podemos ver el diagrama de pines original de esta placa:</p>
+<p><center></p>
+<p><a class="glightbox" href="../img/modular/pinout_orig.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Pinout original" src="../img/modular/pinout_orig.png" /></a><br />
+<em>Pinout original</em></p>
+<p></center></p>
+<p>Pero debemos tener muy presente que esta shield es para una placa micro:bit y no para un micro:STEAMakers por lo que la numeración impresa en la misma no es la correcta para nuestros propósitos. Por ello se ha estudiado la correspondencia de pines del borde de la micro:STEAMakers con esta shield obteniendo el siguiente <strong>pinout</strong>:</p>
+<p><center></p>
+<p><a class="glightbox" href="../img/modular/pinout_equiv.svg" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Pinout micro:STEAMakers vs Shield" src="../img/modular/pinout_equiv.svg" /></a><br />
+<em>Pinout micro:STEAMakers vs Shield</em><br />
+<strong><em>Clic sobre la imagen para ampliarla</em></strong></p>
+<p></center></p>
+<h3 id="compatibilidad-de-pines"><FONT COLOR=#AA0000>Compatibilidad de pines</font><a class="headerlink" href="#compatibilidad-de-pines" title="Permanent link">&para;</a></h3>
+<div class="admonition warning">
+<p class="admonition-title"><FONT COLOR=#FF0000><strong>AVISO IMPORTANTE</strong></font></p>
+<p>Cuando vamos a trabajar con señales analógicas debemos tener muy presente que, aunque todos los pines IOxx son entradas y salidas digitales, algunas incluso con más funciones. <strong>Cuando tenemos que utilizar la comunicación WiFi el convertidor ADC2 NO funciona.</strong></p>
+</div>
+<p>Las placas ESP32 tienen disponibles dos ADC (Analog to Digital Converter) de 12 bits que se denominan ADC1 y ADC2. Esos 12 bits dan una precisión de <span class="arithmatex">\(2^{12} = 4096\)</span>. Por lo tanto, si tenemos 12 bits para 3.3V podemos asegurar que <span class="arithmatex">\(3.3V/4096 = 0,8 mV\)</span> es la tensión correspondiente a cada paso.</p>
+<div class="admonition danger">
+<p class="admonition-title"><FONT COLOR=#FF0000><strong>Máxima tensión admisible en el ADC</strong></font></p>
+<p>Aunque los pines GPIO de la ESP32 pueden funcionar a 5V, los conversores ADC no pueden. Debemos tener cuidado de no sobrepasar esos 3.3V si el pin es uno de los que están conectados a uno de los conversores.</p>
+</div>
+<p>La placa ESP32 micro:STEAMakers es al fin y al cabo una ESP32 y la lectura de una entrada analógica se realiza de la forma habitual en entornos basados en Arduino, es decir con <code>analogRead(pin_GPIO)</code>. Internamente la ESP32, de manera genérica, compara la tensión que pretendemos medir con un valor de referencia Vref mediante un circuito atenuador de ganancia variable, tipicamente de -11dB para poder medir hasta 3.3V.</p>
+<p>En la ESP32 micro:STEAMakers los pines que tienen conxión con los conversores ADC y que pueden ser utilizados como entradas analógicas están distribuidos de la siguiente forma:</p>
+<ul>
+<li><strong>ADC1</strong> se conecta a 8 pines GPIO:</li>
+</ul>
+<p><center>32 , 33, 34, 35, 36, 37, 38, 39</center></p>
+<ul>
+<li><strong>ADC2</strong> se conecta a 10 pines GPIO:</li>
+</ul>
+<p><center>0, 2, 4, 12, 13, 14, 15, 25, 26, 27<br>
+<FONT COLOR=#FF00FF><b>WiFi ON → INHABILITA ADC2</b></font></center></br></p>
+<p>A efectos prácticos, aunque en el pinout de la placa no se indican las entradas analógicas, podemos asegurar que todos los pines que pueden ser usados como entradas analógicas, con la única excepción de la patilla 2 que se conecta a io32 y que pertenece a ADC1, funcionarán correctamente siempre y cuando no realicemos configuración WiFi alguna, dado que están conectados a ADC2.</p>
+<h2 id="shield-modular-90o"><FONT COLOR=#007575><strong>Shield modular 90º</strong></font><a class="headerlink" href="#shield-modular-90o" title="Permanent link">&para;</a></h2>
+<h3 id="introduccion_1"><FONT COLOR=#AA0000>Introducción</font><a class="headerlink" href="#introduccion_1" title="Permanent link">&para;</a></h3>
+<p>Se trata de un escudo con conexión rápida de sensores con numeración de pines genérica para micro:bit y como GPIO para que resulte mas sencillo utilizar con la micro:STEAMakers. Su aspecto lo vemos en la imagen siguiente:</p>
+<p><center></p>
+<p><a class="glightbox" href="../img/modular90/aspecto.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Aspecto de la shield" src="../img/modular90/aspecto.png" /></a><br />
+<em>Aspecto de la shield</em></p>
+<p></center></p>
+<p>La shield convierte todos los puertos PIO de la placa de control micro:STEAMakers en una interfaz de tres pines (GND, VCC, Señal), muy fácil para conectar la placa de control y módulos sensores.</p>
+<p>Por otra parte, también dispone pines macho de comunicación I2C y SPI. De modo que esta shield permitirá la comunicación entre la placa de control micro:STEAMakers y otros dispositivos de comunicación. La placa se puede alimentar a través de un conector JST (DC 7-12V) colocando el interruptor en posición ON.</p>
+<p>Cuando alimentamos externamente tenemos disponible la conexión I2C con alimentación a 5V.</p>
+<h3 id="diagrama-de-pines_1"><FONT COLOR=#AA0000>Diagrama de pines</font><a class="headerlink" href="#diagrama-de-pines_1" title="Permanent link">&para;</a></h3>
+<p>En la imagen siguiente podemos ver el diagrama de pines de esta placa en relación a la micro:STEAMakers:</p>
+<p><center></p>
+<p><a class="glightbox" href="../img/modular90/pinout.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Pinout" src="../img/modular90/pinout.png" /></a><br />
+<em>Pinout</em></p>
+<p></center></p>
+<h3 id="compatibilidad-de-pines_1"><FONT COLOR=#AA0000>Compatibilidad de pines</font><a class="headerlink" href="#compatibilidad-de-pines_1" title="Permanent link">&para;</a></h3>
+<div class="admonition warning">
+<p class="admonition-title"><FONT COLOR=#FF0000><strong>AVISO IMPORTANTE</strong></font></p>
+<p>Cuando vamos a trabajar con señales analógicas debemos tener muy presente que, aunque todos los pines IOxx son entradas y salidas digitales, algunas incluso con más funciones. <strong>Cuando tenemos que utilizar la comunicación WiFi el convertidor ADC2 NO funciona.</strong></p>
+</div>
+<p>Las placas ESP32 tienen disponibles dos ADC (Analog to Digital Converter) de 12 bits que se denominan ADC1 y ADC2. Esos 12 bits dan una precisión de <span class="arithmatex">\(2^{12} = 4096\)</span>. Por lo tanto, si tenemos 12 bits para 3.3V podemos asegurar que <span class="arithmatex">\(3.3V/4096 = 0,8 mV\)</span> es la tensión correspondiente a cada paso.</p>
+<div class="admonition danger">
+<p class="admonition-title"><FONT COLOR=#FF0000><strong>Máxima tensión admisible en el ADC</strong></font></p>
+<p>Aunque los pines GPIO de la ESP32 pueden funcionar a 5V, los conversores ADC no pueden. Debemos tener cuidado de no sobrepasar esos 3.3V si el pin es uno de los que están conectados a uno de los conversores.</p>
+</div>
+<p>La placa ESP32 micro:STEAMakers es al fin y al cabo una ESP32 y la lectura de una entrada analógica se realiza de la forma habitual en entornos basados en Arduino, es decir con <code>analogRead(pin_GPIO)</code>. Internamente la ESP32, de manera genérica, compara la tensión que pretendemos medir con un valor de referencia Vref mediante un circuito atenuador de ganancia variable, tipicamente de -11dB para poder medir hasta 3.3V.</p>
+<p>En la ESP32 micro:STEAMakers los pines que tienen conxión con los conversores ADC y que pueden ser utilizados como entradas analógicas están distribuidos de la siguiente forma:</p>
+<ul>
+<li><strong>ADC1</strong> se conecta a 8 pines GPIO:</li>
+</ul>
+<p><center>32 , 33, 34, 35, 36, 37, 38, 39</center></p>
+<ul>
+<li><strong>ADC2</strong> se conecta a 10 pines GPIO:</li>
+</ul>
+<p><center>0, 2, 4, 12, 13, 14, 15, 25, 26, 27<br>
+<FONT COLOR=#FF00FF><b>WiFi ON → INHABILITA ADC2</b></font></center></br></p>
+<p>A efectos prácticos, aunque en el pinout de la placa no se indican las entradas analógicas, podemos asegurar que todos los pines que pueden ser usados como entradas analógicas, con la única excepción de la patilla 2 que se conecta a io32 y que pertenece a ADC1, funcionarán correctamente siempre y cuando no realicemos configuración WiFi alguna, dado que están conectados a ADC2.</p>
+<h2 id="shield-easy-plug-11"><FONT COLOR=#007575><strong>Shield EASY Plug 1.1</strong></font><a class="headerlink" href="#shield-easy-plug-11" title="Permanent link">&para;</a></h2>
+<h3 id="introduccion_2"><FONT COLOR=#AA0000>Introducción</font><a class="headerlink" href="#introduccion_2" title="Permanent link">&para;</a></h3>
+<p>Se trata de una placa que inicialmente está pensada para la placa micro:bit, que es una placa de desarrollo diseñada por la BBC para la enseñanza de programación a adolescentes. Podemos hacer actividades con la placa de micro:STEAMakers utilizando la Shield EASY Plug que nos sirve para extender los pines de borde de placa a conectores Easy Plugs (RJ11 6P6C) donde podemos conectar de forma rápida sensores y actuadores.</p>
+<p>La Shield viene con cuatro LEDs WS2812 (controlados desde P9), un zumbador (controlado por P0). Hay un interruptor (Power Switch) que sirve para control de la alimentación externa y otro (Voltmeter_Switch) que se utiliza para control del voltaje (3,3V, 5V) de Easy Plug.</p>
+<p>El aspecto de la placa por la cara frontal es:</p>
+<p><center></p>
+<p><a class="glightbox" href="../img/EP/frontal.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Cara frontal" src="../img/EP/frontal.png" /></a><br />
+<em>Cara frontal</em></p>
+<p></center></p>
+<p>Y por la cara posterior es:</p>
+<p><center></p>
+<p><a class="glightbox" href="../img/EP/posterior.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Cara posterior" src="../img/EP/posterior.png" /></a><br />
+<em>Cara posterior</em></p>
+<p></center></p>
+<p>Los puertos EASY Plug tienen 6 pines que se serigrafian en la cara posterior con respecto a los puertos IO de la placa. La nomenclatura es la siguiente:</p>
+<ul>
+<li><strong>G</strong>: GND</li>
+<li><strong>V</strong>: Alimentación controlada por (Voltmeter_Switch) que será 3.3V o 5V siempre y cuando tengamos la alimentación externa conectada a una fuente de entre 6 y 10V. Sin alimentación externa los puertos EASY Plug no disponen de tensión positiva de alimentación.</li>
+</ul>
+<h3 id="analisis-alimentacion-shield"><FONT COLOR=#AA0000>Análisis alimentación Shield</font><a class="headerlink" href="#analisis-alimentacion-shield" title="Permanent link">&para;</a></h3>
+<p>En la imagen siguiene vemos destacadas las zonas que vamos a analizar:</p>
+<p><center></p>
+<p><a class="glightbox" href="../img/EP/alim.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Alimentación Shield" src="../img/EP/alim.png" /></a><br />
+<em>Alimentación Shield</em></p>
+<p></center></p>
+<p>Vemos que entre otros elementos están los dos circuitos integrados destacados. Veamos que son estos circuitos:</p>
+<p><FONT COLOR=#BB00FF><font size="5"><b>ASM1117</font color></font size></b></p>
+<p>Es un regulador de baja caída en formato SOT-223 capaz de entregar hasta 1A de corriente. En este caso se utiliza como regulador lineal de 5 a 3.3V con un circuito seguramente muy similar al circuito de apllicación que aparece en el datasheet del ASM1117 y que vemos en la imagen siguiente:</p>
+<p><center></p>
+<p><a class="glightbox" href="../img/EP/ASM1117.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Regulador ASM1117" src="../img/EP/ASM1117.png" /></a><br />
+<em>Regulador ASM1117</em></p>
+<p></center></p>
+<p><FONT COLOR=#BB00FF><font size="5"><b>LM2596</font color></font size></b></p>
+<p>Se trata de un regulador reductor de tensión de salida ajustable, en formato TO-263 KTT, capaz de entregar hasta 3A. El circuito de aplicación típico que indica su datasheet lo vemos a continuación. Podemos observar como están los componentes en la placa junto al conector de entrada externa de alimentación. Este va a ser el encargado de regular la tensión externa al valor de tensión seleccionado en la placa con el interruptor Voltimeter-Switch.</p>
+<p><center></p>
+<p><a class="glightbox" href="../img/EP/LM2596.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Regulador LM2596" src="../img/EP/LM2596.png" /></a><br />
+<em>Regulador LM2596</em></p>
+<p></center></p>
+<div class="admonition warning">
+<p class="admonition-title">Uso sin alimentación externa</p>
+<p>Sin alimentación externa los puertos EASY Plug no disponen de tensión positiva de alimentación. Por lo tanto no tiene sentido utilizar la Shield con la micro:STEAMakers sin dotarla de una alimentación entre 6 y 10V a través de su conector JST <strong>POWER</strong>.</p>
+</div>
+<h3 id="diagrama-de-pines_2"><FONT COLOR=#AA0000>Diagrama de pines</font><a class="headerlink" href="#diagrama-de-pines_2" title="Permanent link">&para;</a></h3>
+<p>En la figura siguiente podemos observar la relación de los puertos de la Shield con los pines de la micro:STEAMakers</p>
+<p><center></p>
+<p><a class="glightbox" href="../img/EP/pinout.svg" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Pinout Shield" src="../img/EP/pinout.svg" /></a><br />
+<em>Pinout Shield</em><br />
+<strong><em>Clic sobre la imagen para ampliarla</em></strong></p>
+<p></center></p>
+<p>Un análisis de la gráfica nos devuelve una serie de conclusiones a tener en cuenta para el trabajo con esta Shield:</p>
+<ul>
+<li><strong>1. Sensores micro:STEAMakers:</strong> Los pines io36 (sensor de corriente), io35 (micrófono), io39 (sensor de luz) e io33 (Buzzer) no están utilizados en la Shield por lo que el uso de sus elementos asociados no tiene restricciones.</li>
+<li><strong>2. I2C (SDA - io21; SCL - io22):</strong> El conector I2C está también disponible en formato EASY Plug y podemos conectar elementos a cualquiera de los conectores sin mas restricciones que las direcciones físicas y el número de elementos. Su interfaz de conexiones es:</li>
+</ul>
+<p><center></p>
+<p><a class="glightbox" href="../img/EP/pines_I2C.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Pines I2C" src="../img/EP/pines_I2C.png" /></a>  </p>
+<p></center></p>
+<ul>
+<li><strong>3. P12 (io15):</strong> El puerto P12 (io15) se puede usar sin restricciones. Su interfaz de conexiones es:</li>
+</ul>
+<p><center></p>
+<p><a class="glightbox" href="../img/EP/pines_P12.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Pines P12" src="../img/EP/pines_P12.png" /></a>  </p>
+<p></center></p>
+<p><FONT COLOR=#FF0000><b>En la práctica esta interfaz de conexión es la que tienen todos los sensores y actuadores de tipo EASY Plug que requieren, además de los pines de alimentación, de un sólo pin para los datos digitales o analógicos. Por tanto a este tipo de puerto podemos conectar gran cantidad de elementos.</b></font></p>
+<ul>
+<li><strong>4. P5 y P11:</strong> Puertos asociados a los botones de la micro:STEAMakers no utilizables para otros propósitos.</li>
+<li><strong>5. P6+P7 (P6 - io2; P7 - io25):</strong> Conector con dos puertos con la siguiente interfaz de conexionado de sus pines:</li>
+</ul>
+<p><center></p>
+<p><a class="glightbox" href="../img/EP/pines_P6yP7.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Pines P6+P7" src="../img/EP/pines_P6yP7.png" /></a>  </p>
+<p></center></p>
+<p><FONT COLOR=#FF0000><b>En la práctica esta interfaz de conexión la podemos considerar como la de P12 si solamente tenemos en cuenta el puerto P7 ignorando el P6. Lógicamente sería utilizable con cualquier dispositivo que tuviese la misma interfaz de conexionado.</b></font></p>
+<ul>
+<li><strong>6. P10 (io26):</strong> El puerto P10 (io26) se puede usar sin restricciones. Su interfaz de conexiones es:</li>
+</ul>
+<p><center></p>
+<p><a class="glightbox" href="../img/EP/pines_P10.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Pines P10" src="../img/EP/pines_P10.png" /></a>  </p>
+<p></center></p>
+<ul>
+<li><strong>7. P0 (io12):</strong> El puerto P0 (io12) se puede usar pero con la restricción de que al mismo está conectado el altavoz con la que está equipada la Shield. Su interfaz de conexiones es:</li>
+</ul>
+<p><center></p>
+<p><a class="glightbox" href="../img/EP/pines_P0.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Pines P0" src="../img/EP/pines_P0.png" /></a>  </p>
+<p></center></p>
+<ul>
+<li><strong>8. P1+P2 (P1 - io14; P2 - io32):</strong> Conector con dos puertos con la siguiente interfaz de conexionado de sus pines:</li>
+</ul>
+<p><center></p>
+<p><a class="glightbox" href="../img/EP/pines_P1yP2.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Pines P1 y P2" src="../img/EP/pines_P1yP2.png" /></a>  </p>
+<p></center></p>
+<p><FONT COLOR=#FF0000><b>En la práctica esta interfaz de conexión la podemos considerar como la de P12 si solamente tenemos en cuenta el puerto P1 ignorando el P2. Lógicamente sería utilizable con cualquier dispositivo que tuviese la misma interfaz de conexionado.</b></font></p>
+<ul>
+<li><strong>9. P3+P4+P8 (P3 - io13; P4 - io27; P8 - io4):</strong> Conector con tres puertos con la siguiente interfaz de conexionado de sus pines:</li>
+</ul>
+<p><center></p>
+<p><a class="glightbox" href="../img/EP/pines_P3P4P8.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Pines P3, P4 y P8" src="../img/EP/pines_P3P4P8.png" /></a>  </p>
+<p></center></p>
+<p><strong>Como limitaciones de uso debemos tener en cuenta que el puerto P3 está conectado al pin de control de la matriz de 4x4 LEDs RGB de la Shield y que el pin P4 es el mismo que del sensor táctil de la micro:STEAMakers.</strong></p>
+<p><FONT COLOR=#FF0000><b>En la práctica esta interfaz de conexión la podemos considerar como la de P12 si solamente tenemos en cuenta el puerto P8 ignorando los otros dos. Lógicamente sería utilizable con cualquier dispositivo que tuviese la misma interfaz de conexionado o una interfaz en la que utilice una combinación de pines como P8 y P4.</b></font>.</p>
+<ul>
+<li><strong>10. SPI (SCK-P13; MISO-P14; MOSI-P15; CS-P16):</strong> Conector con cuatro puertos dedicado al lector microSD con la siguiente interfaz de conexionado de sus pines:</li>
+</ul>
+<p><center></p>
+<p><a class="glightbox" href="../img/EP/pines_SPI.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Pines SPI" src="../img/EP/pines_SPI.png" /></a></p>
+<p></center></p>
+<ul>
+<li><strong>11. P9 (io16):</strong> Se trata del pin al que están conectados los 4 LEDs RGB direccionables con los que cuenta la Shield. Veremos como programarlos en las actividades.</li>
+</ul>
+<p><strong>En resumen, podemos usar sin restricciones, además de dispositivos I2C, los puertos P12 (io15), P7 (io25), P10 (io26), P1 (io14) y P8 (io4). Para el resto debemos tener en cuenta las restricciones vistas.</strong></p>
+<h3 id="compatibilidad-de-pines_2"><FONT COLOR=#AA0000>Compatibilidad de pines</font><a class="headerlink" href="#compatibilidad-de-pines_2" title="Permanent link">&para;</a></h3>
+<div class="admonition warning">
+<p class="admonition-title"><FONT COLOR=#FF0000><strong>AVISO IMPORTANTE</strong></font></p>
+<p>Cuando vamos a trabajar con señales analógicas debemos tener muy presente que, aunque todos los pines IOxx son entradas y salidas digitales, algunas incluso con más funciones. <strong>Cuando tenemos que utilizar la comunicación WiFi el convertidor ADC2 NO funciona.</strong></p>
+</div>
+<p>Las placas ESP32 tienen disponibles dos ADC (Analog to Digital Converter) de 12 bits que se denominan ADC1 y ADC2. Esos 12 bits dan una precisión de <span class="arithmatex">\(2^{12} = 4096\)</span>. Por lo tanto, si tenemos 12 bits para 3.3V podemos asegurar que <span class="arithmatex">\(3.3V/4096 = 0,8 mV\)</span> es la tensión correspondiente a cada paso.</p>
+<div class="admonition danger">
+<p class="admonition-title"><FONT COLOR=#FF0000><strong>Máxima tensión admisible en el ADC</strong></font></p>
+<p>Aunque los pines GPIO de la ESP32 pueden funcionar a 5V, los conversores ADC no pueden. Debemos tener cuidado de no sobrepasar esos 3.3V si el pin es uno de los que están conectados a uno de los conversores.</p>
+</div>
+<p>La placa ESP32 micro:STEAMakers es al fin y al cabo una ESP32 y la lectura de una entrada analógica se realiza de la forma habitual en entornos basados en Arduino, es decir con <code>analogRead(pin_GPIO)</code>. Internamente la ESP32, de manera genérica, compara la tensión que pretendemos medir con un valor de referencia Vref mediante un circuito atenuador de ganancia variable, tipicamente de -11dB para poder medir hasta 3.3V.</p>
+<p>En la ESP32 micro:STEAMakers los pines que tienen conxión con los conversores ADC y que pueden ser utilizados como entradas analógicas están distribuidos de la siguiente forma:</p>
+<ul>
+<li><strong>ADC1</strong> se conecta a 8 pines GPIO:</li>
+</ul>
+<p><center>32 , 33, 34, 35, 36, 37, 38, 39</center></p>
+<ul>
+<li><strong>ADC2</strong> se conecta a 10 pines GPIO:</li>
+</ul>
+<p><center>0, 2, 4, 12, 13, 14, 15, 25, 26, 27<br>
+<FONT COLOR=#FF00FF><b>WiFi ON → INHABILITA ADC2</b></font></center></br></p>
+<p>A efectos prácticos, revisando el pinout de la placa podemos asegurar que todos los pines catalogados como entradas analógicas, con la única excepción de P2 que se conecta a io32 y que pertenece a ADC1, funcionarán correctamente siempre y cuando no realicemos configuración WiFi alguna, dado que están conectados a ADC2.</p>
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2023 - 2035 Federico Coca
+    </div>
+  
+  
+</div>
+      
+        <div class="md-social">
+  
+    
+    
+    
+    
+    <a href="https://x.com/fgcoca" target="_blank" rel="noopener" title="X de Federico Coca" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M389.2 48h70.6L305.6 224.2 487 464H345L233.7 318.6 106.5 464H35.8l164.9-188.5L26.8 48h145.6l100.5 132.9L389.2 48zm-24.8 373.8h39.1L151.1 88h-42l255.3 333.8z"/></svg>
+    </a>
+  
+    
+    
+    
+    
+    <a href="https://github.com/fgcoca" target="_blank" rel="noopener" title="Github de Federico Coca" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+    </a>
+  
+    
+    
+    
+    
+    <a href="https://www.instagram.com/cocafederico/?hl=es" target="_blank" rel="noopener" title="Instagram de Federico Coca" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M224.1 141c-63.6 0-114.9 51.3-114.9 114.9s51.3 114.9 114.9 114.9S339 319.5 339 255.9 287.7 141 224.1 141zm0 189.6c-41.1 0-74.7-33.5-74.7-74.7s33.5-74.7 74.7-74.7 74.7 33.5 74.7 74.7-33.6 74.7-74.7 74.7zm146.4-194.3c0 14.9-12 26.8-26.8 26.8-14.9 0-26.8-12-26.8-26.8s12-26.8 26.8-26.8 26.8 12 26.8 26.8zm76.1 27.2c-1.7-35.9-9.9-67.7-36.2-93.9-26.2-26.2-58-34.4-93.9-36.2-37-2.1-147.9-2.1-184.9 0-35.8 1.7-67.6 9.9-93.9 36.1s-34.4 58-36.2 93.9c-2.1 37-2.1 147.9 0 184.9 1.7 35.9 9.9 67.7 36.2 93.9s58 34.4 93.9 36.2c37 2.1 147.9 2.1 184.9 0 35.9-1.7 67.7-9.9 93.9-36.2 26.2-26.2 34.4-58 36.2-93.9 2.1-37 2.1-147.8 0-184.8zM398.8 388c-7.8 19.6-22.9 34.7-42.6 42.6-29.5 11.7-99.5 9-132.1 9s-102.7 2.6-132.1-9c-19.6-7.8-34.7-22.9-42.6-42.6-11.7-29.5-9-99.5-9-132.1s-2.6-102.7 9-132.1c7.8-19.6 22.9-34.7 42.6-42.6 29.5-11.7 99.5-9 132.1-9s102.7-2.6 132.1 9c19.6 7.8 34.7 22.9 42.6 42.6 11.7 29.5 9 99.5 9 132.1s2.7 102.7-9 132.1z"/></svg>
+    </a>
+  
+    
+    
+    
+    
+    <a href="https://x.com/clubroboticagra" target="_blank" rel="noopener" title="X de Club Robótica Granada" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M389.2 48h70.6L305.6 224.2 487 464H345L233.7 318.6 106.5 464H35.8l164.9-188.5L26.8 48h145.6l100.5 132.9L389.2 48zm-24.8 373.8h39.1L151.1 88h-42l255.3 333.8z"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "..", "features": ["navigation.tabs", "navigation.tabs.sticky"], "search": "../assets/javascripts/workers/search.f886a092.min.js", "translations": {"clipboard.copied": "Copiado al portapapeles", "clipboard.copy": "Copiar al portapapeles", "search.result.more.one": "1 m\u00e1s en esta p\u00e1gina", "search.result.more.other": "# m\u00e1s en esta p\u00e1gina", "search.result.none": "No se encontraron documentos", "search.result.one": "1 documento encontrado", "search.result.other": "# documentos encontrados", "search.result.placeholder": "Teclee para comenzar b\u00fasqueda", "search.result.term.missing": "Falta", "select.version": "Seleccionar versi\u00f3n"}}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.aecac24b.min.js"></script>
+      
+        <script src="../plugins/mathjax.js"></script>
+      
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  <script>document$.subscribe(() => {const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});})</script></body>
+</html>

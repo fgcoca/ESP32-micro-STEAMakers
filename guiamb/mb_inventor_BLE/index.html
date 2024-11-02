@@ -1,0 +1,2323 @@
+
+<!doctype html>
+<html lang="es" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Una introducción a la placa ESP32 micro:steamakers que es muy similar a la Placa ESP32 STEAMakers, pero en este caso tiene el formato de la micro:bit.">
+      
+      
+        <meta name="author" content="Federico Coca">
+      
+      
+        <link rel="canonical" href="https://fgcoca.github.io/....https:/fgcoca.github.io/ESP32-micro-STEAMakers/guiamb/mb_inventor_BLE/">
+      
+      
+        <link rel="prev" href="../ble_inventor/">
+      
+      
+        <link rel="next" href="../../IDE/introIDE/">
+      
+      
+      <link rel="icon" href="../../img/favicon.png">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.4.5">
+    
+    
+      
+        <title>mBlocks + App Inventor + BLE - ESP32 micro:STEAMakers</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.6a10b989.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.356b1318.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+   <link href="../../assets/stylesheets/glightbox.min.css" rel="stylesheet"/><style>
+        html.glightbox-open { overflow: initial; height: 100%; }
+        .gslide-title { margin-top: 0px; user-select: text; }
+        .gslide-desc { color: #666; user-select: text; }
+        .gslide-image img { background: white; }
+        
+            .gscrollbar-fixer { padding-right: 15px; }
+            .gdesc-inner { font-size: 0.75rem; }
+            body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color);}
+            body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color);}
+            body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color);}
+            </style> <script src="../../assets/javascripts/glightbox.min.js"></script></head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="light-blue" data-md-color-accent="deep-purple">
+  
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&"object"==typeof palette.color)for(var key of Object.keys(palette.color))document.body.setAttribute("data-md-color-"+key,palette.color[key])</script>
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#introduccion" class="md-skip">
+          Saltar a contenido
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Cabecera">
+    <a href="../.." title="ESP32 micro:STEAMakers" class="md-header__button md-logo" aria-label="ESP32 micro:STEAMakers" data-md-component="logo">
+      
+  <img src="../../img/favicon.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            ESP32 micro:STEAMakers
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              mBlocks + App Inventor + BLE
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="light-blue" data-md-color-accent="deep-purple"  aria-label="Modo Oscuro"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Modo Oscuro" for="__palette_2" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2a7 7 0 0 0-7 7c0 2.38 1.19 4.47 3 5.74V17a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-2.26c1.81-1.27 3-3.36 3-5.74a7 7 0 0 0-7-7M9 21a1 1 0 0 0 1 1h4a1 1 0 0 0 1-1v-1H9v1Z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="light-blue" data-md-color-accent="deep-purple"  aria-label="Modo Claro"  type="radio" name="__palette" id="__palette_2">
+    
+      <label class="md-header__button md-icon" title="Modo Claro" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2a7 7 0 0 1 7 7c0 2.38-1.19 4.47-3 5.74V17a1 1 0 0 1-1 1H9a1 1 0 0 1-1-1v-2.26C6.19 13.47 5 11.38 5 9a7 7 0 0 1 7-7M9 21v-1h6v1a1 1 0 0 1-1 1h-4a1 1 0 0 1-1-1m3-17a5 5 0 0 0-5 5c0 2.05 1.23 3.81 3 4.58V16h4v-2.42c1.77-.77 3-2.53 3-4.58a5 5 0 0 0-5-5Z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Búsqueda" placeholder="Búsqueda" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Buscar">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Limpiar" aria-label="Limpiar" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Inicializando búsqueda
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/fgcoca/ESP32-micro-STEAMakers" title="Ir al repositorio" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    fgcoca/ESP32-micro-STEAMakers
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="Pestañas" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../presenta/" class="md-tabs__link">
+          
+  
+  ESP32 micro:STEAMakers
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../CO2/" class="md-tabs__link">
+          
+  
+  Teoria general
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../mblocks/" class="md-tabs__link">
+          
+  
+  MicroBlocks
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../IDE/introIDE/" class="md-tabs__link">
+          
+  
+  Arduino2.0
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../program/inicio/" class="md-tabs__link">
+          
+  
+  Arduinoblocks
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../sentry/inicio/" class="md-tabs__link">
+          
+  
+  Sentry 2
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../Miscelanea/about/" class="md-tabs__link">
+          
+  
+  Miscelanea
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navegación" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="ESP32 micro:STEAMakers" class="md-nav__button md-logo" aria-label="ESP32 micro:STEAMakers" data-md-component="logo">
+      
+  <img src="../../img/favicon.png" alt="logo">
+
+    </a>
+    ESP32 micro:STEAMakers
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/fgcoca/ESP32-micro-STEAMakers" title="Ir al repositorio" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    fgcoca/ESP32-micro-STEAMakers
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+    
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_1" id="__nav_1_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    ESP32 micro:STEAMakers
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1">
+            <span class="md-nav__icon md-icon"></span>
+            ESP32 micro:STEAMakers
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../presenta/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Presentación
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    La ESP32 micro:STEAMakers
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../otrohw/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Otros elementos hardware
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../escudos/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Escudos (Shields)
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+    
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Teoria general
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Teoria general
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../CO2/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Conceptos sobre CO2 y VOC
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../MiCS4514/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Sensor MiCS4514 de NO2 y CO
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../rgb/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Diodos LEDs RGB y modelos de color
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../program/thinspeak/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Teoría básica de IoT
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../program/espnow/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    ESP-NOW
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../bt/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Comunicaciones Bluetooth
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../servo/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Servomotor
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+    
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    MicroBlocks
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            MicroBlocks
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../mblocks/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Guía de MicroBlocks
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../webserial/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Web Serial ESPTool
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../boardie/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Boardie:un tablero virtual para MicroBlocks
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ublocks/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Programación micro:STEAMakers
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ble_inventor/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Extensión BluetoothLE de App Inventor
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    mBlocks + App Inventor + BLE
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    mBlocks + App Inventor + BLE
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Tabla de contenidos">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Tabla de contenidos
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#introduccion" class="md-nav__link">
+    Introducción
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#microblocks" class="md-nav__link">
+    MicroBlocks
+  </a>
+  
+    <nav class="md-nav" aria-label="MicroBlocks">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#codificacion-de-forma-interactiva" class="md-nav__link">
+    Codificación de forma interactiva
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#multitarea-natural" class="md-nav__link">
+    Multitarea Natural
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#correr-en-cualquier-sitio" class="md-nav__link">
+    Correr en cualquier sitio
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#desconecta-y-adelante" class="md-nav__link">
+    Desconecta y ¡adelante!
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#microblocks-20" class="md-nav__link">
+    MicroBlocks 2.0
+  </a>
+  
+    <nav class="md-nav" aria-label="MicroBlocks 2.0">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#transicion-del-firmware" class="md-nav__link">
+    Transición del firmware
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#transicion-a-la-version-estable" class="md-nav__link">
+    Transición a la versión estable
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#microblocks-ble-extension" class="md-nav__link">
+    MicroBlocks BLE Extension
+  </a>
+  
+    <nav class="md-nav" aria-label="MicroBlocks BLE Extension">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#metodos" class="md-nav__link">
+    Métodos
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#eventos" class="md-nav__link">
+    Eventos
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ejemplos" class="md-nav__link">
+    Ejemplos
+  </a>
+  
+    <nav class="md-nav" aria-label="Ejemplos">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#enviar-mensaje-desde-microcontrolador-a-una-app" class="md-nav__link">
+    Enviar mensaje desde microcontrolador a una App
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#recibir-multiples-datos" class="md-nav__link">
+    Recibir múltiples datos
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#recibir-multiples-datos-utilizando-palabras-clave" class="md-nav__link">
+    Recibir múltiples datos utilizando palabras clave
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#beating-heart" class="md-nav__link">
+    Beating Heart
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#led-editor-microsteamakers" class="md-nav__link">
+    LED editor micro:STEAMakers
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+    
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Arduino2.0
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            Arduino2.0
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../IDE/introIDE/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Introducción
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../IDE/codigoAB/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Código en Arduinoblocks
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../IDE/descarga/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Descarga del IDE
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../IDE/ventanaIDE/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Ventana principal del IDE
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../IDE/caracteristicasIDE2_0/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Características principales del IDE 2.0
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+    
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Arduinoblocks
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            Arduinoblocks
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../program/inicio/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Programación de micro:STEAMakers
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../program/RTTTL/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Formato RTTTL
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../program/server/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Servidor web
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../program/tm/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    micro:STEAMakers + Telegram
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../program/iotAB/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    IoT
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../program/espnowAB/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    ESP-NOW
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../actividadesAB/act_ini/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Actividades iniciales
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../actividadesAB/act_EP/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Actividades EASY Plug
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../actividadesAB/act_ava/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Actividades avanzadas y con shield modular
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+    
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Sentry 2
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            Sentry 2
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../sentry/inicio/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Inicio rápido
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../sentry/hard/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Hardware
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../sentry/manejo/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Manejo
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../sentry/vision/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Vision
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../sentry/wifi/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    WiFi
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+    
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Miscelanea
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            Miscelanea
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Miscelanea/about/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Autoria
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Miscelanea/lic/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Licencias
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Miscelanea/webgrafia/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Webgrafia/Bibliografía
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Miscelanea/soft/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Software utilizado
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Tabla de contenidos">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Tabla de contenidos
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#introduccion" class="md-nav__link">
+    Introducción
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#microblocks" class="md-nav__link">
+    MicroBlocks
+  </a>
+  
+    <nav class="md-nav" aria-label="MicroBlocks">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#codificacion-de-forma-interactiva" class="md-nav__link">
+    Codificación de forma interactiva
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#multitarea-natural" class="md-nav__link">
+    Multitarea Natural
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#correr-en-cualquier-sitio" class="md-nav__link">
+    Correr en cualquier sitio
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#desconecta-y-adelante" class="md-nav__link">
+    Desconecta y ¡adelante!
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#microblocks-20" class="md-nav__link">
+    MicroBlocks 2.0
+  </a>
+  
+    <nav class="md-nav" aria-label="MicroBlocks 2.0">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#transicion-del-firmware" class="md-nav__link">
+    Transición del firmware
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#transicion-a-la-version-estable" class="md-nav__link">
+    Transición a la versión estable
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#microblocks-ble-extension" class="md-nav__link">
+    MicroBlocks BLE Extension
+  </a>
+  
+    <nav class="md-nav" aria-label="MicroBlocks BLE Extension">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#metodos" class="md-nav__link">
+    Métodos
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#eventos" class="md-nav__link">
+    Eventos
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ejemplos" class="md-nav__link">
+    Ejemplos
+  </a>
+  
+    <nav class="md-nav" aria-label="Ejemplos">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#enviar-mensaje-desde-microcontrolador-a-una-app" class="md-nav__link">
+    Enviar mensaje desde microcontrolador a una App
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#recibir-multiples-datos" class="md-nav__link">
+    Recibir múltiples datos
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#recibir-multiples-datos-utilizando-palabras-clave" class="md-nav__link">
+    Recibir múltiples datos utilizando palabras clave
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#beating-heart" class="md-nav__link">
+    Beating Heart
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#led-editor-microsteamakers" class="md-nav__link">
+    LED editor micro:STEAMakers
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  <h1>mBlocks + App Inventor + BLE</h1>
+
+<h2 id="introduccion"><FONT COLOR=#007575><strong>Introducción</strong></font><a class="headerlink" href="#introduccion" title="Permanent link">&para;</a></h2>
+<p>Se trata de ampliar las funcionalidades de Bluetooth LE utilizando como plataforma de programación MicroBlocks y la placa micro:STEAMakers que estamos tratando en esta web. Vamos a usar la versión de pruebas que nos servirá para introducir el nuevo IDE 2.0 de MicroBlocks.</p>
+<p>Nos vamos a basar en <a href="https://community.appinventor.mit.edu/t/microblocks-ble-extension/129412">MicroBlocks BLE Extension</a>, extensión de App Inventor aportada a la <a href="https://community.appinventor.mit.edu/">comunidad MIT APP INVENTOR</a> por <strong><a href="https://petermathijssen.nl/">Peter Mathijssen</a></strong>:</p>
+<p><center></p>
+<p><a class="glightbox" href="../../img/guias/mb_inv_ble/Peter.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Peter en MIT App Inventor" src="../../img/guias/mb_inv_ble/Peter.png" /></a><br />
+<em>Peter en MIT App Inventor</em></p>
+<p></center></p>
+<p>En la imagen siguiente vemos el aspecto del nuevo IDE con la libreria micro:STEAMaker cargada y un sencillo programa en la zona de programación:</p>
+<p><center></p>
+<p><a class="glightbox" href="../../img/guias/mb_inv_ble/aspecto.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Aspecto del IDE 2.0" src="../../img/guias/mb_inv_ble/aspecto.png" /></a><br />
+<em>Aspecto del IDE 2.0</em></p>
+<p></center></p>
+<h2 id="microblocks"><FONT COLOR=#007575><strong>MicroBlocks</strong></font><a class="headerlink" href="#microblocks" title="Permanent link">&para;</a></h2>
+<p><a href="https://microblocks.fun/">MicroBlocks</a> es un lenguaje de programación por bloques para computación física. Funciona en microcontroladores como <a href="http://microbit.org/">micro:bit</a>, <a href="https://shop.innovadidactic.com/es/standard-placas-shields-y-kits/1677-placa-esp32-micro-steamakers-8436574314663.html">micro:STEAMakers</a>, <a href="https://calliope.cc/en">Calliope mini</a>, <a href="https://www.adafruit.com/product/3333">AdaFruit Circuit Playground Express</a> y muchas <a href="https://wiki.microblocks.fun/boards/supported">otras</a>.</p>
+<h3 id="codificacion-de-forma-interactiva"><FONT COLOR=#AA0000>Codificación de forma interactiva</font><a class="headerlink" href="#codificacion-de-forma-interactiva" title="Permanent link">&para;</a></h3>
+<p>MicroBlocks es un entorno <em>"en vivo (en directo)"</em>. Al hacer clic en un bloque se ejecutará inmediatamente, directamente en la placa. Prueba comandos. Ver y graficar los valores de los sensores en tiempo real. Se acabó esperar a que el código se compile y se descargue.</p>
+<h3 id="multitarea-natural"><FONT COLOR=#AA0000>Multitarea Natural</font><a class="headerlink" href="#multitarea-natural" title="Permanent link">&para;</a></h3>
+<p>¿Quieres visualizar una animación mientras controlas un motor? No hay problema, MicroBlocks permite escribir scripts separados para cada tarea y ejecutarlos al mismo tiempo. El código es más sencillo de escribir y más fácil de entender.</p>
+<h3 id="correr-en-cualquier-sitio"><FONT COLOR=#AA0000>Correr en cualquier sitio</font><a class="headerlink" href="#correr-en-cualquier-sitio" title="Permanent link">&para;</a></h3>
+<p>MicroBlocks funciona en muchas placas diferentes, pero sus scripts son portables. Los botones, sensores y bloques de pantalla se comportan igual en todas las placas con el hardware relevante. MicroBlocks incluso simula la pantalla micro:bit 5x5 LED en pantallas TFT.</p>
+<h3 id="desconecta-y-adelante"><FONT COLOR=#AA0000>Desconecta y ¡adelante!</font><a class="headerlink" href="#desconecta-y-adelante" title="Permanent link">&para;</a></h3>
+<p>MicroBlocks descarga el código en el microcontrolador a medida que lo escribes. Cuando te guste lo que hace tu programa, desconecta la placa y listo. Crea un juego de bolsillo, una aplicación de fitness o ropa luminosa que vaya contigo a todas partes.</p>
+<h3 id="microblocks-20"><FONT COLOR=#AA0000>MicroBlocks 2.0</font><a class="headerlink" href="#microblocks-20" title="Permanent link">&para;</a></h3>
+<p>Las diferencias entre MicroBlocks 1.2 y 2.0 son obvias y se ven a primera vista.</p>
+<p><center></p>
+<p><a class="glightbox" href="../../img/guias/mb_inv_ble/1_2.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="El viejo MicroBlocks 1.2" src="../../img/guias/mb_inv_ble/1_2.png" /></a><br />
+<em>El viejo MicroBlocks 1.2</em>
+<a class="glightbox" href="../../img/guias/mb_inv_ble/2_0.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="El nuevo MicroBlocks 2.0" src="../../img/guias/mb_inv_ble/2_0.png" /></a><br />
+<em>El nuevo MicroBlocks 2.0</em></p>
+<p></center></p>
+<p>MicroBlocks 2.0 tiene una interfaz de usuario completamente rediseñada y moderna, con iconos limpios, una atractiva combinación de colores, una paleta de bloques animados y compatibilidad con el modo oscuro. Los cambios en el diseño de los bloques incluyen contornos más sencillos, mejor contraste de colores para mejorar la legibilidad, campos de entrada de datos más grandes y triángulos de selección de menús y opciones más grandes y manejables.</p>
+<h4 id="transicion-del-firmware"><FONT COLOR=#0000FF>Transición del firmware</font><a class="headerlink" href="#transicion-del-firmware" title="Permanent link">&para;</a></h4>
+<p>MicroBlocks 2.0 también mejora la máquina virtual (VM), el firmware que ejecuta el código MicroBlocks. La antigua VM utilizaba instrucciones de longitud fija de 32 bits; la nueva utiliza instrucciones de longitud variable de 16 bits.</p>
+<p>Dado que utilizan conjuntos de instrucciones completamente diferentes, las dos VM no son compatibles. MicroBlocks 2.0 requiere la nueva VM (versiones de firmware 300 y posteriores) mientras que las versiones anteriores de MicroBlocks requieren la antigua VM (versiones de firmware anteriores a 300).</p>
+<p>No hay diferencias a nivel de código fuente; los mismos archivos de proyecto y biblioteca de MicroBlocks funcionan tanto en MicroBlocks 2.0 como en versiones anteriores.</p>
+<p>La primera vez que se conecta una placa con firmware antiguo a MicroBlocks 2.0 se pedirá que actualice el firmware:</p>
+<p><center></p>
+<p><a class="glightbox" href="../../img/guias/mb_inv_ble/primera_old.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Primera conexión firmware antiguo" src="../../img/guias/mb_inv_ble/primera_old.png" /></a><br />
+<em>Primera conexión firmware antiguo</em></p>
+<p></center></p>
+<p>Si intentas utilizar una placa con un firmware que no es compatible con la versión de MicroBlocks que estás utilizando, recibirás esta advertencia al intentar ejecutar el código:</p>
+<p><center></p>
+<p><a class="glightbox" href="../../img/guias/mb_inv_ble/firm_incomp.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Firmware no compatible" src="../../img/guias/mb_inv_ble/firm_incomp.png" /></a><br />
+<em>Firmware no compatible</em></p>
+<p></center></p>
+<p>Si se recibe esa advertencia, sólo hay que actualizar el firmware de la placa utilizando el comando "actualizar firmware de la placa" en el menú engranajes. Esto actualizará la placa con el firmware que coincida con la versión de MicroBlocks que se esté utilizando. Se puede utilizar la misma técnica para revertir el firmware y utilizar una versión anterior de MicroBlocks, si lo necesitamos.</p>
+<h4 id="transicion-a-la-version-estable"><FONT COLOR=#0000FF>Transición a la versión estable</font><a class="headerlink" href="#transicion-a-la-version-estable" title="Permanent link">&para;</a></h4>
+<p>Tras varias semanas de pruebas de MicroBlocks 2.0 como versión piloto, la versión estable también se actualizará a MicroBlocks 2.0.</p>
+<p>Sin embargo, incluso después de eso, las versiones anteriores de MicroBlocks podrán descargarse utilizando el botón "Previous Versions" de la <a href="https://microblocks.fun/download">página de descargas</a>:</p>
+<p><center></p>
+<p><a class="glightbox" href="../../img/guias/mb_inv_ble/PreviousVersionsButton.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Botón &quot;Previous Versions&quot;" src="../../img/guias/mb_inv_ble/PreviousVersionsButton.png" /></a>  </p>
+<p></center></p>
+<p>La última versión estable de la versión antigua es la 1.2.100.</p>
+<h2 id="microblocks-ble-extension"><FONT COLOR=#007575><strong>MicroBlocks BLE Extension</strong></font><a class="headerlink" href="#microblocks-ble-extension" title="Permanent link">&para;</a></h2>
+<p>La extensión hace que la conexión a microcontroladores sea muy fácil. Hace todo el trabajo difícil por ti utilizando los bloques que contiene.</p>
+<h3 id="metodos"><FONT COLOR=#AA0000>Métodos</font><a class="headerlink" href="#metodos" title="Permanent link">&para;</a></h3>
+<p>Están disponibles los bloques para los siguientes métodos:</p>
+<ul>
+<li><strong>Connect</strong></li>
+</ul>
+<p><center></p>
+<p><a class="glightbox" href="../../img/guias/mb_inv_ble/BConn.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Bloque Connect" src="../../img/guias/mb_inv_ble/BConn.png" /></a><br />
+<em>Bloque Connect</em></p>
+<p></center></p>
+<p>Conectar a MicroBlocks el dispositivo con el nombre indicado. Tenemos que importar la extensión "<a href="https://mit-cml.github.io/extensions/">Bluetooth LE</a>" y utilizar el bloque "BluetoothLE" (<a class="glightbox" href="../../img/guias/mb_inv_ble/BluetoothLE.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="" src="../../img/guias/mb_inv_ble/BluetoothLE.png" /></a>) de esa extensión como primer parámetro de este bloque. El segundo parámetro es el nombre de la placa a la que desea conectarse, como "MicroBlocks XYZ", donde XYZ es el ID BLE de tres letras de la placa.</p>
+<table>
+<tr>
+<td><b>Parámetro</b></td>
+<td><b>Tipo</b></td>
+</tr>
+<tr>
+<td>bleExtension</td>
+<td>componente</td>
+</tr>
+<tr>
+<td>name</td>
+<td>texto</td>
+</tr>
+</table>
+
+<ul>
+<li><strong>Disconnect</strong></li>
+</ul>
+<p><center></p>
+<p><a class="glightbox" href="../../img/guias/mb_inv_ble/BDisconn.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Bloque Disconnect" src="../../img/guias/mb_inv_ble/BDisconn.png" /></a><br />
+<em>Bloque Disconnect</em></p>
+<p></center></p>
+<p>Se desconecta del dispositivo BluetoothLE actualmente conectado, si lo hubiera.</p>
+<ul>
+<li><strong>IsDeviceConnected</strong></li>
+</ul>
+<p><center></p>
+<p><a class="glightbox" href="../../img/guias/mb_inv_ble/BIsDeviceConnected.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Bloque IsDeviceConnected" src="../../img/guias/mb_inv_ble/BIsDeviceConnected.png" /></a><br />
+<em>Bloque IsDeviceConnected</em></p>
+<p></center></p>
+<p>Devuelve el valor booleano 'true' si un dispositivo está conectado.</p>
+<ul>
+<li><strong>SendMessage</strong></li>
+</ul>
+<p><center></p>
+<p><a class="glightbox" href="../../img/guias/mb_inv_ble/BSendMessage.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Bloque SendMessage" src="../../img/guias/mb_inv_ble/BSendMessage.png" /></a><br />
+<em>Bloque SendMessage</em></p>
+<p></center></p>
+<p>Envía el mensaje dado a MicroBlocks.</p>
+<table>
+<tr>
+<td><b>Parámetro</b></td>
+<td><b>Tipo</b></td>
+</tr>
+<tr>
+<td>message</td>
+<td>texto</td>
+</tr>
+</table>
+
+<h3 id="eventos"><FONT COLOR=#AA0000>Eventos</font><a class="headerlink" href="#eventos" title="Permanent link">&para;</a></h3>
+<p>Están disponibles los siguientes eventos:</p>
+<ul>
+<li><strong>ConnectionChanged</strong></li>
+</ul>
+<p><center></p>
+<p><a class="glightbox" href="../../img/guias/mb_inv_ble/BConnectionChanged.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Bloque ConnectionChanged" src="../../img/guias/mb_inv_ble/BConnectionChanged.png" /></a><br />
+<em>Bloque ConnectionChanged</em></p>
+<p></center></p>
+<p>Este evento se ejecuta cuando se conecta o desconecta un dispositivo.</p>
+<table>
+<tr>
+<td><b>Parámetro</b></td>
+<td><b>Tipo</b></td>
+</tr>
+<tr>
+<td>isConnected</td>
+<td>booleano</td>
+</tr>
+</table>
+
+<ul>
+<li><strong>MicroBlocksMessageReceived</strong></li>
+</ul>
+<p><center></p>
+<p><a class="glightbox" href="../../img/guias/mb_inv_ble/BMicroBlocksMessageReceived.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Bloque MicroBlocksMessageReceived" src="../../img/guias/mb_inv_ble/BMicroBlocksMessageReceived.png" /></a><br />
+<em>Bloque MicroBlocksMessageReceived</em></p>
+<p></center></p>
+<p>Este evento se ejecuta cuando se recibe un mensaje MicroBlocks.</p>
+<table>
+<tr>
+<td><b>Parámetro</b></td>
+<td><b>Tipo</b></td>
+</tr>
+<tr>
+<td>isConnected</td>
+<td>texto</td>
+</tr>
+</table>
+
+<h2 id="ejemplos"><FONT COLOR=#007575><strong>Ejemplos</strong></font><a class="headerlink" href="#ejemplos" title="Permanent link">&para;</a></h2>
+<p>Si no conocemos el BLE id de la placa que estamos utilizando, una forma sencilla de averiguarlo es dirigirnos a la categoría 'Entrada' de MicroBlocks. La placa tiene que estar conectada al IDE para mostrar el BLE id.</p>
+<p><center></p>
+<p><a class="glightbox" href="../../img/guias/mb_inv_ble/BLE_id.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="BLE id" src="../../img/guias/mb_inv_ble/BLE_id.png" /></a><br />
+<em>BLE id</em></p>
+<p></center></p>
+<h3 id="enviar-mensaje-desde-microcontrolador-a-una-app"><FONT COLOR=#AA0000>Enviar mensaje desde microcontrolador a una App</font><a class="headerlink" href="#enviar-mensaje-desde-microcontrolador-a-una-app" title="Permanent link">&para;</a></h3>
+<p>Seguimos trabajando con las extensiones:</p>
+<ul>
+<li>MicroBlocks BLE Extension.</li>
+<li>Tools Extension, de <a href="https://puravidaapps.com/index.php">Pura Vida Apps</a> según los términos y condiciones que aparecen en la web de la extensión:</li>
+</ul>
+<p>Utilizo esta extensión para mantener la pantalla activa mientras el microcontrolador permanece conectado.</p>
+<p><center></p>
+<p><a class="glightbox" href="../../img/guias/mb_inv_ble/capturaPuraVidaApps.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Captura de la web Pura Vida Apps" src="../../img/guias/mb_inv_ble/capturaPuraVidaApps.png" /></a><br />
+<em>Captura de la web Pura Vida Apps</em></p>
+<p></center></p>
+<p>Traducción libre de esta captura:</p>
+<div class="admonition info">
+<p class="admonition-title">Términos y Condiciones</p>
+<ul>
+<li>¡Diviértete y utiliza esta extensión en tus proyectos de App Inventor! ¡Pura Vida!</li>
+<li>EL SOFTWARE SE PROPORCIONA "TAL CUAL", SIN GARANTÍA DE NINGÚN TIPO, EXPRESA O IMPLÍCITA, INCLUIDAS, ENTRE OTRAS, LAS GARANTÍAS DE COMERCIABILIDAD, IDONEIDAD PARA UN FIN DETERMINADO Y NO INFRACCIÓN. EN NINGÚN CASO LOS AUTORES O LOS TITULARES DE LOS DERECHOS DE AUTOR SERÁN RESPONSABLES DE NINGUNA RECLAMACIÓN, DAÑO U OTRA RESPONSABILIDAD, YA SEA EN UNA ACCIÓN CONTRACTUAL, EXTRACONTRACTUAL O DE OTRO TIPO, QUE SURJA DE, O ESTÉ RELACIONADA CON EL SOFTWARE O EL USO U OTRAS OPERACIONES CON EL SOFTWARE.</li>
+<li><strong>Este es el único lugar autorizado para descargar esta extensión. No está permitido alojar esta extensión en otro lugar y ofrecerla para que otros la descarguen</strong>, ya sea en otro sitio web o market place o similar. La razón es que todo el mundo debería tener la oportunidad de donar algo en caso de que le guste mi trabajo. Se le permite proporcionar un enlace a este sitio, para que otros puedan descargar la extensión. Aquí encontrará siempre la versión más actualizada, incluyendo documentación y ejemplos de uso. Gracias por su comprensión.</li>
+</ul>
+<p><FONT COLOR=#FF0000><font size="5"><b>Por las razones expresadas en estos "Términos y Condiciones" aquí solamente se facilita el enlace a la web del autor.</b></font></font></p>
+</div>
+<p>El diseño de la App tiene el aspecto de la imagen siguiente y bajo su título tenemos el enlace de descarga de Recibir_un_dato_desde_microncontrolador.aia.</p>
+<p><center></p>
+<p><a class="glightbox" href="../../img/guias/mb_inv_ble/Recibir_un_dato_desde_microncontrolador.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="App Recibir_un_dato_desde_microncontrolador" src="../../img/guias/mb_inv_ble/Recibir_un_dato_desde_microncontrolador.png" /></a><a class="glightbox" href="../../img/guias/mb_inv_ble/Recibir_un_dato_desde_microncontrolador_soft.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="App Recibir_un_dato_desde_microncontrolador" src="../../img/guias/mb_inv_ble/Recibir_un_dato_desde_microncontrolador_soft.png" /></a><br />
+<em>App Recibir_un_dato_desde_microncontrolador</em><br />
+<strong><em><a href="../../program/AppInventor/Recibir_un_dato_desde_microncontrolador.aia">Descargar Recibir_un_dato_desde_microncontrolador.aia</a></em></strong></p>
+<p></center></p>
+<p>Una vez escaneado el QR de AI Companion debemos ver la aplicación de la imagen, donde observamos que:</p>
+<ul>
+<li>Nos avisa que no distingue mayúsculas y minúsculas.</li>
+<li>Solicita el BLE id de la placa (ISJ en nuestro caso) para poder conectar.</li>
+<li>El botón se usará para conectar y desconectar la App con la placa.</li>
+<li>Inicialmente la etiqueta donde se refleja el dato recibido no contiene ningún texto.</li>
+</ul>
+<p><center></p>
+<p><a class="glightbox" href="../../img/guias/mb_inv_ble/Pantalla_inicial1.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Pantalla inicial" src="../../img/guias/mb_inv_ble/Pantalla_inicial1.png" /></a><br />
+<em>Pantalla inicial</em></p>
+<p></center></p>
+<p>Introducimos el BLE id y pulsamos en el botón "Conectar". El botón se pone de color verde y cambia su texto indicando que la conexión está establecida correctamente. Tmabién aparece la etiqueta que muestra el dato recibido.</p>
+<p><center></p>
+<p><a class="glightbox" href="../../img/guias/mb_inv_ble/Conexi%C3%B3n_establecida1.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Conexión establecida" src="../../img/guias/mb_inv_ble/Conexi%C3%B3n_establecida1.png" /></a><br />
+<em>Conexión establecida</em></p>
+<p></center></p>
+<p>Por otra parte el programa en MicroBlocks está enviado el valor de inclinación de la placa respecto al eje X cada 100ms.</p>
+<p><center></p>
+<p><a class="glightbox" href="../../img/guias/mb_inv_ble/Recibir_un_dato_desde_microncontrolador_mB.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Programa Recibir_un_dato_desde_microncontrolador.ubp" src="../../img/guias/mb_inv_ble/Recibir_un_dato_desde_microncontrolador_mB.png" /></a><br />
+<em>Programa Recibir_un_dato_desde_microncontrolador.ubp</em><br />
+<strong><em><a href="../../program/AppInventor/Recibir_un_dato_desde_microncontrolador.ubp">Descargar Recibir_un_dato_desde_microncontrolador.ubp</a></em></strong></p>
+<p></center></p>
+<p>Para que el programa esté en la placa necesitamos establecer conexión entre el IDE de MicroBlocks y la misma, pero es <FONT COLOR=#FF0000><b>MUY IMPORTANTE</b></font> que cuando finalicemos esta tarea desconectemos la placa del IDE o no podremos establecer la conexión desde la App. Recordemos que no están permitidas dos conexiones con la misma placa.</p>
+<p>En la animación siguiente podemos observar el funcionamiento del ejemplo.</p>
+<p><center></p>
+<p><a class="glightbox" href="../../img/guias/mb_inv_ble/Recibir_un_dato_desde_microncontrolador.gif" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Funcionamiento de Recibir_un_dato_desde_microncontrolador" src="../../img/guias/mb_inv_ble/Recibir_un_dato_desde_microncontrolador.gif" /></a><br />
+<em>Funcionamiento de Recibir_un_dato_desde_microncontrolador</em></p>
+<p></center></p>
+<h3 id="recibir-multiples-datos"><FONT COLOR=#AA0000>Recibir múltiples datos</font><a class="headerlink" href="#recibir-multiples-datos" title="Permanent link">&para;</a></h3>
+<p>Este ejemplo es una continuación del anterior "Enviar mensaje desde microcontrolador a una App" y por tanto seguimos trabajando con las extensiones:</p>
+<ul>
+<li>MicroBlocks BLE Extension.</li>
+<li>Tools Extension, de <a href="https://puravidaapps.com/index.php">Pura Vida Apps</a> según los términos y condiciones que aparecen en la web de la extensión vistos anteriormente.</li>
+</ul>
+<p>El diseño de la App tiene el aspecto de la imagen siguiente y bajo su título tenemos el enlace de descarga de RecibirMultiplesDatos.aia.</p>
+<p><center></p>
+<p><a class="glightbox" href="../../img/guias/mb_inv_ble/RecibirMultiplesDatos.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="App RecibirMultiplesDatos" src="../../img/guias/mb_inv_ble/RecibirMultiplesDatos.png" /></a><a class="glightbox" href="../../img/guias/mb_inv_ble/RecibirMultiplesDatos_soft.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="App RecibirMultiplesDatos" src="../../img/guias/mb_inv_ble/RecibirMultiplesDatos_soft.png" /></a><br />
+<em>App RecibirMultiplesDatos</em><br />
+<strong><em><a href="../../program/AppInventor/RecibirMultiplesDatos.aia">Descargar RecibirMultiplesDatos.aia</a></em></strong></p>
+<p></center></p>
+<p>La conexión con AI Companion y la placa micro:STEAMakers es exactamente la misma que en los ejemplos anteriores.</p>
+<p>El programa en MicroBlocks está enviado el valor de inclinación de la placa respecto a los tres ejes cada 100ms.</p>
+<p><center></p>
+<p><a class="glightbox" href="../../img/guias/mb_inv_ble/RecibirMultiplesDatos_mB.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Programa RecibirMultiplesDatos.ubp" src="../../img/guias/mb_inv_ble/RecibirMultiplesDatos_mB.png" /></a><br />
+<em>Programa RecibirMultiplesDatos.ubp</em><br />
+<strong><em><a href="../../program/AppInventor/RecibirMultiplesDatos.ubp">Descargar RecibirMultiplesDatos.ubp</a></em></strong></p>
+<p></center></p>
+<p>En la animación siguiente podemos observar el funcionamiento del ejemplo.</p>
+<p><center></p>
+<p><a class="glightbox" href="../../img/guias/mb_inv_ble/RecibirMultiplesDatos.gif" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Funcionamiento de RecibirMultiplesDatos" src="../../img/guias/mb_inv_ble/RecibirMultiplesDatos.gif" /></a><br />
+<em>Funcionamiento de RecibirMultiplesDatos</em></p>
+<p></center></p>
+<h3 id="recibir-multiples-datos-utilizando-palabras-clave"><FONT COLOR=#AA0000>Recibir múltiples datos utilizando palabras clave</font><a class="headerlink" href="#recibir-multiples-datos-utilizando-palabras-clave" title="Permanent link">&para;</a></h3>
+<p>Otra forma de resolver el ejemplo anterior es utilizar palabras clave (keywords) para distinguir unos datos de otros.</p>
+<p>Seguimos trabajando con las extensiones:</p>
+<ul>
+<li>MicroBlocks BLE Extension.</li>
+<li>Tools Extension, de <a href="https://puravidaapps.com/index.php">Pura Vida Apps</a> según los términos y condiciones que aparecen en la web de la extensión vistos anteriormente.</li>
+</ul>
+<p>Utilizo esta extensión para mantener la pantalla activa mientras el microcontrolador permanece conectado.</p>
+<p>El diseño de la App tiene el aspecto de la imagen siguiente y bajo su título tenemos el enlace de descarga de RecibirMultiplesDatosKeywords.aia.</p>
+<p><center></p>
+<p><a class="glightbox" href="../../img/guias/mb_inv_ble/RecibirMultiplesDatosKeywords.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="App RecibirMultiplesDatosKeywords" src="../../img/guias/mb_inv_ble/RecibirMultiplesDatosKeywords.png" /></a><a class="glightbox" href="../../img/guias/mb_inv_ble/RecibirMultiplesDatosKeywords_soft.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="App RecibirMultiplesDatosKeywords" src="../../img/guias/mb_inv_ble/RecibirMultiplesDatosKeywords_soft.png" /></a><br />
+<em>App RecibirMultiplesDatosKeywords</em><br />
+<strong><em><a href="../../program/AppInventor/RecibirMultiplesDatosKeywords.aia">Descargar RecibirMultiplesDatosKeywords.aia</a></em></strong></p>
+<p></center></p>
+<p>Aunque ya figura comentado en el programa, indicar que como carácter delimitador entre la clave y el valor del dato se utiliza el espacio en blanco y su <a href="https://en.wikipedia.org/wiki/List_of_Unicode_characters">valor decimal en Latín básico del listado de caracteres Unicode</a> es 32 (U+0020).</p>
+<p>La conexión con AI Companion y la placa micro:STEAMakers es exactamente la misma que en los ejemplos anteriores.</p>
+<p>El programa en MicroBlocks está enviado el valor de inclinación de la placa respecto a los tres ejes cada 100ms.</p>
+<p><center></p>
+<p><a class="glightbox" href="../../img/guias/mb_inv_ble/RecibirMultiplesDatosKeywords_mB.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Programa RecibirMultiplesDatosKeywords.ubp" src="../../img/guias/mb_inv_ble/RecibirMultiplesDatosKeywords_mB.png" /></a><br />
+<em>Programa RecibirMultiplesDatosKeywords.ubp</em><br />
+<strong><em><a href="../../program/AppInventor/RecibirMultiplesDatosKeywords.ubp">Descargar RecibirMultiplesDatosKeywords.ubp</a></em></strong></p>
+<p></center></p>
+<p>El funcionamiento es totalmente idéntico al del ejemplo anterior.</p>
+<h3 id="beating-heart"><FONT COLOR=#AA0000>Beating Heart</font><a class="headerlink" href="#beating-heart" title="Permanent link">&para;</a></h3>
+<p>Este ejemplo es el que aparece en <a href="https://community.appinventor.mit.edu/t/microblocks-ble-extension/129412">MicroBlocks BLE Extension</a>, extensión de App Inventor aportada a la <a href="https://community.appinventor.mit.edu/">comunidad MIT APP INVENTOR</a> por <strong><a href="https://petermathijssen.nl/">Peter Mathijssen</a></strong>.</p>
+<p>Su adaptación a micro:STEAMakers y a los ejemplos anteriores es la que vamos a desarrollar en este apartado. Partimos del ejemplo EstablecerConexionMejorado que cargamos y archivamos como Beating_Heart_microSM</p>
+<p>Seguimos trabajando con las extensiones:</p>
+<ul>
+<li>MicroBlocks BLE Extension.</li>
+<li>Tools Extension, de <a href="https://puravidaapps.com/index.php">Pura Vida Apps</a> según los términos y condiciones que aparecen en la web de la extensión vistos anteriormente.</li>
+</ul>
+<p>Utilizo esta extensión para mantener la pantalla activa mientras el microcontrolador permanece conectado.</p>
+<p>El diseño de la App tiene el aspecto de la imagen siguiente y bajo su título tenemos el enlace de descarga de Beating_Heart_microSM.aia.</p>
+<p><center></p>
+<p><a class="glightbox" href="../../img/guias/mb_inv_ble/Beating_Heart_microSM.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="App Beating_Heart_microSM" src="../../img/guias/mb_inv_ble/Beating_Heart_microSM.png" /></a><a class="glightbox" href="../../img/guias/mb_inv_ble/Beating_Heart_microSM_soft.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="App Beating_Heart_microSM" src="../../img/guias/mb_inv_ble/Beating_Heart_microSM_soft.png" /></a><br />
+<em>App Beating_Heart_microSM</em><br />
+<strong><em><a href="../../program/AppInventor/Beating_Heart_microSM.aia">Descargar Beating_Heart_microSM.aia</a></em></strong></p>
+<p></center></p>
+<p>La conexión con AI Companion y la placa micro:STEAMakers es la misma que en los ejemplos anteriores.</p>
+<p>El programa en MicroBlocks está recibiendo mensajes que se envian y el valor recibido en el último mensaje lo guarda en la variable <code>wait</code>, de forma que dicha variable tomará como valor el de la posición del deslizador de la App que como podemos comprobar varía entre 100 y 1000 y su posición inicial se sitúa en 500. Por defecto el programa también asigna dicho valor (500) a la variable, que en definitiva es el retardo entre las imágenes que se muestran, que ya podemos deducir que estará entre 100ms y 1000ms.</p>
+<p><center></p>
+<p><a class="glightbox" href="../../img/guias/mb_inv_ble/Beating_Heart_microSM_mB.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Programa Beating_Heart_microSM.ubp" src="../../img/guias/mb_inv_ble/Beating_Heart_microSM_mB.png" /></a><br />
+<em>Programa Beating_Heart_microSM.ubp</em><br />
+<strong><em><a href="../../program/AppInventor/Beating_Heart_microSM.ubp">Descargar Beating_Heart_microSM.ubp</a></em></strong></p>
+<p></center></p>
+<p>En la animación siguiente podemos observar el funcionamiento del ejemplo. Como se observa el programa está grabado en la placa y como los latidos están dentro de un bucle infinito, el corazón ya está latiendo.</p>
+<p><center></p>
+<p><a class="glightbox" href="../../img/guias/mb_inv_ble/Beating_Heart_microSM.gif" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Funcionamiento de Beating_Heart_microSM" src="../../img/guias/mb_inv_ble/Beating_Heart_microSM.gif" /></a><br />
+<em>Funcionamiento de Beating_Heart_microSM</em></p>
+<p></center></p>
+<p>Como se observa al final, cuando no hay conexión los cambios en la pantalla no tienen efecto en la placa. Esto se debe al bloque "call TaifunTools1.DontKeepScreenOn".</p>
+<h3 id="led-editor-microsteamakers"><FONT COLOR=#AA0000>LED editor micro:STEAMakers</font><a class="headerlink" href="#led-editor-microsteamakers" title="Permanent link">&para;</a></h3>
+<p>Este ejemplo creado y documentado por <a href="https://petermathijssen.nl/">Peter Mathijssen</a> tiene su historial en el servidor <a href="https://discord.com/channels/1000653853491998760/1228896347206451240">MicroBlocks en Discord</a> en el hilo #appinventor. Utilizaré aquí la versión que tan amablemente Peter me envió a través de esta misma plataforma.</p>
+<p>La documentación del ejemplo está en <a href="https://community.appinventor.mit.edu/t/led-editor-using-microblocks-extension/130645">LED editor using MicroBlocks extension</a>.</p>
+<p>Seguimos trabajando con las extensiones:</p>
+<ul>
+<li>MicroBlocks BLE Extension.</li>
+<li>Tools Extension, de <a href="https://puravidaapps.com/index.php">Pura Vida Apps</a> según los términos y condiciones que aparecen en la web de la extensión vistos anteriormente.</li>
+</ul>
+<p>Utilizo esta extensión para mantener la pantalla activa mientras el microcontrolador permanece conectado.</p>
+<p>El diseño de la App tiene el aspecto de la imagen siguiente y bajo su título tenemos el enlace de descarga de led_editor_v1.aia.</p>
+<p><center></p>
+<p><a class="glightbox" href="../../img/guias/mb_inv_ble/led_editor_v1.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="App led_editor_v1" src="../../img/guias/mb_inv_ble/led_editor_v1.png" /></a>!<br />
+<strong><em><a href="../../program/AppInventor/led_editor_v1.aia">Descargar led_editor_v1.aia</a></em></strong></p>
+<p></center></p>
+<p>Dada la extensión del software se pone por partes para facilitar su visualización.</p>
+<p><center></p>
+<p><a class="glightbox" href="../../img/guias/mb_inv_ble/led_editor_v1_softCD.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="App led_editor_v1. Conexión/Desconexión" src="../../img/guias/mb_inv_ble/led_editor_v1_softCD.png" /></a><br />
+<em>App led_editor_v1. Conexión/Desconexión</em>  </p>
+<p><a class="glightbox" href="../../img/guias/mb_inv_ble/led_editor_v1_softVar.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="App led_editor_v1. Variables" src="../../img/guias/mb_inv_ble/led_editor_v1_softVar.png" /></a><br />
+<em>App led_editor_v1. Variables</em>  </p>
+<p><a class="glightbox" href="../../img/guias/mb_inv_ble/led_editor_v1_softB.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="App led_editor_v1. Botonera" src="../../img/guias/mb_inv_ble/led_editor_v1_softB.png" /></a><br />
+<em>App led_editor_v1. Botonera</em></p>
+<p></center></p>
+<div class="admonition info">
+<p class="admonition-title"><a href="https://ai2.appinventor.mit.edu/reference/other/any-component-blocks.html">Any Component Blocks</a></p>
+<p>Este último evento es un bloque del tipo “Cualquier componente (Any Component)” propio de MIT App Inventor que resulta especialmente útil cuando queremos realizar una misma operación en muchos componentes diferentes sin necesidad de copiar y pegar cada bloque las veces que sea necesario. La idea es sustituir diferentes componentes por un solo componente, lo que se consigue con los bloques "cualquier componente".</p>
+<p>Los bloques de componentes tienen eventos, métodos y propiedades, y cada uno de ellos tiene sus correspondientes bloques "cualquier componente".</p>
+<p>Se puede cambiar entre un bloque para un componente específico y el bloque de cualquier componente equivalente a través de los elementos de menú "Make Generic" en el menú contextual (clic derecho) de un bloque.</p>
+<p><center><b>En el enlace del título tenemos toda la información al respecto.</b></center></p>
+</div>
+<p>La conexión con AI Companion y la placa micro:STEAMakers se realiza de la manera habitual.</p>
+<p>En el programa en MicroBlocks, estando conectada la placa, se muestra al inicio el "BLE id" de la placa y se crea una lista con los mismos colores que la aplicación.</p>
+<p>La recepción de mensajes se hace utilizando el separador "," (coma) para dividir el mensaje en sus tres partes, que son los índices de la fila, la columna y el color elegido. La coordenada (1,1) es el LED superior izquierdo y los colores se numeran de izquierda a derecha del 1 al 8.</p>
+<p><center></p>
+<p><a class="glightbox" href="../../img/guias/mb_inv_ble/led_editor_v1_mB.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Programa led_editor_v1.ubp" src="../../img/guias/mb_inv_ble/led_editor_v1_mB.png" /></a><br />
+<em>Programa led_editor_v1.ubp</em><br />
+<strong><em><a href="../../program/AppInventor/led_editor_v1.ubp">Descargar led_editor_v1.ubp</a></em></strong></p>
+<p></center></p>
+<p>En la animación siguiente podemos observar el funcionamiento del ejemplo. Como se observa el programa está grabado en la placa sin el bloque que muestra los valores del mensaje recibido desplazándose.
+<center></p>
+<p><a class="glightbox" href="../../img/guias/mb_inv_ble/led_editor_v1.gif" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Funcionamiento de led_editor_v1" src="../../img/guias/mb_inv_ble/led_editor_v1.gif" /></a><br />
+<em>Funcionamiento de led_editor_v1</em></p>
+<p></center></p>
+<p>Al final meter lo de la Extensión, descargandola y como obtenerla</p>
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2023 - 2035 Federico Coca
+    </div>
+  
+  
+</div>
+      
+        <div class="md-social">
+  
+    
+    
+    
+    
+    <a href="https://x.com/fgcoca" target="_blank" rel="noopener" title="X de Federico Coca" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M389.2 48h70.6L305.6 224.2 487 464H345L233.7 318.6 106.5 464H35.8l164.9-188.5L26.8 48h145.6l100.5 132.9L389.2 48zm-24.8 373.8h39.1L151.1 88h-42l255.3 333.8z"/></svg>
+    </a>
+  
+    
+    
+    
+    
+    <a href="https://github.com/fgcoca" target="_blank" rel="noopener" title="Github de Federico Coca" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+    </a>
+  
+    
+    
+    
+    
+    <a href="https://www.instagram.com/cocafederico/?hl=es" target="_blank" rel="noopener" title="Instagram de Federico Coca" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M224.1 141c-63.6 0-114.9 51.3-114.9 114.9s51.3 114.9 114.9 114.9S339 319.5 339 255.9 287.7 141 224.1 141zm0 189.6c-41.1 0-74.7-33.5-74.7-74.7s33.5-74.7 74.7-74.7 74.7 33.5 74.7 74.7-33.6 74.7-74.7 74.7zm146.4-194.3c0 14.9-12 26.8-26.8 26.8-14.9 0-26.8-12-26.8-26.8s12-26.8 26.8-26.8 26.8 12 26.8 26.8zm76.1 27.2c-1.7-35.9-9.9-67.7-36.2-93.9-26.2-26.2-58-34.4-93.9-36.2-37-2.1-147.9-2.1-184.9 0-35.8 1.7-67.6 9.9-93.9 36.1s-34.4 58-36.2 93.9c-2.1 37-2.1 147.9 0 184.9 1.7 35.9 9.9 67.7 36.2 93.9s58 34.4 93.9 36.2c37 2.1 147.9 2.1 184.9 0 35.9-1.7 67.7-9.9 93.9-36.2 26.2-26.2 34.4-58 36.2-93.9 2.1-37 2.1-147.8 0-184.8zM398.8 388c-7.8 19.6-22.9 34.7-42.6 42.6-29.5 11.7-99.5 9-132.1 9s-102.7 2.6-132.1-9c-19.6-7.8-34.7-22.9-42.6-42.6-11.7-29.5-9-99.5-9-132.1s-2.6-102.7 9-132.1c7.8-19.6 22.9-34.7 42.6-42.6 29.5-11.7 99.5-9 132.1-9s102.7-2.6 132.1 9c19.6 7.8 34.7 22.9 42.6 42.6 11.7 29.5 9 99.5 9 132.1s2.7 102.7-9 132.1z"/></svg>
+    </a>
+  
+    
+    
+    
+    
+    <a href="https://x.com/clubroboticagra" target="_blank" rel="noopener" title="X de Club Robótica Granada" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M389.2 48h70.6L305.6 224.2 487 464H345L233.7 318.6 106.5 464H35.8l164.9-188.5L26.8 48h145.6l100.5 132.9L389.2 48zm-24.8 373.8h39.1L151.1 88h-42l255.3 333.8z"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.tabs", "navigation.tabs.sticky"], "search": "../../assets/javascripts/workers/search.f886a092.min.js", "translations": {"clipboard.copied": "Copiado al portapapeles", "clipboard.copy": "Copiar al portapapeles", "search.result.more.one": "1 m\u00e1s en esta p\u00e1gina", "search.result.more.other": "# m\u00e1s en esta p\u00e1gina", "search.result.none": "No se encontraron documentos", "search.result.one": "1 documento encontrado", "search.result.other": "# documentos encontrados", "search.result.placeholder": "Teclee para comenzar b\u00fasqueda", "search.result.term.missing": "Falta", "select.version": "Seleccionar versi\u00f3n"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.aecac24b.min.js"></script>
+      
+        <script src="../../plugins/mathjax.js"></script>
+      
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  <script>document$.subscribe(() => {const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});})</script></body>
+</html>
