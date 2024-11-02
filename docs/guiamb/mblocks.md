@@ -1,4 +1,4 @@
-# <FONT COLOR=#8B008B>Microblocks</font>
+## <FONT COLOR=#007575>**Introducción a MicroBlocks**</font>
 
 !!! info "**IMPORTANTE**"
     La presente guía de MicroBlocks hace referencia fundamentalmente a la placa micro:bit principalmente porque esta fue creada antes de la existencia de micro:STEAMakers.
@@ -24,7 +24,7 @@ En el apartado [Get Started](https://microblocks.fun/get-started) de su web tene
 
 En esta ocasión vamos a trabajar de forma local [descargando](https://microblocks.fun/download) e instalando el programa en nuestro ordenador. En mi caso trabajaré con Linux de 64 bits instalando el paquete debian descargado 'ublocks-amd64.deb'. La forma elegida para instalarlo, suponiendo que el paquete está en Descargas, es:
 
-~~~
+~~~bash
 sudo dpkg -i ~/Descargas/ublocks-amd64.deb
 ~~~
 
@@ -39,7 +39,7 @@ Tras la instalación verificamos que todo está correcto y que Linux ve la placa
 
 En el enlace [Mis notas sobre Linux trabajando con Ubuntu](https://fgcoca.github.io/Mis-notas-sobre-Linux-Ubuntu/) tenemos un par de entradas que describen problemas con el paquete *brltty* (Braille TTY). En el caso de placas con un chip microcontrolador de la serie USB CP210x, algunas de ellas compatibles con MicroBlocks. Si tenemos este caso el problema se puede resolver eliminando el paquete BRLTTY.
 
-~~~
+~~~sh
 sudo apt remove brltty
 ~~~
 
@@ -338,6 +338,19 @@ En la categoría Ejemplos es donde se presentan muchos proyectos de MicroBlocks 
 * **Copia URL del proyecto al portapapeles**. Cuando trabajamos online permite compartir el proyecto.
 
 ### <FONT COLOR=#AA0000>Conectar</font>
+Al hacer clic en este icono se muestra un menú que enumera las opciones de conectividad admitidas:
+
+* **conecta** - puertos USB del sistema que tienen microdispositivos conectados.
+* **conecta (BLE)** - dispositivos con conectiviad BLE.
+* **open Boardie** - dispositivo vitual **BOARDIE**.
+
+<center>
+
+![Opciones de Conecta](../img/guias/ublocks/opc_conecta.png)  
+*Opciones de Conecta*
+
+</center>
+
 En la figura siguiente vemos este menú desplegado. En esta ocasión hay un dispositivo ya conectado y por eso se muestra la opción *disconnect (/dev/ttyACM0)*.
 
 <center>
@@ -359,6 +372,111 @@ Si tenemos varios dispositivos conectados a puertos USB se nos mostrarán los mi
 Es importante prestar atención al estado de este icono. MicroBlocks ejecuta muchos procesos internos automatizados y la actualización y sincronización automática del código del proyecto en el dispositivo conectado es uno de ellos, pero esto solo es posible cuando el ícono está en modo verde.
 
 Existen diversas razones por las que la conexión puede interrumpirse. Cuando esto ocurre el icono dejará de estar verde y debemos buscar el motivo de la desconexión.
+
+Una vez "actualizado el firmware en una placa ESP32" las opciones de conexión que nos ofrece las vemos en la imagen siguiente:
+
+<center>
+
+![Opciones de conexión](../img/guias/ublocks/op_conex.png)  
+*Opciones de conexión*
+
+</center>
+
+Cuando se hace clic en **conecta**, se muestra un menú de puerto USB del sistema, con una lista de todos los dispositivos USB conectados a nuestro ordenador:
+
+<center>
+
+![Opciones de conexión](../img/guias/ublocks/op_conex2.png)  
+*Opciones de conexión*
+
+</center>
+
+Al seleccionar una entrada y hacer clic en **Conectar** se establecerá una conexión con el microdispositivo correspondiente.
+
+Una vez realizada la conexión, el ícono USB cambiará a uno con un fondo circular verde: ![](../img/guias/ublocks/icon_usb_connected.png)
+
+Cuando hacemos clic en **conecta (BLE)** es posible que se nos muestre una ventana como la de la imagen siguiente:
+
+<center>
+
+![Opciones de conexión BLE sin dispositivos disponibles](../img/guias/ublocks/op_conex_no_disp.png)  
+*Opciones de conexión BLE sin dispositivos disponibles*
+
+</center>
+
+Lo que ocurre es que no estamos utilizando un navegador adecuado o su configuración no es correcta. En el apartado [Web Serial ESPTool](http://127.0.0.1:8000/....https://fgcoca.github.io/ESP32-micro-STEAMakers/guiamb/webserial/) se dan detalles referentes a esto. También es posible que no tengamos emparejado nuestro dispositivo con el Bluetooth del ordenador:
+
+<center>
+
+![Opciones Bluetooth en ordenador](../img/guias/ublocks/op_bt_pc.png)  
+*Opciones Bluetooth en ordenador*
+
+</center>
+
+Solucionados los problemas de conexión, se muestra una ventana con los puertos BLE del sistema de todos los dispositivos conectados al ordenador.
+
+<center>
+
+![Opciones de conexión BLE con dispositivos disponibles](../img/guias/ublocks/op_conex_si_disp.png)  
+*Opciones de conexión BLE con dispositivos disponibles*
+
+</center>
+
+En la animación vemos el proceso de conexión con dispositivo BLE:
+
+<center>
+
+![conecta (BLE)](../img/guias/ublocks/conecta_ble.gif)  
+*conecta (BLE)*
+
+</center>
+
+El código de tres letras que sigue a MicroBlocks sirve para diferenciar unos dispositivos de otros.
+
+Al seleccionar una entrada y hacer clic en Emparejar, se establecerá una conexión BLE con el microdispositivo correspondiente.
+
+Una vez que la conexión se haya realizado correctamente, el ícono USB cambiará a uno con un fondo circular verde: ![](../img/guias/ublocks/icon_usb_connected.png)
+
+Otra forma de confirmar el estado de conexión de MicroBlocks es haciendo clic en la pestaña del navegador correspondiente al IDE de MicroBlocks. Según la conectividad USB o BLE establecida podemos ver una de las dos pantallas que se muestran a continuación:
+
+<center>
+
+![Conexiones BLE y USB](../img/guias/ublocks/conex_ble.png) ![Conexiones BLE y USB](../img/guias/ublocks/conex_usb.png)    
+*Conexiones USB y BLE*
+
+</center>
+
+La opción "conéctate a Boardie" la vemos en el apartado [Boardie: un tablero virtual para MicroBlocks](boardie.md).
+
+Una vez realizada la conexión el aspecto es el siguiente:
+
+<center>
+
+![Opciones de conexión](../img/guias/ublocks/op_conex3.png)  
+*Opciones de conexión*
+
+</center>
+
+Al icono que indica conectado debemos prestarle atención permanente. MicroBlocks ejecuta multitud de procesos internos que nos facilitan el trabajo con el editor. La actualización y sincronización del código del proyecto con el dispositivo conectado es uno de estos procesos. Esto solo es posible con el icono rodeado del círculo verde.
+
+!!! warning "Aviso"
+    Se aconseja no desarrollar ni solucionar problemas en los programas si no está establecida la conexión con el microdispositivo, lo que se indica con la ausencia del círculo verde alrededor del icono USB.
+
+La conectividad BLE permite trabajar sin estar conectado por cable al ordenador donde se ejecuta el IDE de MicroBlocks. Normalmente, el microcontrolador se conecta al ordenador a través del cable USB, que proporciona la energía necesaria y permite las actividades de programación proporcionadas por el IDE. Esta conexión requiere que el microcontrolador se encuentre a una distancia que depende de la longitud del cable USB.
+
+!!! info "Compatibilidad con conexión BLE"
+    La compatibilidad con conectividad BLE es una nueva característica de MicroBlocks, introducida a partir de la versión piloto 1.2.52 VM 216 (enero de 2024).
+
+Cuando conectamos a través de BLE, la idea es deshacerse de la conexión por cable USB y obtener la capacidad de tener el dispositivo programado lejos del ordenador. Con la tecnología Bluetooth, esto se traduce en una distancia teórica de aproximadamente 100 metros. En la práctica esta distancia será de alrededor de 25 metros. Lo que es bastante lejos del ordenador utilizado para programar el microcontrolador.
+
+Con esto surge un nuevo problema: alimentar el microcontrolador lejos del ordenador. Sin el cable USB, que proporcionaba la energía, ahora hay que utilizar una fuente de alimentación diferente. Esta puede ser en forma de una conexión de alimentación USB o una batería conectada al microcontrolador. Muchos kits también proporcionan sus propias opciones de fuente de alimentación independiente.
+
+!!! danger "Opciones de alimentación externa"
+    Según el entorno en el que estemos trabajando y la edad de los usuarios hay que tener muy presente que las baterias de tipo LiPo, Li-Ion, Ni-MH y baterías de gel, como la 18650 que soportan algunas shield, pueden resultar muy peligrosas dado su poder de descarga instantáneo que se puede producir por conexión inadecuada o cortocircuito, cuando no llevan las protecciones adecuadas.  
+    
+    * En el artículo [Pilas y baterías, todos los tipos y sus diferencias – LiPo, Li-Ion, Ni-MH, etc.](https://solectroshop.com/es/blog/x-n71?srsltid=AfmBOooR1Xcr21sr1khRXWqHSfI0VjX-b8ZQ0ouHYNLR7gXpuMxUnvtk) de Solectro disponemos de mas información.  
+    * El video [La GUÍA DEFINITIVA sobre las BATERÍAS LIPO para ROBÓTICA](https://www.youtube.com/watch?v=L3ct-dGK54Q) de [BricoGeek](https://tienda.bricogeek.com/) nos lo explica muy bien para el caso de las LiPo.  
+    * El artículo [OJO CON LAS BATERÍAS 18650](https://catedu.github.io/rover-marciano-alphabot/18650.html) publicado en el github de [CATEDU. Centro Aragonés de Tecnologías para la educación](https://catedu.github.io/rover-marciano-alphabot/rover.html)
 
 ### <FONT COLOR=#AA0000>Botones de inicio/parada</font>
 MicroBlocks siempre está en conexión; se puede hacer clic en bloques o secuencias de comandos individuales para ejecutarlos sin hacer clic en el botón de 'Inicio'.
@@ -477,3 +595,218 @@ En la animación vemos junto a los botones de inicio/parada el icono indicador d
 * En la web de Francisco Soldado denominada 'ardutaller' nos vamos a encontrar con una entrada [MicroBlocks --> micro:bit](https://www.ardutaller.com.es/microblocks/microbit) donde aparece un video con detalles adicionales sobre el trabajo con esta pareja de software/hardware. En ese mismo enlace tenemos disponibles varias actividades totalmente resueltas tanto en catalán como español.
 
 * Este es el video en [Youtube](https://www.youtube.com/) integrado en la web titulado [Introducion al Software Microblocks. Conexión a Microbit](https://www.youtube.com/watch?v=bMVCnjxcD2w)
+
+## <FONT COLOR=#007575>**Libreria WiFi**</font>
+
+<center>
+
+![Logo Wi-Fi](../img/guias/wifi/WiFi_Logo.svg)  
+*Logo Wi-Fi*  
+[Obtenido en Wikipedia](https://upload.wikimedia.org/wikipedia/commons/a/ae/WiFi_Logo.svg)
+
+</center>
+
+Wi-Fi es el nombre comercial propiedad de la Wi-Fi Alliance para designar su familia de protocolos de comunicación inalámbrica basados en el estándar IEEE 802.11 para redes de área local sin cables. Su primera denominación en inglés fue Wireless Ethernet Compatibility Alliance.
+
+**WLAN** (Wireless Local Area Network o red de área local inalámbrica) es una red inalámbrica que permite conectar de forma inalámbrica dos o más dispositivos para formar una red de área local a escala limitada.
+
+<center>
+
+![WLAN](../img/guias/wifi/WLAN.png)  
+*WLAN*  
+[Traducido de MicroBlocks Wiki](hhttps://wiki.microblocks.fun/en/network_libraries/wifi)
+
+</center>
+
+la libreria WIFI de MicroBlocks es compatible con muchas placas microcontroladas con capacidad WIFI. Con unos simples bloques, no es muy complicado configurar una conexión WIFI para participar en la infraestructura IP local; o incluso crear una red basada en hotspot o punto de acceso portatil.
+
+Esta librería forma la base para aplicaciones más avanzadas basadas en WIFI donde uno de los muchos protocolos IP son usados para construir aplicaciones; ej: WebSocket, UDP, HTTP, MQTT etc. Hay bibliotecas separadas y ejemplos proporcionados sobre cómo lograr estos.
+
+Para ver algunos ejemplos de proyectos WIFI, consulte el artículo [Métodos de control remoto WIFI](https://wiki.microblocks.fun/en/wifi) en la WIKI de MicroBlocks. También se pueden probar los ejemplos proporcionados en el menú Archivo/Abrir/Ejemplos/ Red:
+
+<center>
+
+![Abrir ejemplo](../img/guias/wifi/Abrir_ejemplo.png)  
+*Abrir ejemplo*  
+
+</center>
+
+### <FONT COLOR=#AA0000>Resumen de los bloques</font>
+Para cada bloque hay una breve descripción y una descripción detallada del bloque y los componentes.
+
+Se dan códigos de ejemplo sobre cómo utilizar los bloques. Para probarlos, todo lo que tienes que hacer es descargar los archivos ubp y abrirlos en una sesión del IDE de MicroBlocks en un navegador y los tendrás en el área de programación del editor. A continuación, basta con hacer clic sobre ellos y ver los resultados.
+
+<center>
+
+||Descripción corta|
+|:-:|---|
+|![](../img/guias/wifi/B_conec.png)|Permite conectarse a la red local|
+|![](../img/guias/wifi/B_access_p.png)|Crea un punto de acceso dando sus credenciales|
+|![](../img/guias/wifi/B_IP.png)|Retorna la dirección IP obtenida|
+|![](../img/guias/wifi/B_MAC.png)|Retorna la dirección MAC del dispositivo WIFI|
+|![](../img/guias/wifi/B_wifi_BLE.png)|Habilita el uso simultaneo de WIFI y BLE|
+
+</center>
+
+Hay dos tipos distintos de formas de bloque:
+
+* oval: son bloques de información que devuelven algún tipo de información. Normalmente, el usuario los asignaría a una variable del proyecto o los utilizaría en una ranura de entrada adecuada de otros bloques.
+* rectangular: son bloques de comando que realizan una función programada y no devuelven ninguna información.
+
+!!! info "Sobre la descripción de los bloques"
+	Estos bloques sólo funcionarán con placas que tenga capacidad WIFI; por ejemplo: ESP8266 y ESP32.
+
+    Asegúrate de utilizar **credenciales WIFI específicas para tu entorno de red**. Las utilizadas aquí son a modo de ejemplo y **NO FUNCIONARÁN**.
+
+### <FONT COLOR=#AA0000>Conéctate a la wifi</font>
+![](../img/guias/wifi/B_conec.png)  
+Este bloque se utiliza para iniciar sesión en la red IP local con las credenciales proporcionadas. Una vez completado el proceso de registro, se obtiene una dirección IP del router local.
+
+El siguiente ejemplo demuestra la conexión a la red WIFI local mostrando las credenciales utilizadas. Recuerda sustituir tus propios valores de SSID (Service Set Identifier o nombre público de una red WLAN) y CONTRASEÑA.
+
+<center>
+
+![Conéctate a la wifi](../img/guias/wifi/wifi_conectar.png)  
+*Conéctate a la wifi*  
+[Descargar archivo](../program/uB/wifi_conectar.ubp)
+
+</center>
+
+### <FONT COLOR=#AA0000>Crea un punto de acceso wifi</font>
+![](../img/guias/wifi/B_access_p.png)  
+Si no hay una red IP disponible en las proximidades, es posible hacer que el microcontrolador cree un punto de acceso para proporcionar este servicio. En este caso, el microcontrolador actúa como un punto de acceso (AP) al igual que lo hace el router en el ejemplo de red WIFI normal. Una vez establecido el hotspot, todos los dispositivos remotos pueden conectarse a él y obtener sus direcciones IP directamente del dispositivo hotspot.
+
+Asegúrate de que la contraseña que utiliza es del tipo **STRING** y tiene como **mínimo 8 caracteres de longitud**. Hay entornos como Windows, en los que el SO no permitirá la creación de hotspots "sin contraseña" (hotspots de acceso abierto). En la imagen siguiente se ha pulsado el botón derecho del ratón sobre el campo de entrada de valor de la variable password y vemos cómo verificar el tipo de variable de contraseña:
+
+<center>
+
+![Verificar tipo de variable](../img/guias/wifi/wifi_verif_var.png)  
+*Verificar tipo de variable*  
+
+</center>
+
+Cuando seleccione sólo texto en el menú desplegable, el campo cambiará de un blanco ovalado a un blanco rectangular.
+
+En el ejemplo siguiente, programamos el microcontrolador para crear un hotspot con las credenciales dadas. Los detalles del hotspot se muestran una vez completado con éxito el inicio del hotspot.
+
+Tengase en cuenta que en este modo de funcionamiento, no es posible el acceso a Internet en circunstancias normales. Además, el rango de direcciones IP asignadas por el punto de acceso será diferente del asignado por tu router de Internet.
+
+<center>
+
+![Crea un punto de acceso wifi](../img/guias/wifi/wifi_hotpost.png)  
+*Crea un punto de acceso wifi*  
+[Descargar archivo](../program/uB/wifi_hotpost.ubp)
+
+</center>
+
+!!! info "El hotpost no provee acceso a internet"
+	Tengase en cuenta que, en circunstancias normales, el **hotspot NO proporciona acceso a Internet**.
+    
+    Es sólo un medio para que los dispositivos locales se comuniquen entre sí.
+
+    <center>
+
+    ![Crea un punto de acceso wifi](../img/guias/wifi/wifi_hotpost_no_acc.png)  
+    *Crea un punto de acceso wifi*  
+
+</center>
+
+### <FONT COLOR=#AA0000>dirección IP</font>
+![](../img/guias/wifi/B_IP.png)  
+
+!!! info "De Wikipedia, la enciclopedia libre"
+¡/*Una dirección de Protocolo de Internet (dirección IP) es una etiqueta numérica como 192.0.2.1 que está conectada a una red informática que utiliza el Protocolo de Internet para la comunicación. Una dirección IP cumple dos funciones principales: la identificación de la interfaz de red y el direccionamiento de la ubicación.
+    
+    La versión 4 del Protocolo de Internet (IPv4) define una dirección IP como un número de 32 bits. Sin embargo, debido al crecimiento de Internet y al agotamiento de las direcciones IPv4 disponibles, en 1998 se estandarizó una nueva versión de IP (IPv6), que utiliza 128 bits para la dirección IP. El despliegue de IPv6 está en marcha desde mediados de la década de 2000.
+    
+    Las direcciones IP se escriben y muestran en notaciones legibles para el ser humano, como 192.0.2.1 en IPv4, y 2001:db8:0:123:0:567:8:1 en IPv6.
+    
+    El tamaño del prefijo de enrutamiento de la dirección se designa en notación CIDR sufijando la dirección con el número de bits significativos, por ejemplo 192.0.2.1/24, que equivale a la máscara de subred 255.255.255.0 utilizada históricamente.
+
+En la imagen siguiente podemos ver la descomposición de una dirección IPv4:
+
+<center>
+
+![Dirección IPv4](../img/guias/wifi/IPv4.png)  
+*Dirección IPv4*
+
+</center>
+
+Cuando se establece con éxito una conexión entre el microcontrolador y el router de Internet, o se inicia un hotspot, se asigna una dirección IP.
+
+En el caso de la conexión normal a Internet, se trata de la dirección asignada por el DHCP del router de Internet. En el caso del hotspot, la dirección es asignada por el dispositivo microcontrolador.
+
+### <FONT COLOR=#AA0000>dirección MAC</font>
+![](../img/guias/wifi/B_MAC.png)  
+
+!!! info "De Wikipedia, la enciclopedia libre"
+    Una dirección de control de acceso al medio (dirección MAC) es un identificador único asignado a un controlador de interfaz de red (NIC) para su uso como dirección de red en comunicaciones dentro de un segmento de red. Este uso es común en la mayoría de las tecnologías de red IEEE 802, incluidas Ethernet, Wi-Fi y Bluetooth. Tal y como suelen representarse, las direcciones MAC se reconocen como seis grupos de dos dígitos hexadecimales, separados por guiones, dos puntos o sin separador.
+
+Una dirección MAC tiene el formato siguiente:
+
+<center>
+
+![Dirección MAC](../img/guias/wifi/MAC.png)  
+*Dirección MAC*  
+
+</center>
+
+En [HWaddress: MAC address and OUI lookup](https://hwaddress.com/) podemos localizar información sobre direcciones MAC.
+
+En la imagen siguiente tenemos ampliada la información de la MAC:
+
+<center>
+
+![Dirección MAC](../img/guias/wifi/MAC-48_Address.png)  
+/*Direcc_jhyt67890'ión MAC*  
+[Obtenida de Wikipedia](https://en.wikipedia.org/wiki/MAC_address#/media/File:MAC-48_Address.svg)
+Çkn ,._
+
+</center>
+
+El siguiente ejemplo nos devuelve la dirección MAC del ejemplo que demuestra la conexión a la red WIFI local mostrando las credenciales utilizadas.
+
+<center>
+
+![MAC del dispositivo](../img/guias/wifi/wifi_MAC.png)  
+*MAC del dispositivo*  
+[Descargar archivo](../program/uB/wifi_MAC.ubp)
+
+</center>
+
+### <FONT COLOR=#AA0000>Permitir WiFi y BLE</font>
+![](../img/guias/wifi/B_wifi_BLE.png)  
+Para las placas que tienen funcionalidad WIFI y BLE soportadas en MicroBlocks, permite controlar el uso simultáneo de ambas al mismo tiempo, basándose en la configuración del interruptor booleano.
+
+MicroBlocks IDE soporta conectividad BLE, para poder editar el código de forma inalámbrica. Uno puede combinar esto con la función WIFI de la placa si es necesario.
+
+## <FONT COLOR=#007575>**Libreria BLE Scanner**</font>
+[BLE Scanner Library](https://play.google.com/store/apps/details?id=com.macdom.ble.blescanner&hl=es) es una herramienta para monitorizar dispositivos BLE públicos y acceder a sus características. La más útil de ellas es el nombre del dispositivo. Los dispositivos BLE tienen asignado un nombre corto o largo, y se pueden identificar en las listas de exploración con esos nombres.
+
+BLE Scanner está desarrollado para ayudar a la comunidad Bluetooth, tanto desarrolladores como usuarios para rastrear dispositivos inteligentes Bluetooth.
+
+En las siguientes imágenes se ve cómo un escaneo BLE muestra los nombres de los dispositivos y las direcciones MAC en una aplicación de escaneo BLE de Android, así como los nombres de los dispositivos en el escaneo interno de la configuración BLE de Android.
+
+<center>
+
+![Dispositivos emparejados y resultado BLE Scanner](../img/guias/wifi/BLE_scan.png)  
+*Dispositivos emparejados y resultado BLE Scanner*  
+
+</center>
+
+Los bloques disponibles son:
+
+<center>
+
+|Bloque|Descripción|
+|:-:|---|
+|![](../img/guias/wifi/scriptImage32272456.png)|Devuelve TRUE cuando se detecta un dispositivo por escaneo BLE|
+|![](../img/guias/wifi/scriptImage32423878.png)|Devuelve el RSSI(*), oscila entre -26 (unos pocos centímetros) y -100 (40-50 m de distancia)|
+|![](../img/guias/wifi/scriptImage32449378.png)|Devuelve la dirección MAC, un identificador único de 48 bits|
+|![](../img/guias/wifi/scriptImage32470747.png)|Devuelve el tipo de dirección|
+|![](../img/guias/wifi/scriptImage32492045.png)|Devuelve el nombre del dispositivo|
+|![](../img/guias/wifi/scriptImage32509117.png)|Devuelve TRUE si el nombre del dispositivo es de tipo 8 o 9|
+
+***(*) RSSI (Received Signal Strength Indicator) o indicador de fuerza de la señal recibida.***
+
+</center>

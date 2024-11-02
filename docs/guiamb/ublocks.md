@@ -1,4 +1,4 @@
-# <FONT COLOR=#8B008B>Programación con MicroBlocks</font>
+## <FONT COLOR=#007575>**Introducción**</font>
 De manera muy resumida lo que haremos en esta sección es:
 
 *  Describir los bloques y conceptos relacionados con la micro:STEAMakers.
@@ -1742,5 +1742,130 @@ El siguiente ejemplo muestra un programa que hace uso de estos bloques. En la an
 ![Ejemplo de uso de m:s energy consumption ($\mu Wh$)](../img/guias/uB/ej_energia.gif)  
 *Ejemplo de uso de m:s energy consumption ($\mu Wh$)*  
 [Descargar programa](../program/uB/ej_energia.ubp)
+
+</center>
+
+## <FONT COLOR=#007575>**Libreria BLE Scanner**</font>
+Vamos a describir los bloques de la libreria para finalmente ver un ejemplo de uso.
+### <FONT COLOR=#AA0000>scan received</font>
+![](../img/guias/wifi/scriptImage32272456.png)
+
+Este bloque se utiliza para detectar avisos BLE. Cuando se detecta una exploración, la variable interna ![](../img/guias/wifi/scriptImage33350812.png) se rellena con toda la información BLE relevante. Todos los demás bloques de la biblioteca extraen partes de la información BLE del contenido de esta variable.
+### <FONT COLOR=#AA0000>RSSI</font>
+![](../img/guias/wifi/scriptImage32423878.png)
+
+RSSI son las siglas en inglés de Indicador de Intensidad de Señal Recibida. Es la intensidad de la señal tal y como se ve en el dispositivo receptor, por ejemplo, un smartphone. La intensidad de la señal depende de la distancia y del valor de la potencia de emisión. Con la máxima potencia de emisión (+4 dBm), el RSSI oscila entre -26 (unos pocos centímetros) y -100 (40-50 m de distancia). 
+Esta información puede utilizarse para calcular la distancia entre el dispositivo emisor y el dispositivo receptor. Un ejemplo de ello puede verse en la imagen [Dispositivos emparejados y resultado BLE Scanner de la sección "Libreria BLE Scanner" del apartado "Guía de MicroBlocks"](http://127.0.0.1:8000/....https://fgcoca.github.io/ESP32-micro-STEAMakers/guiamb/mblocks/#libreria-ble-scanner), donde la aplicación BLE Scanner muestra las distancias reales de los dispositivos detectados.
+
+### <FONT COLOR=#AA0000>address</font>
+![](../img/guias/wifi/scriptImage32449378.png)
+Una dirección Bluetooth, a veces denominada dirección MAC Bluetooth, es un valor de 48 bits que identifica de forma exclusiva un dispositivo Bluetooth.
+
+Una dirección pública de dispositivo es un identificador único global de 48 bits, que consta de dos campos:
+
+- Los 24 bits más significativos se denominan Identificador Único Organizativo, y su finalidad es identificar a cada empresa. Es administrado por la Autoridad de Registro del IEEE.
+- Los 24 bits menos significativos son asignados por la empresa, y sirven para identificar cada dispositivo.
+### <FONT COLOR=#AA0000>address type</font>
+![](../img/guias/wifi/scriptImage32470747.png)
+
+Existen dos tipos principales de direcciones Bluetooth: **públicas** y **aleatorias**.
+
+Una **dirección pública Bluetooth** es una dirección fija global que debe registrarse en el IEEE. Esta dirección nunca cambia y se garantiza que es única para un dispositivo Bluetooth.
+
+Las **direcciones aleatorias** son más populares que las públicas, ya que no requieren registro en el IEEE. Una dirección aleatoria es un identificador que está
+
+* programado en el dispositivo o
+* generado en tiempo de ejecución (dependiendo del subtipo).
+
+Dirección estática aleatoria
+
+Este tipo específico de dirección Bluetooth es una alternativa popular a las direcciones públicas, ya que su uso no conlleva ningún coste.
+
+Las direcciones estáticas aleatorias pueden utilizarse de dos maneras:
+
+* Puede ser asignada y fijada para toda la vida del dispositivo.
+* Puede cambiarse en el arranque. Sin embargo, no se puede cambiar durante el tiempo de ejecución.
+
+Una Dirección de Dispositivo Aleatoria es una característica de privacidad del protocolo BLE, y ayuda a prevenir el rastreo de un dispositivo.
+
+### <FONT COLOR=#AA0000>device name</font>
+![](../img/guias/wifi/scriptImage32492045.png)
+
+Dado que sería bastante difícil para un usuario identificar un dispositivo utilizando sólo su dirección, BLE proporciona la propiedad *Nombre de dispositivo*, que es un nombre amigable utilizado para etiquetar un dispositivo.
+
+Las especificaciones BLE definen el nombre del dispositivo como un campo de 20 bytes. Sin embargo, debido a las limitaciones de longitud de los paquetes, a menudo puede ser necesario utilizar un nombre más corto.
+
+Existen dos tipos de nombre para BLE:
+
+* Nombre local completo: tipo 9
+* Nombre local abreviado: tipo 8
+
+### <FONT COLOR=#AA0000>hasType</font>
+![](../img/guias/wifi/scriptImage32509117.png)
+
+Este bloque se utiliza internamente para escanear el paquete BLE y ver si contiene un nombre del tipo deseado.
+
+### <FONT COLOR=#AA0000>Ejemplo</font>
+Este programa está basado en el programa de ejemplo proporcionado en el Fichero/Abre/Ejemplos/Red/BLE Scanner Demo. Se ha mejorado para mostrar toda la información encontrada, así como una lista de todos los dispositivos detectados al final.
+
+<center>
+
+![Ejemplo BLE Scanner Demo mejorado](../img/guias/uB/BLE_Scanner_Demo.png)  
+*Ejemplo BLE Scanner Demo mejorado*  
+[Descargar programa](../program/uB/BLE_Scanner_Demo.ubp)
+
+</center>
+
+## <FONT COLOR=#007575>**Comunicación BLE bidireccional básica**</font>
+Veamos algunos ejemplos de uso de Bluetooth para comunicarnos con la placa desde un móvil. Utilizaremos la APP [Serial Bluetooth Terminal](http://127.0.0.1:8000/....https://fgcoca.github.io/ESP32-micro-STEAMakers/bt/#serial-bluetooth-terminal) vista.
+
+!!! info "Importante"
+    Para que el programa creado en MicroBlocks se guarde en la placa es necesario tener establecida la conexión entre el IDE y la placa.  
+    Cuando queremos transmitir datos entre la APP y la placa debemos establecer la conexión entre ambas y para ello no podemos tener establecida la conexión entre el IDE y la placa. No es posible tener dos conexiones establecidas con la misma placa.  
+    Si se da esta circunstancia cuando tratemos de establecer la conexión esta se perderá de manera inmediata.
+
+    <center>
+
+    ![Comunicación APP a placa perdida](../img/guias/uB/com_app_placa_perd.png)  
+    *Comunicación APP a placa perdida*  
+
+    </center>
+
+Desde MicroBlocks creamos y llevamos a la placa el siguiente programa:
+
+<center>
+
+![Comunicación bidireccional básica](../img/guias/uB/com_bi_base.png)  
+*Comunicación bidireccional básica*  
+[Descargar programa](../program/uB/comunicacion_bidireccional_base.ubp)
+
+</center>
+
+El programa realiza un desplazamiento de la cadena de texto recibida en la pantalla de la micro:STEAMakers y envia la cadena que se muestra al pulsar el botón A. El intercambio de mensajes se realiza desde la APP citada.
+
+Con la APP abierta y la conexión realizada enviamos el mensaje que vemos en la captura.
+
+<center>
+
+![Comunicación APP a placa](../img/guias/uB/com_app_placa.png)  
+*Comunicación APP a placa*  
+
+</center>
+
+Tras pulsar el botón de enviar el mensaje comienza a aparecer en la pantalla.
+
+<center>
+
+![Comunicación placa a APP](../img/guias/uB/com_app_placa.gif)  
+*Comunicación placa a APP*  
+
+</center>
+
+Si ahora pulsamos el botón de la placa en la APP se recivbe e mensaje que esta envia:
+
+<center>
+
+![Comunicación placa a APP](../img/guias/uB/com_placa_app.png)  
+*Comunicación placa a APP*  
 
 </center>

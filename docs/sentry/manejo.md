@@ -1,4 +1,3 @@
-# <FONT COLOR=#8B008B>Manejo</font>
 ## <FONT COLOR=#007575>Interface de usuario</font>
 Sentry2 tiene dos tipos de páginas de interfaz de usuario: Página de ejecución y página de configuración.
 

@@ -1,4 +1,5 @@
-# <FONT COLOR=#8B008B>Formato RTTTL</font>
+## <FONT COLOR=#007575>**El formato RTTTL**</font>
+
 **Ring Tone Text Transfer Language (RTTTL)** es un formato basado en texto que fue desarrollado por [Nokia](https://es.wikipedia.org/wiki/Nokia) para transferir tonos de llamada entre teléfonos móviles Nokia.
 
 El formato RTTTL es una cadena dividida en tres secciones: *"nombre"*, *"valor predeterminado"* y *"datos"*.

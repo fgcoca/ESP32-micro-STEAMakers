@@ -1,5 +1,5 @@
-# <FONT COLOR=#8B008B>Inicio rápido</font>
-Con el sensor de visión Sentry2 se puede iniciar de manera rápida el trabajo haciendo el proceso que citamos seguidamente:
+## <FONT COLOR=#007575>**Introducción**</font>
+Con el sensor de visión Sentry2 o Cámara de visión artificial Sentry2 se puede iniciar de manera rápida el trabajo haciendo el proceso que citamos seguidamente:
 
 <center>
 

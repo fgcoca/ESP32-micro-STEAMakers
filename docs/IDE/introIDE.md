@@ -1,4 +1,4 @@
-# <FONT COLOR=#8B008B>IDE 2.0 de Arduino</font>
+## <FONT COLOR=#007575>**Por si lo necesitamos**</font>
 Casi con toda seguridad que se nos va a presentar alguna ocasión en que ArduinoBlocks no satisfaga nuestras necesidades porque no exista el bloque en el momento que lo necesitamos. En estas ocasiones no nos va a quedar mas remedio que recurrir al Entorno de Desarrollo Integrado o IDE de Arduino.
 
 Antes de continuar indicar que aquí vamos a describir como llevar a cabo los primeros pasos con el IDE 2.0 pero no vamos a tratar conceptos de programación mediante código.

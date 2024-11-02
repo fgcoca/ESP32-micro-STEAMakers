@@ -1,4 +1,4 @@
-# <FONT COLOR=#8B008B>Vision</font>
+## <FONT COLOR=#007575>**Introducción**</font>
 El sensor de visión Sentry2 integra una variedad de algoritmos de visión artificial para reconocer objetos sin necesidad de estar conectado a una red WiFi, y el chip ESP8285-WiFi integrado puede realizar la función de reconocimiento de imágenes basado en la nube.
 
 ## <FONT COLOR=#007575>**ID:1 Color**</font>

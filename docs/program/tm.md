@@ -1,4 +1,4 @@
-# <FONT COLOR=#8B008B>micro:STEAMakers + Telegram</font>
+## <FONT COLOR=#007575>**Introducción**</font>
 Contenidos basados en los documentos de referencia de [Libros & Documentación](http://www.arduinoblocks.com/web/site/doc):
 
 * [ESP32 STEAMakers Telegram Bot.pdf](https://drive.google.com/file/d/15cfrsSBGjL8pgq67x7Syr32BBO714F7M/view?usp=drive_web)

@@ -1,4 +1,4 @@
-# <FONT COLOR=#8B008B>Inicio a la programación de micro:STEAMakers con arduinoblocks</font>
+## <FONT COLOR=#007575>**Introducción a la programación de micro:STEAMakers con arduinoblocks**</font>
 El tipo de proyecto a escoger lo vemos en la imagen siguiente:
 
 <center>

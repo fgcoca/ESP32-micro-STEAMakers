@@ -1,4 +1,4 @@
-# <FONT COLOR=#8B008B>Conceptos sobre CO2 y VOC</font>
+## <FONT COLOR=#007575>**Introducción**</font>
 En general vamos a dar unas pautas de lo que son, por que son perjudiciales para la salud, que valores podemos tomar como referencia para determinar la calidad del aire y sus fuentes principales de emisión en entornos de trabajo no industriales (oficinas, locutorios, etc) y aulas escolares. Veremos al final el sensor que vamos a usar y algunas cosas interesantes sobre el mismo.
 
 ## <FONT COLOR=#007575>**Sobre el CO2**</font>

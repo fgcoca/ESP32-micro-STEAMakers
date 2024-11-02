@@ -1,4 +1,4 @@
-# <FONT COLOR=#8B008B>ESP-NOW en arduinoblocks</font>
+## <FONT COLOR=#007575>**Referencias**</font>
 Los contenidos de este apartado van a estar basados en:
 
 * Manual [Comunicación ESP-NOW con ESP32 STEAMakers](https://drive.google.com/file/d/1xeSOalJhOgPZF2syGutzAwufxOdv2H1H/view) creado por Juanjo López.

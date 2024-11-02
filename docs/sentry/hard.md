@@ -1,4 +1,3 @@
-# <FONT COLOR=#8B008B>Hardware</font>
 ## <FONT COLOR=#007575>**Introducción breve**</font>
 La Sentry2 es un sensor de visión diseñado por Kendryte K210 que se basa en un avanzado procesador de red neuronal RISC-V de 64 bits. El dispositivo integra varios algoritmos de visión artificial avanzados, que pueden satisfacer las necesidades básicas de procesamiento de visión. El chip ESP8285-WiFi que monta la placa se puede programar desde Arduino IDE, arduinoblocks, micropython, etc; para realizar reconocimiento en línea, transmisión de imágenes, AIoT (Artificial Intelligence of Things o unión de Inteligencia Artificial e Internet de las Cosas) y otras aplicaciones.
 

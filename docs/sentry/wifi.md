@@ -1,4 +1,4 @@
-# <FONT COLOR=#8B008B>WiFi</font>
+## <FONT COLOR=#007575>**Introducción**</font>
 Sentry2 tiene un chip ESP8285-WiFi que puede ser programado desde el IDE de Arduino directamente para realizar el reconocimiento en línea, transmisión de imágenes, AIoT (Artificial Intelligence of Things) y otras aplicaciones. ESP8285 se puede utilizar como un controlador para K210 que sirve de ayuda para la programación de AI (Artificial Intelligence) sin dispositivos externos.
 
 ## <FONT COLOR=#007575>**Entorno de desarrollo**</font>

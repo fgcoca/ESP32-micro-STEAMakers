@@ -13,7 +13,7 @@
 * [Guia de trabajo para micro:bit](https://fgcoca.github.io/Guia-de-trabajo-para-microbit/)  
 
 * [Git hub de Pedro Ruiz](https://github.com/pedroruizf)
- 
+
 * [Wikipedia](https://es.wikipedia.org/wiki/Wikipedia:Portada)
 
 * [Carburos metálicos](http://www.carburos.com/), páginas 8 y 9 de la [Ficha Técnica de Seguridad número 300000000020](http://www.carburos.com/microsite/es/selector-gases-soldadura/pdf/SDS/CO2.pdf)

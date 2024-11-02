@@ -1,4 +1,4 @@
-# <FONT COLOR=#8B008B>Servidor web</font>
+## <FONT COLOR=#007575>**Introducción**</font>
 Nos basamos en el documento [ESP32 STEAMakers. nuevos bloques. WiFi · IoT · WifiMesh](https://drive.google.com/file/d/1bRxolnQ7ny5jdpUCbmtyT9GTHrseVjFG/view) dado que al portar un procesador ESP32, la micro:STEAMakers tiene capacidades WiFi, lo que nos va a permitir que la placa actue como servidor o como cliente web.
 
 Los bloques disponibles son los siguientes:

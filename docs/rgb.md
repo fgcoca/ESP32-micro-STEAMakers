@@ -1,4 +1,4 @@
-# <FONT COLOR=#8B008B>Diodos LEDs RGB y modelos de color</font>
+## <FONT COLOR=#007575>**Introducción**</font>
 Explicamos los fundamentos desde un diodo LED hasta los LEDs RGB direccionables y los modelos de color RGB y HSV por la utilidad que van a tener en nuestro caso.
 
 ## <FONT COLOR=#007575>**Diodo LED**</font>
