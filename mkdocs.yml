@@ -69,13 +69,6 @@ nav:
     - Actividades EASY Plug: actividadesAB/act_EP.md
     - Actividades avanzadas y con shield modular: actividadesAB/act_ava.md
     #- A05-WiFiMesh (obsoleto): actividadesMOD/A05MOD_Mesh.md
-  - Sentry 2: 
-    - Inicio rápido: sentry/inicio.md
-    - Hardware: sentry/hard.md
-    - Manejo: sentry/manejo.md
-    - Vision: sentry/vision.md
-    - WiFi: sentry/wifi.md
-    #- Sentry en arduinoblocks: sentry/ab.md
   - Miscelanea:
     - Autoria: Miscelanea/about.md 
     - Licencias: Miscelanea/lic.md
