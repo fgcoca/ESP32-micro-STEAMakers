@@ -463,8 +463,8 @@ La segunda opción de descarga es una microaplicación widget para la pantalla d
 
 <center>
 
-![Widget en la pantalla de un móbil](../img/prog/iotAB/widget.png)  
-*Widget en la pantalla de un móbil*
+![Widget en la pantalla de un móvil](../img/prog/iotAB/widget.png)  
+*Widget en la pantalla de un móvil*
 
 </center>
 

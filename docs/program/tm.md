@@ -6,7 +6,7 @@ Contenidos basados en los documentos de referencia de [Libros & Documentación](
 
 Telegram es una aplicación de mensajeria instantánea y VOIP (Voz sobre Protocolo de Internet) gratuita, de software libre, desarrollada por los hermanos [Nikolái Dúrov](https://es.wikipedia.org/wiki/Nikol%C3%A1i_D%C3%BArov) y [Pável Dúrov](https://es.wikipedia.org/wiki/P%C3%A1vel_D%C3%BArov). Permite enviar y recibir mensajes, imágenes y vídeos a través de internet de persona a persona o a través de grupos y canales.
 
-Con esta aplicación nos podemos comunicar de forma sencilla con nuestra placa micro:STEAMakers consiguiendo así un nuevo canal de comunicación con ella. Aunque Telegram dispone de una aplicación de escritorio y otra online, lo más habitual es utilizarla desde un teléfono móbil (Android o iPhone) por lo que centraremos aquí las explicaciones con sistema operativo Android.
+Con esta aplicación nos podemos comunicar de forma sencilla con nuestra placa micro:STEAMakers consiguiendo así un nuevo canal de comunicación con ella. Aunque Telegram dispone de una aplicación de escritorio y otra online, lo más habitual es utilizarla desde un teléfono móvil (Android o iPhone) por lo que centraremos aquí las explicaciones con sistema operativo Android.
 
 ## <FONT COLOR=#007575>**Bot de Telegram**</font>
 Un bot es una aplicación que se ejecuta dentro de Telegram. No hay que instalarlos y se usan como si estuviesemos hablando con una persona. Utilizan una interfaz de texto por lo que se controlan enviandoles mensajes que contengan los comandos que soportan. Los comandos son las instrucciones o palabras que tenemos que escribir para comunicarnos con el bot y dependen de cada uno de ellos.

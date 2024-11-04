@@ -45,6 +45,7 @@ nav:
     - Comunicaciones Bluetooth: bt.md
     - Servomotor: servo.md
   - MicroBlocks:
+    - Donde encontrarlo: guiamb/donde.md
     - Guía de MicroBlocks: guiamb/mblocks.md
     - Web Serial ESPTool: guiamb/webserial.md
     - Boardie:un tablero virtual para MicroBlocks: guiamb/boardie.md

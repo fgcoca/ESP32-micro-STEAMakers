@@ -1,13 +1,4 @@
 ## <FONT COLOR=#007575>**Enlaces**</font>
-**Versión estable MicroBlocks v1**
-
-* [https://microblocks.fun/downloads/latest/](https://microblocks.fun/downloads/latest/)
-* [https://microblocks.fun/run/microblocks.html ](https://microblocks.fun/run/microblocks.html)
-
-**Versión piloto MicroBlocks Version 2**
-
-* [https://microblocks.fun/downloads/pilot/](https://microblocks.fun/downloads/pilot/)
-* [https://microblocks.fun/run-pilot/microblocks.html](https://microblocks.fun/run-pilot/microblocks.html)
 
 **MicroBlocks BLE Extension versión 1**
 
@@ -25,7 +16,7 @@ Una vez descargada e importada la [versión 20240822](../img/guias/mb_inv_ble/ed
 
 </center>
 
-La idea es crear aplicaciones para móbiles o tablet que puedan comunicar con nuestra placa micro:STEAMakers hasta 100 metros de distancia.
+La idea es crear aplicaciones para móviles o tablet que puedan comunicar con nuestra placa micro:STEAMakers hasta 100 metros de distancia.
 
 Las aplicaciones las creamos en App Inventor.
 
@@ -39,7 +30,7 @@ Las aplicaciones las creamos en App Inventor.
 
 Debemos asegurarnos que Bluetooth está activado:
 
-**1. Bluetooth encendido** Comprueba en la configuración de tu móbil o tablet y asegurate de que Bluetooth está encendido.  
+**1. Bluetooth encendido** Comprueba en la configuración de tu móvil o tablet y asegurate de que Bluetooth está encendido.  
 **2. Sin emparejar** No emparejes las micro:STEAMakers. Puedes ignorar los ajustes de emparejamiento Bluetooth de tu dispositivo. Conectaremos la micro:STEAMakers a la aplicación en modo "**sin emparejamiento**", por lo que este paso es innecesario.
 
 <center>
@@ -150,7 +141,7 @@ Seguimos el siguiente procedimiento:
 
 **5. Bluetooth activado**
 
-* Comprueba en la configuración de tu móbil o tablet y asegurate de que Bluetooth está encendido.
+* Comprueba en la configuración de tu móvil o tablet y asegurate de que Bluetooth está encendido.
 * No emparejes las micro:STEAMakers. Puedes ignorar los ajustes de emparejamiento Bluetooth de tu dispositivo. Conectaremos la micro:STEAMakers a la aplicación en modo "**sin emparejamiento**", por lo que este paso es innecesario.
 
 <center>
