@@ -16,9 +16,9 @@ extra:
   generator: false
   # Footer - Iconos
   social:
-    - icon: fontawesome/brands/x-twitter 
-      link: https://x.com/fgcoca
-      name: X de Federico Coca
+   # - icon: fontawesome/brands/bluesky
+   #   link: https://bsky.app/profile/fgcoca.bsky.social
+   #   name: Bluesky de Federico Coca
     - icon: fontawesome/brands/github
       link: https://github.com/fgcoca
       name: Github de Federico Coca
@@ -35,7 +35,8 @@ nav:
     - Presentación: presenta.md
     - La ESP32 micro:STEAMakers: index.md
     - Otros elementos hardware: otrohw.md
-    - Escudos (Shields): escudos.md
+    - Algunos escudos (Shields): escudos.md
+    - Shield:bit: shieldbit.md
   - Teoria general:
     - Conceptos sobre CO2 y VOC: CO2.md
     - Sensor MiCS4514 de NO2 y CO: MiCS4514.md

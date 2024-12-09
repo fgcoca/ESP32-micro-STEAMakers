@@ -108,7 +108,7 @@ Un sencillo ejemplo nos servirá para ver todo esto. Se trata de crear un progra
 [Descargar el programa](../ejemplos/Cuatro_pilares.ubp)
 
 ## <FONT COLOR=#007575>**Configuración del equipo**</font>
-Necesitamos un ordenador (¡no un dispositivo móvil!) con un puerto USB, un cable USB y una placa soportada. Podemos ejecutar **MicroBlocks** en un navegador Chromium, Chrome o Edge, o descargarlo como una aplicación independiente para Linux, Chromebook, Windows o MacOS. Las [placas soportadas](https://wiki.microblocks.fun/boards/supported) son:
+Necesitamos un ordenador (¡no un dispositivo móvil!. Actualmente en desarrollo) con un puerto USB, un cable USB y una placa soportada. Podemos ejecutar **MicroBlocks** en un navegador Chromium, Chrome o Edge, o descargarlo como una aplicación independiente para Linux, Chromebook, Windows o MacOS. Las [placas soportadas](https://wiki.microblocks.fun/boards/supported) son:
 
 * BBC [micro:bit](http://microbit.org/) v1 y v2
 * [Calliope mini](https://calliope.cc/calliope-mini/uebersicht)
