@@ -465,6 +465,26 @@
   
   
     <li class="md-nav__item">
+      <a href="../../ch340/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Interface USB CH340
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../otrohw/" class="md-nav__link">
         
   
@@ -691,11 +711,51 @@
   
   
     <li class="md-nav__item">
+      <a href="../../mdc/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    El motor DC
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../servo/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
     Servomotor
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../pap/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Motor paso a paso
   </span>
   
 
@@ -1209,6 +1269,26 @@
   
   <span class="md-ellipsis">
     Actividades iniciales
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../actividadesmB/act_sb_mB/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Actividades Shiel:bit
   </span>
   
 
@@ -2054,10 +2134,51 @@
 <p><a class="glightbox" href="../../img/guias/uB/vivo.gif" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Primer trabajo en vivo" src="../../img/guias/uB/vivo.gif" /></a><br />
 <em>Primer trabajo en vivo</em></p>
 <p></center></p>
-<p>Vamos a proceder a añadir la libreria (creada por Joan Guillén) con los bloques especificos de micro:STEAMakers. </p>
+<p>Vamos a proceder a añadir la libreria (creada por Joan Guillén) con los bloques especificos de micro:STEAMakers.</p>
 <p><center></p>
 <p><a class="glightbox" href="../../img/guias/uB/libreria.gif" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Primer trabajo en vivo" src="../../img/guias/uB/libreria.gif" /></a><br />
 <em>Primer trabajo en vivo</em></p>
+<p></center></p>
+<p>Vamos a ver como se realiza esta tarea utilizando la versión pilot de Microblocks v2.0.18. Realizamos una serie de consideraciones acerca del funcionamiento del programa:</p>
+<ul>
+<li>
+<p>Microblocks prioriza el proyecto que tenga cargado en la interfaz (¡no borrará nada de lo que tengamos en pantalla al conectarse a una placa!). Cuando tenemos un proyecto (aunque sea un solo bloque en el área de programación), al conectar una placa se cargará este programa en ella. Cuando hacemos esto rutinariamente, podemos clicar en el "play" (triángulo) para asegurarnos de que se realiza esta acción de sincronización.</p>
+</li>
+<li>
+<p>Cuando Microblocks tiene un proyecto en blanco (acabamos de abrir, o sin conectar la placa hacemos Archivo-&gt;Nuevo) y conectamos una placa, según la configuración que tengamos, priorizará cargar el programa que tenga la placa. Esta configuración se puede cambiar, en el menú de Configuración (escogiendo el "modo avanzado") veremos la opción "auto-PlugShare en proyectos vacíos".</p>
+</li>
+</ul>
+<p><center></p>
+<p><a class="glightbox" href="../../img/guias/uB/PlugShare.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Opción auto-PlugShare en proyectos vacíos" src="../../img/guias/uB/PlugShare.png" /></a><br />
+<em>Opción auto-PlugShare en proyectos vacíos</em></p>
+<p></center></p>
+<ul>
+<li>Cuando el proyecto está vacío y la placa tampoco tiene programa, Microblocks puede cargar (lo hace por defecto) las librerías asociadas a la placa que hemos conectado. Este comportamiento también lo podemos modificar en el menú de Configuración (escogiendo "modo avanzado") en la opción "autocarga las librerías de la placa".</li>
+</ul>
+<p><center></p>
+<p><a class="glightbox" href="../../img/guias/uB/autocarga_librerias.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Opción autocarga las librerías de la placa" src="../../img/guias/uB/autocarga_librerias.png" /></a><br />
+<em>Opción autocarga las librerías de la placa</em></p>
+<p></center></p>
+<p>Es decir, el comportamiento es configurable, pero debemos quedarnos en una primera descripción es el comportamiento "por defecto". Y en este caso lo que hace cambiar el comportamiento es tener en primera instancia un proyecto modificado (aunque fuera un pequeño movimiento de bloques) y en segunda instancia, un proyecto ya guardado en la placa (aunque este vacío, pero al que ya se han cargado manualmente librerías).</p>
+<p>Con una placa micro:STEAMakers conectada, al seleccionar "actualizar firmware de la placa", a partir de la versión 2.0, podemos seleccionar directamente la placa micro:STEAMakers y con las configuraciones vistas anteriormente se produce una carga de librerias como la que vemos en la animación siguiente:</p>
+<p><center></p>
+<p><a class="glightbox" href="../../img/guias/uB/actual_firm.gif" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Actualizar el firmware de la placa" src="../../img/guias/uB/actual_firm.gif" /></a><br />
+<em>Actualizar el firmware de la placa</em></p>
+<p></center></p>
+<p>Cuando finaliza el proceso se muestra el mensaje siguiente:</p>
+<p><center></p>
+<p><a class="glightbox" href="../../img/guias/uB/actual_firm_mensaje.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Actualizar el firmware de la placa" src="../../img/guias/uB/actual_firm_mensaje.png" /></a><br />
+<em>Actualizar el firmware de la placa</em></p>
+<p></center></p>
+<p>Continuamos el proceso de conexionado:</p>
+<p><center></p>
+<p><a class="glightbox" href="../../img/guias/uB/actual_firm_fin.gif" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Actualizar el firmware de la placa" src="../../img/guias/uB/actual_firm_fin.gif" /></a><br />
+<em>Actualizar el firmware de la placa</em></p>
+<p></center></p>
+<p>Y ya tenemos disponibles los bloques de la micro:STEAMakers y las librerias dependientes cargadas. Si desconectamos la placa y creamos un nuevo proyecto recuperamos la situación por defecto, tal y como vemos en la imagen siguiente:</p>
+<p><center></p>
+<p><a class="glightbox" href="../../img/guias/uB/sin_placa_nuevo.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Creado archivo nuevo sin placa conectada" src="../../img/guias/uB/sin_placa_nuevo.png" /></a><br />
+<em>Creado archivo nuevo sin placa conectada</em></p>
 <p></center></p>
 <h2 id="comentarios"><FONT COLOR=#007575><strong>Comentarios</strong></font><a class="headerlink" href="#comentarios" title="Permanent link">&para;</a></h2>
 <p>En MicroBlocks los comentarios son tratados desde un único bloque que podemos encontrar en el menú 'Control'. Es un bloque que no hace nada. Se utiliza para añadir notas y documentación a los scripts.</p>
