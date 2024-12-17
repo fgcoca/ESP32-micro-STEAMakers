@@ -34,6 +34,7 @@ nav:
   - ESP32 micro:STEAMakers:
     - Presentación: presenta.md
     - La ESP32 micro:STEAMakers: index.md
+    - Interface USB CH340: ch340.md
     - Otros elementos hardware: otrohw.md
     - Algunos escudos (Shields): escudos.md
     - Shield:bit: shieldbit.md
@@ -44,7 +45,9 @@ nav:
     - Teoría básica de IoT: program/thinspeak.md
     - ESP-NOW: program/espnow.md
     - Comunicaciones Bluetooth: bt.md
+    - El motor DC: mdc.md
     - Servomotor: servo.md
+    - Motor paso a paso: pap.md
   - MicroBlocks:
     - Donde encontrarlo: guiamb/donde.md
     - Guía de MicroBlocks: guiamb/mblocks.md
@@ -54,6 +57,7 @@ nav:
     - Extensión BluetoothLE de App Inventor: guiamb/ble_inventor.md
     - mBlocks + App Inventor + BLE: guiamb/mb_inventor_BLE.md
     - Actividades iniciales: actividadesmB/act_ini_mB.md
+    - Actividades Shiel:bit: actividadesmB/act_sb_mB.md
   - Arduino2.0:
     - Introducción: IDE/introIDE.md
     - Código en Arduinoblocks: IDE/codigoAB.md

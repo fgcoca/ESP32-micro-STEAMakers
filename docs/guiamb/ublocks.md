@@ -26,12 +26,72 @@ Al final del todo vemos como se pone en verde el icono USB indicando que la cone
 
 </center>
 
-Vamos a proceder a añadir la libreria (creada por Joan Guillén) con los bloques especificos de micro:STEAMakers. 
+Vamos a proceder a añadir la libreria (creada por Joan Guillén) con los bloques especificos de micro:STEAMakers.
 
 <center>
 
 ![Primer trabajo en vivo](../img/guias/uB/libreria.gif)  
 *Primer trabajo en vivo*
+
+</center>
+
+Vamos a ver como se realiza esta tarea utilizando la versión pilot de Microblocks v2.0.18. Realizamos una serie de consideraciones acerca del funcionamiento del programa:
+
+- Microblocks prioriza el proyecto que tenga cargado en la interfaz (¡no borrará nada de lo que tengamos en pantalla al conectarse a una placa!). Cuando tenemos un proyecto (aunque sea un solo bloque en el área de programación), al conectar una placa se cargará este programa en ella. Cuando hacemos esto rutinariamente, podemos clicar en el "play" (triángulo) para asegurarnos de que se realiza esta acción de sincronización.
+
+- Cuando Microblocks tiene un proyecto en blanco (acabamos de abrir, o sin conectar la placa hacemos Archivo->Nuevo) y conectamos una placa, según la configuración que tengamos, priorizará cargar el programa que tenga la placa. Esta configuración se puede cambiar, en el menú de Configuración (escogiendo el "modo avanzado") veremos la opción "auto-PlugShare en proyectos vacíos".
+
+<center>
+
+![Opción auto-PlugShare en proyectos vacíos](../img/guias/uB/PlugShare.png)  
+*Opción auto-PlugShare en proyectos vacíos*
+
+</center>
+
+- Cuando el proyecto está vacío y la placa tampoco tiene programa, Microblocks puede cargar (lo hace por defecto) las librerías asociadas a la placa que hemos conectado. Este comportamiento también lo podemos modificar en el menú de Configuración (escogiendo "modo avanzado") en la opción "autocarga las librerías de la placa".
+
+<center>
+
+![Opción autocarga las librerías de la placa](../img/guias/uB/autocarga_librerias.png)  
+*Opción autocarga las librerías de la placa*
+
+</center>
+
+Es decir, el comportamiento es configurable, pero debemos quedarnos en una primera descripción es el comportamiento "por defecto". Y en este caso lo que hace cambiar el comportamiento es tener en primera instancia un proyecto modificado (aunque fuera un pequeño movimiento de bloques) y en segunda instancia, un proyecto ya guardado en la placa (aunque este vacío, pero al que ya se han cargado manualmente librerías).
+
+Con una placa micro:STEAMakers conectada, al seleccionar "actualizar firmware de la placa", a partir de la versión 2.0, podemos seleccionar directamente la placa micro:STEAMakers y con las configuraciones vistas anteriormente se produce una carga de librerias como la que vemos en la animación siguiente:
+
+<center>
+
+![Actualizar el firmware de la placa](../img/guias/uB/actual_firm.gif)  
+*Actualizar el firmware de la placa*
+
+</center>
+
+Cuando finaliza el proceso se muestra el mensaje siguiente:
+
+<center>
+
+![Actualizar el firmware de la placa](../img/guias/uB/actual_firm_mensaje.png)  
+*Actualizar el firmware de la placa*
+
+</center>
+
+Continuamos el proceso de conexionado:
+
+<center>
+
+![Actualizar el firmware de la placa](../img/guias/uB/actual_firm_fin.gif)  
+*Actualizar el firmware de la placa*
+
+</center>
+
+Y ya tenemos disponibles los bloques de la micro:STEAMakers y las librerias dependientes cargadas. Si desconectamos la placa y creamos un nuevo proyecto recuperamos la situación por defecto, tal y como vemos en la imagen siguiente:
+
+<center>
+
+![Creado archivo nuevo sin placa conectada](../img/guias/uB/sin_placa_nuevo.png)  
+*Creado archivo nuevo sin placa conectada*
 
 </center>
 
