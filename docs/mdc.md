@@ -41,6 +41,49 @@ En la figura siguiente vemos el aspecto de dos motores típicos para aplicacione
 
 </center>
 
+## <FONT COLOR=#007575>**Motor amarillo con reductora**</font>
+A falta de información técnica sobre este motor vamos a dar sus características según lo que suministran los vendedores, que los suelen comercializar junto con una rueda de 66mm de diámetro y 25mm de anchura.
+
+<center>
+
+![Rueda y motor DC](../img/motores/rueda_motor.png)  
+*Rueda y motor DC*
+
+</center>
+
+Sus especificaciones son:
+
+* Color: Amarillo.
+* Tensión de trabajo: de 3 a 12V (recomendado de 6 a 8V)
+* Engranes: Plastico.
+* Reductora: 48:1
+* Dimensiones: Largo: 7 cm, Ancho: 2.2 cm, Alto: 3.5 cm
+* Peso: 27 gramos total.
+* Velocidad del motor sin reductora: 6000 RPM
+* Nivel de ruido: menor de 65 dB
+
+En la tabla siguiente se dan otras especificaciones para distintos valores de tensión de alimentación:
+
+<center>
+
+|Parámetro|3V|5V|6V|
+|---|:-:|:-:|:-:|
+|Velocidad sin carga|90 rpm|200 rpm|230 rpm|
+|Velocidad con carga|95 rpm|160 rpm|175 rpm|
+|Torque|800 g/cm|1 kg/cm|1.1 kg/cm|
+|Corriente|120 mA|130 mA|140 mA|
+
+</center>
+
+En la imagen siguiente vemos las dimensiones de este motor:
+
+<center>
+
+![Dimensiones motor DC](../img/motores/dimensiones.png)  
+*Dimensiones motor DC*
+
+</center>
+
 ## <FONT COLOR=#007575>**Control de motores DC**</font>
 Las salidas de las placas tipo Arduino o basadas en ESP32 son capaces de proporcionar entre 40 y 50mA por pin estándo limitada la corriente máxima total y, por si mismas, no van a servir para el control de un motor DC que tendrá un consumo de hasta 1A. La solución está en realizar el control del motor a través de un controlador o driver que es gobernado por la placa de control, se alimenta de forma externa y excita al motor. En la figura siguiente vemos esquematizado el concepto.
 

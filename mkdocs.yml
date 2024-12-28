@@ -57,7 +57,7 @@ nav:
     - Extensión BluetoothLE de App Inventor: guiamb/ble_inventor.md
     - mBlocks + App Inventor + BLE: guiamb/mb_inventor_BLE.md
     - Actividades iniciales: actividadesmB/act_ini_mB.md
-    - Actividades Shiel:bit: actividadesmB/act_sb_mB.md
+    - Actividades Shield:bit: actividadesmB/act_sb_mB.md
   - Arduino2.0:
     - Introducción: IDE/introIDE.md
     - Código en Arduinoblocks: IDE/codigoAB.md

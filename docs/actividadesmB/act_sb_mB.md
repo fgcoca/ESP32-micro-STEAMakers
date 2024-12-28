@@ -249,4 +249,205 @@ Crearemos una aplicación en la que de forma indefinida se reproduce una el soni
 1. Colocar el conmutador de sonido en la posición SW-P0 que pone la señal en el pin extendido io12 del conjunto de pines ESP32.
 2. Cambiar el interruptor del bloque "sb envia el audio por la shuelkdBit" en posición desconectado.
 
-EN DESARROLLO ***********************************************
+## <FONT COLOR=#007575>**A07sb-Control de un motor DC**</font>
+Vamos a hacer que mientras se mantiene pulsado el botón A el motor gire a muy baja velocidad en sentido horario mientras se muestra en la pantalla un letra "H" y mientras se mantiene pulsado el botón B el motor gire a máxima velocidad en sentido antihorario mientras se muestra el carácter A por pantalla. Si no estamos pulsando alguno de los botones el motor estará parado y la pantalla en negro.
+
+<font size="5"><FONT COLOR=#AA0000>Material necesario</font></font>
+
+* Placa micro:STEAMakers
+* Shield:bit con la micro:STEAMakers insertada en su ranura.
+* Motor DC amarillo con conector JST hembra de paso 2mm
+* Cable con conectores hembra de paso 2 y 2.54 mm.
+
+<font size="5"><FONT COLOR=#AA0000>Procedimiento</font></font>
+
+==**1.**== Conectamos el motor al conector M1
+
+<center>
+
+![Esquema A07sb-Control de un motor DC](../img/actividadesmB/E_A07sb.png)  
+*Esquema A07sb-Control de un motor DC*
+
+</center>
+
+!!! Warning "CUIDADO"
+    Fijate bien y observa que los conectores del cable del motor son muy parecidos pero no iguales porque uno es algo mas pequeño que el otro. El de mayor tamaño va al conector de la Shield:bit y el mas pequeño al del motor.
+
+    Además los conectores tienen una posición en la que entran con poca presión en su lugar. No fuerces en ningún caso porque los puedes dejar inservibles. Fíjate que el conector macho que va a la placa lleva dos resaltes a modo de guías que deben orientarse a las ranuras del conector hembra de la placa.
+
+==**2.**== Inicia MicroBlocks en cualquiera de sus modos. Conecta la placa a un puerto USB y "actualiza el firmware de la placa" si es necesario para establecer la conexión.
+
+==**3.**== Haz clic en el botón "Add Library" y en el directorio "Kits y placas" encontrarás la libreria "Shieldbit" que hay que añadir a nuestro entorno. Si es necesario, no debería serlo, agrega manualmente la libreria microSTEAMakers.
+
+==**4.**== Crea el programa para el botón A. Para ello, desde el menú "Control" arrastra un bloque sobrero "cuando" y un bloque "si" a la zona de programa. Desde el menú "Entrada" arrastra el bloque "Botón A" y colocalo en la condición del bloque "si". Expande el bloque "si" haciendo clic sobre el triángulo. La situación en este momento debe ser así:
+
+<center>
+
+![A07sb-Control de un motor DC](../img/actividadesmB/A07sb_1.png)  
+*A07sb-Control de un motor DC*
+
+</center>
+
+==**5.**== Desde la libreria "Shielbit" arrastra el bloque "sb turn DC M-..." y colócalo en la parte cierta del condicional. Deja el número de motor en "1" y el sentido de giro como "sentido horario". Ajusta la velocidad de giro al 25%. Valores inferiores al 25% pueden provocar que el motor no gire. Ahora selecciona la libreria "Pantalla LED" y arrastra un bloque "pantalla" para colocarlo justo debajo del anterior. La situación en este momento debe ser así:
+
+<center>
+
+![A07sb-Control de un motor DC](../img/actividadesmB/A07sb_2.png)  
+*A07sb-Control de un motor DC*
+
+</center>
+
+==**6.**== Desde la libreria "Shieldbit" coloca, en la parte de falso, un bloque "sb stop..." y deja la opción "todos los motores". Desde la libreria "microSTEAMakers" coloca a continuación un bloque "ms limpia la pantalla". Aunque el programa puede funcionar sin estos dos bloques, se colocan para asegurar que ocurre lo uqe pretendemos cuando no se está pulsando el botón A. La situación en este momento debe ser así:
+
+<center>
+
+![A07sb-Control de un motor DC](../img/actividadesmB/A07sb_3.png)  
+*A07sb-Control de un motor DC*
+
+</center>
+
+==**7.**== Crea el programa de control para el botón B. El proceso es totalmente similar al del botón A pero en este caso en el bloque "sb turn DC M-..." seleccionamos "sentido antihorario" y establecemos la velocidad de giro en el 100%. En lugar de un bloque "pantalla" ahora colocamos un bloque "muestra carácter..." y colocamos en el mismo una letra "A" mayúscula.
+
+En la imagen siguiente tenemos el programa completo.
+
+<center>
+
+![A07sb-Control de un motor DC](../img/actividadesmB/A07sb.png)  
+*[A07sb-Control de un motor DC](../program/actividadesmB/un_motor_DC.ubp)*
+
+</center>
+
+!!! info "Advertencia"
+    Si el motor no gira, además de revisar que está conectado en el lugar correcto, es posible que debas alimentar la placa Shield:bit externamente y colocar en interruptor de alimentación en la posición ON. Esto sería debido a que la micro:STEAMakers conectado a un puerto USB no puede suministrar toda la corriente necesaria para hacer funcionar al motor desde ese puerto USB.
+
+==**8.**== En la animación siguiente podemos apreciar el funcionamiento del programa.
+
+<center>
+
+![A07sb-Control de un motor DC](../img/actividadesmB/A07sb.gif)  
+*A07sb-Control de un motor DC*
+
+</center>
+
+## <FONT COLOR=#007575>**A08sb-Felicitacion**</font>
+Dadas las fechas en que se crea esta actividad se me ocurrió crear una felicitación navideña con 4 motores que reaccionarán a las pulsaciones de los botones A y B mientras se muestran mensajes y animaciones por la pantalla.
+
+<font size="5"><FONT COLOR=#AA0000>Material necesario</font></font>
+
+* Placa micro:STEAMakers
+* Shield:bit con la micro:STEAMakers insertada en su ranura.
+* Cuatro motores DC amarillo con conector JST hembra de paso 2mm.
+* Cable con conectores hembra de paso 2 y 2.54 mm.
+
+!!! Note
+    **La actividad se puede realizar con un menor número de motores.**
+
+<font size="5"><FONT COLOR=#AA0000>Procedimiento</font></font>
+
+==**1.**== Conectamos los motores  a los conectores M1, M2, M3 y M4
+
+<center>
+
+![Esquema A08sb-Felicitacion](../img/actividadesmB/E_A08sb.png)  
+*Esquema A08sb-Felicitacion*
+
+</center>
+
+!!! Warning "CUIDADO"
+    Fijate bien y observa que los conectores del cable del motor son muy parecidos pero no iguales porque uno es algo mas pequeño que el otro. El de mayor tamaño va al conector de la Shield:bit y el mas pequeño al del motor.
+
+    Además los conectores tienen una posición en la que entran con poca presión en su lugar. No fuerces en ningún caso porque los puedes dejar inservibles. Fíjate que el conector macho que va a la placa lleva dos resaltes a modo de guías que deben orientarse a las ranuras del conector hembra de la placa.
+
+==**2.**== Inicia MicroBlocks en cualquiera de sus modos. Conecta la placa a un puerto USB y "actualiza el firmware de la placa" si es necesario para establecer la conexión.
+
+==**3.**== Haz clic en el botón "Add Library" y en el directorio "Kits y placas" encontrarás la libreria "Shieldbit" que hay que añadir a nuestro entorno. Si es necesario, no debería serlo, agrega manualmente la libreria microSTEAMakers.
+
+==**4.**== Arrastra de "Control" un bloque "al empezar" y coloca debajo del mismo un bloque "ms escala el brillo..." para ajustar el mismo al valor que quieras. Arrastra también un bloque "di 'texto'..." del menú salida y configuralo como se ve en la imagen siguiente. El bloque "ms energia..." se encuentra en la libreria "microSTEAMakers" y el bloque "carácter con unicode 10" (salto de línea) en el menú "Datos".
+
+<center>
+
+![A08sb-Felicitacion. Bloque "cuando..."](../img/actividadesmB/A08sb_1.png)  
+*A08sb-Felicitacion. Bloque "cuando..."*
+
+</center>
+
+==**5.**== Crea los programas para el botón A y para el botón B. En la imagen siguiente tenemos el programa completo.
+
+<center>
+
+![A08sb-Felicitacion](../img/actividadesmB/A08sb.png)  
+*[A08sb-Felicitacion](../program/actividadesmB/A08sb-felicitacion_4_motores.ubp)*
+
+</center>
+
+!!! info "Advertencias"
+    1. En el programa que se descarga del enlace existe un bloque "artificial" que no es mas que una función con la definición del estallido de un fuego artificial. Se hace así para simplificar el programa general.
+    2. Si el motor no gira, además de revisar que está conectado en el lugar correcto, es posible que debas alimentar la placa Shield:bit externamente y colocar en interruptor de alimentación en la posición ON. Esto sería debido a que la micro:STEAMakers conectado a un puerto USB no puede suministrar toda la corriente necesaria para hacer funcionar al motor desde ese puerto USB.
+
+==**6.**== En la animación siguiente podemos apreciar el funcionamiento del programa al pulsar el botón A.
+
+<center>
+
+![A08sb-Felicitacion. Botón A](../img/actividadesmB/A08sb_A.gif)  
+*A08sb-Felicitacion. Botón A*
+
+</center>
+
+==**6.**== En la animación siguiente podemos apreciar el funcionamiento del programa al pulsar el botón A.
+
+<center>
+
+![A08sb-Felicitacion. Botón B](../img/actividadesmB/A08sb_B.gif)  
+*A08sb-Felicitacion. Botón B*
+
+</center>
+
+## <FONT COLOR=#007575>**A09sb-Motor PaP**</font>
+Activar el funcionamiento de dos motores paso a paso por la pulsación de los botones A o B.
+
+<font size="5"><FONT COLOR=#AA0000>Material necesario</font></font>
+
+* Placa micro:STEAMakers
+* Shield:bit con la micro:STEAMakers insertada en su ranura.
+* Dos motores paso a paso con conector JST hembra de paso 2mm.
+
+<font size="5"><FONT COLOR=#AA0000>Procedimiento</font></font>
+
+==**1.**== Conectamos los motores  a los conectores Stepper1 y Stepper2.
+
+<center>
+
+![Esquema A09sb-Motor PaP](../img/actividadesmB/E_A09sb.png)  
+*Esquema A09sb-Motor PaP*
+
+</center>
+
+!!! Warning "CUIDADO"
+    El conector tiene una posición en la que entra con poca presión en su lugar. No fuerces en ningún caso porque lo puedes dejar inservible. Fíjate que el conector macho que va a la placa lleva dos resaltes a modo de guías que deben orientarse a las ranuras del conector hembra de la placa.
+
+==**2.**== Inicia MicroBlocks en cualquiera de sus modos. Conecta la placa a un puerto USB y "actualiza el firmware de la placa" si es necesario para establecer la conexión.
+
+==**3.**== Haz clic en el botón "Add Library" y en el directorio "Kits y placas" encontrarás la libreria "Shieldbit" que hay que añadir a nuestro entorno. Si es necesario, no debería serlo, agrega manualmente la libreria microSTEAMakers.
+
+==**4.**== Se crean cuatro scripts muy similares para que al pulsar el botón A gire el motor conectado al Sepper1 2 vueltas en sentido horario y el conectado al Stepper2 otras dos en sentido antihorario. La otra pareja de scripts hace exactamente lo mismo pero en esta ocasión los motores giran 180 grados. Un quinto script realiza de forma permanente la consulta de si el botón táctil se ha tocado y si es afirmativo se detienen los motores. En la imagen siguiente tenemos el programa completo.
+
+<center>
+
+![A09sb-Motor PaP](../img/actividadesmB/A09sb.png)  
+*[A09sb-Motor PaP](../program/actividadesmB/A09sb-motores_PaP.ubp)*
+
+</center>
+
+==**6.**== En la animación siguiente podemos apreciar el funcionamiento del programa al pulsar cualquiera de los botones.
+
+<center>
+
+![A09sb-Motor PaP](../img/actividadesmB/A09sb.gif)  
+*A09sb-Motor PaP*
+
+</center>
+
+## <FONT COLOR=#007575>**A10sb-Servos**</font>
+
+Proximamente se ampliará
+

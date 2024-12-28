@@ -1,3 +1,26 @@
+<html>
+<head>
+<script>
+var par=false;
+function parpadeo() {
+    col=par ? 'white' : 'black';
+    document.getElementById('txt').style.color=col;
+    par = !par;
+    setTimeout("parpadeo()",300); //500 = medio segundo
+}
+window.onload=parpadeo;
+</script>
+</head>
+<body>
+<span id="txt">¡¡¡  I M P O R T A N T E  !!!</font>
+</body>
+</html>
+
+<FONT COLOR=#000000>
+
+!!! info "Acerca de las imágenes y versiones de software MicroBlocks"
+    <FONT COLOR=#0000FF><b>Esta web se ha desarrollado partiendo de placas prototipo hasta llegar a modelos definitivos de hardware. Igualmente, en lo que se refiere a MicroBlocks, nos podemos encontrar imágenes, animaciones o capturas de pantalla que no se correspondan con la situación que el lecto ve en su versión. Esto es debido también a que se han obtenido con distintas versiones desde estables o pilot hasta alguna alojada en distintos servidores.</b></font>
+
 ## <FONT COLOR=#007575>**Introducción**</font>
 El aspecto de la placa es el que vemos en la imagen siguiente:
 
