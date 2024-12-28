@@ -1068,7 +1068,7 @@
         
   
   <span class="md-ellipsis">
-    Actividades Shiel:bit
+    Actividades Shield:bit
   </span>
   
 
@@ -1673,6 +1673,40 @@
 
   <h1>La ESP32 micro:STEAMakers</h1>
 
+<html>
+<head>
+<script>
+var par=false;
+function parpadeo() {
+    col=par ? 'white' : 'black';
+    document.getElementById('txt').style.color=col;
+    par = !par;
+    setTimeout("parpadeo()",300); //500 = medio segundo
+}
+window.onload=parpadeo;
+</script>
+ <link href="assets/stylesheets/glightbox.min.css" rel="stylesheet"/><style>
+        html.glightbox-open { overflow: initial; height: 100%; }
+        .gslide-title { margin-top: 0px; user-select: text; }
+        .gslide-desc { color: #666; user-select: text; }
+        .gslide-image img { background: white; }
+        
+            .gscrollbar-fixer { padding-right: 15px; }
+            .gdesc-inner { font-size: 0.75rem; }
+            body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color);}
+            body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color);}
+            body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color);}
+            </style> <script src="assets/javascripts/glightbox.min.js"></script></head>
+<body>
+<span id="txt">¡¡¡  I M P O R T A N T E  !!!</font>
+<script>document$.subscribe(() => {const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});})</script></body>
+</html>
+
+<p><FONT COLOR=#000000></p>
+<div class="admonition info">
+<p class="admonition-title">Acerca de las imágenes y versiones de software MicroBlocks</p>
+<p><FONT COLOR=#0000FF><b>Esta web se ha desarrollado partiendo de placas prototipo hasta llegar a modelos definitivos de hardware. Igualmente, en lo que se refiere a MicroBlocks, nos podemos encontrar imágenes, animaciones o capturas de pantalla que no se correspondan con la situación que el lecto ve en su versión. Esto es debido también a que se han obtenido con distintas versiones desde estables o pilot hasta alguna alojada en distintos servidores.</b></font></p>
+</div>
 <h2 id="introduccion"><FONT COLOR=#007575><strong>Introducción</strong></font><a class="headerlink" href="#introduccion" title="Permanent link">&para;</a></h2>
 <p>El aspecto de la placa es el que vemos en la imagen siguiente:</p>
 <p><center></p>
@@ -1892,5 +1926,5 @@
         <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
       
     
-  <script>document$.subscribe(() => {const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});})</script></body>
+  </body>
 </html>

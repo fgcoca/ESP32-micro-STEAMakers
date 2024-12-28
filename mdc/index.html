@@ -759,6 +759,13 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#motor-amarillo-con-reductora" class="md-nav__link">
+    Motor amarillo con reductora
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#control-de-motores-dc" class="md-nav__link">
     Control de motores DC
   </a>
@@ -1071,7 +1078,7 @@
         
   
   <span class="md-ellipsis">
-    Actividades Shiel:bit
+    Actividades Shield:bit
   </span>
   
 
@@ -1613,6 +1620,13 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#motor-amarillo-con-reductora" class="md-nav__link">
+    Motor amarillo con reductora
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#control-de-motores-dc" class="md-nav__link">
     Control de motores DC
   </a>
@@ -1704,6 +1718,67 @@
 <p><center></p>
 <p><a class="glightbox" href="../img/motores/aspecto.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Aspecto de motores DC" src="../img/motores/aspecto.png" /></a><br />
 <em>Aspecto de motores DC</em></p>
+<p></center></p>
+<h2 id="motor-amarillo-con-reductora"><FONT COLOR=#007575><strong>Motor amarillo con reductora</strong></font><a class="headerlink" href="#motor-amarillo-con-reductora" title="Permanent link">&para;</a></h2>
+<p>A falta de información técnica sobre este motor vamos a dar sus características según lo que suministran los vendedores, que los suelen comercializar junto con una rueda de 66mm de diámetro y 25mm de anchura.</p>
+<p><center></p>
+<p><a class="glightbox" href="../img/motores/rueda_motor.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Rueda y motor DC" src="../img/motores/rueda_motor.png" /></a><br />
+<em>Rueda y motor DC</em></p>
+<p></center></p>
+<p>Sus especificaciones son:</p>
+<ul>
+<li>Color: Amarillo.</li>
+<li>Tensión de trabajo: de 3 a 12V (recomendado de 6 a 8V)</li>
+<li>Engranes: Plastico.</li>
+<li>Reductora: 48:1</li>
+<li>Dimensiones: Largo: 7 cm, Ancho: 2.2 cm, Alto: 3.5 cm</li>
+<li>Peso: 27 gramos total.</li>
+<li>Velocidad del motor sin reductora: 6000 RPM</li>
+<li>Nivel de ruido: menor de 65 dB</li>
+</ul>
+<p>En la tabla siguiente se dan otras especificaciones para distintos valores de tensión de alimentación:</p>
+<p><center></p>
+<table>
+<thead>
+<tr>
+<th>Parámetro</th>
+<th style="text-align: center;">3V</th>
+<th style="text-align: center;">5V</th>
+<th style="text-align: center;">6V</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Velocidad sin carga</td>
+<td style="text-align: center;">90 rpm</td>
+<td style="text-align: center;">200 rpm</td>
+<td style="text-align: center;">230 rpm</td>
+</tr>
+<tr>
+<td>Velocidad con carga</td>
+<td style="text-align: center;">95 rpm</td>
+<td style="text-align: center;">160 rpm</td>
+<td style="text-align: center;">175 rpm</td>
+</tr>
+<tr>
+<td>Torque</td>
+<td style="text-align: center;">800 g/cm</td>
+<td style="text-align: center;">1 kg/cm</td>
+<td style="text-align: center;">1.1 kg/cm</td>
+</tr>
+<tr>
+<td>Corriente</td>
+<td style="text-align: center;">120 mA</td>
+<td style="text-align: center;">130 mA</td>
+<td style="text-align: center;">140 mA</td>
+</tr>
+</tbody>
+</table>
+<p></center></p>
+<p>En la imagen siguiente vemos las dimensiones de este motor:</p>
+<p><center></p>
+<p><a class="glightbox" href="../img/motores/dimensiones.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Dimensiones motor DC" src="../img/motores/dimensiones.png" /></a><br />
+<em>Dimensiones motor DC</em></p>
 <p></center></p>
 <h2 id="control-de-motores-dc"><FONT COLOR=#007575><strong>Control de motores DC</strong></font><a class="headerlink" href="#control-de-motores-dc" title="Permanent link">&para;</a></h2>
 <p>Las salidas de las placas tipo Arduino o basadas en ESP32 son capaces de proporcionar entre 40 y 50mA por pin estándo limitada la corriente máxima total y, por si mismas, no van a servir para el control de un motor DC que tendrá un consumo de hasta 1A. La solución está en realizar el control del motor a través de un controlador o driver que es gobernado por la placa de control, se alimenta de forma externa y excita al motor. En la figura siguiente vemos esquematizado el concepto.</p>
