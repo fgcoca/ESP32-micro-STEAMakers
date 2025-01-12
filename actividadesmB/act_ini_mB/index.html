@@ -319,6 +319,24 @@
     
     
       <li class="md-tabs__item">
+        <a href="../../proyectos/i2ctouno/" class="md-tabs__link">
+          
+  
+  Proyectos
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
         <a href="../../Miscelanea/about/" class="md-tabs__link">
           
   
@@ -636,6 +654,26 @@
   
   <span class="md-ellipsis">
     Diodos LEDs RGB y modelos de color
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../oled/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Pantalla OLED 0.96"
   </span>
   
 
@@ -1090,6 +1128,20 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#a10sb-radio" class="md-nav__link">
+    A10sb-Radio
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#a11sb-microfono" class="md-nav__link">
+    A11sb-Micrófono
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -1523,7 +1575,7 @@
             
   
   <span class="md-ellipsis">
-    Miscelanea
+    Proyectos
   </span>
   
 
@@ -1532,6 +1584,72 @@
         
         <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            Proyectos
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../proyectos/i2ctouno/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    I2C entre micro:STEAMakers y UNO
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+    
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Miscelanea
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
             <span class="md-nav__icon md-icon"></span>
             Miscelanea
           </label>
@@ -1734,6 +1852,20 @@
         <li class="md-nav__item">
   <a href="#a09mb-energia" class="md-nav__link">
     A09mB-Energia
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#a10sb-radio" class="md-nav__link">
+    A10sb-Radio
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#a11sb-microfono" class="md-nav__link">
+    A11sb-Micrófono
   </a>
   
 </li>
@@ -1946,6 +2078,31 @@
 <p><a class="glightbox" href="../../img/actividadesmB/A09mB.gif" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="A09mB-Energia funcionando" src="../../img/actividadesmB/A09mB.gif" /></a><br />
 <em>A09mB-Energia funcionando</em></p>
 <p></center></p>
+<h2 id="a10sb-radio"><FONT COLOR=#007575><strong>A10sb-Radio</strong></font><a class="headerlink" href="#a10sb-radio" title="Permanent link">&para;</a></h2>
+<p>La placa micro:STEAMakers no incorpora un chip de radio como tal y por lo tanto no, los bloques de la libreria "Radio" no van a funcionar con esta placa. Ahora bien, dentro de las librerias de "Red" podemos encontrarnos con una denominada "BLE Radio" que ofrece las mismas funcionalidades pero utilizando la tecnología BLE. Los bloques que nos ofrece esta libreria los vemos en la imagen siguiente:</p>
+<p><center></p>
+<p><a class="glightbox" href="../../img/actividadesmB/B_BLE_Radio.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Bloques BLE Radio" src="../../img/actividadesmB/B_BLE_Radio.png" /></a><br />
+<em>Bloques BLE Radio</em></p>
+<p></center></p>
+<p>Los tres primero bloques sirven para enviar datos de tipo numérico, texto o pares de valores. Los tres segundos nos devuelven si se ha recibido un dato por BLE y el valor de este. El último bloque determina el canal por el que se van a comunicar las placas micro:STEAMakers, de forma que todas las que estén en el mismo canal podrán interactuar entre ellas y las que no lo estén no podrán.</p>
+<p>La libreria sirve para el intercambio de mensajes entre placas que soportan Bluetooth Low Energy (BLE). Un mensaje puede contener una cadena, un número o ambos. Los mensajes son recibidos por todas las placas en el mismo grupo de radio BLE.</p>
+<p>El programa va a consistir en enviar la temperatura medida por la placa a otra (u otras) placas. Esto nos puede servir, por ejemplo, para con el valor recibido calcular la diferencia entre la temperatura de la placa que recibe y la que envía, estableciendo así la diferencia de temperaturas entre, por ejemplo, una zona al sol y otra a la sombra.</p>
+<p>Pondremos el mismo programa en dos micro:STEAMakers para las pruebas. Lógicamente se puede hacer que sean diferentes si quitamos del programa en un caso la parte receptora y en el otro la emisora.</p>
+<p><center></p>
+<p><a class="glightbox" href="../../img/actividadesmB/A10mB.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="A10sb-Radio" src="../../img/actividadesmB/A10mB.png" /></a><br />
+<em><a href="../../program/actividadesmB/A10sb_Radio.ubp">A10sb-Radio</a></em></p>
+<p></center></p>
+<h2 id="a11sb-microfono"><FONT COLOR=#007575><strong>A11sb-Micrófono</strong></font><a class="headerlink" href="#a11sb-microfono" title="Permanent link">&para;</a></h2>
+<p>El programa nos va a mostrar en la pantalla de LEDs el nivel de sonido. Es decir, vamos a hacer una especie de vúmetro que resultará válido para placas que tienen un micrófono incorporado. El programa es el siguiente:</p>
+<p><center></p>
+<p><a class="glightbox" href="../../img/actividadesmB/A11mB.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="A11sb-Micrófono" src="../../img/actividadesmB/A11mB.png" /></a><br />
+<em><a href="../../program/actividadesmB/A11sb_Microfono.ubp">A11sb-Micrófono</a></em></p>
+<p></center></p>
+<p>A continuación vemos una animación que muestra el funcionamiento de la actividad:</p>
+<p><center></p>
+<p><a class="glightbox" href="../../img/actividadesmB/A11mB.gif" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="A11sb-Micrófono funcionando" src="../../img/actividadesmB/A11mB.gif" /></a><br />
+<em>A11sb-Micrófono funcionando</em></p>
+<p></center></p>
 
 
 
@@ -2011,7 +2168,7 @@
     </div>
     
     
-    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.tabs", "navigation.tabs.sticky"], "search": "../../assets/javascripts/workers/search.f886a092.min.js", "translations": {"clipboard.copied": "Copiado al portapapeles", "clipboard.copy": "Copiar al portapapeles", "search.result.more.one": "1 m\u00e1s en esta p\u00e1gina", "search.result.more.other": "# m\u00e1s en esta p\u00e1gina", "search.result.none": "No se encontraron documentos", "search.result.one": "1 documento encontrado", "search.result.other": "# documentos encontrados", "search.result.placeholder": "Teclee para comenzar b\u00fasqueda", "search.result.term.missing": "Falta", "select.version": "Seleccionar versi\u00f3n"}}</script>
+    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.tabs", "navigation.tabs.sticky", "content.code.copy"], "search": "../../assets/javascripts/workers/search.f886a092.min.js", "translations": {"clipboard.copied": "Copiado al portapapeles", "clipboard.copy": "Copiar al portapapeles", "search.result.more.one": "1 m\u00e1s en esta p\u00e1gina", "search.result.more.other": "# m\u00e1s en esta p\u00e1gina", "search.result.none": "No se encontraron documentos", "search.result.one": "1 documento encontrado", "search.result.other": "# documentos encontrados", "search.result.placeholder": "Teclee para comenzar b\u00fasqueda", "search.result.term.missing": "Falta", "select.version": "Seleccionar versi\u00f3n"}}</script>
     
     
       <script src="../../assets/javascripts/bundle.aecac24b.min.js"></script>

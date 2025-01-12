@@ -2,21 +2,90 @@ module main
 author unknown
 version 1 0 
 description ''
-variables S1 
+variables _sb_pca9685_st_steps _toneNoteNames _ms_aht20_data _ms_MPU6050_on _stop_scrolling_text _tonePin _ms_aht20_on _ms_neoPixels _toneArezzoNotes _ms_aht20_reading _ms_neoPixels_scale _toneFrequencies _ms_energyReading _ms_scrolling_stopped _toneInitalized _ms_energySum _sb_neoPixels _toneLoopOverhead _ms_MPU6050_add 
 
-script 97 50 {
-whenButtonPressed 'A'
-'set display color' (colorSwatch 190 23 145 255)
-displayCharacter '1'
-sb_turn_180_servo 1 -180
-sayIt (ms_energy 'mW')
-waitMillis 1000
-sb_turn_180_servo 1 180
-waitMillis 1000
+  spec ' ' 'B0' 'B0'
+  spec ' ' 'B180' 'B180'
+  spec ' ' 'B90' 'B90'
+
+to B0 {
+  ms_clear_display
+  for i 5 {
+    ms_plot i 3 (colorSwatch 255 0 0 255)
+  }
 }
 
-script 172 423 {
+to B180 {
+  ms_clear_display
+  for i 5 {
+    ms_plot 3 i (colorSwatch 0 0 255 255)
+  }
+}
+
+to B90 {
+  ms_clear_display
+  for i 5 {
+    ms_plot 1 i (colorSwatch 0 255 0 255)
+  }
+  for j 5 {
+    ms_plot j 5 (colorSwatch 0 255 0 255)
+  }
+}
+
+script 764 50 {
+whenCondition (ms_touching)
+sb_turn_180_servo 1 0
+sb_turn_180_servo 2 0
+sb_turn_180_servo 3 0
+B0
+}
+
+script 381 57 {
+whenStarted
+sb_turn_180_servo 1 0
+sb_turn_180_servo 2 0
+sb_turn_180_servo 3 0
+B0
+}
+
+script 759 217 {
+whenButtonPressed 'B'
+sb_turn_180_servo 1 90
+sb_turn_180_servo 2 90
+B90
+}
+
+script 370 226 {
+whenButtonPressed 'A'
+sb_turn_180_servo 1 180
+sb_turn_180_servo 2 180
+B180
+}
+
+script 842 364 {
 whenCondition true
+forever {
+  for i 180 {
+    sb_turn_180_servo 3 i
+    waitMillis 10
+    if (i == 180) {
+      sb_turn_180_servo 3 0
+      waitMillis 500
+    }
+  }
+}
+}
+
+script 242 374 {
+to B0 {}
+}
+
+script 536 375 {
+to B90 {}
+}
+
+script 299 556 {
+to B180 {}
 }
 
 
@@ -833,11 +902,11 @@ author 'Joan Guillén'
 version 1 6 
 depends Tone Color 
 tags keyestudio steam 
-choices ms_energyMeter 'ms;start' 'ms;stop' 'ms;reset' 
+choices ms_led_imageMenu heart 'small heart' yes no happy sad confused angry asleep surprised silly fabulous meh 't-shirt' 'roller skate' duck house tortoise butterfly 'stick figure' ghost sword giraffe skull umbrella snake rabbit cow 'quarter note' 'eight note' pitchfork target triangle 'left triangle' 'chess board' diamond 'small diamond' square 'small square' scissors 
 choices ms_inclination 'ms;down' x y 
 choices ms_accel x y z 
 choices ms_energy mA mV mW 
-choices ms_led_imageMenu heart 'small heart' yes no happy sad confused angry asleep surprised silly fabulous meh 't-shirt' 'roller skate' duck house tortoise butterfly 'stick figure' ghost sword giraffe skull umbrella snake rabbit cow 'quarter note' 'eight note' pitchfork target triangle 'left triangle' 'chess board' diamond 'small diamond' square 'small square' scissors 
+choices ms_energyMeter 'ms;start' 'ms;stop' 'ms;reset' 
 description 'Provides custom blocks for the micro:STEAMakers, an ESP32 board with WiFi, BLE, 5x5 RGB LED matrix, 2 buttons, touch, light, sound, temperature and humidity sensors, six-axis accelerometer/gyroscope, energy control, and GPIO and I2C pins for additional extensions.
 '
 variables _ms_neoPixels _ms_neoPixels_scale _ms_scrolling_stopped _ms_energyReading _ms_energySum _ms_aht20_on _ms_aht20_reading _ms_aht20_data _ms_MPU6050_on _ms_MPU6050_add 
