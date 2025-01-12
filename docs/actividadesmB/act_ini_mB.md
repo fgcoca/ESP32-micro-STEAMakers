@@ -286,3 +286,48 @@ A continuación vemos una animación que muestra el funcionamiento de la activid
 *A09mB-Energia funcionando*
 
 </center>
+
+## <FONT COLOR=#007575>**A10sb-Radio**</font>
+La placa micro:STEAMakers no incorpora un chip de radio como tal y por lo tanto no, los bloques de la libreria "Radio" no van a funcionar con esta placa. Ahora bien, dentro de las librerias de "Red" podemos encontrarnos con una denominada "BLE Radio" que ofrece las mismas funcionalidades pero utilizando la tecnología BLE. Los bloques que nos ofrece esta libreria los vemos en la imagen siguiente:
+
+<center>
+
+![Bloques BLE Radio](../img/actividadesmB/B_BLE_Radio.png)  
+*Bloques BLE Radio*
+
+</center>
+
+Los tres primero bloques sirven para enviar datos de tipo numérico, texto o pares de valores. Los tres segundos nos devuelven si se ha recibido un dato por BLE y el valor de este. El último bloque determina el canal por el que se van a comunicar las placas micro:STEAMakers, de forma que todas las que estén en el mismo canal podrán interactuar entre ellas y las que no lo estén no podrán.
+
+La libreria sirve para el intercambio de mensajes entre placas que soportan Bluetooth Low Energy (BLE). Un mensaje puede contener una cadena, un número o ambos. Los mensajes son recibidos por todas las placas en el mismo grupo de radio BLE.
+
+El programa va a consistir en enviar la temperatura medida por la placa a otra (u otras) placas. Esto nos puede servir, por ejemplo, para con el valor recibido calcular la diferencia entre la temperatura de la placa que recibe y la que envía, estableciendo así la diferencia de temperaturas entre, por ejemplo, una zona al sol y otra a la sombra.
+
+Pondremos el mismo programa en dos micro:STEAMakers para las pruebas. Lógicamente se puede hacer que sean diferentes si quitamos del programa en un caso la parte receptora y en el otro la emisora.
+
+<center>
+
+![A10sb-Radio](../img/actividadesmB/A10mB.png)  
+*[A10sb-Radio](../program/actividadesmB/A10sb_Radio.ubp)*
+
+</center>
+
+## <FONT COLOR=#007575>**A11sb-Micrófono**</font>
+El programa nos va a mostrar en la pantalla de LEDs el nivel de sonido. Es decir, vamos a hacer una especie de vúmetro que resultará válido para placas que tienen un micrófono incorporado. El programa es el siguiente:
+
+<center>
+
+![A11sb-Micrófono](../img/actividadesmB/A11mB.png)  
+*[A11sb-Micrófono](../program/actividadesmB/A11sb_Microfono.ubp)*
+
+</center>
+
+A continuación vemos una animación que muestra el funcionamiento de la actividad:
+
+<center>
+
+![A11sb-Micrófono funcionando](../img/actividadesmB/A11mB.gif)  
+*A11sb-Micrófono funcionando*
+
+</center>
+

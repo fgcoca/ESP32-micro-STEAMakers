@@ -42,6 +42,7 @@ nav:
     - Conceptos sobre CO2 y VOC: CO2.md
     - Sensor MiCS4514 de NO2 y CO: MiCS4514.md
     - Diodos LEDs RGB y modelos de color: rgb.md
+    - Pantalla OLED 0.96": oled.md
     - Teoría básica de IoT: program/thinspeak.md
     - ESP-NOW: program/espnow.md
     - Comunicaciones Bluetooth: bt.md
@@ -76,6 +77,8 @@ nav:
     - Actividades EASY Plug: actividadesAB/act_EP.md
     - Actividades avanzadas y con shield modular: actividadesAB/act_ava.md
     #- A05-WiFiMesh (obsoleto): actividadesMOD/A05MOD_Mesh.md
+  - Proyectos:
+    - I2C entre micro:STEAMakers y UNO: proyectos/i2ctouno.md
   - Miscelanea:
     - Autoria: Miscelanea/about.md 
     - Licencias: Miscelanea/lic.md
@@ -128,6 +131,7 @@ theme:
   features:
     - navigation.tabs
     - navigation.tabs.sticky #pestañas fijas
+    - content.code.copy
 # Caracteristicas especiales
 features:
     - navigation.instant

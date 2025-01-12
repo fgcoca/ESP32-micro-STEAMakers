@@ -189,6 +189,14 @@ Crearemos una aplicación en la que si pulsamos el botón A sonará un trozo del
 * Placa micro:STEAMakers
 * Shield:bit con la micro:STEAMakers insertada en su ranura.
 * Auriculares con jack de 3.5mm
+* Opcionalmente podemos conectar un pequeño altavoz tipo hamburguesa como el de la imagen siguiente:
+
+<center>
+
+![Altavoz miniatura tipo hamburguesa](../img/actividadesmB/altavoz_burguer.png)  
+*Altavoz miniatura tipo hamburguesa*
+
+</center>
 
 <font size="5"><FONT COLOR=#AA0000>Procedimiento</font></font>
 
@@ -213,6 +221,14 @@ Crearemos una aplicación en la que si pulsamos el botón A sonará un trozo del
 </center>
 
 ==**4.**== Para probar el programa gira inicialmente el control de volumen totalmente a la izquierda y coloca el conmutador de sonido en su posición "Buzzer". Inserta los auriculares en el jack y ejecuta el programa pulsando cualquiera de los botones de la micro:STEAMakers. Ve girando el potenciómetro para aumentar el volumen hasta que escuches correctamente el sonido. Si es necesario pulsa de nuevo alguno de los botones.
+
+==**5.**== En el video siguiente se puede ver y escuchar el resultado de la pulsación de ambos botones cuando se conecta un altavoz tipo hamburguesa a la placa Shiel:Bit.
+
+<center>
+
+<iframe width="740" height="420" src="https://www.youtube.com/embed/jvwYHHEe9ic?si=xFfRdcNmS7HMx3Pp" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+
+</center>
 
 ## <FONT COLOR=#007575>**A06sb-Sirena**</font>
 Crearemos una aplicación en la que de forma indefinida se reproduce una el sonido de una sirena con su frecuencia grave en 475Hz y la aguda en 1680Hz.
@@ -448,6 +464,48 @@ Activar el funcionamiento de dos motores paso a paso por la pulsación de los bo
 </center>
 
 ## <FONT COLOR=#007575>**A10sb-Servos**</font>
+Activar el funcionamiento de tres servomotores capaces de girar entre cero y 180 grados para situar dos de ellos en posición inicial (0º), giro máximo (180º) y posición intermedia (90º) mientras se muestran gráficos definitorios de la posición en la pantalla. El tercer servo parte de su posición inicial y realiza un recorrido grado a grado de sus 180 grados y cuando llega a esa posición vuelve al inicio y repite la acción
 
-Proximamente se ampliará
+<font size="5"><FONT COLOR=#AA0000>Material necesario</font></font>
 
+* Placa micro:STEAMakers
+* Shield:bit con la micro:STEAMakers insertada en su ranura.
+* Tres servos de 180º.
+
+<font size="5"><FONT COLOR=#AA0000>Procedimiento</font></font>
+
+==**1.**== Conectamos los servos a S1, S2 y S3.
+
+<center>
+
+![Esquema A10sb-Servos](../img/actividadesmB/E_A10sb.png)  
+*Esquema A10sb-Servos*
+
+</center>
+
+!!! Warning "CUIDADO"
+    El terminal del servo es posible conectarlo en dos posiciones pero debemos siempre tener la precaución de que el color marrón coincida con la posición de GND. Fíjate bien a la hora de conectar los servos porque una conexión errónea puede provocar averias irreversibles.
+
+==**2.**== Inicia MicroBlocks en cualquiera de sus modos. Conecta la placa a un puerto USB y "actualiza el firmware de la placa" si es necesario para establecer la conexión.
+
+==**3.**== Haz clic en el botón "Add Library" y en el directorio "Kits y placas" encontrarás la libreria "Shieldbit" que hay que añadir a nuestro entorno. Si es necesario, no debería serlo, agrega manualmente la libreria microSTEAMakers.
+
+==**4.**== Se crean varios scripts para que al pulsar el botón A giren los dos primeros servos hasta la posición 180º y cuando se pulsa el bvotón B que se coloquen en posición 90º. El bloque "al empeza" colocará a todos los servos en posición 0º al igual que cuando se toca el botón táctil. Existe un bloque cuando que si es verdadero ejecuta un bucle que realiza el recorrido 0 a 180 del tercer servo y si está en falso el servo estará parado.
+
+<center>
+
+![A10sb-Servos](../img/actividadesmB/A10sb.png)  
+*[A10sb-Servos](../program/actividadesmB/A10sb-Servos.ubp)*
+
+</center>
+
+En la imagen anterior podemos apreciar la definición de los bloques para los gráficos.
+
+==**6.**== En la animación siguiente podemos apreciar el funcionamiento del programa al pulsar cualquiera de los botones.
+
+<center>
+
+![A10sb-Servos](../img/actividadesmB/A10sb.gif)  
+*A10sb-Servos*
+
+</center>
