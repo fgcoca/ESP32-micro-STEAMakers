@@ -39,43 +39,30 @@ to SERVERinfo {
   }
 }
 
-script 50 50 {
-comment 'Use this block to send messages to specific devices, including your own.'
-'[net:udpSendPacket]' 'LED' 'any IP on local subnet' 5000
-}
-
-script 107 84 {
-comment 'UDP Demo:
-
-- Logs into local WIFI and gets an IP address.
-- Then waits for UDP messages on port 5000.
-- If the device has a button (A, BOOT, FLASH), it can be pressed to send
-   a UDP broadcast "LED". 
-- Broadcasts with payload "LED" will turn the on-board LEDs on and off.
-
-- Broadcast senders cannot see their own messages..
-
-- One can also send a msg to any other device using its specific IP.
-- One can also send a msg to oneself using own IP.
+script 64 50 {
+comment 'Versión HotSpot de Comunicaciones UDP:
+- Crea un punto de acceso WiFi dandole credenciales.
+- El servicio de red será visible en el escáner WiFi de tu PC o móvil con el nombre utilizado.
+- Luego espera mensajes UDP en el puerto 5000.
+- Pulsar botón para difundir mensaje UDP LED. 
+- La emisión de LED conmuta el LED (3,3) de estado.
+- Los remitentes de difusión no pueden ver sus propios mensajes.
+- También se puede enviar un mensaje a cualquier otro dispositivo
+   utilizando su IP específica..
+- También se puede enviar un mensaje a uno mismo usando la propia IP.
 '
 }
 
-script 630 108 {
-whenCondition (BUFFER == 'OFF')
-comment 'Turns LED on/off upon receiving udp message = LED'
-BUFFER = ''
-led = (not led)
-ms_plot 3 3 (colorSwatch 0 0 0 255)
-setUserLED led
-sayIt led
+script 697 123 {
+comment 'Utiliza este bloque para enviar mensajes a dispositivos específicos, incluido el tuyo.'
+'[net:udpSendPacket]' 'LED' '192.168.0.32' 5000
 }
 
-script 111 305 {
+script 62 273 {
 whenStarted
-ms_clear_display
 led = (booleanConstant false)
-wifiConnect 'vodafoneFB70' 'nEW-gRANADA-19'
-sayIt 'My IP:' (getIPAddress)
+wifiCreateHotspot 'PRUEBA_UDP' '0123456789'
+sayIt 'Mi dirección IP:' ('[data:unicodeString]' 10) (getIPAddress)
 '[net:udpStart]' 5000
 forever {
   BUFFER = ('[net:udpReceivePacket]')
@@ -86,32 +73,28 @@ forever {
 }
 }
 
-script 875 324 {
+script 857 280 {
 whenCondition (buttonA)
-comment 'Broadcasts udp message = LED
-IP 255.255.255.255 is a broadcast address.'
+comment 'Difunde mensaje udp = LED
+IP 255.255.255.255 es una dirección de difusión.'
 waitUntil (not (buttonA))
-'[net:udpSendPacket]' 'ON' '192.168.0.32' 5000
-sayIt 'Sent...'
+'[net:udpSendPacket]' 'LED' '255.255.255.255' 5000
+sayIt 'Enviando LED...'
 }
 
-script 496 503 {
-whenCondition (BUFFER == 'ON')
-comment 'Turns LED on/off upon receiving udp message = LED'
+script 536 283 {
+whenCondition (BUFFER == 'LED')
+comment 'Enciende/apaga el LED al 
+recibir el mensaje udp = LED'
 BUFFER = ''
 led = (not led)
-ms_plot 3 3 (colorSwatch 255 0 255 255)
+ms_plot 3 3 (colorSwatch 35 190 30 255)
 setUserLED led
 sayIt led
 }
 
-script 874 528 {
-whenCondition (buttonB)
-comment 'Broadcasts udp message = LED
-IP 255.255.255.255 is a broadcast address.'
-waitUntil (not (buttonB))
-'[net:udpSendPacket]' 'OFF' '192.168.0.32' 5000
-sayIt 'Sent...'
+script 575 595 {
+wifiCreateHotspot 'PRUEBA_UDP' '0123456789'
 }
 
 

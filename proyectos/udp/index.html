@@ -1,0 +1,2464 @@
+
+<!doctype html>
+<html lang="es" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Una introducción a la placa ESP32 micro:steamakers que es muy similar a la Placa ESP32 STEAMakers, pero en este caso tiene el formato de la micro:bit.">
+      
+      
+        <meta name="author" content="Federico Coca">
+      
+      
+        <link rel="canonical" href="https://fgcoca.github.io/....https:/fgcoca.github.io/ESP32-micro-STEAMakers/proyectos/udp/">
+      
+      
+        <link rel="prev" href="../i2ctouno/">
+      
+      
+        <link rel="next" href="../websocket/">
+      
+      
+      <link rel="icon" href="../../img/favicon.png">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.4.5">
+    
+    
+      
+        <title>Control remoto por UDP - ESP32 micro:STEAMakers</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.6a10b989.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.356b1318.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+   <link href="../../assets/stylesheets/glightbox.min.css" rel="stylesheet"/><style>
+        html.glightbox-open { overflow: initial; height: 100%; }
+        .gslide-title { margin-top: 0px; user-select: text; }
+        .gslide-desc { color: #666; user-select: text; }
+        .gslide-image img { background: white; }
+        
+            .gscrollbar-fixer { padding-right: 15px; }
+            .gdesc-inner { font-size: 0.75rem; }
+            body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color);}
+            body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color);}
+            body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color);}
+            </style> <script src="../../assets/javascripts/glightbox.min.js"></script></head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="light-blue" data-md-color-accent="deep-purple">
+  
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&"object"==typeof palette.color)for(var key of Object.keys(palette.color))document.body.setAttribute("data-md-color-"+key,palette.color[key])</script>
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#material-y-montaje" class="md-skip">
+          Saltar a contenido
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Cabecera">
+    <a href="../.." title="ESP32 micro:STEAMakers" class="md-header__button md-logo" aria-label="ESP32 micro:STEAMakers" data-md-component="logo">
+      
+  <img src="../../img/favicon.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            ESP32 micro:STEAMakers
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Control remoto por UDP
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="light-blue" data-md-color-accent="deep-purple"  aria-label="Modo Oscuro"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Modo Oscuro" for="__palette_2" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2a7 7 0 0 0-7 7c0 2.38 1.19 4.47 3 5.74V17a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-2.26c1.81-1.27 3-3.36 3-5.74a7 7 0 0 0-7-7M9 21a1 1 0 0 0 1 1h4a1 1 0 0 0 1-1v-1H9v1Z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="light-blue" data-md-color-accent="deep-purple"  aria-label="Modo Claro"  type="radio" name="__palette" id="__palette_2">
+    
+      <label class="md-header__button md-icon" title="Modo Claro" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2a7 7 0 0 1 7 7c0 2.38-1.19 4.47-3 5.74V17a1 1 0 0 1-1 1H9a1 1 0 0 1-1-1v-2.26C6.19 13.47 5 11.38 5 9a7 7 0 0 1 7-7M9 21v-1h6v1a1 1 0 0 1-1 1h-4a1 1 0 0 1-1-1m3-17a5 5 0 0 0-5 5c0 2.05 1.23 3.81 3 4.58V16h4v-2.42c1.77-.77 3-2.53 3-4.58a5 5 0 0 0-5-5Z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Búsqueda" placeholder="Búsqueda" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Buscar">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Limpiar" aria-label="Limpiar" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Inicializando búsqueda
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/fgcoca/ESP32-micro-STEAMakers" title="Ir al repositorio" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    fgcoca/ESP32-micro-STEAMakers
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="Pestañas" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../presenta/" class="md-tabs__link">
+          
+  
+  ESP32 micro:STEAMakers
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../CO2/" class="md-tabs__link">
+          
+  
+  Teoria general
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../guiamb/donde/" class="md-tabs__link">
+          
+  
+  MicroBlocks
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../IDE/introIDE/" class="md-tabs__link">
+          
+  
+  Arduino2.0
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../program/inicio/" class="md-tabs__link">
+          
+  
+  Arduinoblocks
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../i2ctouno/" class="md-tabs__link">
+          
+  
+  Proyectos
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../Miscelanea/about/" class="md-tabs__link">
+          
+  
+  Miscelanea
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navegación" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="ESP32 micro:STEAMakers" class="md-nav__button md-logo" aria-label="ESP32 micro:STEAMakers" data-md-component="logo">
+      
+  <img src="../../img/favicon.png" alt="logo">
+
+    </a>
+    ESP32 micro:STEAMakers
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/fgcoca/ESP32-micro-STEAMakers" title="Ir al repositorio" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    fgcoca/ESP32-micro-STEAMakers
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+    
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_1" id="__nav_1_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    ESP32 micro:STEAMakers
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1">
+            <span class="md-nav__icon md-icon"></span>
+            ESP32 micro:STEAMakers
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../presenta/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Presentación
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    La ESP32 micro:STEAMakers
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ch340/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Interface USB CH340
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../otrohw/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Otros elementos hardware
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../escudos/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Algunos escudos (Shields)
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../shieldbit/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Shield:bit
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+    
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Teoria general
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Teoria general
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../CO2/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Conceptos sobre CO2 y VOC
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../MiCS4514/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Sensor MiCS4514 de NO2 y CO
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../rgb/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Diodos LEDs RGB y modelos de color
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../oled/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Pantalla OLED 0.96"
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../program/thinspeak/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Teoría básica de IoT
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../program/espnow/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    ESP-NOW
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../bt/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Comunicaciones Bluetooth
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mdc/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    El motor DC
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../servo/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Servomotor
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../pap/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Motor paso a paso
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+    
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    MicroBlocks
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            MicroBlocks
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../guiamb/donde/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Donde encontrarlo
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../guiamb/mblocks/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Guía de MicroBlocks
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../guiamb/webserial/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Web Serial ESPTool
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../guiamb/boardie/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Boardie:un tablero virtual para MicroBlocks
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../guiamb/ublocks/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Programación micro:STEAMakers
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../guiamb/ble_inventor/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Extensión BluetoothLE de App Inventor
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../guiamb/mb_inventor_BLE/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    mBlocks + App Inventor + BLE
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../actividadesmB/act_ini_mB/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Actividades iniciales
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../actividadesmB/act_sb_mB/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Actividades Shield:bit
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+    
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Arduino2.0
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            Arduino2.0
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../IDE/introIDE/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Introducción
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../IDE/codigoAB/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Código en Arduinoblocks
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../IDE/descarga/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Descarga del IDE
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../IDE/ventanaIDE/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Ventana principal del IDE
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../IDE/caracteristicasIDE2_0/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Características principales del IDE 2.0
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+    
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Arduinoblocks
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            Arduinoblocks
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../program/inicio/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Programación de micro:STEAMakers
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../program/RTTTL/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Formato RTTTL
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../program/server/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Servidor web
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../program/tm/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    micro:STEAMakers + Telegram
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../program/iotAB/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    IoT
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../program/espnowAB/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    ESP-NOW
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../actividadesAB/act_ini/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Actividades iniciales
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../actividadesAB/act_EP/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Actividades EASY Plug
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../actividadesAB/act_ava/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Actividades avanzadas y con shield modular
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+    
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Proyectos
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            Proyectos
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../i2ctouno/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    I2C entre micro:STEAMakers y UNO
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    Control remoto por UDP
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    Control remoto por UDP
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Tabla de contenidos">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Tabla de contenidos
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#material-y-montaje" class="md-nav__link">
+    Material y montaje
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#proceso" class="md-nav__link">
+    Proceso
+  </a>
+  
+    <nav class="md-nav" aria-label="Proceso">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#conceptos-basicos-de-udp" class="md-nav__link">
+    Conceptos básicos de UDP
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#puertos-udp" class="md-nav__link">
+    Puertos UDP
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#udp-en-el-proyecto" class="md-nav__link">
+    UDP en el proyecto
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#programacion-microblocks" class="md-nav__link">
+    Programación MicroBlocks
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#aplicacion-con-app-inventor" class="md-nav__link">
+    Aplicación con APP Inventor
+  </a>
+  
+    <nav class="md-nav" aria-label="Aplicación con APP Inventor">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#interfaz-de-usuario-de-la-app" class="md-nav__link">
+    Interfaz de usuario de la APP
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#como-utilizar-la-app" class="md-nav__link">
+    Cómo utilizar la APP
+  </a>
+  
+    <nav class="md-nav" aria-label="Cómo utilizar la APP">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#recibir-mensajes-udp" class="md-nav__link">
+    Recibir mensajes UDP
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#enviar-difusiones-udp-para-controlar-leds" class="md-nav__link">
+    Enviar difusiones UDP para controlar LEDs
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cambiar-puerto-udp-local" class="md-nav__link">
+    Cambiar puerto UDP local
+  </a>
+  
+    <nav class="md-nav" aria-label="Cambiar puerto UDP local">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#enviar-mensajes-udp-personalizados" class="md-nav__link">
+    Enviar Mensajes UDP Personalizados
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#crear-hotspot-propio" class="md-nav__link">
+    Crear HotSpot propio
+  </a>
+  
+    <nav class="md-nav" aria-label="Crear HotSpot propio">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#mi-propia-senal-wifi" class="md-nav__link">
+    Mi propia señal WiFi
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#como-funciona" class="md-nav__link">
+    Cómo funciona
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#activacion-de-la-nueva-red" class="md-nav__link">
+    Activación de la nueva Red
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#debate" class="md-nav__link">
+    Debate
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#consejos-solucion-de-problemas" class="md-nav__link">
+    Consejos / Solución de problemas
+  </a>
+  
+    <nav class="md-nav" aria-label="Consejos / Solución de problemas">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#que-puede-fallar" class="md-nav__link">
+    Qué puede fallar
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#descarga-del-proyecto" class="md-nav__link">
+    Descarga del proyecto
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../websocket/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Control remoto utilizando WEBSocket
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../microblocks_websocket/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Integración de MicroBlocks y APP Inventor WEBsocket
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+    
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Miscelanea
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            Miscelanea
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Miscelanea/about/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Autoria
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Miscelanea/lic/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Licencias
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Miscelanea/webgrafia/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Webgrafia/Bibliografía
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Miscelanea/soft/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Software utilizado
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Tabla de contenidos">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Tabla de contenidos
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#material-y-montaje" class="md-nav__link">
+    Material y montaje
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#proceso" class="md-nav__link">
+    Proceso
+  </a>
+  
+    <nav class="md-nav" aria-label="Proceso">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#conceptos-basicos-de-udp" class="md-nav__link">
+    Conceptos básicos de UDP
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#puertos-udp" class="md-nav__link">
+    Puertos UDP
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#udp-en-el-proyecto" class="md-nav__link">
+    UDP en el proyecto
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#programacion-microblocks" class="md-nav__link">
+    Programación MicroBlocks
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#aplicacion-con-app-inventor" class="md-nav__link">
+    Aplicación con APP Inventor
+  </a>
+  
+    <nav class="md-nav" aria-label="Aplicación con APP Inventor">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#interfaz-de-usuario-de-la-app" class="md-nav__link">
+    Interfaz de usuario de la APP
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#como-utilizar-la-app" class="md-nav__link">
+    Cómo utilizar la APP
+  </a>
+  
+    <nav class="md-nav" aria-label="Cómo utilizar la APP">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#recibir-mensajes-udp" class="md-nav__link">
+    Recibir mensajes UDP
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#enviar-difusiones-udp-para-controlar-leds" class="md-nav__link">
+    Enviar difusiones UDP para controlar LEDs
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cambiar-puerto-udp-local" class="md-nav__link">
+    Cambiar puerto UDP local
+  </a>
+  
+    <nav class="md-nav" aria-label="Cambiar puerto UDP local">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#enviar-mensajes-udp-personalizados" class="md-nav__link">
+    Enviar Mensajes UDP Personalizados
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#crear-hotspot-propio" class="md-nav__link">
+    Crear HotSpot propio
+  </a>
+  
+    <nav class="md-nav" aria-label="Crear HotSpot propio">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#mi-propia-senal-wifi" class="md-nav__link">
+    Mi propia señal WiFi
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#como-funciona" class="md-nav__link">
+    Cómo funciona
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#activacion-de-la-nueva-red" class="md-nav__link">
+    Activación de la nueva Red
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#debate" class="md-nav__link">
+    Debate
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#consejos-solucion-de-problemas" class="md-nav__link">
+    Consejos / Solución de problemas
+  </a>
+  
+    <nav class="md-nav" aria-label="Consejos / Solución de problemas">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#que-puede-fallar" class="md-nav__link">
+    Qué puede fallar
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#descarga-del-proyecto" class="md-nav__link">
+    Descarga del proyecto
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  <h1>Control remoto por UDP</h1>
+
+<p>Este proyecto es una adaptación de la entrada <a href="https://wiki.microblocks.fun/en/wifi">Remote control using UDP</a> disponible en la <a href="https://wiki.microblocks.fun/en/wifi/udp">MicroBlocks Wiki</a> como una demostración del uso de UDP en MicroBlocks.</p>
+<p>El control remoto es una técnica muy utilizada en proyectos de control, como por ejemplo para controlar un coche robotizado, un sistema de gestión de la energía doméstica o una estación meteorológica.</p>
+<p>El control remoto puede implementarse utilizando cualquiera de las capacidades de comunicación disponibles en los microcontroladores. Bluetooth, Comunicación serie, GSM (red 2G), radiofrecuencia, WiFi, etc. En este tutorial, nos centraremos específicamente en el uso del control remoto basado en WiFi, específicamente el que hace uso del <a href="https://es.wikipedia.org/wiki/Protocolo_de_datagramas_de_usuario">Protocolo de Datagramas de Usuario</a> (<a href="https://en.wikipedia.org/wiki/User_Datagram_Protocol">User Datagram Protocol o UDP</a>).</p>
+<p>Aprenderemos a transmitir y recibir mensajes UDP y a actuar sobre el contenido del mensaje encendiendo y apagando un LED de la placa. Una vez que domines este ejercicio, podrás implementar otros sistemas de control más complejos por tu cuenta.</p>
+<p>En el tutorial original se hace uso de cinco microcontroladores con el fin de mostrar una de las características importantes de MicroBlocks, la PORTABILIDAD. Puedes experimentar esto con lo que tengas a mano. En nuestro caso vamos a utilizar solamente placas micro:STEAMakers para hacerlo, que tienen las características necesarias para hacerlo:</p>
+<ul>
+<li>Soportan WiFi</li>
+<li>Disponen de botones</li>
+</ul>
+<h2 id="material-y-montaje"><FONT COLOR=#007575><strong>Material y montaje</strong></font><a class="headerlink" href="#material-y-montaje" title="Permanent link">&para;</a></h2>
+<ul>
+<li>una o más micro:STEAMakers</li>
+<li>un teléfono móvil con Android (opcional).</li>
+</ul>
+<p>Si sólo tienes una micro:STEAMakers, entonces puedes usarla en combinación con la APP del teléfono móvil con Android. En el peor de los casos, si no tienes placas disponibles, pero posees un teléfono móvil con Android todavía puedes experimentar con este tutorial usando tu teléfono.</p>
+<p>Dado que este ejercicio hace uso de la capacidad WiFi de los dispositivos en uso, no habrá necesidad de cableado físico.</p>
+<p>En cuanto a la disponibilidad de WiFi, puedes empezar utilizando el proporcionado por el router de tu casa.</p>
+<p>También describiremos una forma en la que puedes crear tu propio HotSpot WiFi, que será  muy útil si planeas trabajar en un área sin servicio WiFi.</p>
+<div class="admonition info">
+<p class="admonition-title">HotSpot WiFi</p>
+<p>Un HotSpot WiFi es un lugar físico donde los usuarios pueden conectar a internet de forma inalámbrica dispositivos como teléfonos móviles o tablets.</p>
+</div>
+<h2 id="proceso"><FONT COLOR=#007575><strong>Proceso</strong></font><a class="headerlink" href="#proceso" title="Permanent link">&para;</a></h2>
+<p>Para iniciar el proyecto:</p>
+<ul>
+<li><strong>Identificarse</strong> en la red WiFi local y obtener una dirección IP. En la libreria WiFi tenemos un bloque para ello:</li>
+</ul>
+<p><center></p>
+<p><a class="glightbox" href="../../img/proyectos/conecta_wifi.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Bloque conéctate a la wifi..." src="../../img/proyectos/conecta_wifi.png" /></a><br />
+<em>Bloque conéctate a la wifi...</em></p>
+<p></center></p>
+<p>Si cogemos el bloque y lo configuramos y al mismo le adosamos un bloque di..., podemos construir un pequeño script que nos devuelva la dirección IP de cada placa:</p>
+<p><center></p>
+<p><a class="glightbox" href="../../img/proyectos/obtener_ip.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Obtener la IP" src="../../img/proyectos/obtener_ip.png" /></a><br />
+<em>Obtener la IP</em></p>
+<p></center></p>
+<p>El bloque "direccion IP" también está en la libreria WiFi.</p>
+<ul>
+<li>Después debemos esperar a recibir <strong>mensajes UDP "ON" u "OFF" y conmutar el estado del LED (3,3)</strong> de la pantalla.</li>
+<li><strong>Si se pulsa el botón A, enviar un mensaje de difusión "ON"</strong> a todos los dispositivos participantes y <strong>si se pulsa el botón B, enviar un mensaje de difusión "OFF"</strong> a todos los dispositivos participantes.</li>
+</ul>
+<p><strong>Recuerda reemplazar el SSID y la Contraseña en el programa con tu información específica.</strong></p>
+<p>Puede ser útil revisar brevemente las operaciones del Protocolo de Datagramas de Usuario (UDP) para tener una mejor idea de toda la acción en el tutorial. Puedes consultar el artículo sobre UDP en Wikipedia o en cualquier otro sitio para un tratamiento más detallado del tema.</p>
+<h3 id="conceptos-basicos-de-udp"><FONT COLOR=#AA0000>Conceptos básicos de UDP</font><a class="headerlink" href="#conceptos-basicos-de-udp" title="Permanent link">&para;</a></h3>
+<p>(obtenidos de Wikipedia)</p>
+<p>En redes informáticas, el Protocolo de Datagramas de Usuario (UDP) es uno de los protocolos de comunicación centrales del conjunto de protocolos de Internet utilizado para enviar mensajes (transportados como datagramas en paquetes) a otros hosts en una red de Protocolo de Internet (IP). Dentro de una red IP, UDP no requiere comunicación previa para establecer canales de comunicación o rutas de datos.</p>
+<p>UDP utiliza un modelo sencillo de comunicación sin conexión con un mínimo de mecanismos de protocolo. UDP proporciona números de puerto para direccionar diferentes funciones en el origen y el destino del datagrama. No tiene diálogos de toma de contacto y, por tanto, no hay garantía de entrega, orden o protección contra duplicados.</p>
+<p>UDP es adecuado para fines en los que la comprobación y corrección de errores no son necesarias o se realizan en la aplicación. Las aplicaciones sensibles al tiempo suelen utilizar UDP porque es preferible soltar paquetes que esperar a que se retrasen debido a la retransmisión, que puede no ser una opción en un sistema en tiempo real.</p>
+<p>Las características principales de este protocolo son:</p>
+<ol>
+<li>Trabaja sin conexión, es decir, que no emplea ninguna sincronización entre el origen y el destino.</li>
+<li>Trabaja con paquetes o datagramas enteros, no con bytes individuales como TCP. Una aplicación que emplea el protocolo UDP intercambia información en forma de bloques de bytes, de forma que por cada bloque de bytes enviado de la capa de aplicación a la capa de transporte, se envía un paquete UDP.</li>
+<li>No es fiable. No emplea control del flujo ni ordena los paquetes.</li>
+<li>Su gran ventaja es que provoca poca carga adicional en la red, ya que es sencillo y emplea cabeceras muy simples.</li>
+</ol>
+<h3 id="puertos-udp"><FONT COLOR=#AA0000>Puertos UDP</font><a class="headerlink" href="#puertos-udp" title="Permanent link">&para;</a></h3>
+<p>Las aplicaciones pueden utilizar sockets (conectores) de datagramas para establecer comunicaciones de host (equipo) a host (equipo). Una aplicación vincula un socket a su punto final de transmisión de datos, que es una combinación de una dirección IP y un puerto. De esta forma, UDP proporciona multiplexación de aplicaciones. Un puerto es una estructura de software que se identifica por el número de puerto, un valor entero de 16 bits, que permite números de puerto entre 0 y 65535.</p>
+<ul>
+<li>El puerto 0 está reservado, pero es un valor de puerto de origen admisible si el proceso de envío no espera mensajes como respuesta.</li>
+<li>Los puertos 1 a 1023 se llaman puertos "bien conocidos (well-known)" y en sistemas operativos tipo Unix enlazar con uno de estos puertos requiere acceso como superusuario.</li>
+<li>Los puertos 1024 a 49.151 son puertos registrados usados por <a href="https://www.iana.org/assignments/service-names-port-numbers/service-names-port-numbers.txt">IANA-registered services</a>. IANA son las siglas de Internet Assigned Numbers Authority que es el Registro de nombres de servicio y números de puerto de protocolo de transporte.</li>
+<li>Los puertos 49.152 a 65.535 son puertos dinámicos y son utilizados como puertos temporales, sobre todo por los clientes al comunicarse con los servidores.</li>
+</ul>
+<h3 id="udp-en-el-proyecto"><FONT COLOR=#AA0000>UDP en el proyecto</font><a class="headerlink" href="#udp-en-el-proyecto" title="Permanent link">&para;</a></h3>
+<p>La implementación de MicroBlocks del protocolo UDP se manifiesta en la libreria UDP. No hay ningún requisito especial antes de usar el protocolo, aparte de que los dispositivos implicados tienen que estar presentes en una red IP compartida, en nuestro caso nuestro WiFi local.</p>
+<p>Veamos una descripción de los bloques que compnen esta libreria:</p>
+<ul>
+<li><strong>inicia UDP en el puerto...</strong></li>
+</ul>
+<p><center></p>
+<p><a class="glightbox" href="../../img/proyectos/B_ini_UDP.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Bloque inicia UDP en el puerto..." src="../../img/proyectos/B_ini_UDP.png" /></a>  </p>
+<p></center></p>
+<p>Este bloque configura el script para que <strong>escuche los mensajes UDP en el puerto designado</strong>. La dirección IP propia del dispositivo y el número de puerto especificado forman un socket e identifican de forma única el dispositivo y cualquier servicio de software que proporcione. Según lo anterior:</p>
+<ul>
+<li>si se envía un mensaje de difusión UDP dirigido al puerto 5000,</li>
+<li>o se envía un mensaje UDP dirigido a la IP del dispositivo y al puerto 5000...</li>
+</ul>
+<p>nuestro script lo verá y lo recibirá.</p>
+<ul>
+<li><strong>envia paquete UDP...a la IP...y puerto...</strong></li>
+</ul>
+<p><center></p>
+<p><a class="glightbox" href="../../img/proyectos/B_envia_paq_UDP.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Bloque envia paquete UDP...a la IP...y puerto..." src="../../img/proyectos/B_envia_paq_UDP.png" /></a>  </p>
+<p></center></p>
+<p>Este bloque se utiliza para <strong>enviar mensajes UDP a la dirección IP y puerto designados</strong>. La <strong>dirección IP 255.255.255.255</strong> es una dirección de <strong>difusión especial</strong>, y se utilizará para acceder a todos los dispositivos IP en la subred local. Esto facilita el envío de mensajes sin molestarse con la dirección IP específica de cada dispositivo.</p>
+<p>Ten en cuenta que <strong>en MicroBlocks, los mensajes de difusión no son vistos por el dispositivo emisor</strong>. Sin embargo, <strong>en la MIT AI2 APP, las difusiones son vistas por el teléfono emisor</strong>.</p>
+<p>Los mensajes también pueden ser enviados utilizando la dirección IP específica y el número de puerto UDP del dispositivo de destino, incluso a la propia dirección IP.</p>
+<div class="admonition abstract">
+<p class="admonition-title">Direcciones IPv4 reservadas para usos específicos</p>
+<p>127.0.0.0 -&gt; Dirección de loopback o bucle de retorno (la propia interfaz del host)</p>
+<p>224.0.0.0 -&gt; IP multicast o entrega de datos simultanea a un grupo de nodos receptores.</p>
+<p>255.255.255.255 -&gt; Difusión (broadcast); se envía a todas las interfaces en la red</p>
+</div>
+<ul>
+<li><strong>recibe paquete UDP</strong></li>
+</ul>
+<p><center></p>
+<p><a class="glightbox" href="../../img/proyectos/B_recib_paq_UDP.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Bloque recibe paquete UDP" src="../../img/proyectos/B_recib_paq_UDP.png" /></a>  </p>
+<p></center></p>
+<p><strong>Siempre que se reciba un mensaje UDP, este bloque contendrá su contenido</strong>. Comprobando si su longitud es mayor que cero, podemos consultar el resultado de las transacciones UDP.</p>
+<p>Este bloque también proporciona una opción booleana de <strong>datos binarios</strong> que permite recibir cualquier tipo de dato.</p>
+<p>Hay otros bloques en la biblioteca que no se utilizan en este proyecto aunque se explican por sí mismos.</p>
+<ul>
+<li><strong>detén UDP</strong>. Detiene el procesado de UDP</li>
+</ul>
+<p><center></p>
+<p><a class="glightbox" href="../../img/proyectos/B_deten_UDP.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Bloque detén UDP" src="../../img/proyectos/B_deten_UDP.png" /></a>  </p>
+<p></center></p>
+<ul>
+<li><strong>dirección IP remota de UDP</strong>. El mensaje UDP envía la dirección IP remota.</li>
+</ul>
+<p><center></p>
+<p><a class="glightbox" href="../../img/proyectos/B_dir_rem_UDP.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Bloque dirección IP remota de UDP" src="../../img/proyectos/B_dir_rem_UDP.png" /></a>  </p>
+<p></center></p>
+<ul>
+<li><strong>puerto remoto de UDP</strong>. El mensaje UDP envía el puerto remoto.</li>
+</ul>
+<p><center></p>
+<p><a class="glightbox" href="../../img/proyectos/B_puerto_rem_UDP.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Bloque puerto remoto de UDP" src="../../img/proyectos/B_puerto_rem_UDP.png" /></a>  </p>
+<p></center></p>
+<h2 id="programacion-microblocks"><FONT COLOR=#007575><strong>Programación MicroBlocks</strong></font><a class="headerlink" href="#programacion-microblocks" title="Permanent link">&para;</a></h2>
+<p>La idea inicial del proyecto original es que todas las placas ejecuten exactamente el mismo programa y hagan exactamente lo mismo: encender y apagar el LED de la placa al recibir mensajes UDP y enviar mensajes al pulsar el botón. En nuestro caso hemos introducido pequeñas variaciones para adaptarlo a la placa micro:STEAMakers que es la que nos ocupa. En concreto asumiremos que el LED integrado es el LED de coordenas (3,1) de la pantalla y aprovecharemos la circunstancia de que los LEDs son RGB para usar diferentes colores que distingan un scrip de otro. Veamos el programa por partes:</p>
+<p><strong><span class="arithmatex">\(\blacktriangleright\)</span> Bloque al empezar:</strong> gestiona el inicio de sesión WiFi, muestra la dirección IP obtenida del router local e inicia el puerto UDP. A continuación, el script entra en un bucle de recepción de mensajes y los muestra en el IDE.</p>
+<p><center></p>
+<p><a class="glightbox" href="../../img/proyectos/comunicacionesUDP1.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Bloque al empezar" src="../../img/proyectos/comunicacionesUDP1.png" /></a><br />
+<em>Bloque al empezar</em>
+</center></p>
+<p><strong><span class="arithmatex">\(\blacktriangleright\)</span> cuando botón A:</strong> el bloque envía un mensaje de difusión UDP con "LED" como contenido. Si la IP es 255.255.255.255 el mensaje se envia a todas las placas que estén en la red y si es una IP concreta el mensaje se envia a la placa con esa IP. El mensaje es enviado al soltar el botón.</p>
+<p><center></p>
+<p><a class="glightbox" href="../../img/proyectos/comunicacionesUDP2.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Bloque cuando botón A" src="../../img/proyectos/comunicacionesUDP2.png" /></a><br />
+<em>Bloque cuando botón A</em>
+</center></p>
+<p><strong><span class="arithmatex">\(\blacktriangleright\)</span> Bloque BUFFER = LED:</strong> actúa sobre el mensaje LED recibido y conmuta el estado del LED especificado. Si estamos trabajando con al menos dos placas podemos observar como al pulsar el botón A en una placa el mensaje en el IDE de este bloque en la otra placa cambia de estado, correpondiendo el valor "true" de la variable a LED apagado y "false" a LED encendido.</p>
+<p><center></p>
+<p><a class="glightbox" href="../../img/proyectos/comunicacionesUDP3.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Bloque cuando BUFFER = LED" src="../../img/proyectos/comunicacionesUDP3.png" /></a><a class="glightbox" href="../../img/proyectos/comunicacionesUDP4.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="" src="../../img/proyectos/comunicacionesUDP4.png" /></a> <br />
+<em>Bloque cuando BUFFER = LED</em>
+</center></p>
+<p>El LED integrado o LED (3,1) actúa justo al contrario que el (3,3) y podemos prescindir de uno u otro sin ningún problema, como se ha indicado simplemente se hace por variar el proyecto original.</p>
+<p><strong><span class="arithmatex">\(\blacktriangleright\)</span> Bloque envia paquete UDP...:</strong> El programa incluy un bloque de envío UDP separado que puedes utilizar para ejercer la opción de enviar un mensaje UDP a ti mismo o a otro dispositivo específico.</p>
+<p><center></p>
+<p><a class="glightbox" href="../../img/proyectos/comunicacionesUDP5.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Bloque cuando envia paquete UDP..." src="../../img/proyectos/comunicacionesUDP5.png" /></a><br />
+<em>Bloque cuando envia paquete UDP...</em>
+</center></p>
+<p>Para ello, <strong>es necesario tomar nota de la dirección IP</strong> mostrada al inicio del programa y luego dirigir el mensaje a esa dirección específica para las respectivas placas de prueba.</p>
+<p>Si estás utilizando la <strong>APP de Android</strong>, tendrá su <strong>IP mostrada en la parte superior de la pantalla</strong>.</p>
+<p>El programa completo lo tienes en la imagen siguiente y en el enlace lo puedes descargar. No olvides configurar tus datos WiFi para que funcione correctamente.</p>
+<p><center></p>
+<p><a class="glightbox" href="../../img/proyectos/comunicacionesUDP.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Programa comunicaciones UDP" src="../../img/proyectos/comunicacionesUDP.png" /></a><br />
+<em><a href="../../program/actividadesmB/comunicacionUDP.ubp">Programa comunicaciones UDP</a></em>
+</center></p>
+<h2 id="aplicacion-con-app-inventor"><FONT COLOR=#007575><strong>Aplicación con APP Inventor</strong></font><a class="headerlink" href="#aplicacion-con-app-inventor" title="Permanent link">&para;</a></h2>
+<p>En el ejemplo original se proporciona una APP compatible con Android para el programa realizado en MicroBlocks. Asi se proporciona una flexibilidad extra si sólo tienes un microcontrolador o no tienes ninguno. Puedes enviar mensajes entre el microcontrolador y la APP del teléfono móvil; o simplemente enviar mensajes del teléfono a sí mismo.</p>
+<p>Las dos imágenes siguientes muestran la GUI (Graphical User Interface) de la APP al inicio del programa y al recibir y enviar mensajes de broadcast UDP, cambiando el estado del LED simulado.</p>
+<p><center></p>
+<p><a class="glightbox" href="../../img/proyectos/comunicacionesUDP6.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="GUIs de la APP" src="../../img/proyectos/comunicacionesUDP6.png" /></a> <a class="glightbox" href="../../img/proyectos/comunicacionesUDP7.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="GUIs de la APP" src="../../img/proyectos/comunicacionesUDP7.png" /></a><br />
+<em>GUIs de la APP</em></p>
+<p></center></p>
+<p>En la APP se han realizado cambios mínimos para traducir los mensajes e incluir un botón que limpie la zona de mensajes.</p>
+<h3 id="interfaz-de-usuario-de-la-app"><FONT COLOR=#AA0000>Interfaz de usuario de la APP</font><a class="headerlink" href="#interfaz-de-usuario-de-la-app" title="Permanent link">&para;</a></h3>
+<p>La GUI de la APP consta de cuatro partes:</p>
+<p><strong><span class="arithmatex">\(\blacktriangleright\)</span> Botón superior / combinación de imágenes:</strong> se utiliza para <strong>generar mensajes de difusión UDP</strong> para alternar los LED de los dispositivos receptores y también <strong>mostrar las acciones del LED</strong> para los mensajes recibidos.</p>
+<p><strong><span class="arithmatex">\(\blacktriangleright\)</span> Área de emisor UDP:</strong> Proporciona un control detallado para la dirección IP de destino, los números de Puerto de destino y local y el contenido del texto del Mensaje de los mensajes UDP. Esta área se utiliza principalmente para probar varias opciones de mensajes UDP y experimentar con otros dispositivos con respecto a las combinaciones de numeración de IP y Puerto.</p>
+<p><strong><span class="arithmatex">\(\blacktriangleright\)</span> Área de Receptor UDP:</strong> Permite modificar el puerto UDP que está escuchando el dispositivo.</p>
+<p><strong><span class="arithmatex">\(\blacktriangleright\)</span> Área de Visualización de Mensajes:</strong> En esta área se muestran todos los intercambios del programa y cualquier mensaje de error.</p>
+<h3 id="como-utilizar-la-app"><FONT COLOR=#AA0000>Cómo utilizar la APP</font><a class="headerlink" href="#como-utilizar-la-app" title="Permanent link">&para;</a></h3>
+<p>Aunque la GUI de la APP ofrece muchos detalles, el uso real es muy sencillo. Desglosémosla en varias tareas y probémosla:</p>
+<h4 id="recibir-mensajes-udp"><FONT COLOR=#0000FF><strong>Recibir mensajes UDP</strong></font><a class="headerlink" href="#recibir-mensajes-udp" title="Permanent link">&para;</a></h4>
+<p>No tienes que hacer nada ya que el programa comenzará a recibir mensajes inmediatamente después de ponerlo en ejecución. La dirección IP se obtiene automáticamente y cualquier mensaje UDP destinado al puerto 5000 será recibido y mostrado.</p>
+<p>El número de puerto puede cambiarse a través del campo de entrada <strong>Puerto local</strong> en el Área de Receptor UDP. Tras el cambio, la APP comenzará a procesar los mensajes dirigidos al nuevo Puerto.</p>
+<div class="admonition warning">
+<p class="admonition-title"> </p>
+<p>Para que se reciba un mensaje, debe enviarse a la dirección de difusión 255.255.255.255 o a la dirección IP específica del teléfono. En ambos casos, el número de puerto debe coincidir con el puerto local seleccionado.</p>
+</div>
+<h4 id="enviar-difusiones-udp-para-controlar-leds"><FONT COLOR=#0000FF><strong>Enviar difusiones UDP para controlar LEDs</strong></font><a class="headerlink" href="#enviar-difusiones-udp-para-controlar-leds" title="Permanent link">&para;</a></h4>
+<p>De nuevo, no hay nada especial que hacer, pero si tocas la <strong>imagen del LED en la parte superior de la pantalla</strong>, se enviará un mensaje de difusión UDP a destino IP = 255.255.255.255 y Puerto = 5000. Cualquier dispositivo en la subred local que escuche el puerto UDP 5000 debería recibir estos mensajes y conmutar sus LEDs en consecuencia. Esto incluye el teléfono Android. <strong>Verás tu propio LED conmutar</strong>, cada vez que toques la imagen del LED.</p>
+<div class="admonition warning">
+<p class="admonition-title"> </p>
+<p>Esta opción está configurada para enviar siempre a la dirección de difusión y el puerto = 5000. Es una forma segura de probar los cambios en la APP.
+Si deseas modificar cualquier opción de IP o Puerto, un poco mas adelante em <strong>Enviar Mensajes UDP Personalizados</strong> está explicado.</p>
+</div>
+<h3 id="cambiar-puerto-udp-local"><FONT COLOR=#AA0000>Cambiar puerto UDP local</font><a class="headerlink" href="#cambiar-puerto-udp-local" title="Permanent link">&para;</a></h3>
+<p>La APP escucha por defecto en el puerto UDP 5000. Sin embargo, esto puede cambiarse introduciendo un número de puerto diferente en el campo <strong>Local Port (Puerto local)</strong> del área UDP Receiver (Receptor UDP) de la APP. Tras pulsar <strong>APLICAR Cambio</strong>, el nuevo puerto estará operativo inmediatamente.</p>
+<h4 id="enviar-mensajes-udp-personalizados"><FONT COLOR=#0000FF><strong>Enviar Mensajes UDP Personalizados</strong></font><a class="headerlink" href="#enviar-mensajes-udp-personalizados" title="Permanent link">&para;</a></h4>
+<p>Esta es el área donde puedes obtener el control total de los mensajes y parámetros UDP.</p>
+<p>Puede designar direcciones IP y Puertos de destino, cambiar tu propio número de Puerto para los mensajes a enviar, y personalizar el contenido del texto del mensaje.</p>
+<p>Debes tener un buen conocimiento de todos los campos mencionados antes de jugar con esta opción. No hay posibilidad de que puedas hacer a nada por lo que puedes experimentar. Sin embargo, configurando los parámetros de forma anapropiada, puedes acabar haciendo lo que no pretendías y andar buscando mensajes que no fueron recibidos en los destinos y puertos correctos.</p>
+<p><strong>Si quieres probar un ejercicio a prueba de fallos, intenta enviarte un mensaje a ti mismo:</strong></p>
+<p><strong><span class="arithmatex">\(\blacktriangleright\)</span></strong> Establece como IP de destino tu propia dirección IP</p>
+<p><strong><span class="arithmatex">\(\blacktriangleright\)</span></strong> Establece el Puerto de destino en 5000 o el mismo número de puerto seleccionado en Puerto local.</p>
+<p><strong><span class="arithmatex">\(\blacktriangleright\)</span></strong> Deja el Puerto de Origen en 5000 (este valor no importará en este ejercicio)</p>
+<p><strong><span class="arithmatex">\(\blacktriangleright\)</span></strong> Establece el Mensaje a LED</p>
+<p>A continuación, pulsa el botón <strong>ENVIAR mensaje UDP</strong>.</p>
+<p>Deberías <strong>ver una notificación de mensaje enviado en el Área de Mensajes</strong> en la parte inferior de la pantalla. Y la <strong>imagen LED en la parte superior de la pantalla se encenderá o apagará</strong> dependiendo de como estuviese antes. Puedes enviar el mensaje repetidamente y observar cómo cambia el LED. En la animación vemos lo descrito en funcionamiento:</p>
+<p><center></p>
+<p><a class="glightbox" href="../../img/proyectos/comunicacionesUDP8.gif" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Autoenvio de mensajes" src="../../img/proyectos/comunicacionesUDP8.gif" /></a><br />
+<em>Autoenvio de mensajes</em></p>
+<p></center></p>
+<p>Intenta también enviar un mensaje con un contenido de texto diferente. En este caso, como el texto del mensaje no es "LED", el LED no se encenderá. Sin embargo, recibirás las notificaciones del mensaje en el Área de Mensajes en la parte inferior de la pantalla.</p>
+<h2 id="crear-hotspot-propio"><FONT COLOR=#007575>Crear HotSpot propio</font><a class="headerlink" href="#crear-hotspot-propio" title="Permanent link">&para;</a></h2>
+<p>Pueden presentarse casos en los que el entorno en el que desea ejercer el control sobre dispositivos puede no tener una señal WiFi disponible. Especialmente, si estás en la naturaleza o en un lugar alejado de la civilización. No te preocupes, todavía serás capaz de experimentar con este tutorial siguiendo las instrucciones siguiente.</p>
+<h3 id="mi-propia-senal-wifi"><FONT COLOR=#AA0000>Mi propia señal WiFi</font><a class="headerlink" href="#mi-propia-senal-wifi" title="Permanent link">&para;</a></h3>
+<p>Veamos cómo podemos activar nuestra propia señal WiFi.</p>
+<p>Necesitarás al menos un microcontrolador con capacidad WiFi y un teléfono con Android.</p>
+<p>Para crear nuestra propia señal WiFi, utilizaremos una <strong>versión modificada del programa de MicroBlocks</strong> anterior (comunicacionUDP_HS.ubp). Además, mientras que en la versión anterior del ejercicio utilizábamos un único programa para todos los dispositivos, esta vez necesitaremos dos versiones diferentes:</p>
+<p><strong><span class="arithmatex">\(\blacktriangleright\)</span></strong> <strong>La versión WiFi HotSpot del programa</strong> - esta se ejecutará en un único dispositivo y actuará como Router, proporcionando señal WiFi y servicios DHCP para la asignación de direcciones.</p>
+<p><strong><span class="arithmatex">\(\blacktriangleright\)</span></strong> <strong>y la versión original utilizada anteriormente.</strong></p>
+<p><strong><span class="arithmatex">\(\blacktriangleright\)</span></strong> Por supuesto, si estás utilizando tu teléfono Android, seguirás necesitando la APP para esto.</p>
+<h3 id="como-funciona"><FONT COLOR=#AA0000>Cómo funciona</font><a class="headerlink" href="#como-funciona" title="Permanent link">&para;</a></h3>
+<p>La configuración del proyecto se ve en la imagen siguiente:</p>
+<p><center></p>
+<p><a class="glightbox" href="../../img/proyectos/comunicacionesUDP9.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Cómo funciona" src="../../img/proyectos/comunicacionesUDP9.png" /></a><br />
+<em>Cómo funciona</em></p>
+<p></center></p>
+<p>Se utiliza una micro:STEAMakers como proveedor de un punto de acceso (HotSpot) WiFi. La placa está ejecutando el programa comunicacionUDP_HS.ubp creado en MicroBlocks. Este tiene que ser el ÚNICO dispositivo que ejecute esta versión del programa. En el programa MicroBlocks, debes especificar un <strong>nombre de red</strong> y una <strong>contraseña</strong> que se utilizará para definir y controlar el acceso al HotSpot.</p>
+<p>El bloque siguiente (usado en el ejemplo) muestra el <strong>nombre de la red como PRUEBA_UDP</strong> y la <strong>contraseña como 01223456789</strong>. Siéntete libre de cambiarlos por lo que quieras.</p>
+<p><center></p>
+<p><a class="glightbox" href="../../img/proyectos/B_hotspot.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Bloque para crear punto de acceso" src="../../img/proyectos/B_hotspot.png" /></a><br />
+<em>Bloque para crear punto de acceso</em></p>
+<p></center></p>
+<p>El programa comunicacionUDP_HS.ubp difiere del anterior sólo en el hecho de que crea un HotSpot WiFi. Dado que sólo debe haber una única red WiFi operativa, sólo se permite que un dispositivo ejecute este programa. Aquí está la sección de inicio del programa con la creación del Hotspot:</p>
+<p><center></p>
+<p><a class="glightbox" href="../../img/proyectos/B_alempezar.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Bloque al empezas de comunicacionUDP_HS.ubp" src="../../img/proyectos/B_alempezar.png" /></a><br />
+<em>Bloque al empezas de comunicacionUDP_HS.ubp</em></p>
+<p></center></p>
+<p>Si utilizamos mas de una placa, todas deben estar ejecutando el programa comunicacionUDP.ubp. Para estos dispositivos, es necesario modificar el SSID y la contraseña en el programa MicroBlocks a lo que hemos configurado en el punto de acceso WiFi creado.</p>
+<p>Para simplificar, sólo hemos puesto un smartphone con Android que ejecuta la APP AI2 del MIT y una placa. Al igual que antes, la imagen LED de la parte superior de la pantalla se encenderá cada vez que reciba un mensaje UDP. También puedes tocar la imagen tú mismo y hacer que conmute el estado del LED.</p>
+<p>Recuerda que la versión Android de la implementación UDP permite que las transmisiones enviadas desde el teléfono sean recibidas y ejecutadas por el propio teléfono. Por lo tanto, puedes controlar el LED en tu teléfono desde el mismo teléfono.</p>
+<p>Si tienes otros dispositivos microcontroladores con WiFi, puedes añadirlos al entorno. Todos ellos deben estar ejecutando la versión del programa comunicacionUDP.ubp hecho en MicroBlocks.</p>
+<h3 id="activacion-de-la-nueva-red"><FONT COLOR=#AA0000>Activación de la nueva Red</font><a class="headerlink" href="#activacion-de-la-nueva-red" title="Permanent link">&para;</a></h3>
+<p>Cuando la ESP32 micro:STEAMakers empiece a funcionar, creará una red WiFi llamada PRUEBA_UDP. Puedes ver esta red si haces un escaneo de red WiFi en tu PC, así como en el escaneo WiFi de tu teléfono Android. Esto es lo que debes buscar:</p>
+<p><center></p>
+<p><a class="glightbox" href="../../img/proyectos/activa_PRUEBA_UDP.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Activación de la red PRUEBA_UDP" src="../../img/proyectos/activa_PRUEBA_UDP.png" /></a><br />
+<em>Activación de la red PRUEBA_UDP</em></p>
+<p></center></p>
+<p>Para cada una de las placas (excepto la que está actuando como HotSpot WiFi) que vas a utilizar en tu propia prueba, es necesario modificar el programa MicroBlocks para utilizar las nuevas credenciales de red WiFi: PRUEBA_UDP / 0123456789.</p>
+<p>Si estás utilizando un teléfono Android, entonces su WiFi también tiene que ser la nueva red: PRUEBA_UDP / 0123456789.</p>
+<p>Una vez que hayas completado estos pasos todo debería funcionar sin problemas.</p>
+<p>Cosas que puedes probar:</p>
+<p><strong><span class="arithmatex">\(\twoheadrightarrow\)</span></strong> Pulsa el botón en la micro:STEAMakers y debes ver el LED en la APP encenderse. Si pulsas otra vez debería apagarse.</p>
+<p><strong><span class="arithmatex">\(\twoheadrightarrow\)</span></strong> Del mismo modo, si pulsas la imagen del LED en la APP de tu teléfono, el LED la micro:STEAMakers se encenderá. El LED del teléfono cambiará al estado opuesto al que tenía antes.</p>
+<p><strong><span class="arithmatex">\(\twoheadrightarrow\)</span></strong> Sigue repitiendo hasta que le cojas el truco.</p>
+<p><strong><span class="arithmatex">\(\twoheadrightarrow\)</span></strong> Y si te sientes aventurero, intenta enviar mensajes de dispositivo a dispositivo utilizando sus respectivas direcciones IP y números de puerto.</p>
+<div class="admonition warning">
+<p class="admonition-title">La red PRUEBA_UDP no tiene acceso a internet</p>
+<p>Si has creado un punto de acceso WiFi y ya has probado todo con él, recuerda eliminarlo e iniciar sesión en tus dispositivos y teléfono en tu red WiFi normal. De lo contrario, no estarás trabajando como antes de los ejercicios y te preguntarás por qué nada funciona como de costumbre.</p>
+</div>
+<h2 id="debate"><FONT COLOR=#007575><strong>Debate</strong></font><a class="headerlink" href="#debate" title="Permanent link">&para;</a></h2>
+<p>No se garantiza la entrega de los mensajes UDP. Debido a las condiciones de la red, es posible que observes casos en los que no todos los dispositivos conmutan el LED cada vez que se pulsa el botón. Esto dejaría algunas de tus tarjetas con los LEDs encendidos y otras con los LEDs apagados. ¿Cómo puede hacer que todas las tarjetas vuelvan a la condición inicial de todos los LEDs apagados?</p>
+<p>Este proyecto envía mensajes cada vez que se pulsa un botón. Esto requiere que tengas al menos una placa con botones. ¿Cómo puedes modificar el proyecto para eliminar este requisito?</p>
+<p>¿Cuál crees que es el mensaje más largo que se puede enviar?</p>
+<p>La APP para Android está escrita en App Inventor del MIT. Se comporta de forma muy similar a las placas utilizadas en el proyecto. Si estás familiarizado con MIT AI2, ¿puedes modificar la APP para controlar los LEDs RGB desde el teléfono?</p>
+<h2 id="consejos-solucion-de-problemas"><FONT COLOR=#007575><strong>Consejos / Solución de problemas</strong></font><a class="headerlink" href="#consejos-solucion-de-problemas" title="Permanent link">&para;</a></h2>
+<p>Si tiene varias placas con capacidad WiFi con los que vas a trabajar, te resultará más fácil cargar los programas en ellas de una en una.</p>
+<p>Sin embargo, si te sientes cómodo con ello, puedes ejecutar múltiples sesiones de MicroBlocks en el navegador y conectar uns placa a cada una.</p>
+<p>Para ello necesitarás una forma de conectar varios dispositivos USB a tu PC. Este método también te resultará útil más adelante, en caso de que quiera probar el envío de mensajes individuales entre dispositivos específicos. Para ello necesitarás conocer sus direcciones IP adquiridas. Cuando el programa MicroBlocks se ejecuta, siempre mostrará la dirección IP adquirida.</p>
+<p>Si gestionas varios dispositivos a la vez, recuerda anotar qué dispositivo está conectado a qué puerto USB por su nombre e información del controlador. Las cosas pueden volverse confusas muy rápidamente.</p>
+<p>En el primer modo del tutorial, donde estás en tu red doméstica, normalmente verás direcciones de red doméstica en el rango de 192.168.1.nnn. Si por alguna razón has modificado el router de Internet de tu casa para asignar un rango diferente de direcciones IP, entonces puede que tengas direcciones diferentes.</p>
+<p>Si estás probando la versión HotSpot del tutorial, tendrás que ser consciente de las diferencias en las direcciones IP creadas y utilizadas.</p>
+<p>En el modo HotSpot del tutorial, la placa designada creará una red y distribuirá un conjunto diferente de direcciones. Normalmente serán 192.168.4.1 para el router, y 192.168.4.2 y siguientes para los demás dispositivos, incluido tu teléfono Android (si utilizas uno para el tutorial).</p>
+<p>En el modo HotSpot del tutorial, recuerda activar primero la nueva red. Esto configurará el entorno para asignar direcciones a los dispositivos que se unan. Sólo debes conectar el WiFi de tu teléfono a la nueva red después de activarla. De lo contrario, el escaneo WiFi de tu teléfono no verá la red con el SSID = PRUEBA_UDP.</p>
+<p>Ten en cuenta que durante ambas versiones del tutorial, nunca estás accediendo a Internet. De hecho, en la versión Hotspot, ni siquiera hay conectividad a Internet disponible, como verás en las pantallas de estado de las redes WiFi. Todo el intercambio de tráfico ocurre dentro del dominio privado de tu red doméstica y de la nueva red que creas con la opción HotSpot.</p>
+<p>Hay formas de acceder a Internet en ambos modos de funcionamiento. Sin embargo, ese es un tema muy complicado para entrar en los propósitos de este tutorial. Cualquiera que esté interesado puede investigar NAT (Network Address Translation o traducción de direcciones de red), servicios Proxy, direcciones de Internet privadas y públicas y tratar de darle sentido a todo esto.</p>
+<p>Una buena manera de deshacerte de las entradas de red no deseadas en tu PC y en tu teléfono es seleccionar la opción de OLVIDAR esa red. Encontrarás esta opción en la sección de configuración de conectividad WiFi de tus dispositivos.</p>
+<h3 id="que-puede-fallar"><FONT COLOR=#AA0000>Qué puede fallar</font><a class="headerlink" href="#que-puede-fallar" title="Permanent link">&para;</a></h3>
+<p>Dado que UDP es un modelo de conectividad sin conexión y no hay garantías de entrega de datagramas, algo que viene a la mente son los "mensajes perdidos". Los mensajes UDP NO se ponen en cola ni se reintentan, simplemente se descartan.</p>
+<p>No te sorprendas si con cada pulsación de los botones de tu placa (o teléfono), no todos los dispositivos acaban encendiendo sus LEDs; o lo hacen de forma intermitente. Así son las cosas.</p>
+<p>Es un poco confuso, pero MicroBlocks WiFi y Androd WiFi manejan los mensajes de difusión de forma diferente. Esto en sí mismo no es un problema, pero ayuda a mantener este punto en nuestras mentes, mientras trabajamos en los ejercicios. Las difusiones enviadas desde los microcontroladores no aparecen en el dispositivo que originó la difusión. Por otro lado, los teléfonos Android emitirán un mensaje y también lo verán y actuarán en consecuencia. Por lo tanto, si utilizas un teléfono con este tutorial, verás que cada vez que toques la imagen del LED en el teléfono, cambiará su estado. Mientras que los microcontroladores nunca encenderán sus propios LEDs con sus propios mensajes.</p>
+<p>Los programas del proyecto están escritos para conmutar los LEDs. Esto significa que no hay forma forzada de poner un LED en un estado deseado: ON u OFF. Al principio de los programas, todos los LEDs están en OFF. Pero a medida que los ejercicios continúan, pueden desincronizarse debido a la pérdida de mensajes, etc., como se explicó anteriormente. Así que el comportamiento posterior de cualquier LED depende totalmente del estado en el que se encontraba justo antes de que llegara el último mensaje.</p>
+<p>A medida que experimentes con la mensajería UDP, la radiodifusión y la configuración de IP y Puerto, cambiarás invariablemente algunos de estos parámetros. Ayuda tener en mente que los mensajes UDP necesitan tener una dirección de destino que coincida y un número de Puerto. Una vez que configures un dispositivo para escuchar un número de puerto en particular, NO verás mensajes destinados a otros números de puerto. Así que, si empiezas a no recibir los mensajes deseados, comprueba que tus dispositivos emisores y receptores están utilizando las direcciones y puertos correctos.</p>
+<p>Y recuerda, la mejor manera de reiniciar todo es RESETAR todo.</p>
+<p>¡Que te diviertas!</p>
+<h2 id="descarga-del-proyecto"><FONT COLOR=#007575><strong>Descarga del proyecto</strong></font><a class="headerlink" href="#descarga-del-proyecto" title="Permanent link">&para;</a></h2>
+<ul>
+<li><a href="../../program/actividadesmB/comunicacionUDP.ubp">Programa MicroBlocks comunicacionUDP para este tutorial</a> - Instalar en cada placa con capacidad WiFi con la que quieras hacer pruebas.</li>
+<li><a href="../../program/actividadesmB/comunicacionUDP_HS.ubp">Programa MicroBlocks comunicacionUDP_HS para la creación de tu propia red WiFi</a> - Instalar sólo en una única placa con capacidad WiFi que quieres que actúe como tu nuevo router de red.</li>
+<li><a href="../../program/AppInventor/comunicaciones_UDP.aia">Código fuente de la APP MIT AI2 para Android</a> - Personaliza la APP usando MIT AI2.</li>
+</ul>
+<p><a class="glightbox" href="../../img/proyectos/QR_APK.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img align="left" alt="Aplicación APK" src="../../img/proyectos/QR_APK.png" /></a> <br><a href="../../program/AppInventor/comunicaciones_UDP.apk">Aplicación APK MIT AI2 para Android</a> - Carga este archivo en su teléfono. Puede requerir permiso para instalar aplicaciones desconocidas.</br></p>
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2023 - 2035 Federico Coca
+    </div>
+  
+  
+</div>
+      
+        <div class="md-social">
+  
+    
+    
+    
+    
+    <a href="https://github.com/fgcoca" target="_blank" rel="noopener" title="Github de Federico Coca" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+    </a>
+  
+    
+    
+    
+    
+    <a href="https://www.instagram.com/cocafederico/?hl=es" target="_blank" rel="noopener" title="Instagram de Federico Coca" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M224.1 141c-63.6 0-114.9 51.3-114.9 114.9s51.3 114.9 114.9 114.9S339 319.5 339 255.9 287.7 141 224.1 141zm0 189.6c-41.1 0-74.7-33.5-74.7-74.7s33.5-74.7 74.7-74.7 74.7 33.5 74.7 74.7-33.6 74.7-74.7 74.7zm146.4-194.3c0 14.9-12 26.8-26.8 26.8-14.9 0-26.8-12-26.8-26.8s12-26.8 26.8-26.8 26.8 12 26.8 26.8zm76.1 27.2c-1.7-35.9-9.9-67.7-36.2-93.9-26.2-26.2-58-34.4-93.9-36.2-37-2.1-147.9-2.1-184.9 0-35.8 1.7-67.6 9.9-93.9 36.1s-34.4 58-36.2 93.9c-2.1 37-2.1 147.9 0 184.9 1.7 35.9 9.9 67.7 36.2 93.9s58 34.4 93.9 36.2c37 2.1 147.9 2.1 184.9 0 35.9-1.7 67.7-9.9 93.9-36.2 26.2-26.2 34.4-58 36.2-93.9 2.1-37 2.1-147.8 0-184.8zM398.8 388c-7.8 19.6-22.9 34.7-42.6 42.6-29.5 11.7-99.5 9-132.1 9s-102.7 2.6-132.1-9c-19.6-7.8-34.7-22.9-42.6-42.6-11.7-29.5-9-99.5-9-132.1s-2.6-102.7 9-132.1c7.8-19.6 22.9-34.7 42.6-42.6 29.5-11.7 99.5-9 132.1-9s102.7-2.6 132.1 9c19.6 7.8 34.7 22.9 42.6 42.6 11.7 29.5 9 99.5 9 132.1s2.7 102.7-9 132.1z"/></svg>
+    </a>
+  
+    
+    
+    
+    
+    <a href="https://x.com/clubroboticagra" target="_blank" rel="noopener" title="X de Club Robótica Granada" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M389.2 48h70.6L305.6 224.2 487 464H345L233.7 318.6 106.5 464H35.8l164.9-188.5L26.8 48h145.6l100.5 132.9L389.2 48zm-24.8 373.8h39.1L151.1 88h-42l255.3 333.8z"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.tabs", "navigation.tabs.sticky", "content.code.copy"], "search": "../../assets/javascripts/workers/search.f886a092.min.js", "translations": {"clipboard.copied": "Copiado al portapapeles", "clipboard.copy": "Copiar al portapapeles", "search.result.more.one": "1 m\u00e1s en esta p\u00e1gina", "search.result.more.other": "# m\u00e1s en esta p\u00e1gina", "search.result.none": "No se encontraron documentos", "search.result.one": "1 documento encontrado", "search.result.other": "# documentos encontrados", "search.result.placeholder": "Teclee para comenzar b\u00fasqueda", "search.result.term.missing": "Falta", "select.version": "Seleccionar versi\u00f3n"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.aecac24b.min.js"></script>
+      
+        <script src="../../plugins/mathjax.js"></script>
+      
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  <script>document$.subscribe(() => {const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});})</script></body>
+</html>
