@@ -79,6 +79,9 @@ nav:
     #- A05-WiFiMesh (obsoleto): actividadesMOD/A05MOD_Mesh.md
   - Proyectos:
     - I2C entre micro:STEAMakers y UNO: proyectos/i2ctouno.md
+    - Control remoto por UDP: proyectos/udp.md
+    - Control remoto utilizando WEBSocket: proyectos/websocket.md
+    - Integración de MicroBlocks y APP Inventor WEBsocket: proyectos/microblocks_websocket.md
   - Miscelanea:
     - Autoria: Miscelanea/about.md 
     - Licencias: Miscelanea/lic.md
