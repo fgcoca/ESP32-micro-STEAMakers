@@ -12,13 +12,9 @@
         <meta name="author" content="Federico Coca">
       
       
-        <link rel="canonical" href="https://fgcoca.github.io/....https:/fgcoca.github.io/ESP32-micro-STEAMakers/proyectos/websocket/">
+        <link rel="canonical" href="https://fgcoca.github.io/....https:/fgcoca.github.io/ESP32-micro-STEAMakers/proyectos/u3dbot/">
       
       
-        <link rel="prev" href="../udp/">
-      
-      
-        <link rel="next" href="../microblocks_websocket/">
       
       
       <link rel="icon" href="../../img/favicon.png">
@@ -26,7 +22,7 @@
     
     
       
-        <title>Control remoto utilizando WEBSocket - ESP32 micro:STEAMakers</title>
+        <title>U3dbot - ESP32 micro:STEAMakers</title>
       
     
     
@@ -91,11 +87,6 @@
     <label class="md-overlay" for="__drawer"></label>
     <div data-md-component="skip">
       
-        
-        <a href="#vision-general" class="md-skip">
-          Saltar a contenido
-        </a>
-      
     </div>
     <div data-md-component="announce">
       
@@ -127,7 +118,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Control remoto utilizando WEBSocket
+              U3dbot
             
           </span>
         </div>
@@ -313,12 +304,10 @@
         
   
   
-    
-  
   
     
     
-      <li class="md-tabs__item md-tabs__item--active">
+      <li class="md-tabs__item">
         <a href="../i2ctouno/" class="md-tabs__link">
           
   
@@ -1412,8 +1401,6 @@
       
   
   
-    
-  
   
     
     
@@ -1423,12 +1410,12 @@
       
       
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
       
         
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
         
           
           <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="">
@@ -1442,7 +1429,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_6">
             <span class="md-nav__icon md-icon"></span>
             Proyectos
@@ -1484,260 +1471,6 @@
   
 
       </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-    
-  
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  <span class="md-ellipsis">
-    Control remoto utilizando WEBSocket
-  </span>
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
-        
-  
-  <span class="md-ellipsis">
-    Control remoto utilizando WEBSocket
-  </span>
-  
-
-      </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Tabla de contenidos">
-  
-  
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Tabla de contenidos
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#vision-general" class="md-nav__link">
-    Visión general
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#partes" class="md-nav__link">
-    Partes
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#conexionado" class="md-nav__link">
-    Conexionado
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#programas" class="md-nav__link">
-    Programas
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#proceso" class="md-nav__link">
-    Proceso
-  </a>
-  
-    <nav class="md-nav" aria-label="Proceso">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#conceptos-basicos-de-websocket" class="md-nav__link">
-    Conceptos básicos de WebSocket
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#websocket-en-el-proyecto" class="md-nav__link">
-    WebSocket en el proyecto
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#aplicacion-app-inventor" class="md-nav__link">
-    Aplicación APP Inventor
-  </a>
-  
-    <nav class="md-nav" aria-label="Aplicación APP Inventor">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#interfaz-de-usuario-de-la-aplicacion" class="md-nav__link">
-    Interfaz de usuario de la aplicación
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#como-se-usa-la-aplicacion" class="md-nav__link">
-    Como se usa la aplicación
-  </a>
-  
-    <nav class="md-nav" aria-label="Como se usa la aplicación">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#conexion-con-el-servidor" class="md-nav__link">
-    Conexión con el servidor
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#enviar-un-mensaje-websocket" class="md-nav__link">
-    Enviar un mensaje WebSocket
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#control-de-los-led-rgb-simulados" class="md-nav__link">
-    Control de los LED RGB simulados
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#hhmmss" class="md-nav__link">
-    HH:MM:SS
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#loopback-bucle-de-retorno" class="md-nav__link">
-    Loopback (bucle de retorno)
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#crear-hotspot-propio" class="md-nav__link">
-    Crear HotSpot propio
-  </a>
-  
-    <nav class="md-nav" aria-label="Crear HotSpot propio">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#mi-propia-senal-wifi" class="md-nav__link">
-    Mi propia señal WiFi
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#como-funciona" class="md-nav__link">
-    Cómo funciona
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#activacion-de-la-nueva-red" class="md-nav__link">
-    Activación de la nueva Red
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#sin-telefono-android-usemos-piesocket-websocket-tester" class="md-nav__link">
-    Sin teléfono Android - Usemos PieSocket Websocket Tester
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#debate" class="md-nav__link">
-    Debate
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#consejos-solucion-de-problemas" class="md-nav__link">
-    Consejos / Solución de problemas
-  </a>
-  
-    <nav class="md-nav" aria-label="Consejos / Solución de problemas">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#que-puede-fallar" class="md-nav__link">
-    Qué puede fallar
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#descarga-del-proyecto" class="md-nav__link">
-    Descarga del proyecto
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -1914,212 +1647,6 @@
   
   
   
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Tabla de contenidos
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#vision-general" class="md-nav__link">
-    Visión general
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#partes" class="md-nav__link">
-    Partes
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#conexionado" class="md-nav__link">
-    Conexionado
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#programas" class="md-nav__link">
-    Programas
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#proceso" class="md-nav__link">
-    Proceso
-  </a>
-  
-    <nav class="md-nav" aria-label="Proceso">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#conceptos-basicos-de-websocket" class="md-nav__link">
-    Conceptos básicos de WebSocket
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#websocket-en-el-proyecto" class="md-nav__link">
-    WebSocket en el proyecto
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#aplicacion-app-inventor" class="md-nav__link">
-    Aplicación APP Inventor
-  </a>
-  
-    <nav class="md-nav" aria-label="Aplicación APP Inventor">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#interfaz-de-usuario-de-la-aplicacion" class="md-nav__link">
-    Interfaz de usuario de la aplicación
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#como-se-usa-la-aplicacion" class="md-nav__link">
-    Como se usa la aplicación
-  </a>
-  
-    <nav class="md-nav" aria-label="Como se usa la aplicación">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#conexion-con-el-servidor" class="md-nav__link">
-    Conexión con el servidor
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#enviar-un-mensaje-websocket" class="md-nav__link">
-    Enviar un mensaje WebSocket
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#control-de-los-led-rgb-simulados" class="md-nav__link">
-    Control de los LED RGB simulados
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#hhmmss" class="md-nav__link">
-    HH:MM:SS
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#loopback-bucle-de-retorno" class="md-nav__link">
-    Loopback (bucle de retorno)
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#crear-hotspot-propio" class="md-nav__link">
-    Crear HotSpot propio
-  </a>
-  
-    <nav class="md-nav" aria-label="Crear HotSpot propio">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#mi-propia-senal-wifi" class="md-nav__link">
-    Mi propia señal WiFi
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#como-funciona" class="md-nav__link">
-    Cómo funciona
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#activacion-de-la-nueva-red" class="md-nav__link">
-    Activación de la nueva Red
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#sin-telefono-android-usemos-piesocket-websocket-tester" class="md-nav__link">
-    Sin teléfono Android - Usemos PieSocket Websocket Tester
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#debate" class="md-nav__link">
-    Debate
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#consejos-solucion-de-problemas" class="md-nav__link">
-    Consejos / Solución de problemas
-  </a>
-  
-    <nav class="md-nav" aria-label="Consejos / Solución de problemas">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#que-puede-fallar" class="md-nav__link">
-    Qué puede fallar
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#descarga-del-proyecto" class="md-nav__link">
-    Descarga del proyecto
-  </a>
-  
-</li>
-      
-    </ul>
-  
 </nav>
                   </div>
                 </div>
@@ -2133,35 +1660,9 @@
                   
 
 
-  <h1>Control remoto utilizando WEBSocket</h1>
+  <h1>U3dbot</h1>
 
-<p>En este caso se realiza traducción de <a href="https://wiki.microblocks.fun/wifi/websocket">Remote control using WEBSocket</a> que es una demostración del uso de WebSocket en MicroBlocks.</p>
-<p>Se interconectan una placa microcontroladora con capacidad WiFi programada con MicroBlocks, con una APP de App Inventor, utilizando el protocolo WEBSocket.</p>
-<p>Se utiliza un M5Stack porque ya dispone de una pantalla táctil que permite demostrar detalles operacionales.</p>
-<h2 id="vision-general"><FONT COLOR=#007575><strong>Visión general</strong></font><a class="headerlink" href="#vision-general" title="Permanent link">&para;</a></h2>
-<h2 id="partes"><FONT COLOR=#007575><strong>Partes</strong></font><a class="headerlink" href="#partes" title="Permanent link">&para;</a></h2>
-<h2 id="conexionado"><FONT COLOR=#007575><strong>Conexionado</strong></font><a class="headerlink" href="#conexionado" title="Permanent link">&para;</a></h2>
-<h2 id="programas"><FONT COLOR=#007575><strong>Programas</strong></font><a class="headerlink" href="#programas" title="Permanent link">&para;</a></h2>
-<h2 id="proceso"><FONT COLOR=#007575><strong>Proceso</strong></font><a class="headerlink" href="#proceso" title="Permanent link">&para;</a></h2>
-<h3 id="conceptos-basicos-de-websocket"><FONT COLOR=#AA0000>Conceptos básicos de WebSocket</font><a class="headerlink" href="#conceptos-basicos-de-websocket" title="Permanent link">&para;</a></h3>
-<h3 id="websocket-en-el-proyecto"><FONT COLOR=#AA0000>WebSocket en el proyecto</font><a class="headerlink" href="#websocket-en-el-proyecto" title="Permanent link">&para;</a></h3>
-<h2 id="aplicacion-app-inventor"><FONT COLOR=#007575><strong>Aplicación APP Inventor</strong></font><a class="headerlink" href="#aplicacion-app-inventor" title="Permanent link">&para;</a></h2>
-<h3 id="interfaz-de-usuario-de-la-aplicacion"><FONT COLOR=#AA0000>Interfaz de usuario de la aplicación</font><a class="headerlink" href="#interfaz-de-usuario-de-la-aplicacion" title="Permanent link">&para;</a></h3>
-<h3 id="como-se-usa-la-aplicacion"><FONT COLOR=#AA0000>Como se usa la aplicación</font><a class="headerlink" href="#como-se-usa-la-aplicacion" title="Permanent link">&para;</a></h3>
-<h4 id="conexion-con-el-servidor"><FONT COLOR=#0000FF>Conexión con el servidor</font><a class="headerlink" href="#conexion-con-el-servidor" title="Permanent link">&para;</a></h4>
-<h4 id="enviar-un-mensaje-websocket"><FONT COLOR=#0000FF>Enviar un mensaje WebSocket</font><a class="headerlink" href="#enviar-un-mensaje-websocket" title="Permanent link">&para;</a></h4>
-<h4 id="control-de-los-led-rgb-simulados"><FONT COLOR=#0000FF>Control de los LED RGB simulados</font><a class="headerlink" href="#control-de-los-led-rgb-simulados" title="Permanent link">&para;</a></h4>
-<h4 id="hhmmss"><FONT COLOR=#0000FF>HH:MM:SS</font><a class="headerlink" href="#hhmmss" title="Permanent link">&para;</a></h4>
-<h4 id="loopback-bucle-de-retorno"><FONT COLOR=#0000FF>Loopback (bucle de retorno)</font><a class="headerlink" href="#loopback-bucle-de-retorno" title="Permanent link">&para;</a></h4>
-<h2 id="crear-hotspot-propio"><FONT COLOR=#007575><strong>Crear HotSpot propio</strong></font><a class="headerlink" href="#crear-hotspot-propio" title="Permanent link">&para;</a></h2>
-<h3 id="mi-propia-senal-wifi"><FONT COLOR=#AA0000>Mi propia señal WiFi</font><a class="headerlink" href="#mi-propia-senal-wifi" title="Permanent link">&para;</a></h3>
-<h3 id="como-funciona"><FONT COLOR=#AA0000>Cómo funciona</font><a class="headerlink" href="#como-funciona" title="Permanent link">&para;</a></h3>
-<h3 id="activacion-de-la-nueva-red"><FONT COLOR=#AA0000>Activación de la nueva Red</font><a class="headerlink" href="#activacion-de-la-nueva-red" title="Permanent link">&para;</a></h3>
-<h2 id="sin-telefono-android-usemos-piesocket-websocket-tester"><FONT COLOR=#007575><strong>Sin teléfono Android - Usemos PieSocket Websocket Tester</strong></font><a class="headerlink" href="#sin-telefono-android-usemos-piesocket-websocket-tester" title="Permanent link">&para;</a></h2>
-<h2 id="debate"><FONT COLOR=#007575><strong>Debate</strong></font><a class="headerlink" href="#debate" title="Permanent link">&para;</a></h2>
-<h2 id="consejos-solucion-de-problemas"><FONT COLOR=#007575><strong>Consejos / Solución de problemas</strong></font><a class="headerlink" href="#consejos-solucion-de-problemas" title="Permanent link">&para;</a></h2>
-<h3 id="que-puede-fallar"><FONT COLOR=#AA0000>Qué puede fallar</font><a class="headerlink" href="#que-puede-fallar" title="Permanent link">&para;</a></h3>
-<h2 id="descarga-del-proyecto"><FONT COLOR=#007575><strong>Descarga del proyecto</strong></font><a class="headerlink" href="#descarga-del-proyecto" title="Permanent link">&para;</a></h2>
+
 
 
 

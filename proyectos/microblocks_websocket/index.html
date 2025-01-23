@@ -15,7 +15,7 @@
         <link rel="canonical" href="https://fgcoca.github.io/....https:/fgcoca.github.io/ESP32-micro-STEAMakers/proyectos/microblocks_websocket/">
       
       
-        <link rel="prev" href="../websocket/">
+        <link rel="prev" href="../udp/">
       
       
         <link rel="next" href="../../Miscelanea/about/">
@@ -1493,26 +1493,6 @@
                 
   
   
-  
-    <li class="md-nav__item">
-      <a href="../websocket/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    Control remoto utilizando WEBSocket
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
     
   
   
@@ -1641,15 +1621,15 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#procesado-de-evento" class="md-nav__link">
-    Procesado de evento
+  <a href="#process-event" class="md-nav__link">
+    process event
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#procesado-de-texto" class="md-nav__link">
-    Procesado de texto
+  <a href="#process-text" class="md-nav__link">
+    process text
   </a>
   
 </li>
@@ -1731,15 +1711,15 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#recepcion-de-mensajes-ai2-websocket" class="md-nav__link">
-    Recepción de mensajes AI2 WebSocket
+  <a href="#recepcion-de-mensajes-websocket-en-ai2" class="md-nav__link">
+    Recepción de mensajes WebSocket en AI2
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#errores-ai2-websocket" class="md-nav__link">
-    Errores AI2 WebSocket
+  <a href="#errores-websocket-ai2" class="md-nav__link">
+    Errores WebSocket AI2
   </a>
   
 </li>
@@ -2080,15 +2060,15 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#procesado-de-evento" class="md-nav__link">
-    Procesado de evento
+  <a href="#process-event" class="md-nav__link">
+    process event
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#procesado-de-texto" class="md-nav__link">
-    Procesado de texto
+  <a href="#process-text" class="md-nav__link">
+    process text
   </a>
   
 </li>
@@ -2170,15 +2150,15 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#recepcion-de-mensajes-ai2-websocket" class="md-nav__link">
-    Recepción de mensajes AI2 WebSocket
+  <a href="#recepcion-de-mensajes-websocket-en-ai2" class="md-nav__link">
+    Recepción de mensajes WebSocket en AI2
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#errores-ai2-websocket" class="md-nav__link">
-    Errores AI2 WebSocket
+  <a href="#errores-websocket-ai2" class="md-nav__link">
+    Errores WebSocket AI2
   </a>
   
 </li>
@@ -2290,38 +2270,427 @@
 <p>Se trata de crear un proyecto de cómo controlar una placa microcontrolada micro:STEAMaker con capacidad WiFi programada con MicroBlocks, con una APP de App Inventor, utilizando el protocolo WEBSocket. Se realiza una interfaz de videoconsola muy sencilla como controlador móvil con ocho botones. El programa complementario MicroBlocks se ejecutará en cualquier placa con capacidad WIFI y manejará los comandos entrantes.</p>
 <p>Se trata de una descripción en profundidad de la implementación de un controlador GAMEPad en teléfonos Android.</p>
 <h2 id="vision-general"><FONT COLOR=#007575><strong>Visión general</strong></font><a class="headerlink" href="#vision-general" title="Permanent link">&para;</a></h2>
+<p>El tutorial <a href="https://wiki.microblocks.fun/en/wifi/websocket">WiFi Remote Control with WebSocket (Control remoto utilizando WEBSocket)</a> describe el uso del protocolo WebSocket entre un microcontrolador programado con MicroBlocks y una aplicación de APP Inventor. Se centra en familiarizarse con la librería Websocket y la programación asociada para hacer que ambas partes se comuniquen.</p>
+<p>Este tutorial es sobre la implementación de una <strong>interfaz de tipo GAMEPad</strong> utilizando el mismo protocolo, que también puede ser utilizado para conducir vehículos robótizados, jugar a juegos, o cualquier otra cosa que puedas programar. También se exponen más detalles de programación tanto en MicroBlocks como en APP Inventor.</p>
+<p><center></p>
+<p><a class="glightbox" href="../../img/proyectos/GamePad.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="GamePad minimalista" src="../../img/proyectos/GamePad.png" /></a><br />
+<em>GamePad minimalista</em></p>
+<p></center></p>
+<p>Como la aplicación utiliza una interfaz genérica GamePad de 8 botones, programaremos la APP móvil para enviar comandos que representen los 8 botones. Existen ligeras variaciones de esta interfaz con más botones, colores y joystick, etc. Pero los conceptos de programación serán los mismos y aplicables a los otros modelos también. Uno sólo tiene que rehacer la interfaz visual para que coincida con su controlador favorito.</p>
+<p>Los microcontroladores que se pueden utilizar en este proyecto deben tener varias características comunes:</p>
+<ul>
+<li>deben soportar WiFi</li>
+<li>de manera opcional deben tener un botón que permita cambiar entre los modos de operación Cliente de Red y Punto de Acceso (PA).</li>
+</ul>
+<p>En la imagen siguiente se muestra la micro:STEAMakers, que incorpora el microcontrolador ESP-WROOM-32 con dos botones pulsador y uno táctil. Otras placas pueden disponer de botones BOOT y EN que también pueden ser adecuadas.</p>
+<p><center></p>
+<p><a class="glightbox" href="../../img/proyectos/botones_mSM.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Botones en la micro:STEAMakers" src="../../img/proyectos/botones_mSM.png" /></a><br />
+<em>Botones en la micro:STEAMakers</em></p>
+<p></center></p>
+<p>Se proporcionan el programa en MicroBlocks y la APP móvil complementaria para teléfonos Android, para que puedas utilizarlo como dispositivo de control remoto.</p>
 <h2 id="partes"><FONT COLOR=#007575><strong>Partes</strong></font><a class="headerlink" href="#partes" title="Permanent link">&para;</a></h2>
+<p>Para completar este tutorial necesitarás:</p>
+<ul>
+<li>una placa micro:STEAMakers que incorpora un microcontrolador con capacidad WiFi ESP32</li>
+<li>un teléfono Android</li>
+</ul>
+<p>Estos son los requisitos básicos. Dado que el controlador se puede utilizar para diversos fines, nos hemos abstenido de programarlo para un propósito específico, como conducir un coche robótico.</p>
+<ul>
+<li>Si no tienes un teléfono Android, puedes instalar la extensión <strong>PieSocket WebSocket Tester</strong> para Chrome y trabajar con ella.</li>
+</ul>
+<p><center></p>
+<p><a class="glightbox" href="../../img/proyectos/PieSocket_WS.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="PieSocket WebSocket Tester" src="../../img/proyectos/PieSocket_WS.png" /></a><br />
+<em>PieSocket WebSocket Tester</em></p>
+<p></center></p>
 <h2 id="conexionado"><FONT COLOR=#007575><strong>Conexionado</strong></font><a class="headerlink" href="#conexionado" title="Permanent link">&para;</a></h2>
+<p>Dado que este proyecto hace uso de la capacidad WiFi de los dispositivos en uso, no habrá necesidad de cableado físico. Sin embargo, tu proyecto podría utilizar un sofisticado dispositivo robótico o similar, y dependerá de ti que esa parte se realice.</p>
+<p>En cuanto a la disponibilidad de WiFi, puedes empezar utilizando el WiFi proporcionado por tu router de Internet local.</p>
+<p>Alternativamente, también puede crear su propio Punto de Acceso WiFi utilizando el ESP32 y proporcionar tu propia señal WiFi. Esto será útil si planeas operar en un área sin conectividad WiFi.</p>
 <h2 id="programas"><FONT COLOR=#007575><strong>Programas</strong></font><a class="headerlink" href="#programas" title="Permanent link">&para;</a></h2>
+<p>El proyecto MicroBlocks está codificado en el programa <strong>GAMEPad_Remoto_WiFi.ubp</strong>.</p>
+<p>El microcontrolador ESP32, actuando como servidor WebSocket, está programado para:</p>
+<ul>
+<li>Actuar como un cliente WiFi en la red inalámbrica local o convertirse en un HOTSpot proporcionando un Punto de Acceso WiFi</li>
+<li>enviar, recibir y mostrar mensajes</li>
+<li>encender y apagar un LED en el microcontrolador</li>
+<li>poner cada socket en modo loopback</li>
+<li>soportar hasta cinco clientes, todos operativos</li>
+</ul>
+<p>En la imagen siguientes tenemos los scripts del proyecto</p>
+<p><center></p>
+<p><a class="glightbox" href="../../img/proyectos/programasWS.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Programas MicroBlocks del proyecto" src="../../img/proyectos/programasWS.png" /></a><br />
+<em>Programas MicroBlocks del proyecto</em></p>
+<p></center></p>
+<ul>
+<li>el bloque <strong>al empezar</strong> conecta a la red WiFi local, inicia el servidor WebSocket, y mostrará la información de la conexión. A continuación, iniciará el proceso WSLoop para comenzar a gestionar la actividad de la red.</li>
+<li><strong>cuando se pulsa el botón A</strong> se maneja la configuración para el modo <strong>HOTSpot o AP</strong>. Muestra la información de conexión e inicia WSLoop para procesar los mensajes Websocket.</li>
+<li>cuando <strong>último mensaje (lastmessage) = WSLoop</strong> muestra permanentemente todos los mensajes que llegan a través de la conexión WebSocket.</li>
+<li>Definiciones de acciones de 8 botones (izquierda, derecha, arriba, abajo, cuadrado, triángulo, cruz, círculo) son etiquetas indicadoras para las acciones que se programarán para estos botones. Es necesario programarlos de acuerdo con el diseño de la aplicación. Los comandos entrantes serán siempre los mismos, pero lo que hacen puede cambiar dependiendo de tu código. Se han mantenido los nombres originales (left, right, up, down, square, triangle, cross, circle) para la definición de estos bloques.</li>
+</ul>
+<p>Cuando estés probando tu proyecto, puede utilizar el bloque <strong>envía ... al cliente WebSocket</strong> para enviar un mensaje a un cliente en un número de socket específico.</p>
+<p><center></p>
+<p><a class="glightbox" href="../../img/proyectos/B_envia_cli_WS.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Bloque envía ... al cliente WebSocket" src="../../img/proyectos/B_envia_cli_WS.png" /></a><br />
+<em>Bloque envía ... al cliente WebSocket</em></p>
+<p></center></p>
+<p>Para ello, debes <strong>anotar el ID de cliente que aparece en la APP</strong> del teléfono cuando se establece una conexión. A continuación, dirije tu mensaje a ese número de cliente específico utilizando este bloque. En la <strong>APP de Android</strong>, el ID de cliente se mostrará en el área de mensajes de la pantalla.</p>
+<p><center></p>
+<p><a class="glightbox" href="../../img/proyectos/wsgamepad_msgconnected.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Mensaje recibido en el área de pantalla de la APP" src="../../img/proyectos/wsgamepad_msgconnected.png" /></a><br />
+<em>Mensaje recibido en el área de pantalla de la APP</em></p>
+<p></center></p>
 <h3 id="programas-personalizados"><FONT COLOR=#AA0000>Programas personalizados</font><a class="headerlink" href="#programas-personalizados" title="Permanent link">&para;</a></h3>
+<p>Hay otros programas en la sección <strong>Mis Bloques</strong> del IDE que se utilizan para ejecutar los detalles de nivel inferior de los mensajes y las acciones de visualización necesarias.</p>
+<p><a class="glightbox" href="../../img/proyectos/MB_WSLoop.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img align="left" alt="Mis bloques: WSLoop" src="../../img/proyectos/MB_WSLoop.png" /></a></p>
+<p>configura las variables del proyecto y luego el script entra en un bucle de recepción de mensajes y los envía a la lógica de eventos del proceso para ser manejados. Los mensajes entrantes se comprueban en busca de nuevas conexiones de cliente, si se encuentran, se añadirán a la variable <strong><em>"clientList"</em></strong> para mantener un seguimiento de la misma.</p>
+<p>El programa o definición para el bloque es:</p>
+<p><center></p>
+<p><a class="glightbox" href="../../img/proyectos/MB_WSLoop_def.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Mis bloques: Definición de WSLoop" src="../../img/proyectos/MB_WSLoop_def.png" /></a></p>
+<p></center></p>
+<p><a class="glightbox" href="../../img/proyectos/MB_process_event.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img align="left" alt="Mis bloques: process event" src="../../img/proyectos/MB_process_event.png" /></a></p>
+<p>descifra los mensajes WebSocket de carga útil (payload) connect, disconnect y text message. Estos mensajes de texto se envían al script <strong><em>"processText"</em></strong> para su gestión.</p>
+<p>El programa o definición para el bloque es:</p>
+<p><center></p>
+<p><a class="glightbox" href="../../img/proyectos/MB_process_event_def.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Mis bloques: Definición de process event" src="../../img/proyectos/MB_process_event_def.png" /></a></p>
+<p></center></p>
+<p><a class="glightbox" href="../../img/proyectos/MB_processText.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img align="left" alt="Mis bloques: processText" src="../../img/proyectos/MB_processText.png" /></a></p>
+<p>maneja todos los mensajes principales del programa (<strong>LED, LOOP, left, right, up, down, square, triangle, cross, circle</strong>). Dependiendo de la carga útil recibida, se ejecutan diferentes scripts para procesar los mensajes entrantes.</p>
+<p>El programa o definición para el bloque es:</p>
+<p><center></p>
+<p><a class="glightbox" href="../../img/proyectos/MB_processText_def.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Mis bloques: Definición de processText" src="../../img/proyectos/MB_processText_def.png" /></a></p>
+<p></center></p>
+<p><a class="glightbox" href="../../img/proyectos/MB_clientID.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img align="left" alt="Mis bloques: clientID exists" src="../../img/proyectos/MB_clientID.png" /></a></p>
+<p>Este proyecto soporta <strong>hasta cinco clientes remotos</strong> que se conectan al servidor WebSocket. Este script verifica cada mensaje recibido para <strong>comprobar si el cliente ya existe</strong>. Devolverá true o false dependiendo del estado del cliente.</p>
+<p>El programa o definición para el bloque es:</p>
+<p><center></p>
+<p><a class="glightbox" href="../../img/proyectos/MB_clientID_def.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Mis bloques: Definición de clientID exists" src="../../img/proyectos/MB_clientID_def.png" /></a></p>
+<p></center></p>
+<p><a class="glightbox" href="../../img/proyectos/MB_LED.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img align="left" alt="Mis bloques: LED" src="../../img/proyectos/MB_LED.png" /></a></p>
+<p>Este script se utiliza para encender y apagar el LED de a bordo. Puede utilizarse para proporcionar una confirmación sencilla de que la conexión está operativa.</p>
+<p>El programa o definición para el bloque es:</p>
+<p><center></p>
+<p><a class="glightbox" href="../../img/proyectos/MB_LED_def.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Mis bloques: Definición de LED" src="../../img/proyectos/MB_LED_def.png" /></a></p>
+<p></center></p>
+<p><a class="glightbox" href="../../img/proyectos/MB_Loopback.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img align="left" alt="Mis bloques: Loopback id" src="../../img/proyectos/MB_Loopback.png" /></a></p>
+<p>Cada socket (punto final de un enlace de comunicación bidireccional) del servidor WebSocket se controla de forma independiente y se reproduce en bucle cuando se recibe el comando Loopback. Esto permite al usuario en el extremo del teléfono Android enviar mensajes al servidor y hacer que el servidor los envíe de vuelta. Esta función puede utilizarse para verificar que una conexión de socket de extremo a extremo está operativa.</p>
+<p>El programa o definición para el bloque es:</p>
+<p><center></p>
+<p><a class="glightbox" href="../../img/proyectos/MB_Loopback_def.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Mis bloques: Definición de Loopback id" src="../../img/proyectos/MB_Loopback_def.png" /></a></p>
+<p></center></p>
+<p><a class="glightbox" href="../../img/proyectos/MB_show_connection.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img align="left" alt="Mis bloques: show connection info" src="../../img/proyectos/MB_show_connection.png" /></a></p>
+<p>Cuando el servidor se conecta a la red WiFi local, obtiene una dirección IP. Este script devuelve el SSID y la dirección IP obtenida. Si el tipo de conexión es AP, entonces se muestran las nuevas credenciales de red.</p>
+<p><center></p>
+<p><a class="glightbox" href="../../img/proyectos/Ej_show_conn_info1.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Ejemplo de show connection info" src="../../img/proyectos/Ej_show_conn_info1.png" /></a> <a class="glightbox" href="../../img/proyectos/Ej_show_conn_info2.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Ejemplo de show connection info" src="../../img/proyectos/Ej_show_conn_info2.png" /></a>  </p>
+<p></center></p>
+<p>El programa o definición para el bloque es:</p>
+<p><center></p>
+<p><a class="glightbox" href="../../img/proyectos/MB_show_connection_def.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Mis bloques: Definición de show connection info" src="../../img/proyectos/MB_show_connection_def.png" /></a></p>
+<p></center></p>
 <h2 id="proceso"><FONT COLOR=#007575><strong>Proceso</strong></font><a class="headerlink" href="#proceso" title="Permanent link">&para;</a></h2>
+<p>Este proyecto requiere una APP que se ejecuta en un teléfono Android o dispositivo similar, y el programa MicroBlocks GAMEPadWIFIRemote que se ejecuta en el microcontrolador ESP32 micro:STEAMakers. <strong>ESP32 micro:STEAMakers actúa como servidor</strong> y el <strong>dispositivo Android es el cliente</strong>.</p>
 <h3 id="establecer-una-conexion"><FONT COLOR=#AA0000>Establecer una conexión</font><a class="headerlink" href="#establecer-una-conexion" title="Permanent link">&para;</a></h3>
+<p>Este proyecto te permite operar en dos modos diferentes de conectividad:</p>
+<ul>
+<li>Acceso WiFi local</li>
+<li>Modo HotSpot o AP</li>
+</ul>
 <h3 id="modo-wifi-local"><FONT COLOR=#AA0000>Modo WiFi local</font><a class="headerlink" href="#modo-wifi-local" title="Permanent link">&para;</a></h3>
+<p>Cuando el programa se inicia, se conectará a la red WiFi local utilizando las credenciales proporcionadas en el script <strong>al empezar</strong>. <strong>Recuerda reemplazar el SSID y la Contraseña en el script con tus credenciales WiFi específicas</strong>.</p>
+<p>Cuando se establezca la conexión verás el SSID y la dirección IP adquirida mostrados en el IDE. Anótalos.</p>
+<p>Puedes continuar con el proyecto en este estado. Siempre que tu teléfono móvil también esté utilizando la misma conectividad WiFi local, todo funcionará correctamente. Puedes saltarte la siguiente sección si es así como quieres operar.</p>
+<p>Si decides trabajar en este modo, tienes que hacer lo siguiente para continuar con el proyecto:</p>
+<ul>
+<li>Debes asegurarte de que el WiFi de tu móvil está utilizando la misma red.</li>
+<li>Inicia tu APP móvil</li>
+<li>Introduce la dirección IP que aparece en el programa MicroBlocks en el área de entrada superior. Esto debería parecerse a 192.168.1.48.</li>
+</ul>
+<div class="admonition warning">
+<p class="admonition-title"> </p>
+<p>Dependiendo de los detalles de configuración de tu red WiFi local, la dirección IP proporcionada por tu router puede ser de un rango diferente al que se muestra aquí.</p>
+<p>Lo importante es que la IP de tu teléfono y la IP asignada a la ESP32 micro:STEAMakers estén en la misma subred. Eso significa que ambas tienen que tener los mismos tres números iniciales en las direcciones IP asignadas.</p>
+</div>
+<p><center></p>
+<p><a class="glightbox" href="../../img/proyectos/Modo_WiFi_local.gif" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Modo WiFi local" src="../../img/proyectos/Modo_WiFi_local.gif" /></a><br />
+<em>Modo WiFi local</em></p>
+<p></center></p>
+<p>En el momento que se establece la conexión el IDE muestra:</p>
+<p><center></p>
+<p><a class="glightbox" href="../../img/proyectos/Modo_WiFi_local_conn.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Modo WiFi local" src="../../img/proyectos/Modo_WiFi_local_conn.png" /></a><br />
+<em>Modo WiFi local</em></p>
+<p></center></p>
+<p>Si volvemos a tocar el icono WiFi se desconecta la APP y el IDE muestra:</p>
+<p><center></p>
+<p><a class="glightbox" href="../../img/proyectos/Modo_WiFi_local_desconn.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Modo WiFi local" src="../../img/proyectos/Modo_WiFi_local_desconn.png" /></a><br />
+<em>Modo WiFi local</em></p>
+<p></center></p>
+<p>Ya está todo listo para comenzar a utilizar la aplicación.</p>
 <h3 id="modo-hotspot-o-ap"><FONT COLOR=#AA0000>Modo HotSpot o AP</font><a class="headerlink" href="#modo-hotspot-o-ap" title="Permanent link">&para;</a></h3>
+<p>Si estás trabajando en un entorno sin conexión WiFi local, se proporciona la opción de configurar el microcontrolador ESP32 en modo HotSpot o AP, y generar una señal WiFi para facilitar las conexiones WebSocket.</p>
+<p>Este modo se activa pulsando el botón BOOT en una ESP32 genérica en la que el botón BOOT se asocia a MicroBlocks como botón-A. En el caso de la micro:STEAMakers no se dispone de botón BOOT sino directamente de un botón A. Como tal, el programa ejecutará el código asociado a <strong>cuando se pulsa el botón A</strong> y cambiará al modo AP. Reconfigurará la placa para configurar una red WiFi con <strong>SSID</strong> igual a <strong>ESP32AP</strong>, y una contras**eña de <strong>12345678</strong>.</p>
+<p>Cuando el nuevo modo operativo esté activo, verás el SSID, la dirección IP y la contraseña mostrados en el IDE. Anótalos.</p>
+<p>Si activas este modo, tienes que hacer lo siguiente para continuar con el proyecto:</p>
+<ul>
+<li>Debes cambiar la configuración WiFi de tu teléfono móvil para conectarte a la nueva red.</li>
+<li>Inicia un escaneo WiFi en el área de ajustes WiFi de tu teléfono y luego selecciona la red SSID ESP32AP.</li>
+<li>Utiliza la contraseña 12345678 e inicia sesión.</li>
+<li>Inicia tu APP móvil</li>
+<li>Introduce la dirección IP que aparece en el programa MicroBlocks en el área de entrada superior. Debería parecerse a 192.168.4.1.</li>
+</ul>
+<p><center></p>
+<p><a class="glightbox" href="../../img/proyectos/Modo_HotSpot_AP.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Modo HotSpot o AP" src="../../img/proyectos/Modo_HotSpot_AP.png" /></a><br />
+<em>Modo HotSpot o AP</em></p>
+<p></center></p>
+<p>Ya está todo listo para comenzar a utilizar la aplicación.</p>
 <h3 id="websocket-en-el-proyecto"><FONT COLOR=#AA0000>WebSocket en el proyecto</font><a class="headerlink" href="#websocket-en-el-proyecto" title="Permanent link">&para;</a></h3>
+<p>Ahora, examinaremos, en detalle, todos los scripts que se requieren en el manejo de mensajes WebSocket del proyecto MicroBlocks. Hay tres scripts principales involucrados:</p>
+<p><center></p>
+<p><a class="glightbox" href="../../img/proyectos/Scripts_manejo_WebSocket.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Scripts para manejo de WebSocket" src="../../img/proyectos/Scripts_manejo_WebSocket.png" /></a><br />
+<em>Scripts para manejo de WebSocket</em></p>
+<p></center></p>
 <h3 id="wsloop"><FONT COLOR=#AA0000>WSLoop</font><a class="headerlink" href="#wsloop" title="Permanent link">&para;</a></h3>
-<h3 id="procesado-de-evento"><FONT COLOR=#AA0000>Procesado de evento</font><a class="headerlink" href="#procesado-de-evento" title="Permanent link">&para;</a></h3>
-<h3 id="procesado-de-texto"><FONT COLOR=#AA0000>Procesado de texto</font><a class="headerlink" href="#procesado-de-texto" title="Permanent link">&para;</a></h3>
+<div class="admonition info">
+<p class="admonition-title"> </p>
+<p>En el <strong>modo WiFi Local</strong>, la dirección Socket es: 192.168.1.48:81
+En el <strong>modo HotSpot/AP</strong>, la dirección Socket es: 192.168.4.1:81</p>
+<p>Las direcciones IP específicas en tu caso pueden ser diferentes dependiendo de la configuración de tu red.
+La implementación de <strong>MicroBlocks del puerto WebSocket será 81</strong>.</p>
+</div>
+<p>Este es el bucle principal que lee el socket y gestiona el envío de mensajes. La presencia de un evento / mensaje Websocket se indica mediante el bloque <strong>lastWebsocketevent o último evento de WebSocket</strong>. Si es <strong>falso</strong>, <strong>no hay mensaje</strong>.</p>
+<p>Si hay un mensaje, este bloque devuelve un objeto de evento que se utiliza para analizar los distintos componentes del mensaje. La imagen siguiente muestran los bloques (en inglés y español) para los componentes <strong>event type o tipo de evento</strong>, <strong>client ID o ID de cliente</strong> y <strong>payload o carga útil</strong>.</p>
+<p><center></p>
+<p><a class="glightbox" href="../../img/proyectos/Bloques_et_clientID_payload.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Bloques event type, client ID y payload" src="../../img/proyectos/Bloques_et_clientID_payload.png" /></a><br />
+<em>Bloques event type, client ID y payload</em></p>
+<p></center></p>
+<p>Siempre que el evento no sea falso (false, sin mensaje), el bucle de procesamiento procede a guardar el clientID y comprueba la presencia del clientID en la clientList activa. MicroBlocks soporta 5 conexiones de cliente por socket. Mantenemos un registro de las solicitudes de conexión entrantes y las manejamos separadamente por cada ID de cliente.</p>
+<p><a class="glightbox" href="../../img/proyectos/Bloqueenvia.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img align="left" alt="Bloque &quot;envia o broadcast&quot;" src="../../img/proyectos/Bloqueenvia.png" /></a></p>
+<p>inicia el script de procesamiento de eventos Websocket para manejar los eventos específicos. Observe el formato de <strong>uso especial del bloque de difusión</strong>. En lugar de un nombre de mensaje de difusión, estamos utilizando el nombre de un bloque personalizado que hemos definido. Esto tiene el efecto de iniciar la ejecución de un hilo independiente del script llamado.</p>
+<h3 id="process-event"><FONT COLOR=#AA0000>process event</font><a class="headerlink" href="#process-event" title="Permanent link">&para;</a></h3>
+<p>Este script tiene la responsabilidad de analizar <strong>tres tipos específicos</strong> de eventos: <strong>connected</strong> (conectado), <strong>disconnected</strong> (desconectado) y <strong>text message</strong> (mensaje de texto).</p>
+<p>En el caso de <strong>connected</strong> (conectado), actualizamos el clientList para indicar la conexión, y enviamos un mensaje a la conexión del cliente identificando el ID.</p>
+<p>En el caso de <strong>disconnected</strong> (desconectado), actualizamos la lista de clientes para indicar la desconexión.</p>
+<p>En el caso de <strong>text message</strong> (mensaje de texto), enviamos la carga útil (payload) y el ID de cliente al script responsable de procesar los comandos programados.</p>
+<h3 id="process-text"><FONT COLOR=#AA0000>process text</font><a class="headerlink" href="#process-text" title="Permanent link">&para;</a></h3>
+<p>Este script maneja todos los comandos programados que hemos diseñado en nuestro proyecto.</p>
+<p>Utilizamos una lista de <strong>acciones</strong> que representan todos los comandos que vamos a procesar:</p>
+<p><center></p>
+<p><a class="glightbox" href="../../img/proyectos/Lista_comandos.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Lista con todos los comandos" src="../../img/proyectos/Lista_comandos.png" /></a><br />
+<em>Lista con todos los comandos</em></p>
+<p></center></p>
+<p>El parámetro de la <strong>carga útil</strong> recibida se busca en la lista de acciones y, si se encuentra, llamamos a una <strong>función de bloque personalizada</strong> que hayamos programado con el mismo nombre que la carga útil. Por ejemplo: si recibimos la carga útil <strong>circle</strong>, buscamos circle en la lista de acciones. Como existe, el resultado de la búsqueda no es igual a -1 (-1, indica que no se ha encontrado). Entonces llamamos al bloque personalizado <strong>circle</strong>.</p>
+<p>Tenemos que manejar un comando especial <strong>LOOP</strong> como una característica para ayudarnos a depurar conexiones. Cuando una conexión cliente envía el comando LOOP, esa conexión se pone en modo loopback y todos los mensajes posteriores que lleguen serán devueltos al cliente. Esto permitirá al cliente verificar que la conexión existe y está activa. Mientras que esto es de poca utilidad cuando la APP móvil y el dispositivo controlado están en la misma habitación, puede ser de gran utilidad cuando se encuentran alejados el uno del otro, sólo conectados por el enlace a Internet.</p>
+<p>Si el payload no es LOOP, entonces también actualizamos el clientList para mostrar el nombre del comando que hemos recibido.</p>
+<p>Esto concluye las explicaciones de la lógica relacionada con WebSocket en el lado MicroBlocks de nuestro proyecto. Ahora pasamos a APP Inventor.</p>
 <h2 id="aplicacion-app-inventor"><FONT COLOR=#007575><strong>Aplicación APP Inventor</strong></font><a class="headerlink" href="#aplicacion-app-inventor" title="Permanent link">&para;</a></h2>
+<p>Es una APP Android compañera del programa MicroBlocks GAMEPadWIFIRemote. Implementa una interfaz GAMEPad muy simple con 8 botones, un área de visualización de mensajes, y un campo de entrada de dirección IP WiFi.</p>
+<p>La imagen de abajo muestra la GUI (Graphical User Interface) de la APP al inicio del programa:</p>
+<p><center></p>
+<p><a class="glightbox" href="../../img/proyectos/GUI_APP.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="GUI de la APP" src="../../img/proyectos/GUI_APP.png" /></a><br />
+<em>GUI de la APP</em></p>
+<p></center></p>
 <h3 id="interfaz-de-usuario-de-la-aplicacion"><FONT COLOR=#AA0000>Interfaz de usuario de la aplicación</font><a class="headerlink" href="#interfaz-de-usuario-de-la-aplicacion" title="Permanent link">&para;</a></h3>
+<p>La GUI de la APP consta de tres partes:</p>
+<ul>
+<li><strong>WIFI IP / Conectar / Desconectar:</strong> se utiliza para introducir la dirección IP de la ESP32 micro:STEAMakers y conectarse y desconectarse de la misma.</li>
+<li><strong>Área de controles GAMEPad:</strong> 8 botones de control implementados en dos grupos de cuatro.</li>
+<li><strong>Área de visualización de mensajes:</strong> Todos los <strong>intercambios del programa y cualquier mensaje de error</strong> se muestran en esta área de color naranja.</li>
+</ul>
 <h3 id="como-se-usa-la-aplicacion"><FONT COLOR=#AA0000>Como se usa la aplicación</font><a class="headerlink" href="#como-se-usa-la-aplicacion" title="Permanent link">&para;</a></h3>
+<p>La GUI de la APP proporciona una interfaz sencilla para todas las funciones del programa. Desglosémosla en varias tareas y probémosla:</p>
 <h4 id="conexion-con-el-servidor"><FONT COLOR=#0000FF>Conexión con el servidor</font><a class="headerlink" href="#conexion-con-el-servidor" title="Permanent link">&para;</a></h4>
+<p>Cuando inicies el programa MicroBlocks en la micro:STEAMakers, esta se conectará a la WiFi local y obtendrá una dirección IP; muy probablemente en el formato 192.168.n.n o similar dependiendo de la configuración de tu red.</p>
+<p><center></p>
+<p><a class="glightbox" href="../../img/proyectos/IP_IDE_APP.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="IP obtenida en el IDE y escrita en la GUI de la APP" src="../../img/proyectos/IP_IDE_APP.png" /></a><br />
+<em>IP obtenida en el IDE y escrita en la GUI de la APP</em></p>
+<p></center></p>
+<p>Debes anotar esta dirección IP e introducirla en el área de direcciones IP de la APP del teléfono, en la parte superior de la pantalla. A continuación, pulsa el icono WiFi y observa cómo el teléfono establece una conexión WebSocket con el servidor.</p>
+<p>Si la conexión tiene éxito, la pantalla cambiará a este aspecto:</p>
+<p><center></p>
+<p><a class="glightbox" href="../../img/proyectos/Conex_WS.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Conexión con WebSocket establecida" src="../../img/proyectos/Conex_WS.png" /></a><br />
+<em>Conexión con WebSocket establecida</em></p>
+<p></center></p>
+<p>El área de mensajes de la parte inferior de la pantalla indica el número de identificación del cliente asignado:</p>
+<p><center></p>
+<p><a class="glightbox" href="../../img/proyectos/N_cli_asig_Conex_WS.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Número de identificación del cliente y estado de la conexión en la APP" src="../../img/proyectos/N_cli_asig_Conex_WS.png" /></a><br />
+<em>Número de identificación del cliente y estado de la conexión en la APP</em></p>
+<p></center></p>
+<p>En el IDE, la conexión tendrá el aspecto que se muestra a continuación:</p>
+<p><center></p>
+<p><a class="glightbox" href="../../img/proyectos/N_cli_asig_Conex_WS_IDE.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Número de identificación del cliente y estado de la conexión en el IDE" src="../../img/proyectos/N_cli_asig_Conex_WS_IDE.png" /></a><br />
+<em>Número de identificación del cliente y estado de la conexión en el IDE</em></p>
+<p></center></p>
+<p>Cuando hayas terminado, puedes tocar de nuevo el <strong>icono WiFi</strong> y finalizar la conexión.</p>
 <h4 id="uso-de-los-controles"><FONT COLOR=#0000FF>Uso de los controles</font><a class="headerlink" href="#uso-de-los-controles" title="Permanent link">&para;</a></h4>
+<p>Basta con pulsar los 8 botones de control para enviar los comandos programados al ESP32.</p>
+<p>Cualquier mensaje.</p>
 <h3 id="uso-de-websocket-en-app-inventor"><FONT COLOR=#AA0000>Uso de WebSocket en APP Inventor</font><a class="headerlink" href="#uso-de-websocket-en-app-inventor" title="Permanent link">&para;</a></h3>
+<p>Aquí, examinaremos el código de la APP en APP Inventor y veremos los detalles de implementación de WebSocket y comandos del proyecto. Se asume que el usuario está familiarizado con la programación en APP Inventor. El código lo vemos en la imagen:</p>
+<p><center></p>
+<p><a class="glightbox" href="../../img/proyectos/GAMEPad_remoto_WiFi.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="GAMEPad remoto por WiFi" src="../../img/proyectos/GAMEPad_remoto_WiFi.png" /></a><br />
+<em>GAMEPad remoto por WiFi</em></p>
+<p></center></p>
+<p>Para usar WebSocket en la APP es necesario el uso de una extensión: <strong>WebSocketConnector</strong>.</p>
+<p><center></p>
+<p><a class="glightbox" href="../../img/proyectos/Extension_WebSocketConnector.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Extensión WebSocketConnector" src="../../img/proyectos/Extension_WebSocketConnector.png" /></a><br />
+<em>Extensión WebSocketConnector</em></p>
+<p></center></p>
+<p>Proporciona una interfaz de programación que admite los siguientes eventos:</p>
+<ul>
+<li>Conexión (Connection)</li>
+<li>Desconexión (Disconnection)</li>
+<li>Envío de mensajes (Message Sending)</li>
+<li>Recepción de mensajes (Message Reception)</li>
+<li>Errores (Errors)</li>
+</ul>
 <h4 id="conexion-ai2-websocket"><FONT COLOR=#0000FF>Conexión AI2 WebSocket</font><a class="headerlink" href="#conexion-ai2-websocket" title="Permanent link">&para;</a></h4>
+<p><center></p>
+<p><a class="glightbox" href="../../img/proyectos/WebSocketConnector_Connector.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="WebSocketConnector.Connector" src="../../img/proyectos/WebSocketConnector_Connector.png" /></a><br />
+<em>WebSocketConnector.Connector</em></p>
+<p></center></p>
+<p>Para la conexión, utilizamos la dirección IP del servidor ESP32 micro:STEAMakers y el puerto Websocket número 81 de MicroBlocks: 192.168.1.48:81. La IP utilizada puede diferir para tu red debido a diferencias en la configuración WiFi.</p>
+<p>La dirección IP se extrae del campo de entrada Dirección IP en la parte superior de la GUI de la APP.</p>
+<p><center></p>
+<p><a class="glightbox" href="../../img/proyectos/Direccion_IP_GUI_APP.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Dirección IP en la GUI de la APP" src="../../img/proyectos/Direccion_IP_GUI_APP.png" /></a><br />
+<em>Dirección IP en la GUI de la APP</em></p>
+<p></center></p>
+<p>Cuando se toca el <strong>Icono WIFI</strong>, la APP inicia la conexión a través del script <strong>when WIFI.click</strong>.</p>
+<p><center></p>
+<p><a class="glightbox" href="../../img/proyectos/evento_when_WIFI_click.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Evento when WIFI.click" src="../../img/proyectos/evento_when_WIFI_click.png" /></a><br />
+<em>Evento when WIFI.click</em></p>
+<p></center></p>
+<p>El script anterior maneja el evento clic del botón WiFi. Es posible que uno genere inadvertidamente múltiples eventos de clic pulsando el icono una y otra vez. Esto normalmente causaría que se iniciaran múltiples conexiones; y crearía una situación problemática.</p>
+<p>Para evitar esto, se ha implementado un interruptor booleano <strong>WIFIclickActive</strong> que controla los clics del botón y sus respectivos manejadores de eventos. Inicialmente, esta variable se establece en false. Tan pronto como un botón es pulsado, establecemos esta variable a true y no la reseteamos hasta que todos los eventos de pulsación relacionados se hayan completado. Los eventos clic sólo se permiten mientras el interruptor está en false.</p>
+<p>Cuando se establece una conexión con éxito, se ejecuta el script <strong>when WebSocketConnector1 connected</strong>.</p>
+<p><center></p>
+<p><a class="glightbox" href="../../img/proyectos/evento_when_WebSocketConnector1_connected.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Evento when WebSocketConnector1 connected" src="../../img/proyectos/evento_when_WebSocketConnector1_connected.png" /></a><br />
+<em>Evento when WebSocketConnector1 connected</em></p>
+<p></center></p>
 <h4 id="desconexion-ai2-websocket"><FONT COLOR=#0000FF>Desconexión AI2 WebSocket</font><a class="headerlink" href="#desconexion-ai2-websocket" title="Permanent link">&para;</a></h4>
+<p><center></p>
+<p><a class="glightbox" href="../../img/proyectos/Llamada_WebSocketConnector1_Disconnect.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Llamada a WebSocketConnector1.Disconnect" src="../../img/proyectos/Llamada_WebSocketConnector1_Disconnect.png" /></a><br />
+<em>Llamada a WebSocketConnector1.Disconnect</em></p>
+<p></center></p>
+<p><strong>Una vez establecida la conexión</strong>, si se pulsa el <strong>icono WiFi</strong> por segunda vez, el enlace se desconecta. Véase más arriba el código del script <strong>when WIFI.click</strong>. El botón del icono WiFi actúa como un conmutador: si no hay una conexión WebSocket activa, entonces la conexión se realiza. Si la conexión está activa, entonces el enlace se desconecta.</p>
+<p>El bloque siguiente proporciona el estado de la conexión.</p>
+<p><center></p>
+<p><a class="glightbox" href="../../img/proyectos/Llamada_WebSocketConnector1_IsConnected.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Llamada a WebSocketConnector1.IsConnected" src="../../img/proyectos/Llamada_WebSocketConnector1_IsConnected.png" /></a><br />
+<em>Llamada a WebSocketConnector1.IsConnected</em></p>
+<p></center></p>
+<p>La desconexión del enlace WebSocket hará que se ejecute el script <strong>when WebSocketConnector1 disconnected</strong>.</p>
+<p><center></p>
+<p><a class="glightbox" href="../../img/proyectos/Evento_when_WebSocketConnector1_disconnected.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Evento when WebSocketConnector1 disconnected" src="../../img/proyectos/Evento_when_WebSocketConnector1_disconnected.png" /></a><br />
+<em>Evento when WebSocketConnector1 disconnected</em></p>
+<p></center></p>
 <h4 id="envio-de-mensajes-ai2-websocket"><FONT COLOR=#0000FF>Envío de mensajes AI2 WebSocket</font><a class="headerlink" href="#envio-de-mensajes-ai2-websocket" title="Permanent link">&para;</a></h4>
-<h4 id="recepcion-de-mensajes-ai2-websocket"><FONT COLOR=#0000FF>Recepción de mensajes AI2 WebSocket</font><a class="headerlink" href="#recepcion-de-mensajes-ai2-websocket" title="Permanent link">&para;</a></h4>
-<h4 id="errores-ai2-websocket"><FONT COLOR=#0000FF>Errores AI2 WebSocket</font><a class="headerlink" href="#errores-ai2-websocket" title="Permanent link">&para;</a></h4>
+<p><center></p>
+<p><a class="glightbox" href="../../img/proyectos/Llamada_WebSocketConnector1_Message_Send.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Llamada WebSocketConnector1.Message Send" src="../../img/proyectos/Llamada_WebSocketConnector1_Message_Send.png" /></a><br />
+<em>Llamada WebSocketConnector1.Message Send</em></p>
+<p></center></p>
+<p>Enviar un mensaje WebSocket es muy sencillo; sólo requiere un texto de mensaje.</p>
+<p>Dado que tenemos ocho mensajes diferentes que necesitamos enviar, hemos recurrido a una técnica para reducir el número de bloques que necesitamos codificar. En lugar de utilizar un enfoque estándar de <strong>escribir código para cada uno de los ocho botones de control</strong>, usaremos la <strong>técnica de código genérico</strong>.</p>
+<p><center></p>
+<p><a class="glightbox" href="../../img/proyectos/Evento_when_any_button_click.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Evento when any Button.clik" src="../../img/proyectos/Evento_when_any_button_click.png" /></a><br />
+<em>Evento when any Button.clik</em></p>
+<p></center></p>
+<p>Ya que todos nuestros comandos son activados por clicks de botones, usamos el evento genérico <strong>when any Button.Click</strong>. El código escrito en este script se aplica a cualquier botón pulsado. Y como todos nuestros botones de comandos hacen lo mismo, nos facilita la tarea.</p>
+<p>Para diferenciar las distintas acciones de los botones, hemos utilizado otra técnica, la de etiquetar los botones con sus nombres de acción: <strong>left, right, up, down, square, triangle, cross, circle (izquierda, derecha, arriba, abajo, cuadrado, triángulo, cruz, círculo)</strong>. Esto nos da la posibilidad de utilizar los nombres de los textos de los botones como el mensaje WebSocket que necesitamos enviar.</p>
+<h4 id="recepcion-de-mensajes-websocket-en-ai2"><FONT COLOR=#0000FF>Recepción de mensajes WebSocket en AI2</font><a class="headerlink" href="#recepcion-de-mensajes-websocket-en-ai2" title="Permanent link">&para;</a></h4>
+<p><center></p>
+<p><a class="glightbox" href="../../img/proyectos/Evento_when_WebSocketConnector1_MessageReceive.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Evento when WebSocketConnector1.MessageReceived" src="../../img/proyectos/Evento_when_WebSocketConnector1_MessageReceive.png" /></a><br />
+<em>Evento when WebSocketConnector1.MessageReceived</em></p>
+<p></center></p>
+<p>En este proyecto, no recibimos ningún mensaje en condiciones normales de funcionamiento. Sin embargo, es posible recibir mensajes de prueba durante el testeo del proyecto. Para acomodar ese caso, proporcionamos un manejador de eventos para mostrar cualquier mensaje entrante en el área de mensajes de la APP, en la parte inferior de la pantalla.</p>
+<h4 id="errores-websocket-ai2"><FONT COLOR=#0000FF>Errores WebSocket AI2</font><a class="headerlink" href="#errores-websocket-ai2" title="Permanent link">&para;</a></h4>
+<p><center></p>
+<p><a class="glightbox" href="../../img/proyectos/Evento_when_WebSocketConnector1_ErrorOccurred.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Evento when WebSocketConnector1.ErrorOccurred" src="../../img/proyectos/Evento_when_WebSocketConnector1_ErrorOccurred.png" /></a><br />
+<em>Evento when WebSocketConnector1.ErrorOccurred</em></p>
+<p></center></p>
+<p>En caso de que se produzca algún error durante la conexión o el funcionamiento normal de la APP, proporcionamos un controlador de eventos para mostrar cualquier mensaje de error en el área de mensajes de la APP, en la parte inferior de la pantalla.</p>
 <h2 id="crear-hotspot-propio"><FONT COLOR=#007575><strong>Crear HotSpot propio</strong></font><a class="headerlink" href="#crear-hotspot-propio" title="Permanent link">&para;</a></h2>
+<p>Hemos mencionado anteriormente que pueden presentarse casos en los que el entorno en el que desea ejercer el control sobre dispositivos puede no tener una señal WiFi disponible. Especialmente, si estás en la naturaleza o en un lugar alejado de la civilización. No te preocupes, todavía serás capaz de experimentar con este tutorial siguiendo las instrucciones siguiente.</p>
 <h3 id="mi-propia-senal-wifi"><FONT COLOR=#AA0000>Mi propia señal WiFi</font><a class="headerlink" href="#mi-propia-senal-wifi" title="Permanent link">&para;</a></h3>
+<p>Veamos cómo podemos activar nuestra propia señal WiFi.</p>
+<p>Para crear nuestra propia señal WiFi, tendremos que pulsar el <strong>Botón A</strong> una vez iniciado el programa, o en cualquier momento que queramos <strong>activar la opción Hotspot</strong>.</p>
 <h3 id="como-funciona"><FONT COLOR=#AA0000>Cómo funciona</font><a class="headerlink" href="#como-funciona" title="Permanent link">&para;</a></h3>
+<p>Para visualizar mejor la configuración de HOTSpot, echemos un vistazo a la siguiente imagen.</p>
+<p><center></p>
+<p><a class="glightbox" href="../../img/proyectos/Configuraci%C3%B3n_HOTSpot.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Configuración de HOTSpot" src="../../img/proyectos/Configuraci%C3%B3n_HOTSpot.png" /></a><br />
+<em>Configuración de HOTSpot</em></p>
+<p></center></p>
+<p>La <strong>ESP32 micro:STEAMakers</strong> está ahora <strong>actuando como el proveedor del Hotspot WiFi</strong>. Está ejecutando el mismo programa MicroBlocks pero con la <strong>opción de inicio cuando se pulse el Botón A</strong>. El programa MicroBlocks por defecto tiene un <strong>hotspotName = ESP32AP</strong> y un <strong>hsPassword = 12345678</strong>. Siéntete libre de cambiar esto a los valores que quieras.</p>
+<p><center></p>
+<p><a class="glightbox" href="../../img/proyectos/Script_pulsaA.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Script cuando se pulsa el botón A" src="../../img/proyectos/Script_pulsaA.png" /></a><br />
+<em>Script cuando se pulsa el botón A</em></p>
+<p></center></p>
+<p>En el teléfono, sigues usando la misma APP.</p>
 <h3 id="activacion-de-la-nueva-red"><FONT COLOR=#AA0000>Activación de la nueva Red</font><a class="headerlink" href="#activacion-de-la-nueva-red" title="Permanent link">&para;</a></h3>
+<p>Cuando ESP32 micro:STEAMakers empiece a funcionar y pulses el botón A, se creará una <strong>red WiFi llamada ESP32AP</strong>. Puedes ver esto en el escaneo de redes WiFi de tu ordenador, así como en el escaneo WiFi de tu teléfono Android. Esto es lo que debes buscar:</p>
+<p><center></p>
+<p><a class="glightbox" href="../../img/proyectos/escaneo_conex.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Escaneo y conexión red WiFi" src="../../img/proyectos/escaneo_conex.png" /></a><br />
+<em>Escaneo y conexión red WiFi</em></p>
+<p></center></p>
+<p>En el teléfono Android, en la configuración de WiFi, es necesario <strong>identificarse en la nueva red: ESP32AP / 12345678</strong>.</p>
+<p>Ahora puedes empezar a utilizar la APP de la misma manera que antes. La dirección IP en la APP debe establecerse en la dirección IP del HotSpot: 192.168.4.1 . Es posible que tu hardware te asigne una IP diferente. Sea cual sea la que aparezca, utiliza esa.</p>
+<p><center></p>
+<p><a class="glightbox" href="../../img/proyectos/IP_pulsarA.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Dirección IP al pulsar el botón A" src="../../img/proyectos/IP_pulsarA.png" /></a><br />
+<em>Dirección IP al pulsar el botón A</em></p>
+<p></center></p>
+<div class="admonition warning">
+<p class="admonition-title"> </p>
+<p><strong>No hay acceso a internet mientras estás en el modo HOTSpot.</strong></p>
+<p><center></p>
+<p><a class="glightbox" href="../../img/proyectos/sin_acceso_internet.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Sin acceso a internet" src="../../img/proyectos/sin_acceso_internet.png" /></a>  </p>
+<p></center></p>
+<p>Si has creado un WiFi HotSpot y has probado todo con él, <strong>recuerda apagarlo e iniciar sesión con tus dispositivos y teléfono en tu red WiFi normal</strong>. De lo contrario, no estarás operando como antes de los ejercicios y te preguntarás por qué nada funciona como de costumbre.</p>
+</div>
 <h2 id="sin-telefono-android-usemos-piesocket-websocket-tester"><FONT COLOR=#007575><strong>Sin teléfono Android - Usemos PieSocket Websocket Tester</strong></font><a class="headerlink" href="#sin-telefono-android-usemos-piesocket-websocket-tester" title="Permanent link">&para;</a></h2>
+<p><strong>PieSocket es una extensión del navegador Chromium o Chrome</strong>. Puedes instalarla desde el gestor de extensiones.</p>
+<p>Cuando lo ejecutes en el navegador, se verá como en la imagen de la izquierda, a excepción de los datos de localización:</p>
+<p><center></p>
+<p><a class="glightbox" href="../../img/proyectos/PieSocket.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="PieSocket" src="../../img/proyectos/PieSocket.png" /></a><br />
+<em>PieSocket</em></p>
+<p></center></p>
+<p>Debes introducir la dirección IP del servidor en el formato del protocolo WebSocket en el campo Ubicación: <strong>ws://192.168.1.48:81</strong></p>
+<p>Cuando hagas clic en Conectar, aparecerá la imagen de la derecha. Observa el mensaje de respuesta de conexión enviado por el servidor: RECIBIDO : Cliente# 0 conectado.</p>
+<p>El número de identificación del cliente que se muestra es su número de identificación (0-4). Cuando observes las pantallas de actividad en el servidor, tus acciones se reflejarán en la línea con este número de Cliente.</p>
+<p>El <strong>proceso de prueba con el PieSocket</strong> es un poco diferente que usando el programa compañero APP Inventor. Ya que todas las funciones del Servidor son controladas a través de mensajes de texto directos (comandos), simplemente ingresa los comandos deseados de la lista de abajo en el área de Ubicación y haz clic en Enviar Mensaje ( Send Message).</p>
+<p>Aquí tienes una lista de todos los comandos que puedes escribir y lo que harán:</p>
+<ul>
+<li><strong>left, right, up, down, square, triangle, cross, circle (izquierda, derecha, arriba, abajo, cuadrado, triángulo, cruz, círculo)</strong> - Utiliza uno de estos cada vez. Ejecutarán las respectivas funciones programadas en el servidor.</li>
+<li><strong>LED</strong> - encenderá/apagará el LED de usuario en el servidor.</li>
+<li><strong>LOOP</strong> - pondrá tu puerto cliente en el servidor en modo Loopback. Para salir de él, envíalo de nuevo</li>
+<li><strong>cualquier mensaje de texto</strong> - cualquier cosa que no sean los comandos listados anteriormente se tratará como un mensaje normal y se mostrará en el IDE. Si la conexión está en modo Loopback, serán devueltos.</li>
+</ul>
 <h2 id="debate"><FONT COLOR=#007575><strong>Debate</strong></font><a class="headerlink" href="#debate" title="Permanent link">&para;</a></h2>
+<p>Este entorno de trabajo o framework se proporciona como ejemplo de implementación de un controlador estilo GAMEPad en teléfonos Android.</p>
+<ul>
+<li>¿Qué tipo de proyectos crees que pueden utilizar esta interfaz de control?</li>
+<li>¿Qué pasa si el proyecto que queremos controlar tiene más de 8 comandos?</li>
+<li>Entendiendo cómo funciona la implementación WEBSocket en MicroBlocks, ¿pueden varias personas coordinar y utilizar los controles?</li>
+</ul>
+<p>La APP para Android está escrita en MIT App Inventor. Si estás familiarizado con MIT AI2, prueba los siguientes retos.</p>
+<ul>
+<li>Algunos mandos tienen un conjunto de cuatro botones de colores en lugar de los de forma geométrica. Modifica la interfaz para utilizar botones de colores.</li>
+<li>Amplía la interfaz del GAMEPad para que tenga dos botones adicionales.</li>
+</ul>
+<p>Los dos retos son de complejidad media y requieren un poco de conocimientos técnicos. Si consigues hacerlos funcionar, lo habrás hecho muy bien.</p>
 <h2 id="consejos-solucion-de-problemas"><FONT COLOR=#007575><strong>Consejos / Solución de problemas</strong></font><a class="headerlink" href="#consejos-solucion-de-problemas" title="Permanent link">&para;</a></h2>
+<p>En el primer modo del tutorial, donde estás en tu red doméstica, normalmente verás direcciones de red doméstica en el rango de 192.168.1.nnn. Si por alguna razón has modificado el router de Internet de tu casa para asignar un rango diferente de direcciones IP, entonces puede que tengas direcciones con un aspecto diferente.</p>
+<p>Si está probando la versión HotSpot del tutorial, tendrá que ser consciente de las diferencias en las direcciones IP creadas y utilizadas.</p>
+<p>En el modo HotSpot del tutorial, el ESP32 creará una nueva red y repartirá un conjunto diferente de direcciones. Normalmente serán 192.168.4.1 para el router, y 192.168.4.2 y siguientes para los otros clientes, incluyendo tu teléfono Android.</p>
+<p>En el modo HotSpot del tutorial, recuerda activar primero la nueva red, en el ESP32 en nuestro ejemplo. Esto configurará el entorno listo para asignar direcciones a los dispositivos que se unan. Sólo debes conectar el WiFi de tu teléfono a la nueva red después de activarla. De lo contrario, el escáner WiFi de su teléfono no verá la red con el SSID = ESP32AP.</p>
+<p>Ten en cuenta que durante ambos modos de funcionamiento del tutorial, nunca estás accediendo a Internet. De hecho, en el modo Hotspot, ni siquiera hay conectividad a Internet disponible, como podrás comprobar en las pantallas de estado de las redes WiFi. Todo el intercambio de tráfico ocurre dentro del dominio privado de tu red doméstica y de la nueva red que creas con la opción HotSpot.</p>
+<p>Hay formas de acceder a Internet en ambos modos de funcionamiento. Sin embargo, ese es un tema muy complicado para entrar en los propósitos de este tutorial. Cualquiera que esté interesado puede investigar NAT (Network Address Translation), servicios Proxy, direcciones de Internet privadas y públicas y tratar de darle sentido a todo esto.</p>
+<p>Una buena manera de deshacerte de las entradas de red no deseadas en tu PC y en tu teléfono es seleccionar la opción WiFi para OLVIDAR esa red. Encontrarás esta opción en la sección de configuración de conectividad WiFi de tus dispositivos.</p>
 <h3 id="que-puede-fallar"><FONT COLOR=#AA0000>Qué puede fallar</font><a class="headerlink" href="#que-puede-fallar" title="Permanent link">&para;</a></h3>
+<p>El protocolo WebSocket tiene TIEMPOS DE ESPERA incorporados. Si no se produce ninguna actividad en el protocolo durante el tiempo de espera, la conexión se cerrará y los clientes se desconectarán. No hay manera de ajustar el tiempo de espera en el ámbito de este tutorial. Así que ten esto en cuenta y si empiezas a ver clientes desconectándose, simplemente establece la conexión de nuevo. El tiempo estimado para el tiempo de espera por defecto es de aproximadamente un minuto.</p>
+<p>El modo Loopback es un modo de operación muy interesante. Sin embargo, puede causar confusión al usuario si no se entienden exactamente los detalles de su funcionamiento. Piensa en él como un interruptor que se pone en ON o en OFF. Cuando está en ON, todo se envía a la parte solicitante. Hasta que lo apagues seleccionándolo de nuevo, permanecerá en modo Loopback.</p>
+<p>Y recuerda, en caso de problemas, la mejor manera de reiniciar todo es RESETAR todo.</p>
+<p>¡Que lo disfrutes!</p>
 <h2 id="descarga-del-proyecto"><FONT COLOR=#007575><strong>Descarga del proyecto</strong></font><a class="headerlink" href="#descarga-del-proyecto" title="Permanent link">&para;</a></h2>
+<ul>
+<li><a href="../../program/actividadesmB/GAMEPadWiFiRemote.ubp">Programa MicroBlocks GAMEPadWiFiRemote.ubp DESCARGADO en enero de 2025 para este Tutorial</a> - Instalar en la micro:STEAMakers. Versión disponible en la fecha indicada con ligeras modificaciones respecto al original.</li>
+<li><a href="https://wiki.microblocks.fun/wifigamepad/gamepadwifiremote.ubp">Programa MicroBlocks GAMEPadWiFiRemote.ubp ORIGINAL para este Tutorial</a> - Instalar en la micro:STEAMakers.</li>
+</ul>
+<p><a href="../../program/AppInventor/GAMEPad_Remoto_WiFi.aia">Archivo fuente de la aplicación MIT AI2 para Android</a> - Personaliza la APP usando MIT AI2.</p>
+<p><a class="glightbox" href="../../img/proyectos/QR_APK_GAMEPad.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img align="left" alt="Aplicación APK" src="../../img/proyectos/QR_APK_GAMEPad.png" /></a> <br><a href="../../program/AppInventor/GAMEPad_Remoto_WiFi.apk">Aplicación APK MIT AI2 para Android</a> - Carga este archivo en su teléfono. Puede requerir permiso para instalar aplicaciones desconocidas.</br></p>
 
 
 

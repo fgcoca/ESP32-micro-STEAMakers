@@ -1090,6 +1090,13 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#sobre-el-boton-tactil" class="md-nav__link">
+    Sobre el botón táctil
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#libreria-neopixeles" class="md-nav__link">
     Libreria NeoPixeles
   </a>
@@ -1800,26 +1807,6 @@
   
   
     <li class="md-nav__item">
-      <a href="../../proyectos/websocket/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    Control remoto utilizando WEBSocket
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-    <li class="md-nav__item">
       <a href="../../proyectos/microblocks_websocket/" class="md-nav__link">
         
   
@@ -2099,6 +2086,13 @@
         
       </ul>
     </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sobre-el-boton-tactil" class="md-nav__link">
+    Sobre el botón táctil
+  </a>
   
 </li>
       
@@ -3039,6 +3033,25 @@ La definición del bloque es:</p>
 <em>Ejemplo de 'Gráfico de datos'</em><br />
 <a href="../../program/uB/grafico_aleatorios.ubp">Descargar el programa</a></p>
 <p></center></p>
+<h2 id="sobre-el-boton-tactil"><FONT COLOR=#007575><strong>Sobre el botón táctil</strong></font><a class="headerlink" href="#sobre-el-boton-tactil" title="Permanent link">&para;</a></h2>
+<p>Vamos a ver un poco mas en profundidad el uso de la zona táctil de la micro:STEAMakers en MicroBlocks tanto con la placa sola como conectada a la Shield:bit.</p>
+<p>Partimos del bloque "ms táctil?" de la libreria microSTEAMakers y mostramos su definición. Vemos que el retorno nos devuelve el valor capacitivo del sensor con el que haremos un sencillo programa de pruebas como el siguiente:</p>
+<p><center></p>
+<p><a class="glightbox" href="../../img/guias/uB/oper/pruebas_tactil.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Programa de pruebas para botón táctil" src="../../img/guias/uB/oper/pruebas_tactil.png" /></a><br />
+<em><a href="../../program/uB/pruebas_tactil.ubp">Programa de pruebas para botón táctil</a></em></p>
+<p></center></p>
+<p>A continuación vemos los valores que retorna el bloque cuando se realizan toques cortos y largos. Se muestran los valores tanto numéricos como en forma de gráfico para las dos situaciones que vamos a contemplar:</p>
+<p><strong>1.</strong> <strong><em>Placa micro:STEAMakers sola</em></strong>. Sin tocar nos devuelve un valor de 43, para pulsaciones cortas entre 15 y 25 y para largas se estabiliza en torno a 10.</p>
+<p><center></p>
+<p><a class="glightbox" href="../../img/guias/uB/oper/pruebas_tactil_res_sola.gif" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Resultado con la micro:STEAMakers sola" src="../../img/guias/uB/oper/pruebas_tactil_res_sola.gif" /></a><br />
+<em>Resultado con la micro:STEAMakers sola</em>  </p>
+<p></center></p>
+<p><strong>2.</strong> <strong><em>Placa micro:STEAMakers en la Shield:bit</em></strong>. Sin tocar nos devuelve un valor de 31, para pulsaciones cortas entre 20 y 22 y para largas se estabiliza en torno a 15.</p>
+<p><center></p>
+<p><a class="glightbox" href="../../img/guias/uB/oper/pruebas_tactil_res_SB.gif" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Resultado con la micro:STEAMakers con la Shield:bit" src="../../img/guias/uB/oper/pruebas_tactil_res_SB.gif" /></a><br />
+<em>Resultado con la micro:STEAMakers con la Shield:bit</em>  </p>
+<p></center></p>
+<p>Podemos decir como conclusión de la prueba que cuando la micro:STEAMakers está colocada en la Shield:bit el botón táctil es menos sensible que cuando no lo está. No obstante observamos como en ambos casos responde muy bien tanto a toques largos como cortos.</p>
 <h2 id="libreria-neopixeles"><FONT COLOR=#007575><strong>Libreria NeoPixeles</strong></font><a class="headerlink" href="#libreria-neopixeles" title="Permanent link">&para;</a></h2>
 <p>Los NeoPixels son pequeños módulos LED que combinan LEDs rojos, verdes y azules montados en un solo encapsulado con un chip controlador. Los NeoPixels pueden ser controlados individualmente por una sola línea de datos desde un dispositivo microcontrolado para crear diferentes colores y patrones. Un solo pin del microcontrolador puede controlar docenas (o incluso cientos) de NeoPixels. Los NeoPixels se encuentran en muchas configuraciones diferentes, como son anillos, barras, matrices y tiras flexibles.</p>
 <ul>

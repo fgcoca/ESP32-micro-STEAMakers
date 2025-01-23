@@ -1,0 +1,519 @@
+module main
+author unknown
+version 1 0 
+description ''
+variables LEDstat loopOn clientList 'line#' lineIncr clientID event SSID mode hsPassword hotspotName password 
+
+  spec ' ' 'LED' 'LED'
+  spec ' ' 'Loopback id _' 'Loopback id _' 'num' 10
+  spec ' ' 'WSLoop' 'WSLoop'
+  spec 'r' 'clientID exists' 'clientID exists'
+  spec ' ' 'colors' 'colors _' 'str' 'text'
+  spec ' ' 'process event' 'process event'
+  spec ' ' 'processText' 'processText _ id _' 'str auto' 'text' '10'
+  spec ' ' 'showConnectionInfo' 'show connection info'
+
+to LED {
+  LEDstat = (not LEDstat)
+  if LEDstat {
+    '[display:mbPlot]' 5 1
+    setUserLED true
+  } else {
+    '[display:mbUnplot]' 5 1
+    setUserLED false
+  }
+}
+
+to 'Loopback id _' id {
+  atPut (id + 1) loopOn (not (at (id + 1) loopOn))
+  if (at (id + 1) loopOn) {
+    atPut (id + 1) clientList ('[data:join]' id ':' 'Loopback')
+  } else {
+    atPut (id + 1) clientList ('[data:join]' id ':')
+  }
+}
+
+to WSLoop {
+  line# = 80
+  lineIncr = 20
+  clientID = 999999
+  LEDstat = (booleanConstant false)
+  clientList = ('[data:makeList]')
+  loopOn = ('[data:makeList]' (booleanConstant false) (booleanConstant false) (booleanConstant false) (booleanConstant false) (booleanConstant false))
+  forever {
+    event = ('[net:webSocketLastEvent]')
+    if (event != (booleanConstant false)) {
+      clientID = ('ws client id' event)
+      if (not ('clientID exists')) {
+        '[data:addLast]' ('[data:join]' clientID ':') clientList
+      } else {
+        atPut (clientID + 1) clientList ('[data:join]' clientID ':')
+      }
+      sendBroadcast 'process event'
+    }
+    waitMillis 20
+  }
+}
+
+to 'clientID exists' {
+  comment 'Entries can be either:
+[0:, 1:, 2:]  or
+[0:msg, 1:, 2:msg]
+...so we check by combining the entries.'
+  if (0 == (size clientList)) {
+    return (booleanConstant false)
+  }
+  if (-1 == ('[data:find]' ('[data:join]' clientID ':') ('[data:joinStrings]' clientList))) {
+    return (booleanConstant false)
+  } else {
+    return (booleanConstant true)
+  }
+}
+
+to colors color {
+  comment 'Use TFT color rgb block to get color values'
+  local 'rgbb' ('[data:makeList]' 'red' 'green' 'blue' 'black')
+  local 'rgbbValues' ('[data:makeList]' 16711680 65280 255 0)
+  '[tft:rect]' 280 0 40 240 (at ('[data:find]' color rgbb) rgbbValues)
+}
+
+to 'process event' {
+  local 'current event' ('[data:copyFromTo]' event 1)
+  if (('ws event type' (v 'current event')) == 'connected') {
+    '[tft:rect]' 0 60 280 lineIncr (colorSwatch 0 0 0 255) true
+    '[tft:text]' ('[data:join]' 'CONNECTED:' clientID) 0 60 (colorSwatch 255 255 255 255)
+    '[net:webSocketSendToClient]' ('[data:join]' 'Hello, Client# ' clientID) clientID
+  } (('ws event type' (v 'current event')) == 'disconnected') {
+    '[tft:rect]' 0 60 280 lineIncr (colorSwatch 0 0 0 255) true
+    '[tft:text]' ('[data:join]' 'DISCONNECTED :' clientID) 0 60 (colorSwatch 255 255 255 255)
+    atPut (clientID + 1) clientList ('[data:join]' clientID ':disc')
+  } (('ws event type' (v 'current event')) == 'text message') {
+    processText ('ws event payload' (v 'current event')) clientID
+  }
+  comment 'Update Clients'
+  '[tft:rect]' 0 line# 280 160 (colorSwatch 0 0 0 255) true
+  local 'currLine#' line#
+  for item clientList {
+    '[tft:text]' item 0 currLine# (colorSwatch 90 158 255 255) 2 false
+    currLine# += lineIncr
+  }
+}
+
+to processText payload id {
+  comment 'SOCKET Messages processed:
+
+LED - toggle user led
+red,green,blue,black - set color bars
+Loopback - loop socket
+'
+  local 'actions' ('[data:makeList]' 'red' 'green' 'blue' 'black' 'LED' 'Loopback')
+  if ((size payload) > 0) {
+    if (-1 != ('[data:find]' payload actions)) {if (-1 != ('[data:find]' payload ('[data:makeList]' 'red' 'green' 'blue' 'black'))) {
+      callCustomCommand 'colors' ('[data:makeList]' payload)
+    } else {
+      callCustomCommand payload ('[data:makeList]' id)
+    }}
+    comment 'Is socket in loop mode'
+    if (at (id + 1) loopOn) {
+      '[net:webSocketSendToClient]' payload id
+    } else {
+      if ('Loopback' != payload) {
+        comment 'it is a normal message'
+        atPut (id + 1) clientList ('[data:join]' id ':' payload)
+      }
+    }
+  }
+}
+
+to showConnectionInfo {
+  '[display:mbDisplayOff]'
+  '[tft:text]' ('[data:join]' 'SSID: ' SSID) 0 0 16777215 2 false
+  '[tft:text]' ('[data:join]' 'IP:' ('[net:myIPAddress]')) 0 20 16777215 2 false
+  if (mode == 'ap') {
+    '[tft:text]' ('[data:join]' 'PWD:' hsPassword) 0 40 16777215 2 true
+  }
+}
+
+script 296 50 {
+whenStarted
+'[display:mbDisplayOff]'
+'[tft:text]' 'Button A' 0 0 (colorSwatch 255 255 255 255) 4 false
+'[tft:text]' ' Connect to WIFI' 0 48 (colorSwatch 255 249 20 255) 3 false
+'[tft:text]' 'Button B' 0 100 (colorSwatch 255 255 255 255) 4 false
+'[tft:text]' ' Activate HOTSpot' 0 148 (colorSwatch 255 249 20 255) 3 false
+'[tft:text]' '[A]  [B]' 36 210 (colorSwatch 255 255 255 255) 3 true
+}
+
+script 864 88 {
+whenButtonPressed 'A'
+SSID = 'SSID'
+password = 'PASSWORD'
+mode = ''
+'[display:mbDisplayOff]'
+wifiConnect SSID password
+showConnectionInfo
+'start WebSocket server'
+sendBroadcast 'WSLoop'
+}
+
+script 1382 96 {
+whenButtonPressed 'B'
+hotspotName = 'M5Stack'
+SSID = hotspotName
+hsPassword = '12345678'
+mode = 'ap'
+'[display:mbDisplayOff]'
+wifiCreateHotspot hotspotName hsPassword
+'start WebSocket server'
+showConnectionInfo
+sendBroadcast 'WSLoop'
+}
+
+script 303 392 {
+to WSLoop {}
+}
+
+script 827 398 {
+to 'process event' {}
+}
+
+script 1376 461 {
+to processText {}
+}
+
+script 300 1177 {
+comment 'Use this to send messages to clients'
+'[net:webSocketSendToClient]' 'Hello, Client# 0' 0
+}
+
+script 304 1271 {
+to 'Loopback id _' {}
+}
+
+script 1241 1481 {
+to showConnectionInfo {}
+}
+
+script 845 1535 {
+to LED {}
+}
+
+script 312 1720 {
+to 'clientID exists' {}
+}
+
+script 1142 1846 {
+to colors {}
+}
+
+
+module 'LED Display' Output
+author MicroBlocks
+version 1 9 
+choices led_imageMenu heart 'small heart' yes no happy sad confused angry asleep surprised silly fabulous meh 't-shirt' 'roller skate' duck house tortoise butterfly 'stick figure' ghost sword giraffe skull umbrella snake rabbit cow 'quarter note' 'eight note' pitchfork target triangle 'left triangle' 'chess board' diamond 'small diamond' square 'small square' scissors 
+description 'Display primitives for the 5x5 LED display on the BBC micro:bit, Calliope mini and M5Atom Matrix. Boards with TFT displays (such as the Citilab ED1 or the M5Stack family) support these primitives with a simulated "fat pixel" display.'
+variables _stop_scrolling_text 
+
+  spec ' ' '[display:mbDisplay]' 'display _' 'microbitDisplay' 15237440
+  spec ' ' 'led_displayImage' 'display image _ : x _ y _' 'menu.led_imageMenu num num' 'happy' 1 1
+  spec ' ' '[display:mbDisplayOff]' 'clear display'
+  space
+  spec ' ' '[display:mbPlot]' 'plot x _ y _' 'num num' 3 3
+  spec ' ' '[display:mbUnplot]' 'unplot x _ y _' 'num num' 3 3
+  space
+  spec ' ' 'displayCharacter' 'display character _' 'str' 'A'
+  spec ' ' 'scroll_text' 'scroll text _ : pausing _ ms' 'str num' 'HELLO ROSA!' 100
+  spec ' ' 'stopScrollingText' 'stop scrolling'
+  space
+  spec 'r' '_led_image' 'led image _' 'microbitDisplay' 15237440
+  spec 'r' '_led_namedImage' '_led_namedImage _' 'menu.led_imageMenu' 'happy'
+  spec 'r' '_led_imageData' '_led_imageData'
+  spec ' ' 'set display color' 'set display color _' 'color'
+  spec ' ' '_set display color' 'obsolete set display color _' 'color'
+
+to '_led_image' twentyFiveBitInt {
+  comment 'An LED image is a 25-bit integer'
+  return twentyFiveBitInt
+}
+
+to '_led_imageData' {
+  return 'heart:4685802,small heart:145728,yes:2269696,no:18157905,happy:15237440,sad:18284864,confused:22348096,angry:23036241,asleep:459616,surprised:4526090,silly:25984017,fabulous:15008639,meh:2236443,t-shirt:15154043,roller skate:11534104,duck:489702,house:10976708,tortoise:359872,butterfly:29332475,stick figure:18158564,ghost:23068334,sword:4657284,giraffe:10946627,skull:15171246,umbrella:6460398,snake:469859,rabbit:16104613,cow:4685361,quarter note:7573636,eight note:7590276,pitchfork:4357813,target:4681156,triangle:1026176,left triangle:32805985,chess board:11184810,diamond:4539716,small diamond:141440,square:33080895,small square:469440,scissors:20287859,'
+}
+
+to '_led_namedImage' name {
+  local 'data' ('_led_imageData')
+  local 'i' ('[data:find]' name data)
+  if (i == -1) {
+    comment 'Name not found'
+    return 0
+  }
+  local 'start' (('[data:find]' ':' data i) + 1)
+  local 'end' (('[data:find]' ',' data i) - 1)
+  return ('[data:convertType]' ('[data:copyFromTo]' data start end) 'number')
+}
+
+to displayCharacter s {
+  s = ('[data:join]' '' s)
+  if ((size s) == 0) {
+    '[display:mbDisplayOff]'
+    return 0
+  }
+  '[display:mbDrawShape]' ('[display:mbShapeForLetter]' (at 1 s))
+}
+
+to led_displayImage imageName optionalX optionalY {
+  local 'image' imageName
+  if (isType image 'string') {
+    image = ('_led_namedImage' imageName)
+  }
+  '[display:mbDrawShape]' image (argOrDefault 2 1) (argOrDefault 3 1)
+}
+
+to scroll_text text optionalDelay {
+  text = ('[data:join]' '' text)
+  local 'delay' 100
+  if ((pushArgCount) > 1) {
+    delay = optionalDelay
+  }
+  _stop_scrolling_text = (booleanConstant false)
+  if ('Pico:ed' == (boardType)) {
+    for position (((size text) * 6) + 18) {
+      if _stop_scrolling_text {return 0}
+      '[display:mbDisplayOff]'
+      '[tft:text]' text (17 - position) 0 (colorSwatch 125 125 125 255) 1 true
+      waitMillis (delay / 2)
+    }
+  } else {
+    for position (((size text) * 6) + 6) {
+      if _stop_scrolling_text {return 0}
+      for i (size text) {
+        '[display:mbDrawShape]' ('[display:mbShapeForLetter]' ('[data:unicodeAt]' i text)) (((i * 6) + 2) - position) 1
+      }
+      waitMillis delay
+    }
+  }
+}
+
+to 'set display color' color {
+  callCustomCommand '[display:mbSetColor]' ('[data:makeList]' color)
+}
+
+to stopScrollingText {
+  _stop_scrolling_text = (booleanConstant true)
+  waitMillis 10
+  '[display:mbDisplayOff]'
+}
+
+
+module TFT Output
+author MicroBlocks
+version 1 11 
+description 'Draw graphics and write text on boards with a TFT display, such as the M5Stack, M5Stick, Citilab ED1 or (discontinued) IoT-Bus.'
+
+  spec ' ' '[tft:clear]' 'clear TFT display'
+  space
+  spec ' ' '[tft:rect]' 'draw rectangle on TFT at x _ y _ width _ height _ color _ : filled _' 'num num num num color bool' 10 10 40 30 nil true
+  spec ' ' '[tft:roundedRect]' 'draw rounded rectangle on TFT at x _ y _ width _ height _ radius _ color _ : filled _' 'num num num num num color bool' 10 10 40 30 8 nil true
+  spec ' ' '[tft:circle]' 'draw circle on TFT at x _ y _ radius _ color _ : filled _' 'num num num color bool' 40 40 30 nil true
+  spec ' ' '[tft:triangle]' 'draw triangle on TFT at x _ y _ , x _ y _ , x _ y _ color _ : filled _' 'num num num num num num color bool' 20 20 30 80 60 5 nil true
+  spec ' ' '[tft:line]' 'draw line on TFT from x _ y _ to x _ y _ color _' 'num num num num color' 12 8 25 15
+  spec ' ' 'tft_drawVector' 'draw vector x _ y _ angle _ length _ color _' 'num num num num color' 40 40 45 40
+  space
+  spec ' ' '[tft:text]' 'write _ on TFT at x _ y _ color _ : scale _ wrap _ : bg color _' 'str num num color num bool color' 'Hello World!' 5 5 nil 2 true
+  spec ' ' 'tft_drawText' 'draw text _ on TFT at x _ y _ color _ : scale _ : bg color _' 'str num num color num color' 'Line 1
+Line 2' 50 20 nil 2
+  space
+  spec ' ' '[tft:setPixel]' 'set TFT pixel x _ y _ to _' 'num num color' 10 10
+  spec ' ' '[tft:pixelRow]' 'draw pixel row _ x _ y _ : bytesPerPixel _ : palette _' 'auto num num num str' 'aList' 0 0 4
+  spec ' ' '[tft:drawBitmap]' 'draw bitmap _ palette _ on TFT at x _ y _' 'str str num num' 'aBitmap' 'a list of colors' 10 10
+  space
+  spec 'r' 'tft_colorSwatch' '_' 'color'
+  spec 'r' 'makeColor' 'color r _ g _ b _ (0-255)' 'num num num' 0 100 100
+  spec 'r' 'makeGray' 'gray _ %' 'num' 50
+  spec 'r' 'randomColor' 'random color'
+  space
+  spec 'r' '[tft:getWidth]' 'TFT width'
+  spec 'r' '[tft:getHeight]' 'TFT height'
+  space
+  spec ' ' '[tft:setBacklight]' 'set TFT backlight _ (0-10)' 'num' 10
+  space
+  spec ' ' '_deferMonochromeDisplayUpdates' '_defer monochrome display updates'
+  spec ' ' '_resumeMonochromeDisplayUpdates' '_resume monochrome display updates'
+  spec ' ' '[display:mbDisplayOff]' 'clear display'
+
+to '_deferMonochromeDisplayUpdates' {
+  '[tft:deferUpdates]'
+}
+
+to '_resumeMonochromeDisplayUpdates' {
+  '[tft:resumeUpdates]'
+}
+
+to makeColor r g b {
+  r = (maximum 0 (minimum r 255))
+  g = (maximum 0 (minimum g 255))
+  b = (maximum 0 (minimum b 255))
+  return ((r << 16) | ((g << 8) | b))
+}
+
+to makeGray percent {
+  gray = ((percent * 255) / 100)
+  gray = (maximum 0 (minimum gray 255))
+  return ((gray << 16) | ((gray << 8) | gray))
+}
+
+to randomColor {
+  local 'n1' (random 100 200)
+  local 'n2' (random 0 100)
+  if (1 == (random 1 3)) {
+    return ((n1 << 16) | (n2 << 8))
+  } (1 == (random 1 2)) {
+    return ((n2 << 16) | n1)
+  } else {
+    return ((n1 << 8) | n2)
+  }
+}
+
+to tft_colorSwatch color {
+  return color
+}
+
+to tft_drawText s x y color optionalScale optionalBGColor {
+  local 'scale' (argOrDefault 5 2)
+  local 'bgColor' (argOrDefault 6 '')
+  local 'lines' ('[data:split]' s ('[data:unicodeString]' 10))
+  for line ('[data:split]' s ('[data:unicodeString]' 10)) {
+    if (isType bgColor 'number') {
+      '[tft:text]' line x y color scale false bgColor
+    } else {
+      '[tft:text]' line x y color scale false
+    }
+    y += (8 * scale)
+  }
+}
+
+to tft_drawVector x y angle length color {
+  local 'endX' (x + ((length * ('[misc:sin]' (100 * (angle + 90)))) >> 14))
+  local 'endY' (y + ((length * ('[misc:sin]' (100 * angle))) >> 14))
+  '[tft:line]' x y endX endY color
+}
+
+
+module 'WebSocket server' Comm
+author MicroBlocks
+version 1 1 
+tags websockets network 
+description 'Blocks to build your own (very) simple websockets server. The websockets server runs on port 81.'
+
+  spec ' ' 'start WebSocket server' 'start WebSocket server'
+  spec 'r' '[net:webSocketLastEvent]' 'last WebSocket event'
+  spec 'r' 'ws client id' 'client ID for WebSocket event _' 'str' ''
+  spec 'r' 'ws event payload' 'payload for WebSocket event _' 'str' ''
+  spec 'r' 'ws event type' 'type of WebSocket event _' 'str' ''
+  spec ' ' '[net:webSocketSendToClient]' 'send _ to WebSocket client _' 'str num' 'Hello, Client!' 0
+
+to 'start WebSocket server' {
+  comment 'The websockets server runs on port 81.'
+  if ((getIPAddress) != '0.0.0.0') {
+    '[net:webSocketStart]'
+  } else {
+    sayIt 'Not Connected'
+  }
+}
+
+to 'ws client id' event {
+  if (and (isType event 'list') ((size event) > 1)) {
+    return (at 2 event)
+  } else {
+    return ''
+  }
+}
+
+to 'ws event payload' event {
+  if (and (isType event 'list') ((size event) > 2)) {
+    return (at 3 event)
+  } else {
+    return ''
+  }
+}
+
+to 'ws event type' event {
+  if (and (isType event 'list') ((size event) > 0)) {
+    return (at ((at 1 event) + 1) ('[data:makeList]' 'error' 'disconnected' 'connected' 'text message' 'binary message' 'text fragment start' 'binary fragment start' 'fragment' 'fragment end' 'ping' 'pong' 'waiting'))
+  } else {
+    return ''
+  }
+}
+
+
+module WiFi Comm
+author MicroBlocks
+version 1 8 
+tags communication network 
+description 'Connect to a WiFi network. Used in conjunction with other network libraries, such as HTTP client, HTTP server or Web Thing.
+'
+
+  spec ' ' 'wifiConnect' 'wifi connect to _ password _ : IP _ gateway _ subnet _' 'str str auto auto auto' 'Network_Name' '' '192.168.1.42' '192.168.1.1' '255.255.255.0'
+  spec ' ' 'wifiCreateHotspot' 'wifi create hotspot _ password _' 'str str' 'Network_Name' 'Network_Password'
+  space
+  spec 'r' 'getIPAddress' 'IP address'
+  spec 'r' '[net:myMAC]' 'MAC address'
+  space
+  spec ' ' '[net:allowWiFiAndBLE]' 'allow WiFi while using BLE _' 'bool' true
+
+to getIPAddress {
+  return ('[net:myIPAddress]')
+}
+
+to wifiConnect ssid password fixedIP gatewayIP subnetIP {
+  if (not ('[net:hasWiFi]')) {return}
+  '[net:stopWiFi]'
+  if ((pushArgCount) < 5) {
+    '[net:startWiFi]' ssid password
+  } else {
+    '[net:startWiFi]' ssid password false fixedIP gatewayIP subnetIP
+  }
+  local 'startMSecs' (millisOp)
+  repeatUntil (('[net:myIPAddress]') != '0.0.0.0') {
+    comment 'Timeout after N seconds'
+    if (((millisOp) - startMSecs) > 30000) {
+      sayIt 'Could not connect'
+      return 0
+    }
+    comment 'Slow blink while trying to connect'
+    setUserLED true
+    waitMillis 300
+    setUserLED false
+    waitMillis 300
+  }
+  repeat 6 {
+    comment 'Quick blinks when connected'
+    setUserLED true
+    waitMillis 50
+    setUserLED false
+    waitMillis 50
+  }
+  sayIt 'My IP address is:' ('[net:myIPAddress]')
+}
+
+to wifiCreateHotspot ssid password {
+  if (not ('[net:hasWiFi]')) {return}
+  if ((size password) < 8) {
+    sayIt 'Password must be at least 8 characters'
+    return 0
+  }
+  '[net:startWiFi]' ssid password true
+  if ('Connected' != ('[net:wifiStatus]')) {
+    sayIt 'Could not create hotspot'
+    return 0
+  }
+  repeat 6 {
+    comment 'Quick blinks when connected'
+    setUserLED true
+    waitMillis 50
+    setUserLED false
+    waitMillis 50
+  }
+  sayIt 'My IP address is:' ('[net:myIPAddress]')
+}
+
