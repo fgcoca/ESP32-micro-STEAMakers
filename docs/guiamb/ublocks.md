@@ -1094,6 +1094,40 @@ Vamos a ver un ejemplo de uso en el que se muestran de forma gráfica una serie 
 
 </center>
 
+## <FONT COLOR=#007575>**Sobre el botón táctil**</font>
+Vamos a ver un poco mas en profundidad el uso de la zona táctil de la micro:STEAMakers en MicroBlocks tanto con la placa sola como conectada a la Shield:bit.
+
+Partimos del bloque "ms táctil?" de la libreria microSTEAMakers y mostramos su definición. Vemos que el retorno nos devuelve el valor capacitivo del sensor con el que haremos un sencillo programa de pruebas como el siguiente:
+
+<center>
+
+![Programa de pruebas para botón táctil](../img/guias/uB/oper/pruebas_tactil.png)  
+*[Programa de pruebas para botón táctil](../program/uB/pruebas_tactil.ubp)*
+
+</center>
+
+A continuación vemos los valores que retorna el bloque cuando se realizan toques cortos y largos. Se muestran los valores tanto numéricos como en forma de gráfico para las dos situaciones que vamos a contemplar:
+
+**1.** ***Placa micro:STEAMakers sola***. Sin tocar nos devuelve un valor de 43, para pulsaciones cortas entre 15 y 25 y para largas se estabiliza en torno a 10.
+
+<center>
+
+![Resultado con la micro:STEAMakers sola](../img/guias/uB/oper/pruebas_tactil_res_sola.gif)  
+*Resultado con la micro:STEAMakers sola*  
+
+</center>
+
+**2.** ***Placa micro:STEAMakers en la Shield:bit***. Sin tocar nos devuelve un valor de 31, para pulsaciones cortas entre 20 y 22 y para largas se estabiliza en torno a 15.
+
+<center>
+
+![Resultado con la micro:STEAMakers con la Shield:bit](../img/guias/uB/oper/pruebas_tactil_res_SB.gif)  
+*Resultado con la micro:STEAMakers con la Shield:bit*  
+
+</center>
+
+Podemos decir como conclusión de la prueba que cuando la micro:STEAMakers está colocada en la Shield:bit el botón táctil es menos sensible que cuando no lo está. No obstante observamos como en ambos casos responde muy bien tanto a toques largos como cortos.
+
 ## <FONT COLOR=#007575>**Libreria NeoPixeles**</font>
 Los NeoPixels son pequeños módulos LED que combinan LEDs rojos, verdes y azules montados en un solo encapsulado con un chip controlador. Los NeoPixels pueden ser controlados individualmente por una sola línea de datos desde un dispositivo microcontrolado para crear diferentes colores y patrones. Un solo pin del microcontrolador puede controlar docenas (o incluso cientos) de NeoPixels. Los NeoPixels se encuentran en muchas configuraciones diferentes, como son anillos, barras, matrices y tiras flexibles.
 

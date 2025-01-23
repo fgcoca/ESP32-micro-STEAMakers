@@ -10,10 +10,6 @@
 
 * Impresionante documentación de Francisco Soldado: [Ardutaller](https://www.ardutaller.com.es/)
 
-* [Guia de trabajo para micro:bit](https://fgcoca.github.io/Guia-de-trabajo-para-microbit/)  
-
-* [Git hub de Pedro Ruiz](https://github.com/pedroruizf)
-
 * [Wikipedia](https://es.wikipedia.org/wiki/Wikipedia:Portada)
 
 * [Carburos metálicos](http://www.carburos.com/), páginas 8 y 9 de la [Ficha Técnica de Seguridad número 300000000020](http://www.carburos.com/microsite/es/selector-gases-soldadura/pdf/SDS/CO2.pdf)
@@ -27,3 +23,7 @@
 * Artículo de la International Journal of Emergency Medicine [Carbon dioxide poisoning: a literature review of an often forgotten cause of intoxication in the emergency department](https://intjem.biomedcentral.com/articles/10.1186/s12245-017-0142-y)
 
 * Artículo del Centro Canadiense de Seguridad y Salud Ocupacional (CCSSO) sobre [Dióxido de Carbono - Efectos en la Salud](http://www.ccsso.ca/oshanswers/chemicals/chem_profiles/carbon_dioxide/health_cd.html)
+
+* [MicroBlocks Wiki](https://wiki.microblocks.fun/)
+
+* Los indicados de forma específica en los diferentes apartados en que esto ocurre.

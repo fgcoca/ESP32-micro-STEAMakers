@@ -1,0 +1,385 @@
+module main
+author unknown
+version 1 0 
+description ''
+variables LEDstat loopOn clientList clientID event SSID hsPassword hotspotName password eol APmode connectionInfo 
+
+  spec ' ' 'LED' 'LED'
+  spec ' ' 'Loopback id _' 'Loopback id _' 'num' 10
+  spec ' ' 'WSLoop' 'WSLoop'
+  spec 'r' 'clientID exists' 'clientID exists'
+  spec ' ' 'process event' 'process event'
+  spec ' ' 'processText' 'processText _ id _' 'str auto' 'text' '10'
+  spec 'r' 'showConnectionInfo' 'show connection info'
+  spec ' ' 'LOOP' 'LOOP _' 'num' 10
+  spec ' ' 'circle' 'circle'
+  spec ' ' 'cross' 'cross'
+  spec ' ' 'left' 'left'
+  spec ' ' 'right' 'right'
+  spec ' ' 'square' 'square'
+  spec ' ' 'triangle' 'triangle'
+  spec ' ' 'down' 'down'
+  spec ' ' 'up' 'up'
+
+to LED {
+  LEDstat = (not LEDstat)
+  setUserLED LEDstat
+}
+
+to LOOP id {
+  atPut (id + 1) loopOn (not (at (id + 1) loopOn))
+  if (at (id + 1) loopOn) {
+    atPut (id + 1) clientList ('[data:join]' id ':' 'in Loopback mode')
+  } else {
+    atPut (id + 1) clientList ('[data:join]' id ':')
+  }
+}
+
+to 'Loopback id _' id {
+}
+
+to WSLoop {
+  clientID = 999999
+  LEDstat = (booleanConstant false)
+  loopOn = ('[data:makeList]' (booleanConstant false) (booleanConstant false) (booleanConstant false) (booleanConstant false) (booleanConstant false))
+  forever {
+    sayIt 'WSLoop'
+    event = ('[net:webSocketLastEvent]')
+    if (event != (booleanConstant false)) {
+      clientID = ('ws client id' event)
+      if (not ('clientID exists')) {
+        '[data:addLast]' ('[data:join]' clientID ':') clientList
+      }
+      sendBroadcast 'process event'
+    }
+    waitMillis 20
+  }
+}
+
+to circle {
+  comment 'Se necesita código.'
+}
+
+to 'clientID exists' {
+  if (0 == (size clientList)) {return (booleanConstant false)}
+  if (-1 == ('[data:find]' ('[data:join]' clientID ':') clientList)) {
+    for IDs clientList {
+      if (-1 != ('[data:find]' ('[data:join]' clientID ':') IDs)) {return (booleanConstant true)}
+    }
+    return (booleanConstant false)
+  } else {
+    return (booleanConstant true)
+  }
+}
+
+to cross {
+  comment 'Se necesita código.'
+}
+
+to down {
+  comment 'Se necesita código.'
+}
+
+to left {
+  comment 'Se necesita código.'
+}
+
+to 'process event' {
+  local 'current event' ('[data:copyFromTo]' event 1)
+  if (('ws event type' (v 'current event')) == 'connected') {
+    atPut (clientID + 1) clientList ('[data:join]' clientID ':' 'connected.')
+    '[net:webSocketSendToClient]' ('[data:join]' 'CLIENT# ' clientID ' connected.') clientID
+  } (('ws event type' (v 'current event')) == 'disconnected') {
+    atPut (clientID + 1) clientList ('[data:join]' clientID ':' 'disconnected...')
+  } (('ws event type' (v 'current event')) == 'text message') {
+    processText ('ws event payload' (v 'current event')) clientID
+  }
+}
+
+to processText payload id {
+  comment 'SOCKET Messages processed:
+
+LED - toggle user led
+LOOP - put socket in loopback
+fwd, bwd, left, right, square, triangle, circle, cross
+'
+  local 'actions' ('[data:makeList]' 'LED' 'LOOP' 'up' 'down' 'left' 'right' 'square' 'triangle' 'circle' 'cross')
+  if ((size payload) > 0) {
+    if (-1 != ('[data:find]' payload actions)) {callCustomCommand payload ('[data:makeList]' id)}
+    comment 'Is socket in loop mode'
+    if (at (id + 1) loopOn) {
+      '[net:webSocketSendToClient]' payload id
+    } else {
+      if ('LOOP' != payload) {
+        comment 'it is a normal message'
+        atPut (id + 1) clientList ('[data:join]' id ':' payload)
+      }
+    }
+  }
+}
+
+to right {
+  comment 'Se necesita código.'
+}
+
+to showConnectionInfo {
+  connectionInfo = ''
+  connectionInfo = ('[data:join]' ('[data:join]' 'SSID: ' SSID) eol)
+  connectionInfo = ('[data:join]' connectionInfo 'IP:' (getIPAddress) eol)
+  if APmode {
+    connectionInfo = ('[data:join]' connectionInfo 'AP-PWD:' hsPassword)
+  }
+  return connectionInfo
+}
+
+to square {
+  comment 'Se necesita código.'
+}
+
+to triangle {
+  comment 'Se necesita código.'
+}
+
+to up {
+  comment 'Se necesita código.'
+}
+
+script 555 59 {
+whenButtonPressed 'A'
+comment 'MODO PA:
+Cuando se activa el modo PA, se iniciará una nueva red WIFI con
+las credenciales que se indican a continuación. El teléfono móvil
+debe conectarse a la nueva red con el SSID y la contraseña que
+se indican a continuación, utilizando la configuración de conexión
+WiFi del dispositivo móvil.
+
+Si ESTE programa se reinicia, el SSID del PA se restablecerá
+temporalmente, haciendo que que el WiFi del móvil pierda la
+conexión y cambie al WiFi local.
+El registro SSID del PA tiene que REPETIRSE cada vez.'
+hotspotName = 'ESP32AP'
+SSID = hotspotName
+hsPassword = '12345678'
+APmode = (booleanConstant true)
+wifiCreateHotspot hotspotName hsPassword
+'start WebSocket server'
+sayIt (showConnectionInfo)
+sendBroadcast 'WSLoop'
+}
+
+script 996 67 {
+comment 'DEFINICIONES:
+Punto de acceso (PA o AP) consiste en configurar un teléfono
+móvil para crear una red WiFi local y proporcionar acceso a otros
+dispositivos cdercanos.
+HotSpot es una red WiFi pública gestionada y proporccionada por
+una placa o entidad. 
+En la práctica es igual un PA que un HotSpot pero cuando se crea
+con placas se da cobertura WiFi local pero sin acceso a internet'
+}
+
+script 50 106 {
+whenStarted
+comment 'MODO CLIENTE:
+Configure el SSID y la contraseña para que coincidan con tus
+credenciales de red.
+Cuando se inicie el programa, se conectará a la red local
+utilizando las credenciales indicadas a continuación.'
+SSID = 'vodafoneFB70'
+password = 'nEW-gRANADA-19'
+APmode = (booleanConstant false)
+LEDstat = (booleanConstant false)
+eol = ('[data:unicodeString]' 10)
+clientList = ('[data:makeList]')
+wifiConnect SSID password
+sayIt (showConnectionInfo)
+'start WebSocket server'
+sendBroadcast 'WSLoop'
+}
+
+script 1024 294 {
+whenCondition ((getLastBroadcast) == 'WSLoop')
+comment 'Mostrar la actividad de los clientes'
+forever {
+  local 'statusLine' ''
+  for item clientList {
+    statusLine = ('[data:join]' statusLine item eol)
+  }
+  sayIt statusLine
+  waitMillis 500
+}
+}
+
+script 226 532 {
+SSID = 'SSID'
+password = 'PASSWORD'
+}
+
+script 824 605 {
+to left {}
+}
+
+script 563 608 {
+to right {}
+}
+
+script 314 612 {
+to up {}
+}
+
+script 65 618 {
+to down {}
+}
+
+script 819 715 {
+to circle {}
+}
+
+script 567 718 {
+to square {}
+}
+
+script 65 722 {
+to triangle {}
+}
+
+script 318 722 {
+to cross {}
+}
+
+script 1114 734 {
+comment 'Utilízalo para enviar mensajes a los clientes'
+'[net:webSocketSendToClient]' 'Hola, Cliente N. 0' 0
+}
+
+script 489 815 {
+to 'process event' {}
+}
+
+script 980 816 {
+to processText {}
+}
+
+script 59 825 {
+to WSLoop {}
+}
+
+
+module 'WebSocket server' Comm
+author MicroBlocks
+version 1 1 
+tags websockets network 
+description 'Blocks to build your own (very) simple websockets server. The websockets server runs on port 81.'
+
+  spec ' ' 'start WebSocket server' 'start WebSocket server'
+  spec 'r' '[net:webSocketLastEvent]' 'last WebSocket event'
+  spec 'r' 'ws client id' 'client ID for WebSocket event _' 'str' ''
+  spec 'r' 'ws event payload' 'payload for WebSocket event _' 'str' ''
+  spec 'r' 'ws event type' 'type of WebSocket event _' 'str' ''
+  spec ' ' '[net:webSocketSendToClient]' 'send _ to WebSocket client _' 'str num' 'Hello, Client!' 0
+
+to 'start WebSocket server' {
+  comment 'The websockets server runs on port 81.'
+  if ((getIPAddress) != '0.0.0.0') {
+    '[net:webSocketStart]'
+  } else {
+    sayIt 'Not Connected'
+  }
+}
+
+to 'ws client id' event {
+  if (and (isType event 'list') ((size event) > 1)) {
+    return (at 2 event)
+  } else {
+    return ''
+  }
+}
+
+to 'ws event payload' event {
+  if (and (isType event 'list') ((size event) > 2)) {
+    return (at 3 event)
+  } else {
+    return ''
+  }
+}
+
+to 'ws event type' event {
+  if (and (isType event 'list') ((size event) > 0)) {
+    return (at ((at 1 event) + 1) ('[data:makeList]' 'error' 'disconnected' 'connected' 'text message' 'binary message' 'text fragment start' 'binary fragment start' 'fragment' 'fragment end' 'ping' 'pong' 'waiting'))
+  } else {
+    return ''
+  }
+}
+
+
+module WiFi Comm
+author MicroBlocks
+version 1 8 
+tags communication network 
+description 'Connect to a WiFi network. Used in conjunction with other network libraries, such as HTTP client, HTTP server or Web Thing.
+'
+
+  spec ' ' 'wifiConnect' 'wifi connect to _ password _ : IP _ gateway _ subnet _' 'str str auto auto auto' 'Network_Name' '' '192.168.1.42' '192.168.1.1' '255.255.255.0'
+  spec ' ' 'wifiCreateHotspot' 'wifi create hotspot _ password _' 'str str' 'Network_Name' 'Network_Password'
+  space
+  spec 'r' 'getIPAddress' 'IP address'
+  spec 'r' '[net:myMAC]' 'MAC address'
+  space
+  spec ' ' '[net:allowWiFiAndBLE]' 'allow WiFi while using BLE _' 'bool' true
+
+to getIPAddress {
+  return ('[net:myIPAddress]')
+}
+
+to wifiConnect ssid password fixedIP gatewayIP subnetIP {
+  if (not ('[net:hasWiFi]')) {return}
+  '[net:stopWiFi]'
+  if ((pushArgCount) < 5) {
+    '[net:startWiFi]' ssid password
+  } else {
+    '[net:startWiFi]' ssid password false fixedIP gatewayIP subnetIP
+  }
+  local 'startMSecs' (millisOp)
+  repeatUntil (('[net:myIPAddress]') != '0.0.0.0') {
+    comment 'Timeout after N seconds'
+    if (((millisOp) - startMSecs) > 30000) {
+      sayIt 'Could not connect'
+      return 0
+    }
+    comment 'Slow blink while trying to connect'
+    setUserLED true
+    waitMillis 300
+    setUserLED false
+    waitMillis 300
+  }
+  repeat 6 {
+    comment 'Quick blinks when connected'
+    setUserLED true
+    waitMillis 50
+    setUserLED false
+    waitMillis 50
+  }
+  sayIt 'My IP address is:' ('[net:myIPAddress]')
+}
+
+to wifiCreateHotspot ssid password {
+  if (not ('[net:hasWiFi]')) {return}
+  if ((size password) < 8) {
+    sayIt 'Password must be at least 8 characters'
+    return 0
+  }
+  '[net:startWiFi]' ssid password true
+  if ('Connected' != ('[net:wifiStatus]')) {
+    sayIt 'Could not create hotspot'
+    return 0
+  }
+  repeat 6 {
+    comment 'Quick blinks when connected'
+    setUserLED true
+    waitMillis 50
+    setUserLED false
+    waitMillis 50
+  }
+  sayIt 'My IP address is:' ('[net:myIPAddress]')
+}
+

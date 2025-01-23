@@ -48,6 +48,8 @@ La posición del interruptor de nivel de tensión determina el valor de tensión
 
 <font size="6"><b>==7==</b></font> Pines para servomotores. La shiel:bit dispone de ocho grupos de pines (S1 a S8) para conectar servomotores.
 
+Los pines S- son propios de la Shield:bit y están conectados al driver que permite gestionar motores, el PCA9685 que realmente es un driver para crear señales PWM. Cuando mas adelante se realiza la descripción de los bloques de la placa se dan mas detalles referentes a este grupo de pines.
+
 <font size="6"><b>==8==</b></font> Pines extendidos tipo GVS en los que VCC es 3,3 V independientemente de la posición del interruptor 14. Los pines de este tipo son:
 
 * P0 - io12. Entrada analógica asociada al conector circular o para pinza de cocodrilo "0". Para utilizarlo como P0 el interruptor de sonido P0 debe estar en la posición SW-P0 y por lo tanto los componentes de audio no estarán disponibles.
@@ -58,6 +60,13 @@ La posición del interruptor de nivel de tensión determina el valor de tensión
 * P6 - io2. E/S de propósito general.
 * P7 - io25. E/S de propósito general.
 * P8 - io4. E/S de propósito general.
+
+!!! note "Doble nomenclatura de los grupos de pines 6 y 8"
+    Son los pines normales de la ESP32 que tienen doble nomenclatura porque:
+
+    * En ArduinoBlocks debe hacer usarse la numeración "io", que es la real de la ESP32.
+
+    * En Microblocks, utilizando la máquina virtual propia de la microSTEAMakers, es necesario utilizar la notación "P", ya que está implementada para ser compatible con todos los dispositivos que funcionan con la micro:bit.
 
 <font size="6"><b>==9==</b></font> Conector para motor DC etiquetado como M1. Podremos controlar el sentido de giro y la velocidad del motor.
 
@@ -245,6 +254,9 @@ La paleta se despliega haciendo clic sobre el círculo de color.
 
 </center>
 
+!!! Abstract " "
+    Bloque para pines S- propios de la Shield:bit para control de servos mediante señales PWM.
+
 * **sb gira el servo 360 ...**. Permite girar el servo de 360 grados que se especifique (pines S1 a S8) en el sentido de giro escogido y a la velocidad establecida en porcentaje.
 
 <center>
@@ -253,6 +265,9 @@ La paleta se despliega haciendo clic sobre el círculo de color.
 *Bloque sb gira el servo 360 ...*
 
 </center>
+
+!!! Abstract " "
+    Bloque para pines S- propios de la Shield:bit para control de servos mediante señales PWM.
 
 * **sb gira el motor CC ...**. Permite girar el motor DC que se especifique (conectores M1 a M4) en el sentido de giro escogido y a la velocidad establecida en porcentaje.
 
@@ -272,7 +287,7 @@ La paleta se despliega haciendo clic sobre el círculo de color.
 
 </center>
 
-* **sb pon el pin ...**. Este bloque nos sirve para establecer el valor PWM en porcentaje para los servos conectados en los pines pines S1 a S8.
+* **sb pon el pin ...**. Este bloque nos sirve para establecer el valor PWM en porcentaje para los dispositivos conectados en los pines pines S1 a S8.
 
 <center>
 
@@ -280,3 +295,6 @@ La paleta se despliega haciendo clic sobre el círculo de color.
 *Bloque sb pon el pin ...*
 
 </center>
+
+!!! Abstract " "
+    Bloque para pines S- propios de la Shield:bit con capacidad de control por PWM (pone el pin a un valor en %). Este bloque permite aprovechar los 8 pines S como pines normales con capacidad PWM.
