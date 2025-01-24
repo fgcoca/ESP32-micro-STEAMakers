@@ -144,7 +144,7 @@ to up {
   comment 'Se necesita código.'
 }
 
-script 555 59 {
+script 571 66 {
 whenButtonPressed 'A'
 comment 'MODO PA:
 Cuando se activa el modo PA, se iniciará una nueva red WIFI con
@@ -167,7 +167,7 @@ sayIt (showConnectionInfo)
 sendBroadcast 'WSLoop'
 }
 
-script 996 67 {
+script 1012 74 {
 comment 'DEFINICIONES:
 Punto de acceso (PA o AP) consiste en configurar un teléfono
 móvil para crear una red WiFi local y proporcionar acceso a otros
@@ -178,15 +178,15 @@ En la práctica es igual un PA que un HotSpot pero cuando se crea
 con placas se da cobertura WiFi local pero sin acceso a internet'
 }
 
-script 50 106 {
+script 66 113 {
 whenStarted
 comment 'MODO CLIENTE:
 Configure el SSID y la contraseña para que coincidan con tus
 credenciales de red.
 Cuando se inicie el programa, se conectará a la red local
 utilizando las credenciales indicadas a continuación.'
-SSID = 'vodafoneFB70'
-password = 'nEW-gRANADA-19'
+SSID = 'SSID'
+password = 'PASSWPORD'
 APmode = (booleanConstant false)
 LEDstat = (booleanConstant false)
 eol = ('[data:unicodeString]' 10)
@@ -197,7 +197,7 @@ sayIt (showConnectionInfo)
 sendBroadcast 'WSLoop'
 }
 
-script 1024 294 {
+script 1040 301 {
 whenCondition ((getLastBroadcast) == 'WSLoop')
 comment 'Mostrar la actividad de los clientes'
 forever {
@@ -210,57 +210,57 @@ forever {
 }
 }
 
-script 226 532 {
+script 242 539 {
 SSID = 'SSID'
 password = 'PASSWORD'
 }
 
-script 824 605 {
+script 840 612 {
 to left {}
 }
 
-script 563 608 {
+script 579 615 {
 to right {}
 }
 
-script 314 612 {
+script 330 619 {
 to up {}
 }
 
-script 65 618 {
+script 81 625 {
 to down {}
 }
 
-script 819 715 {
+script 835 722 {
 to circle {}
 }
 
-script 567 718 {
+script 583 725 {
 to square {}
 }
 
-script 65 722 {
+script 81 729 {
 to triangle {}
 }
 
-script 318 722 {
+script 334 729 {
 to cross {}
 }
 
-script 1114 734 {
+script 1130 741 {
 comment 'Utilízalo para enviar mensajes a los clientes'
 '[net:webSocketSendToClient]' 'Hola, Cliente N. 0' 0
 }
 
-script 489 815 {
+script 505 822 {
 to 'process event' {}
 }
 
-script 980 816 {
+script 996 823 {
 to processText {}
 }
 
-script 59 825 {
+script 75 832 {
 to WSLoop {}
 }
 
