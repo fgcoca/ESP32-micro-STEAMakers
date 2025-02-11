@@ -1,0 +1,304 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="210mm"
+   height="297mm"
+   viewBox="0 0 210 297"
+   version="1.1"
+   id="svg1"
+   inkscape:version="1.4 (1:1.4+202410161351+e7c3feb100)"
+   sodipodi:docname="mqtt.svg"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview1"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:document-units="mm"
+     inkscape:zoom="1.4503086"
+     inkscape:cx="394.05405"
+     inkscape:cy="470.93424"
+     inkscape:window-width="1878"
+     inkscape:window-height="1016"
+     inkscape:window-x="42"
+     inkscape:window-y="27"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="layer1" />
+  <defs
+     id="defs1">
+    <marker
+       style="overflow:visible"
+       id="Triangle"
+       refX="0"
+       refY="0"
+       orient="auto-start-reverse"
+       inkscape:stockid="Triangle arrow"
+       markerWidth="1"
+       markerHeight="1"
+       viewBox="0 0 1 1"
+       inkscape:isstock="true"
+       inkscape:collect="always"
+       preserveAspectRatio="xMidYMid">
+      <path
+         transform="scale(0.5)"
+         style="fill:context-stroke;fill-rule:evenodd;stroke:context-stroke;stroke-width:1pt"
+         d="M 5.77,0 -2.88,5 V -5 Z"
+         id="path135" />
+    </marker>
+  </defs>
+  <g
+     inkscape:label="Capa 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <ellipse
+       style="fill:none;fill-rule:evenodd;stroke:#ff00ff;stroke-width:0.999997;stroke-dasharray:none;stroke-opacity:1"
+       id="path1"
+       cx="46.986488"
+       cy="79.175674"
+       rx="29.5"
+       ry="29.500002" />
+    <text
+       xml:space="preserve"
+       style="font-weight:bold;font-stretch:condensed;font-size:8px;line-height:7.82222px;font-family:'Sircuito Condensed';-inkscape-font-specification:'Sircuito Condensed,  Bold Condensed';text-align:start;writing-mode:lr-tb;direction:ltr;text-anchor:start;fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:1;stroke-dasharray:none;stroke-opacity:1"
+       x="46.959145"
+       y="76.95652"
+       id="text1"><tspan
+         sodipodi:role="line"
+         id="tspan1"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:8px;line-height:7.82222px;font-family:'Liberation Sans';-inkscape-font-specification:'Liberation Sans Bold';text-align:center;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1"
+         x="46.959145"
+         y="76.95652">Cliente</tspan><tspan
+         sodipodi:role="line"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:8px;line-height:7.82222px;font-family:'Liberation Sans';-inkscape-font-specification:'Liberation Sans Bold';text-align:center;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1"
+         x="46.959145"
+         y="85.617477"
+         id="tspan2">MQTT</tspan></text>
+    <ellipse
+       style="fill:none;fill-rule:evenodd;stroke:#00a0ff;stroke-width:0.999997;stroke-dasharray:none;stroke-opacity:1"
+       id="ellipse2"
+       cx="167.48607"
+       cy="79.175674"
+       rx="29.5"
+       ry="29.500002" />
+    <text
+       xml:space="preserve"
+       style="font-weight:bold;font-stretch:condensed;font-size:8px;line-height:7.82222px;font-family:'Sircuito Condensed';-inkscape-font-specification:'Sircuito Condensed,  Bold Condensed';text-align:start;writing-mode:lr-tb;direction:ltr;text-anchor:start;fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:1;stroke-dasharray:none;stroke-opacity:1"
+       x="167.26146"
+       y="76.895973"
+       id="text4"><tspan
+         sodipodi:role="line"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:8px;line-height:7.82222px;font-family:'Liberation Sans';-inkscape-font-specification:'Liberation Sans Bold';text-align:center;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1"
+         x="167.26146"
+         y="76.895973"
+         id="tspan4">Broker MQTT</tspan><tspan
+         sodipodi:role="line"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:8px;line-height:7.82222px;font-family:'Liberation Sans';-inkscape-font-specification:'Liberation Sans Bold';text-align:center;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1"
+         x="167.26146"
+         y="85.556931"
+         id="tspan5">Thingspeak</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:4.8px;line-height:4.69333px;font-family:'Liberation Sans';-inkscape-font-specification:'Liberation Sans Bold';text-align:center;writing-mode:lr-tb;direction:ltr;text-anchor:middle;fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#00a0ff;stroke-width:1;stroke-dasharray:none;stroke-opacity:1"
+       x="167.4763"
+       y="91.581078"
+       id="text6"><tspan
+         sodipodi:role="line"
+         id="tspan6"
+         style="font-size:4.8px;line-height:4.69333px;fill:#9f9f9f;fill-opacity:1;stroke:none;stroke-width:1"
+         x="167.4763"
+         y="91.581078">mqtt3.thingspeak.com</tspan></text>
+    <path
+       style="fill:#9f9f9f;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.7;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#Triangle)"
+       d="M 137.85061,79.540541 H 79.107373"
+       id="path6"
+       sodipodi:nodetypes="cc" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:4.79999px;line-height:4.69334px;font-family:'Liberation Sans';-inkscape-font-specification:'Liberation Sans Bold';text-align:center;writing-mode:lr-tb;direction:ltr;text-anchor:middle;fill:#9f9f9f;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:0.7;stroke-dasharray:none;stroke-opacity:1"
+       x="107.12244"
+       y="76.986481"
+       id="text7"><tspan
+         sodipodi:role="line"
+         id="tspan7"
+         style="fill:#009fff;fill-opacity:1;stroke:none;stroke-width:0.7"
+         x="107.12244"
+         y="76.986481">Confirmación de conexión</tspan></text>
+    <path
+       style="fill:#9f9f9f;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.7;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#Triangle)"
+       d="M 75.390202,69.594712 136.45945,69.457888"
+       id="path8"
+       sodipodi:nodetypes="cc" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:4.79999px;line-height:4.69334px;font-family:'Liberation Sans';-inkscape-font-specification:'Liberation Sans Bold';text-align:center;writing-mode:lr-tb;direction:ltr;text-anchor:middle;fill:#ff00ff;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:0.7;stroke-dasharray:none;stroke-opacity:1"
+       x="107.12244"
+       y="67.086311"
+       id="text8"><tspan
+         sodipodi:role="line"
+         id="tspan8"
+         style="fill:#ff00ff;fill-opacity:1;stroke:none;stroke-width:0.7"
+         x="107.12244"
+         y="67.086311">Conectar</tspan></text>
+    <path
+       style="fill:#9f9f9f;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.7;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#Triangle)"
+       d="M 75.162162,89.14058 136.45945,88.958148"
+       id="path9"
+       sodipodi:nodetypes="cc" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:4.79999px;line-height:4.69334px;font-family:'Liberation Sans';-inkscape-font-specification:'Liberation Sans Bold';text-align:center;writing-mode:lr-tb;direction:ltr;text-anchor:middle;fill:#ff00ff;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:0.7;stroke-dasharray:none;stroke-opacity:1"
+       x="107.12244"
+       y="86.586555"
+       id="text9"><tspan
+         sodipodi:role="line"
+         id="tspan9"
+         style="fill:#ff00ff;fill-opacity:1;stroke:none;stroke-width:0.7"
+         x="107.12244"
+         y="86.586555">Publicar</tspan></text>
+    <ellipse
+       style="fill:none;fill-rule:evenodd;stroke:#ff00ff;stroke-width:0.999997;stroke-dasharray:none;stroke-opacity:1"
+       id="ellipse9"
+       cx="46.986488"
+       cy="148.17604"
+       rx="29.5"
+       ry="29.500002" />
+    <text
+       xml:space="preserve"
+       style="font-weight:bold;font-stretch:condensed;font-size:8px;line-height:7.82222px;font-family:'Sircuito Condensed';-inkscape-font-specification:'Sircuito Condensed,  Bold Condensed';text-align:start;writing-mode:lr-tb;direction:ltr;text-anchor:start;fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:1;stroke-dasharray:none;stroke-opacity:1"
+       x="46.959145"
+       y="145.95688"
+       id="text11"><tspan
+         sodipodi:role="line"
+         id="tspan10"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:8px;line-height:7.82222px;font-family:'Liberation Sans';-inkscape-font-specification:'Liberation Sans Bold';text-align:center;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1"
+         x="46.959145"
+         y="145.95688">Cliente</tspan><tspan
+         sodipodi:role="line"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:8px;line-height:7.82222px;font-family:'Liberation Sans';-inkscape-font-specification:'Liberation Sans Bold';text-align:center;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1"
+         x="46.959145"
+         y="154.61784"
+         id="tspan11">MQTT</tspan></text>
+    <ellipse
+       style="fill:none;fill-rule:evenodd;stroke:#00a0ff;stroke-width:0.999997;stroke-dasharray:none;stroke-opacity:1"
+       id="ellipse11"
+       cx="167.48607"
+       cy="148.17604"
+       rx="29.5"
+       ry="29.500002" />
+    <text
+       xml:space="preserve"
+       style="font-weight:bold;font-stretch:condensed;font-size:8px;line-height:7.82222px;font-family:'Sircuito Condensed';-inkscape-font-specification:'Sircuito Condensed,  Bold Condensed';text-align:start;writing-mode:lr-tb;direction:ltr;text-anchor:start;fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:1;stroke-dasharray:none;stroke-opacity:1"
+       x="167.26146"
+       y="145.89633"
+       id="text13"><tspan
+         sodipodi:role="line"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:8px;line-height:7.82222px;font-family:'Liberation Sans';-inkscape-font-specification:'Liberation Sans Bold';text-align:center;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1"
+         x="167.26146"
+         y="145.89633"
+         id="tspan12">Broker MQTT</tspan><tspan
+         sodipodi:role="line"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:8px;line-height:7.82222px;font-family:'Liberation Sans';-inkscape-font-specification:'Liberation Sans Bold';text-align:center;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1"
+         x="167.26146"
+         y="154.5573"
+         id="tspan13">Thingspeak</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:4.8px;line-height:4.69333px;font-family:'Liberation Sans';-inkscape-font-specification:'Liberation Sans Bold';text-align:center;writing-mode:lr-tb;direction:ltr;text-anchor:middle;fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#00a0ff;stroke-width:1;stroke-dasharray:none;stroke-opacity:1"
+       x="167.4763"
+       y="160.58147"
+       id="text14"><tspan
+         sodipodi:role="line"
+         id="tspan14"
+         style="font-size:4.8px;line-height:4.69333px;fill:#9f9f9f;fill-opacity:1;stroke:none;stroke-width:1"
+         x="167.4763"
+         y="160.58147">mqtt3.thingspeak.com</tspan></text>
+    <path
+       style="fill:#9f9f9f;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.7;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#Triangle)"
+       d="M 76.621621,148.54087 H 135.36486"
+       id="path14"
+       sodipodi:nodetypes="cc" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:4.79999px;line-height:4.69334px;font-family:'Liberation Sans';-inkscape-font-specification:'Liberation Sans Bold';text-align:center;writing-mode:lr-tb;direction:ltr;text-anchor:middle;fill:#9f9f9f;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:0.7;stroke-dasharray:none;stroke-opacity:1"
+       x="109.52217"
+       y="136.6873"
+       id="text15"><tspan
+         sodipodi:role="line"
+         id="tspan15"
+         style="fill:#009fff;fill-opacity:1;stroke:none;stroke-width:0.7"
+         x="109.52217"
+         y="136.6873">Confirmación de conexión</tspan></text>
+    <path
+       style="fill:#9f9f9f;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.7;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#Triangle)"
+       d="M 138.94441,138.59504 77.875164,138.45821"
+       id="path15"
+       sodipodi:nodetypes="cc" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:4.79999px;line-height:4.69334px;font-family:'Liberation Sans';-inkscape-font-specification:'Liberation Sans Bold';text-align:center;writing-mode:lr-tb;direction:ltr;text-anchor:middle;fill:#ff00ff;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:0.7;stroke-dasharray:none;stroke-opacity:1"
+       x="107.12244"
+       y="146.28656"
+       id="text16"><tspan
+         sodipodi:role="line"
+         id="tspan16"
+         style="fill:#ff00ff;fill-opacity:1;stroke:none;stroke-width:0.7"
+         x="107.12244"
+         y="146.28656">Suscribe</tspan></text>
+    <path
+       style="fill:#9f9f9f;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.7;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#Triangle)"
+       d="M 138.94415,158.14091 77.646862,157.95847"
+       id="path16"
+       sodipodi:nodetypes="cc" />
+    <path
+       style="fill:#9f9f9f;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.7;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#Triangle)"
+       d="M 69.972235,128.59494 H 142.65141"
+       id="path17"
+       sodipodi:nodetypes="cc" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:4.79999px;line-height:4.69334px;font-family:'Liberation Sans';-inkscape-font-specification:'Liberation Sans Bold';text-align:center;writing-mode:lr-tb;direction:ltr;text-anchor:middle;fill:#ff00ff;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:0.7;stroke-dasharray:none;stroke-opacity:1"
+       x="107.12244"
+       y="126.08656"
+       id="text18"><tspan
+         sodipodi:role="line"
+         id="tspan18"
+         style="fill:#ff00ff;fill-opacity:1;stroke:none;stroke-width:0.7"
+         x="107.12244"
+         y="126.08656">Conectar</tspan></text>
+    <path
+       style="fill:#9f9f9f;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.7;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#Triangle)"
+       d="M 144.87917,168.14108 H 71.713951"
+       id="path18"
+       sodipodi:nodetypes="cc" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:4.314px;line-height:4.21815px;font-family:'Liberation Sans';-inkscape-font-specification:'Liberation Sans Bold';text-align:center;writing-mode:lr-tb;direction:ltr;text-anchor:middle;fill:#9f9f9f;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:0.7;stroke-dasharray:none;stroke-opacity:1"
+       x="107.42211"
+       y="155.6873"
+       id="text20"><tspan
+         sodipodi:role="line"
+         id="tspan20"
+         style="font-size:4.314px;line-height:4.21815px;fill:#009fff;fill-opacity:1;stroke:none;stroke-width:0.7"
+         x="107.42211"
+         y="155.6873">Confirmación de suscripción</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:4.314px;line-height:4.21815px;font-family:'Liberation Sans';-inkscape-font-specification:'Liberation Sans Bold';text-align:center;writing-mode:lr-tb;direction:ltr;text-anchor:middle;fill:#9f9f9f;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:0.7;stroke-dasharray:none;stroke-opacity:1"
+       x="107.42211"
+       y="165.68687"
+       id="text21"><tspan
+         sodipodi:role="line"
+         id="tspan21"
+         style="font-size:4.314px;line-height:4.21815px;fill:#009fff;fill-opacity:1;stroke:none;stroke-width:0.7"
+         x="107.42211"
+         y="165.68687">Recibir mensaje</tspan></text>
+  </g>
+</svg>

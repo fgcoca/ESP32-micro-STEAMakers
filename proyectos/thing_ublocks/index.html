@@ -1598,6 +1598,40 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#mqtt-en-thingspeak" class="md-nav__link">
+    MQTT en Thingspeak
+  </a>
+  
+    <nav class="md-nav" aria-label="MQTT en Thingspeak">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#conceptos-basicos-de-mqtt" class="md-nav__link">
+    Conceptos básicos de MQTT
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dispositivos-mqtt" class="md-nav__link">
+    Dispositivos MQTT
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ejemplo-mqtt" class="md-nav__link">
+    Ejemplo MQTT
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -1806,6 +1840,40 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#mqtt-en-thingspeak" class="md-nav__link">
+    MQTT en Thingspeak
+  </a>
+  
+    <nav class="md-nav" aria-label="MQTT en Thingspeak">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#conceptos-basicos-de-mqtt" class="md-nav__link">
+    Conceptos básicos de MQTT
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dispositivos-mqtt" class="md-nav__link">
+    Dispositivos MQTT
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ejemplo-mqtt" class="md-nav__link">
+    Ejemplo MQTT
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -1997,6 +2065,157 @@ También podemos especificar que la lectura de los datos se realice en formato C
 <em>Resultados subidos</em></p>
 <p></center></p>
 <p>Podemos decir que hemos convertido la micro:STEAMakers en un dispositivo IoT inteligente.</p>
+<h2 id="mqtt-en-thingspeak"><FONT COLOR=#007575><strong>MQTT en Thingspeak</strong></font><a class="headerlink" href="#mqtt-en-thingspeak" title="Permanent link">&para;</a></h2>
+<h3 id="conceptos-basicos-de-mqtt"><FONT COLOR=#AA0000>Conceptos básicos de MQTT</font><a class="headerlink" href="#conceptos-basicos-de-mqtt" title="Permanent link">&para;</a></h3>
+<p>ThingSpeak™ tiene un broker MQTT en la URL <strong>mqtt3.thingspeak.com</strong> y el <strong>puerto 1883</strong>. El broker ThingSpeak admite tanto la publicación MQTT como la suscripción MQTT, como se muestra en los siguientes diagramas.</p>
+<p>Para publicaciones MQTT la estructura es que el broker reconoce una solicitud de conexión enviando una respuesta de confirmación de conexión.</p>
+<p><center></p>
+<p><a class="glightbox" href="../../img/proyectos/pub_mqtt.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Publicar MQTT" src="../../img/proyectos/pub_mqtt.png" /></a><br />
+<em>Publicar MQTT</em></p>
+<p></center></p>
+<p>Es posible publicar:</p>
+<ul>
+<li>Añadiendo contenido a un canal: <code>channels/&lt;channelID&gt;/publish</code></li>
+<li>Publicar en un campo de un canal: <code>channels/&lt;channelID&gt;/publish/fields/field&lt;number&gt;</code></li>
+</ul>
+<p>Al suscribirse MQTT el broker reconoce una solicitud de suscripción devolviendo la aceptación de la misma.</p>
+<p><center></p>
+<p><a class="glightbox" href="../../img/proyectos/sus_mqtt.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Suscribir MQTT" src="../../img/proyectos/sus_mqtt.png" /></a><br />
+<em>Suscribir MQTT</em></p>
+<p></center></p>
+<p>Es posible suscribir:</p>
+<ul>
+<li>Al contenido de un canal: <code>channels/&lt;channelID&gt;/subscribe</code></li>
+<li>A un campo de un canal privado: <code>channels/&lt;channelID&gt;/subscribe/fields/field&lt;number&gt;</code></li>
+<li>A todos los campos de un canal: <code>channels/&lt;channelID&gt;/subscribe/fields/+</code></li>
+</ul>
+<p>Para comunicarse con el broker MQTT hay que configurar con las siguientes opciones:</p>
+<p><center></p>
+<table>
+<thead>
+<tr>
+<th>Puerto</th>
+<th>Tipo de conexión</th>
+<th>Cifrado</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1883</td>
+<td>TCP</td>
+<td>Ninguno</td>
+</tr>
+<tr>
+<td>8883</td>
+<td>TCP</td>
+<td>TLS/SSL</td>
+</tr>
+<tr>
+<td>80</td>
+<td>WebSocket</td>
+<td>Ninguno</td>
+</tr>
+<tr>
+<td>443</td>
+<td>WebSocket</td>
+<td>TLS/SSL</td>
+</tr>
+</tbody>
+</table>
+<p></center></p>
+<p>Resumiendo, la información a recabar para poder trabajar con MQTT en Thingspeak publicando en un canal es:</p>
+<ul>
+<li>ID del cliente: Anotamos el <strong>Client ID</strong> del dispositivo MQTT</li>
+<li>Host: mqtt://mqtt3.thingspeak.com (se puede omitir mqtt://)</li>
+<li>Puerto: 1883 que ya estará configurado en los bloques.</li>
+<li>Nombre de usuario: Anotamos el <strong>Username</strong> del dispositivo MQTT</li>
+<li>Contraseña: Anotamos el <strong>Password</strong> del dispositivo MQTT</li>
+<li>Donde enviar (Topic): Vamos a necesitar el <strong>Channel ID</strong> pues tiene la forma: <code>channels/&lt;Channel ID&gt;/publish</code></li>
+<li>Que enviar (payload): Es de la forma <code>field1=&lt;value&gt;&amp;field2=&lt;value&gt;</code> para dos campos</li>
+</ul>
+<h3 id="dispositivos-mqtt"><FONT COLOR=#AA0000>Dispositivos MQTT</font><a class="headerlink" href="#dispositivos-mqtt" title="Permanent link">&para;</a></h3>
+<p>El acceso MQTT a tus canales, incluyendo las credenciales, es manejado por un dispositivo MQTT ThingSpeak. El dispositivo está configurado con las credenciales necesarias para que un cliente MQTT se comunique con ThingSpeak, y para autorizar canales específicos. Para crear un dispositivo MQTT nos dirigimos al menú de ThingSpeak de la parte superios y hacemos clic en Devices → MQTT.</p>
+<p><center></p>
+<p><a class="glightbox" href="../../img/proyectos/mqtt_devs.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Dispositivos MQTT" src="../../img/proyectos/mqtt_devs.png" /></a><br />
+<em>Dispositivos MQTT</em></p>
+<p></center></p>
+<p>Al hacer clic en MQTT se abre la ventana de dispositivos MQTT siguiente:</p>
+<p><center></p>
+<p><a class="glightbox" href="../../img/proyectos/mqtt_dev_add.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Añadir dispositivo MQTT" src="../../img/proyectos/mqtt_dev_add.png" /></a><br />
+<em>Añadir dispositivo MQTT</em></p>
+<p></center></p>
+<p>Rellenamos la ventana de diálogo para añadir un nuevo dispositivo comenzando por ponerle un nombre y de manera opcional una descripción:</p>
+<p><center></p>
+<p><a class="glightbox" href="../../img/proyectos/mqtt_dev_name.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Añadir dispositivo MQTT: nombre y descripción" src="../../img/proyectos/mqtt_dev_name.png" /></a><br />
+<em>Añadir dispositivo MQTT: nombre y descripción</em></p>
+<p></center></p>
+<p>A continuación en “Authorize channels to access” desplegamos y podemos o introducir el ID del canal o buscar entre los existentes, a lo que nos ayuda mostrando los canales recientemente creados.</p>
+<p><center></p>
+<p><a class="glightbox" href="../../img/proyectos/mqtt_dev_access.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Añadir dispositivo MQTT: acceso a canales autorizados" src="../../img/proyectos/mqtt_dev_access.png" /></a><br />
+<em>Añadir dispositivo MQTT: acceso a canales autorizados</em></p>
+<p></center></p>
+<p>Si hacemos clic en “Enter a channel ID below” tendremos que conocer dicho ID y tenerlo anotado para teclearlo. Cuando lo hagamos se activará el botón “Add channel”.</p>
+<p><center></p>
+<p><a class="glightbox" href="../../img/proyectos/mqtt_dev_access1.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Añadir dispositivo MQTT: acceso a canales autorizados" src="../../img/proyectos/mqtt_dev_access1.png" /></a><br />
+<em>Añadir dispositivo MQTT: acceso a canales autorizados</em></p>
+<p></center></p>
+<p>En cualquiera de los casos hacemos clic en el botón añadir canal y se mostrará la autorización dando opción de decidir si está permitido publicar y suscribirse al canal que estamos autorizando.</p>
+<p><center></p>
+<p><a class="glightbox" href="../../img/proyectos/mqtt_dev_autori.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Añadir dispositivo MQTT: autorizaciones" src="../../img/proyectos/mqtt_dev_autori.png" /></a><br />
+<em>Añadir dispositivo MQTT: autorizaciones</em></p>
+<p></center></p>
+<p>Ya podemos hacer clic en el botón “Add Device” para que se añada el dispositivo y nos muestre las credenciales del mismo:</p>
+<p><center></p>
+<p><a class="glightbox" href="../../img/proyectos/mqtt_dev_cred.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Añadir dispositivo MQTT: credenciales" src="../../img/proyectos/mqtt_dev_cred.png" /></a><br />
+<em>Añadir dispositivo MQTT: credenciales</em></p>
+<p></center></p>
+<p>En la ventana de diálogo anterior nos da opciones para copiar los campos Client ID y Username y mostrar o copiar la contraseña. Respecto a esto último nos advierte que Thingspeak no almacena dicha contraseña por lo que nos aconseja que descarguemos las credenciales y las guardemos en lugar seguro.</p>
+<p>Una vez anotadas o descargadas las credenciales ya podemos hacer clic en el botón “Done” para que se cree el dispositivo MQTT. La ventana de dispositivos MQTT (con dos dispositivos) será ahora:</p>
+<p><center></p>
+<p><a class="glightbox" href="../../img/proyectos/mqtt_dev_dispositivos.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Dispositivos MQTT" src="../../img/proyectos/mqtt_dev_dispositivos.png" /></a><br />
+<em>Dispositivos MQTT</em></p>
+<p></center></p>
+<p>El botón “Delete” nos permite borrar completamente el dispositivo creado. El botón “Edit” nos abre una ventana en la que se permiten editar los datos introducidos cuando se creó el dispositivo y regenerar la contraseña si la hemos perdido.</p>
+<p><center></p>
+<p><a class="glightbox" href="../../img/proyectos/mqtt_dev_edit.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Editar dispositivo MQTT" src="../../img/proyectos/mqtt_dev_edit.png" /></a><br />
+<em>Editar Dispositivo MQTT</em></p>
+<p></center></p>
+<p>Como vemos el botón copiar de la contraseña no está activo y no podemos visualizarla, así que si la hemos perdido no tenemos mas opción que cambiarla por una nueva.</p>
+<p>Con esto ya tenemos todo listo para crear un ejemplo que nos muestre el funcionamiento de todo lo explicado. Crearemos el mismo pograma que utilizando las API keys pero ahora utilizaremos MQTT.</p>
+<h2 id="ejemplo-mqtt"><FONT COLOR=#007575><strong>Ejemplo MQTT</strong></font><a class="headerlink" href="#ejemplo-mqtt" title="Permanent link">&para;</a></h2>
+<p>Lo primero que vamos a hacer es agregar un bloque "conectate a la wifi..." agregando la libreria WiFi si resulta necesario. En este bloque establecemos el nombre de la red 2G y la contraseña de acceso.</p>
+<p>Desde el menú "control" arrastramos un bloque "espera..." que ajustamos a dos segundos para que de tiempo suficiente a establecer la conexión. El estado del programa en este momento será:</p>
+<p><center></p>
+<p><a class="glightbox" href="../../img/proyectos/Inicio_programa.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Inicio del programa" src="../../img/proyectos/Inicio_programa.png" /></a><br />
+<em>Inicio del programa</em></p>
+<p></center></p>
+<p>A continuación de la espera vamos a poner un bloque "por siempre" que es donde va a realizarse la conexión con el broker, y si esta tiene éxito, la publicación de los datos con una espera mínima de 16 segundos entre cada envio.</p>
+<p>Hacemos clic en "Añadir libreria" y entramos en el grupo "Red" donde seleccionamos "MQTT". En esta libreria nos encontramos un bloque "conectate al broker MQTT..." que arrastramos a nuestra zona de programa y expandimos totalmente hasta que tenga el siguiente aspecto:</p>
+<p><center></p>
+<p><a class="glightbox" href="../../img/proyectos/B_conec_broker.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Bloque conectate al broker MQTT..." src="../../img/proyectos/B_conec_broker.png" /></a><br />
+<em>Bloque conectate al broker MQTT...</em></p>
+<p></center></p>
+<p>Cumplimentamos los campos del bloque con los datos de nuestro dispositivo MQTT y damos una espera de un segundo para que se establezca la conexión. Ahora añadimos desde "Control" una sentencia condicional "si..." en la que que colocamos el bloque "MQTT conectado" para saber si se ha establecido la conexión. En caso afirmativo mostramos un mensaje, realizamos la publicación del tema y tras una espera de 16 segundos desconectamos MQTT. Si la conexión no ha tenido éxito mostramos un mensaje al respecto y también damos una espera de 16 segundos para garantizar que no se intenta publicar antes del tiempo mínimo establecido.</p>
+<p>En la imagen siguiente vemos el bloque "publica al tema de MQTT..." y el significado de sus partes:</p>
+<p><center></p>
+<p><a class="glightbox" href="../../img/proyectos/B_publica_tema.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Bloque publica al tema de MQTT..." src="../../img/proyectos/B_publica_tema.png" /></a><br />
+<em>Bloque publica al tema de MQTT...</em></p>
+<p></center></p>
+<p>Para componer la parte de payload usaremos un bloque une expandiendolo para configurar los ocho campos a enviar. El bloque "une..." quedará así:</p>
+<p><center></p>
+<p><a class="glightbox" href="../../img/proyectos/B_une_MQTT.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Bloque une..." src="../../img/proyectos/B_une_MQTT.png" /></a><br />
+<em>Bloque une...</em></p>
+<p></center></p>
+<p>A continuación vemos una imagen del programa completo y en su título está el enlace para su descarga.</p>
+<p><center></p>
+<p><a class="glightbox" href="../../img/proyectos/Programa_MQTT_Thingspeak_Microblocks.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Programa MQTT_Thingspeak_Microblocks" src="../../img/proyectos/Programa_MQTT_Thingspeak_Microblocks.png" /></a><br />
+<em><a href="../../program/uB/MQTT_Thingspeak_Microblocks.ubp">Programa MQTT_Thingspeak_Microblocks</a></em></p>
+<p></center></p>
+<p>En la imagen siguiente tenemos una captura de las gráficas de los cuatro primeros campos con unas cuantas publicaciones:</p>
+<p><center></p>
+<p><a class="glightbox" href="../../img/proyectos/Res_Prog_MQTT_Thingspeak_Microblocks.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Programa MQTT_Thingspeak_Microblocks" src="../../img/proyectos/Res_Prog_MQTT_Thingspeak_Microblocks.png" /></a><br />
+<em>Programa MQTT_Thingspeak_Microblocks</em></p>
+<p></center></p>
 
 
 
