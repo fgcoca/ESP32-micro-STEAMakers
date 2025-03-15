@@ -10,25 +10,23 @@ repo_url: https://github.com/fgcoca/ESP32-micro-STEAMakers
 edit_uri: ""
 
 # 3. Footer
-copyright: Copyright &copy; 2023 - 2035 Federico Coca
+copyright: Copyright y copia; 2023 - 2035 Federico Coca
 extra:
   # Footer - No poner que está hecho con MkDocs
-  generator: false
+  # generator: false
+  generator: true
   # Footer - Iconos
   social:
-   # - icon: fontawesome/brands/bluesky
-   #   link: https://bsky.app/profile/fgcoca.bsky.social
-   #   name: Bluesky de Federico Coca
+    - icon: fontawesome/brands/bluesky
+      link: https://bsky.app/profile/fgcoca.bsky.social
+      name: Bluesky de Federico Coca
     - icon: fontawesome/brands/github
       link: https://github.com/fgcoca
       name: Github de Federico Coca
-    - icon: fontawesome/brands/instagram
+    - icon: fontawesome/brands/square-instagram
       link: https://www.instagram.com/cocafederico/?hl=es
       name: Instagram de Federico Coca
-    - icon: fontawesome/brands/x-twitter
-      link: https://x.com/clubroboticagra
-      name: X de Club Robótica Granada 
-
+    
 # 4. Navegación
 nav:
   - ESP32 micro:STEAMakers:
