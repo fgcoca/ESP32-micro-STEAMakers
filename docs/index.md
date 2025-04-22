@@ -188,8 +188,3 @@ El bloque 'Escanear lo encontramos en 'Entrada/Salida' en I2C:
 *Bloque Escaner I2C*
 
 </center>
-
-## <FONT COLOR=#007575>**Elementos auxiliares 3D**</font>
-
-* [Filtro](./3D/Filtro_NeoMatrix/filtro.stl) impreso en 3D para que los LEDs deslumbren menos
-* Soporte [Micro:Steamakers Stand](https://github.com/maynej/Micro-Steamakers-Stand) creado por [Jordi Mayné](https://github.com/maynej)

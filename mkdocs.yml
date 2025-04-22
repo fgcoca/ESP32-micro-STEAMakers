@@ -32,6 +32,7 @@ nav:
   - ESP32 micro:STEAMakers:
     - Presentación: presenta.md
     - La ESP32 micro:STEAMakers: index.md
+    - Elementos auxiliares 3D: aux3D.md
     - Interface USB CH340: ch340.md
     - Otros elementos hardware: otrohw.md
     - Algunos escudos (Shields): escudos.md
