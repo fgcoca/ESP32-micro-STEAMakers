@@ -46,7 +46,7 @@ Cuando damos Enter tras teclear el nombre se realiza la comprobación de que dic
     Done! Congratulations on your new bot. You will find it at [t.me/docuuSM_bot](https://t.me/docuuSM_bot). You can now add a description, about section and profile picture for your bot, see [/help]() for a list of commands. By the way, when you've finished creating your cool bot, ping our Bot Support if you want a better username for it. Just make sure the bot is fully operational before you do this.
     
     Use this token to access the HTTP API:
-    7436809274:AAFloQ8QhUsf2dBnqL3iroTKQq_Ho7zdQtw
+    7436nnnn:AAFloxxxxxxxxx_xxx
     Keep your token secure and store it safely, it can be used by anyone to control your bot.
     
     For a description of the Bot API, see this page: <https://core.telegram.org/bots/api>
