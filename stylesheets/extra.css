@@ -1,0 +1,67 @@
+.textoI {
+  text-align: left;
+}
+/* Implementación
+<p class="textoX">el texto o la celda o lo que sea
+</p>
+*/
+.textoR {
+  text-align: right;
+}
+
+.textoC {
+  text-align: center;
+}
+
+.enlace-centrado {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
+.center-img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 100%; /* Opcional: ajusta el tamaño si lo deseas */
+}
+
+.center-img20 {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 20%; /* Opcional: ajusta el tamaño si lo deseas */
+}
+
+.center-img30 {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 30%; /* Opcional: ajusta el tamaño si lo deseas */
+}
+
+.center-img40 {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 40%; /* Opcional: ajusta el tamaño si lo deseas */
+}
+
+.center-img50 {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%; /* Opcional: ajusta el tamaño si lo deseas */
+}
+
+.center-img75 {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 75%; /* Opcional: ajusta el tamaño si lo deseas */
+}
+
+<figure markdown="span">
+  ![WiFi ESP32](../img/MB/globo_wifi.png){.center-img100}
+  <figcaption>Imagen creada con ChatGPT</figcaption>
+</figure>

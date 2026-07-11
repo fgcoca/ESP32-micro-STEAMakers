@@ -1,0 +1,3493 @@
+<!DOCTYPE html><html lang="es" class="no-js"><head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Una introducción a la placa ESP32 micro:steamakers que es muy similar a la Placa ESP32 STEAMakers, pero en este caso tiene el formato de la micro:bit.">
+      
+      
+        <meta name="author" content="Federico Coca">
+      
+      
+        <link rel="canonical" href="https://fgcoca.github.io/....https:/fgcoca.github.io/ESP32-micro-STEAMakers/proyectos/microblocks_websocket/">
+      
+      
+        <link rel="prev" href="../udp/">
+      
+      
+        <link rel="next" href="../thing_ublocks/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../img/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>Integración de MicroBlocks y APP Inventor WEBsocket - ESP32 micro:STEAMakers</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&amp;display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  <link href="../../assets/stylesheets/glightbox.min.css" rel="stylesheet"><script src="../../assets/javascripts/glightbox.min.js"></script><style id="glightbox-style">
+            html.glightbox-open { overflow: initial; height: 100%; }
+            .gslide-title { margin-top: 0px; user-select: text; }
+            .gslide-desc { color: #666; user-select: text; }
+            .gslide-image img { background: white; }
+            .gscrollbar-fixer { padding-right: 15px; }
+            .gdesc-inner { font-size: 0.75rem; }
+            body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color); }
+            body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color); }
+            body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color); }
+        </style></head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="light-blue" data-md-color-accent="deep-purple">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#vision-general" class="md-skip">
+          Saltar a contenido
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Cabecera">
+    <a href="../.." title="ESP32 micro:STEAMakers" class="md-header__button md-logo" aria-label="ESP32 micro:STEAMakers" data-md-component="logo">
+      
+  <img src="../../img/favicon.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"></path></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            ESP32 micro:STEAMakers
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Integración de MicroBlocks y APP Inventor WEBsocket
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="light-blue" data-md-color-accent="deep-purple" aria-label="Modo Oscuro" type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Modo Oscuro" for="__palette_1" hidden="">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2a7 7 0 0 0-7 7c0 2.38 1.19 4.47 3 5.74V17a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-2.26c1.81-1.27 3-3.36 3-5.74a7 7 0 0 0-7-7M9 21a1 1 0 0 0 1 1h4a1 1 0 0 0 1-1v-1H9z"></path></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="light-blue" data-md-color-accent="deep-purple" aria-label="Modo Claro" type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Modo Claro" for="__palette_0" hidden="">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2a7 7 0 0 1 7 7c0 2.38-1.19 4.47-3 5.74V17a1 1 0 0 1-1 1H9a1 1 0 0 1-1-1v-2.26C6.19 13.47 5 11.38 5 9a7 7 0 0 1 7-7M9 21v-1h6v1a1 1 0 0 1-1 1h-4a1 1 0 0 1-1-1m3-17a5 5 0 0 0-5 5c0 2.05 1.23 3.81 3 4.58V16h4v-2.42c1.77-.77 3-2.53 3-4.58a5 5 0 0 0-5-5"></path></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Búsqueda" placeholder="Búsqueda" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required="">
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"></path></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Buscar">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Limpiar" aria-label="Limpiar" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix="">
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Inicializando búsqueda
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/fgcoca/ESP32-micro-STEAMakers" title="Ir al repositorio" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"></path></svg>
+  </div>
+  <div class="md-source__repository">
+    fgcoca/ESP32-micro-STEAMakers
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="Pestañas" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../presenta/" class="md-tabs__link">
+          
+  
+  
+  ESP32 micro:STEAMakers
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../CO2/" class="md-tabs__link">
+          
+  
+  
+  Teoria general
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../guiamb/donde/" class="md-tabs__link">
+          
+  
+  
+  MicroBlocks
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../IDE/introIDE/" class="md-tabs__link">
+          
+  
+  
+  Arduino2.0
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../program/inicio/" class="md-tabs__link">
+          
+  
+  
+  Arduinoblocks
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../i2ctouno/" class="md-tabs__link">
+          
+  
+  
+  Proyectos
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../Miscelanea/about/" class="md-tabs__link">
+          
+  
+  
+  Miscelanea
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navegación" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="ESP32 micro:STEAMakers" class="md-nav__button md-logo" aria-label="ESP32 micro:STEAMakers" data-md-component="logo">
+      
+  <img src="../../img/favicon.png" alt="logo">
+
+    </a>
+    ESP32 micro:STEAMakers
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/fgcoca/ESP32-micro-STEAMakers" title="Ir al repositorio" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"></path></svg>
+  </div>
+  <div class="md-source__repository">
+    fgcoca/ESP32-micro-STEAMakers
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix="">
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1">
+        
+          
+          <label class="md-nav__link" for="__nav_1" id="__nav_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ESP32 micro:STEAMakers
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    ESP32 micro:STEAMakers
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../presenta/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Presentación
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    La ESP32 micro:STEAMakers
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../aux3D/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Elementos auxiliares 3D
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ch340/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Interface USB CH340
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../otrohw/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Otros elementos hardware
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../escudos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Algunos escudos (Shields)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../shieldbit/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Shield:bit
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2">
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Teoria general
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Teoria general
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../CO2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Conceptos sobre CO2 y VOC
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../MiCS4514/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Sensor MiCS4514 de NO2 y CO
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../rgb/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Diodos LEDs RGB y modelos de color
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../oled/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Pantalla OLED 0.96"
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../program/thinspeak/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Teoría básica de IoT
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../program/espnow/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ESP-NOW
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../bt/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Comunicaciones Bluetooth
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mdc/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    El motor DC
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../servo/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Servomotor
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../pap/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Motor paso a paso
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3">
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MicroBlocks
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    MicroBlocks
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../guiamb/donde/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Donde encontrarlo
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../guiamb/mblocks/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Guía de MicroBlocks
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../guiamb/webserial/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Web Serial ESPTool
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../guiamb/boardie/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Boardie:un tablero virtual para MicroBlocks
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../guiamb/ublocks/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Programación micro:STEAMakers
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../guiamb/ble_inventor/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Extensión BluetoothLE de App Inventor
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../guiamb/mb_inventor_BLE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    mBlocks + App Inventor + BLE
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../actividadesmB/act_ini_mB/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Actividades iniciales
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../actividadesmB/act_sb_mB/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Actividades Shield:bit
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4">
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Arduino2.0
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Arduino2.0
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../IDE/introIDE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Introducción
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../IDE/codigoAB/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Código en Arduinoblocks
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../IDE/descarga/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Descarga del IDE
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../IDE/ventanaIDE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ventana principal del IDE
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../IDE/caracteristicasIDE2_0/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Características principales del IDE 2.0
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5">
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Arduinoblocks
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Arduinoblocks
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../program/inicio/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Programación de micro:STEAMakers
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../program/RTTTL/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Formato RTTTL
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../program/server/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Servidor web
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../program/tm/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    micro:STEAMakers + Telegram
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../program/iotAB/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    IoT
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../program/espnowAB/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ESP-NOW
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../actividadesAB/act_ini/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Actividades iniciales
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../actividadesAB/act_EP/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Actividades EASY Plug
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../actividadesAB/act_ava/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Actividades avanzadas y con shield modular
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" checked="">
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Proyectos
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Proyectos
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../i2ctouno/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    I2C entre micro:STEAMakers y UNO
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../udp/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Control remoto por UDP
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Integración de MicroBlocks y APP Inventor WEBsocket
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Integración de MicroBlocks y APP Inventor WEBsocket
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Tabla de contenidos">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Tabla de contenidos
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+      
+        <li class="md-nav__item">
+  <a href="#vision-general" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Visión general
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#partes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Partes
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#conexionado" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Conexionado
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#programas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Programas
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Programas">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#programas-personalizados" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Programas personalizados
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#proceso" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Proceso
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Proceso">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#establecer-una-conexion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Establecer una conexión
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#modo-wifi-local" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Modo WiFi local
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#modo-hotspot-o-ap" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Modo HotSpot o AP
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#websocket-en-el-proyecto" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        WebSocket en el proyecto
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#wsloop" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        WSLoop
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#process-event" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        process event
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#process-text" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        process text
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#aplicacion-app-inventor" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Aplicación APP Inventor
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Aplicación APP Inventor">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#interfaz-de-usuario-de-la-aplicacion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Interfaz de usuario de la aplicación
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#como-se-usa-la-aplicacion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Como se usa la aplicación
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Como se usa la aplicación">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#conexion-con-el-servidor" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Conexión con el servidor
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#uso-de-los-controles" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Uso de los controles
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#uso-de-websocket-en-app-inventor" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Uso de WebSocket en APP Inventor
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Uso de WebSocket en APP Inventor">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#conexion-ai2-websocket" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Conexión AI2 WebSocket
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#desconexion-ai2-websocket" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Desconexión AI2 WebSocket
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#envio-de-mensajes-ai2-websocket" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Envío de mensajes AI2 WebSocket
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#recepcion-de-mensajes-websocket-en-ai2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Recepción de mensajes WebSocket en AI2
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#errores-websocket-ai2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Errores WebSocket AI2
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#crear-hotspot-propio" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Crear HotSpot propio
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Crear HotSpot propio">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#mi-propia-senal-wifi" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Mi propia señal WiFi
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#como-funciona" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cómo funciona
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#activacion-de-la-nueva-red" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Activación de la nueva Red
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sin-telefono-android-usemos-piesocket-websocket-tester" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Sin teléfono Android - Usemos PieSocket Websocket Tester
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#debate" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Debate
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#consejos-solucion-de-problemas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Consejos / Solución de problemas
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Consejos / Solución de problemas">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#que-puede-fallar" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Qué puede fallar
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#descarga-del-proyecto" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Descarga del proyecto
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../thing_ublocks/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Thingspeak y Microblocks
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7">
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Miscelanea
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Miscelanea
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Miscelanea/about/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Autoria
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Miscelanea/lic/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Licencias
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Miscelanea/webgrafia/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Webgrafia/Bibliografía
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Miscelanea/soft/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Software utilizado
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Tabla de contenidos">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Tabla de contenidos
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+      
+        <li class="md-nav__item">
+  <a href="#vision-general" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Visión general
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#partes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Partes
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#conexionado" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Conexionado
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#programas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Programas
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Programas">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#programas-personalizados" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Programas personalizados
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#proceso" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Proceso
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Proceso">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#establecer-una-conexion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Establecer una conexión
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#modo-wifi-local" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Modo WiFi local
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#modo-hotspot-o-ap" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Modo HotSpot o AP
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#websocket-en-el-proyecto" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        WebSocket en el proyecto
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#wsloop" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        WSLoop
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#process-event" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        process event
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#process-text" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        process text
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#aplicacion-app-inventor" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Aplicación APP Inventor
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Aplicación APP Inventor">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#interfaz-de-usuario-de-la-aplicacion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Interfaz de usuario de la aplicación
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#como-se-usa-la-aplicacion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Como se usa la aplicación
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Como se usa la aplicación">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#conexion-con-el-servidor" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Conexión con el servidor
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#uso-de-los-controles" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Uso de los controles
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#uso-de-websocket-en-app-inventor" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Uso de WebSocket en APP Inventor
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Uso de WebSocket en APP Inventor">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#conexion-ai2-websocket" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Conexión AI2 WebSocket
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#desconexion-ai2-websocket" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Desconexión AI2 WebSocket
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#envio-de-mensajes-ai2-websocket" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Envío de mensajes AI2 WebSocket
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#recepcion-de-mensajes-websocket-en-ai2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Recepción de mensajes WebSocket en AI2
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#errores-websocket-ai2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Errores WebSocket AI2
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#crear-hotspot-propio" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Crear HotSpot propio
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Crear HotSpot propio">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#mi-propia-senal-wifi" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Mi propia señal WiFi
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#como-funciona" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cómo funciona
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#activacion-de-la-nueva-red" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Activación de la nueva Red
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sin-telefono-android-usemos-piesocket-websocket-tester" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Sin teléfono Android - Usemos PieSocket Websocket Tester
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#debate" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Debate
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#consejos-solucion-de-problemas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Consejos / Solución de problemas
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Consejos / Solución de problemas">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#que-puede-fallar" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Qué puede fallar
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#descarga-del-proyecto" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Descarga del proyecto
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+  <h1>Integración de MicroBlocks y APP Inventor WEBsocket</h1>
+
+<p>Se trata de la traducción y adaptación a micro:STEAMaker de <a href="https://wiki.microblocks.fun/wifi/gamepad">MicroBlocks &amp; APP Inventor WEBsocket Integration (For Android Phones)</a> creado por <a href="https://microblocks.fun/about">Turgut Guneysu</a>, un proyecto que se encuentra dentro de los ejemplos de los protocolos UDP y WEBSocket como métodos de control remoto por WiFi.</p>
+<p>Se trata de crear un entorno de trabajo (Framework) tipo mando de videojuegos (GamePad) para APP Inventor mediante el protocolo WiFi WEBSocket (para teléfonos con Android).</p>
+<p>Se trata de crear un proyecto de cómo controlar una placa microcontrolada micro:STEAMaker con capacidad WiFi programada con MicroBlocks, con una APP de App Inventor, utilizando el protocolo WEBSocket. Se realiza una interfaz de videoconsola muy sencilla como controlador móvil con ocho botones. El programa complementario MicroBlocks se ejecutará en cualquier placa con capacidad WIFI y manejará los comandos entrantes.</p>
+<p>Se trata de una descripción en profundidad de la implementación de un controlador GAMEPad en teléfonos Android.</p>
+<h2 id="vision-general"><font color="#007575"><strong>Visión general</strong></font><a class="headerlink" href="#vision-general" title="Permanent link">¶</a></h2>
+<p>El tutorial <a href="https://wiki.microblocks.fun/en/wifi/websocket">WiFi Remote Control with WebSocket (Control remoto utilizando WEBSocket)</a> describe el uso del protocolo WebSocket entre un microcontrolador programado con MicroBlocks y una aplicación de APP Inventor. Se centra en familiarizarse con la librería Websocket y la programación asociada para hacer que ambas partes se comuniquen.</p>
+<p>Este tutorial es sobre la implementación de una <strong>interfaz de tipo GAMEPad</strong> utilizando el mismo protocolo, que también puede ser utilizado para conducir vehículos robótizados, jugar a juegos, o cualquier otra cosa que puedas programar. También se exponen más detalles de programación tanto en MicroBlocks como en APP Inventor.</p>
+<p><a class="glightbox" data-type="image" data-width="100%" data-height="auto" href="../../img/proyectos/GamePad.png" data-desc-position="bottom"><img alt="GamePad minimalista" src="../../img/proyectos/GamePad.png"></a><br>
+<em>GamePad minimalista</em></p>
+<p>Como la aplicación utiliza una interfaz genérica GamePad de 8 botones, programaremos la APP móvil para enviar comandos que representen los 8 botones. Existen ligeras variaciones de esta interfaz con más botones, colores y joystick, etc. Pero los conceptos de programación serán los mismos y aplicables a los otros modelos también. Uno sólo tiene que rehacer la interfaz visual para que coincida con su controlador favorito.</p>
+<p>Los microcontroladores que se pueden utilizar en este proyecto deben tener varias características comunes:</p>
+<ul>
+<li>deben soportar WiFi</li>
+<li>de manera opcional deben tener un botón que permita cambiar entre los modos de operación Cliente de Red y Punto de Acceso (PA).</li>
+</ul>
+<p>En la imagen siguiente se muestra la micro:STEAMakers, que incorpora el microcontrolador ESP-WROOM-32 con dos botones pulsador y uno táctil. Otras placas pueden disponer de botones BOOT y EN que también pueden ser adecuadas.</p>
+<p><a class="glightbox" data-type="image" data-width="100%" data-height="auto" href="../../img/proyectos/botones_mSM.png" data-desc-position="bottom"><img alt="Botones en la micro:STEAMakers" src="../../img/proyectos/botones_mSM.png"></a><br>
+<em>Botones en la micro:STEAMakers</em></p>
+<p>Se proporcionan el programa en MicroBlocks y la APP móvil complementaria para teléfonos Android, para que puedas utilizarlo como dispositivo de control remoto.</p>
+<h2 id="partes"><font color="#007575"><strong>Partes</strong></font><a class="headerlink" href="#partes" title="Permanent link">¶</a></h2>
+<p>Para completar este tutorial necesitarás:</p>
+<ul>
+<li>una placa micro:STEAMakers que incorpora un microcontrolador con capacidad WiFi ESP32</li>
+<li>un teléfono Android</li>
+</ul>
+<p>Estos son los requisitos básicos. Dado que el controlador se puede utilizar para diversos fines, nos hemos abstenido de programarlo para un propósito específico, como conducir un coche robótico.</p>
+<ul>
+<li>Si no tienes un teléfono Android, puedes instalar la extensión <strong>PieSocket WebSocket Tester</strong> para Chrome y trabajar con ella.</li>
+</ul>
+<p><a class="glightbox" data-type="image" data-width="100%" data-height="auto" href="../../img/proyectos/PieSocket_WS.png" data-desc-position="bottom"><img alt="PieSocket WebSocket Tester" src="../../img/proyectos/PieSocket_WS.png"></a><br>
+<em>PieSocket WebSocket Tester</em></p>
+<h2 id="conexionado"><font color="#007575"><strong>Conexionado</strong></font><a class="headerlink" href="#conexionado" title="Permanent link">¶</a></h2>
+<p>Dado que este proyecto hace uso de la capacidad WiFi de los dispositivos en uso, no habrá necesidad de cableado físico. Sin embargo, tu proyecto podría utilizar un sofisticado dispositivo robótico o similar, y dependerá de ti que esa parte se realice.</p>
+<p>En cuanto a la disponibilidad de WiFi, puedes empezar utilizando el WiFi proporcionado por tu router de Internet local.</p>
+<p>Alternativamente, también puede crear su propio Punto de Acceso WiFi utilizando el ESP32 y proporcionar tu propia señal WiFi. Esto será útil si planeas operar en un área sin conectividad WiFi.</p>
+<h2 id="programas"><font color="#007575"><strong>Programas</strong></font><a class="headerlink" href="#programas" title="Permanent link">¶</a></h2>
+<p>El proyecto MicroBlocks está codificado en el programa <strong>GAMEPad_Remoto_WiFi.ubp</strong>.</p>
+<p>El microcontrolador ESP32, actuando como servidor WebSocket, está programado para:</p>
+<ul>
+<li>Actuar como un cliente WiFi en la red inalámbrica local o convertirse en un HOTSpot proporcionando un Punto de Acceso WiFi</li>
+<li>enviar, recibir y mostrar mensajes</li>
+<li>encender y apagar un LED en el microcontrolador</li>
+<li>poner cada socket en modo loopback</li>
+<li>soportar hasta cinco clientes, todos operativos</li>
+</ul>
+<p>En la imagen siguientes tenemos los scripts del proyecto</p>
+<p><a class="glightbox" data-type="image" data-width="100%" data-height="auto" href="../../img/proyectos/programasWS.png" data-desc-position="bottom"><img alt="Programas MicroBlocks del proyecto" src="../../img/proyectos/programasWS.png"></a><br>
+<em>Programas MicroBlocks del proyecto</em></p>
+<ul>
+<li>el bloque <strong>al empezar</strong> conecta a la red WiFi local, inicia el servidor WebSocket, y mostrará la información de la conexión. A continuación, iniciará el proceso WSLoop para comenzar a gestionar la actividad de la red.</li>
+<li><strong>cuando se pulsa el botón A</strong> se maneja la configuración para el modo <strong>HOTSpot o AP</strong>. Muestra la información de conexión e inicia WSLoop para procesar los mensajes Websocket.</li>
+<li>cuando <strong>último mensaje (lastmessage) = WSLoop</strong> muestra permanentemente todos los mensajes que llegan a través de la conexión WebSocket.</li>
+<li>Definiciones de acciones de 8 botones (izquierda, derecha, arriba, abajo, cuadrado, triángulo, cruz, círculo) son etiquetas indicadoras para las acciones que se programarán para estos botones. Es necesario programarlos de acuerdo con el diseño de la aplicación. Los comandos entrantes serán siempre los mismos, pero lo que hacen puede cambiar dependiendo de tu código. Se han mantenido los nombres originales (left, right, up, down, square, triangle, cross, circle) para la definición de estos bloques.</li>
+</ul>
+<p>Cuando estés probando tu proyecto, puede utilizar el bloque <strong>envía ... al cliente WebSocket</strong> para enviar un mensaje a un cliente en un número de socket específico.</p>
+<p><a class="glightbox" data-type="image" data-width="100%" data-height="auto" href="../../img/proyectos/B_envia_cli_WS.png" data-desc-position="bottom"><img alt="Bloque envía ... al cliente WebSocket" src="../../img/proyectos/B_envia_cli_WS.png"></a><br>
+<em>Bloque envía ... al cliente WebSocket</em></p>
+<p>Para ello, debes <strong>anotar el ID de cliente que aparece en la APP</strong> del teléfono cuando se establece una conexión. A continuación, dirije tu mensaje a ese número de cliente específico utilizando este bloque. En la <strong>APP de Android</strong>, el ID de cliente se mostrará en el área de mensajes de la pantalla.</p>
+<p><a class="glightbox" data-type="image" data-width="100%" data-height="auto" href="../../img/proyectos/wsgamepad_msgconnected.png" data-desc-position="bottom"><img alt="Mensaje recibido en el área de pantalla de la APP" src="../../img/proyectos/wsgamepad_msgconnected.png"></a><br>
+<em>Mensaje recibido en el área de pantalla de la APP</em></p>
+<h3 id="programas-personalizados"><font color="#AA0000">Programas personalizados</font><a class="headerlink" href="#programas-personalizados" title="Permanent link">¶</a></h3>
+<p>Hay otros programas en la sección <strong>Mis Bloques</strong> del IDE que se utilizan para ejecutar los detalles de nivel inferior de los mensajes y las acciones de visualización necesarias.</p>
+<p><a class="glightbox" data-type="image" data-width="100%" data-height="auto" href="../../img/proyectos/MB_WSLoop.png" data-desc-position="bottom"><img align="left" alt="Mis bloques: WSLoop" src="../../img/proyectos/MB_WSLoop.png"></a></p>
+<p>configura las variables del proyecto y luego el script entra en un bucle de recepción de mensajes y los envía a la lógica de eventos del proceso para ser manejados. Los mensajes entrantes se comprueban en busca de nuevas conexiones de cliente, si se encuentran, se añadirán a la variable <strong><em>"clientList"</em></strong> para mantener un seguimiento de la misma.</p>
+<p>El programa o definición para el bloque es:</p>
+<p><a class="glightbox" data-type="image" data-width="100%" data-height="auto" href="../../img/proyectos/MB_WSLoop_def.png" data-desc-position="bottom"><img alt="Mis bloques: Definición de WSLoop" src="../../img/proyectos/MB_WSLoop_def.png"></a></p>
+<p><a class="glightbox" data-type="image" data-width="100%" data-height="auto" href="../../img/proyectos/MB_process_event.png" data-desc-position="bottom"><img align="left" alt="Mis bloques: process event" src="../../img/proyectos/MB_process_event.png"></a></p>
+<p>descifra los mensajes WebSocket de carga útil (payload) connect, disconnect y text message. Estos mensajes de texto se envían al script <strong><em>"processText"</em></strong> para su gestión.</p>
+<p>El programa o definición para el bloque es:</p>
+<p><a class="glightbox" data-type="image" data-width="100%" data-height="auto" href="../../img/proyectos/MB_process_event_def.png" data-desc-position="bottom"><img alt="Mis bloques: Definición de process event" src="../../img/proyectos/MB_process_event_def.png"></a></p>
+<p><a class="glightbox" data-type="image" data-width="100%" data-height="auto" href="../../img/proyectos/MB_processText.png" data-desc-position="bottom"><img align="left" alt="Mis bloques: processText" src="../../img/proyectos/MB_processText.png"></a></p>
+<p>maneja todos los mensajes principales del programa (<strong>LED, LOOP, left, right, up, down, square, triangle, cross, circle</strong>). Dependiendo de la carga útil recibida, se ejecutan diferentes scripts para procesar los mensajes entrantes.</p>
+<p>El programa o definición para el bloque es:</p>
+<p><a class="glightbox" data-type="image" data-width="100%" data-height="auto" href="../../img/proyectos/MB_processText_def.png" data-desc-position="bottom"><img alt="Mis bloques: Definición de processText" src="../../img/proyectos/MB_processText_def.png"></a></p>
+<p><a class="glightbox" data-type="image" data-width="100%" data-height="auto" href="../../img/proyectos/MB_clientID.png" data-desc-position="bottom"><img align="left" alt="Mis bloques: clientID exists" src="../../img/proyectos/MB_clientID.png"></a></p>
+<p>Este proyecto soporta <strong>hasta cinco clientes remotos</strong> que se conectan al servidor WebSocket. Este script verifica cada mensaje recibido para <strong>comprobar si el cliente ya existe</strong>. Devolverá true o false dependiendo del estado del cliente.</p>
+<p>El programa o definición para el bloque es:</p>
+<p><a class="glightbox" data-type="image" data-width="100%" data-height="auto" href="../../img/proyectos/MB_clientID_def.png" data-desc-position="bottom"><img alt="Mis bloques: Definición de clientID exists" src="../../img/proyectos/MB_clientID_def.png"></a></p>
+<p><a class="glightbox" data-type="image" data-width="100%" data-height="auto" href="../../img/proyectos/MB_LED.png" data-desc-position="bottom"><img align="left" alt="Mis bloques: LED" src="../../img/proyectos/MB_LED.png"></a></p>
+<p>Este script se utiliza para encender y apagar el LED de a bordo. Puede utilizarse para proporcionar una confirmación sencilla de que la conexión está operativa.</p>
+<p>El programa o definición para el bloque es:</p>
+<p><a class="glightbox" data-type="image" data-width="100%" data-height="auto" href="../../img/proyectos/MB_LED_def.png" data-desc-position="bottom"><img alt="Mis bloques: Definición de LED" src="../../img/proyectos/MB_LED_def.png"></a></p>
+<p><a class="glightbox" data-type="image" data-width="100%" data-height="auto" href="../../img/proyectos/MB_Loopback.png" data-desc-position="bottom"><img align="left" alt="Mis bloques: Loopback id" src="../../img/proyectos/MB_Loopback.png"></a></p>
+<p>Cada socket (punto final de un enlace de comunicación bidireccional) del servidor WebSocket se controla de forma independiente y se reproduce en bucle cuando se recibe el comando Loopback. Esto permite al usuario en el extremo del teléfono Android enviar mensajes al servidor y hacer que el servidor los envíe de vuelta. Esta función puede utilizarse para verificar que una conexión de socket de extremo a extremo está operativa.</p>
+<p>El programa o definición para el bloque es:</p>
+<p><a class="glightbox" data-type="image" data-width="100%" data-height="auto" href="../../img/proyectos/MB_Loopback_def.png" data-desc-position="bottom"><img alt="Mis bloques: Definición de Loopback id" src="../../img/proyectos/MB_Loopback_def.png"></a></p>
+<p><a class="glightbox" data-type="image" data-width="100%" data-height="auto" href="../../img/proyectos/MB_show_connection.png" data-desc-position="bottom"><img align="left" alt="Mis bloques: show connection info" src="../../img/proyectos/MB_show_connection.png"></a></p>
+<p>Cuando el servidor se conecta a la red WiFi local, obtiene una dirección IP. Este script devuelve el SSID y la dirección IP obtenida. Si el tipo de conexión es AP, entonces se muestran las nuevas credenciales de red.</p>
+<p><a class="glightbox" data-type="image" data-width="100%" data-height="auto" href="../../img/proyectos/Ej_show_conn_info1.png" data-desc-position="bottom"><img alt="Ejemplo de show connection info" src="../../img/proyectos/Ej_show_conn_info1.png"></a> <a class="glightbox" data-type="image" data-width="100%" data-height="auto" href="../../img/proyectos/Ej_show_conn_info2.png" data-desc-position="bottom"><img alt="Ejemplo de show connection info" src="../../img/proyectos/Ej_show_conn_info2.png"></a>  </p>
+<p>El programa o definición para el bloque es:</p>
+<p><a class="glightbox" data-type="image" data-width="100%" data-height="auto" href="../../img/proyectos/MB_show_connection_def.png" data-desc-position="bottom"><img alt="Mis bloques: Definición de show connection info" src="../../img/proyectos/MB_show_connection_def.png"></a></p>
+<h2 id="proceso"><font color="#007575"><strong>Proceso</strong></font><a class="headerlink" href="#proceso" title="Permanent link">¶</a></h2>
+<p>Este proyecto requiere una APP que se ejecuta en un teléfono Android o dispositivo similar, y el programa MicroBlocks GAMEPadWIFIRemote que se ejecuta en el microcontrolador ESP32 micro:STEAMakers. <strong>ESP32 micro:STEAMakers actúa como servidor</strong> y el <strong>dispositivo Android es el cliente</strong>.</p>
+<h3 id="establecer-una-conexion"><font color="#AA0000">Establecer una conexión</font><a class="headerlink" href="#establecer-una-conexion" title="Permanent link">¶</a></h3>
+<p>Este proyecto te permite operar en dos modos diferentes de conectividad:</p>
+<ul>
+<li>Acceso WiFi local</li>
+<li>Modo HotSpot o AP</li>
+</ul>
+<h3 id="modo-wifi-local"><font color="#AA0000">Modo WiFi local</font><a class="headerlink" href="#modo-wifi-local" title="Permanent link">¶</a></h3>
+<p>Cuando el programa se inicia, se conectará a la red WiFi local utilizando las credenciales proporcionadas en el script <strong>al empezar</strong>. <strong>Recuerda reemplazar el SSID y la Contraseña en el script con tus credenciales WiFi específicas</strong>.</p>
+<p>Cuando se establezca la conexión verás el SSID y la dirección IP adquirida mostrados en el IDE. Anótalos.</p>
+<p>Puedes continuar con el proyecto en este estado. Siempre que tu teléfono móvil también esté utilizando la misma conectividad WiFi local, todo funcionará correctamente. Puedes saltarte la siguiente sección si es así como quieres operar.</p>
+<p>Si decides trabajar en este modo, tienes que hacer lo siguiente para continuar con el proyecto:</p>
+<ul>
+<li>Debes asegurarte de que el WiFi de tu móvil está utilizando la misma red.</li>
+<li>Inicia tu APP móvil</li>
+<li>Introduce la dirección IP que aparece en el programa MicroBlocks en el área de entrada superior. Esto debería parecerse a 192.168.1.48.</li>
+</ul>
+<div class="admonition warning">
+<p class="admonition-title"> </p>
+<p>Dependiendo de los detalles de configuración de tu red WiFi local, la dirección IP proporcionada por tu router puede ser de un rango diferente al que se muestra aquí.</p>
+<p>Lo importante es que la IP de tu teléfono y la IP asignada a la ESP32 micro:STEAMakers estén en la misma subred. Eso significa que ambas tienen que tener los mismos tres números iniciales en las direcciones IP asignadas.</p>
+</div>
+<p><a class="glightbox" data-type="image" data-width="100%" data-height="auto" href="../../img/proyectos/Modo_WiFi_local.gif" data-desc-position="bottom"><img alt="Modo WiFi local" src="../../img/proyectos/Modo_WiFi_local.gif"></a><br>
+<em>Modo WiFi local</em></p>
+<p>En el momento que se establece la conexión el IDE muestra:</p>
+<p><a class="glightbox" data-type="image" data-width="100%" data-height="auto" href="../../img/proyectos/Modo_WiFi_local_conn.png" data-desc-position="bottom"><img alt="Modo WiFi local" src="../../img/proyectos/Modo_WiFi_local_conn.png"></a><br>
+<em>Modo WiFi local</em></p>
+<p>Si volvemos a tocar el icono WiFi se desconecta la APP y el IDE muestra:</p>
+<p><a class="glightbox" data-type="image" data-width="100%" data-height="auto" href="../../img/proyectos/Modo_WiFi_local_desconn.png" data-desc-position="bottom"><img alt="Modo WiFi local" src="../../img/proyectos/Modo_WiFi_local_desconn.png"></a><br>
+<em>Modo WiFi local</em></p>
+<p>Ya está todo listo para comenzar a utilizar la aplicación.</p>
+<h3 id="modo-hotspot-o-ap"><font color="#AA0000">Modo HotSpot o AP</font><a class="headerlink" href="#modo-hotspot-o-ap" title="Permanent link">¶</a></h3>
+<p>Si estás trabajando en un entorno sin conexión WiFi local, se proporciona la opción de configurar el microcontrolador ESP32 en modo HotSpot o AP, y generar una señal WiFi para facilitar las conexiones WebSocket.</p>
+<p>Este modo se activa pulsando el botón BOOT en una ESP32 genérica en la que el botón BOOT se asocia a MicroBlocks como botón-A. En el caso de la micro:STEAMakers no se dispone de botón BOOT sino directamente de un botón A. Como tal, el programa ejecutará el código asociado a <strong>cuando se pulsa el botón A</strong> y cambiará al modo AP. Reconfigurará la placa para configurar una red WiFi con <strong>SSID</strong> igual a <strong>ESP32AP</strong>, y una contras**eña de <strong>12345678</strong>.</p>
+<p>Cuando el nuevo modo operativo esté activo, verás el SSID, la dirección IP y la contraseña mostrados en el IDE. Anótalos.</p>
+<p>Si activas este modo, tienes que hacer lo siguiente para continuar con el proyecto:</p>
+<ul>
+<li>Debes cambiar la configuración WiFi de tu teléfono móvil para conectarte a la nueva red.</li>
+<li>Inicia un escaneo WiFi en el área de ajustes WiFi de tu teléfono y luego selecciona la red SSID ESP32AP.</li>
+<li>Utiliza la contraseña 12345678 e inicia sesión.</li>
+<li>Inicia tu APP móvil</li>
+<li>Introduce la dirección IP que aparece en el programa MicroBlocks en el área de entrada superior. Debería parecerse a 192.168.4.1.</li>
+</ul>
+<p><a class="glightbox" data-type="image" data-width="100%" data-height="auto" href="../../img/proyectos/Modo_HotSpot_AP.png" data-desc-position="bottom"><img alt="Modo HotSpot o AP" src="../../img/proyectos/Modo_HotSpot_AP.png"></a><br>
+<em>Modo HotSpot o AP</em></p>
+<p>Ya está todo listo para comenzar a utilizar la aplicación.</p>
+<h3 id="websocket-en-el-proyecto"><font color="#AA0000">WebSocket en el proyecto</font><a class="headerlink" href="#websocket-en-el-proyecto" title="Permanent link">¶</a></h3>
+<p>Ahora, examinaremos, en detalle, todos los scripts que se requieren en el manejo de mensajes WebSocket del proyecto MicroBlocks. Hay tres scripts principales involucrados:</p>
+<p><a class="glightbox" data-type="image" data-width="100%" data-height="auto" href="../../img/proyectos/Scripts_manejo_WebSocket.png" data-desc-position="bottom"><img alt="Scripts para manejo de WebSocket" src="../../img/proyectos/Scripts_manejo_WebSocket.png"></a><br>
+<em>Scripts para manejo de WebSocket</em></p>
+<h3 id="wsloop"><font color="#AA0000">WSLoop</font><a class="headerlink" href="#wsloop" title="Permanent link">¶</a></h3>
+<div class="admonition info">
+<p class="admonition-title"> </p>
+<p>En el <strong>modo WiFi Local</strong>, la dirección Socket es: 192.168.1.48:81
+En el <strong>modo HotSpot/AP</strong>, la dirección Socket es: 192.168.4.1:81</p>
+<p>Las direcciones IP específicas en tu caso pueden ser diferentes dependiendo de la configuración de tu red.
+La implementación de <strong>MicroBlocks del puerto WebSocket será 81</strong>.</p>
+</div>
+<p>Este es el bucle principal que lee el socket y gestiona el envío de mensajes. La presencia de un evento / mensaje Websocket se indica mediante el bloque <strong>lastWebsocketevent o último evento de WebSocket</strong>. Si es <strong>falso</strong>, <strong>no hay mensaje</strong>.</p>
+<p>Si hay un mensaje, este bloque devuelve un objeto de evento que se utiliza para analizar los distintos componentes del mensaje. La imagen siguiente muestran los bloques (en inglés y español) para los componentes <strong>event type o tipo de evento</strong>, <strong>client ID o ID de cliente</strong> y <strong>payload o carga útil</strong>.</p>
+<p><a class="glightbox" data-type="image" data-width="100%" data-height="auto" href="../../img/proyectos/Bloques_et_clientID_payload.png" data-desc-position="bottom"><img alt="Bloques event type, client ID y payload" src="../../img/proyectos/Bloques_et_clientID_payload.png"></a><br>
+<em>Bloques event type, client ID y payload</em></p>
+<p>Siempre que el evento no sea falso (false, sin mensaje), el bucle de procesamiento procede a guardar el clientID y comprueba la presencia del clientID en la clientList activa. MicroBlocks soporta 5 conexiones de cliente por socket. Mantenemos un registro de las solicitudes de conexión entrantes y las manejamos separadamente por cada ID de cliente.</p>
+<p><a class="glightbox" data-type="image" data-width="100%" data-height="auto" href="../../img/proyectos/Bloqueenvia.png" data-desc-position="bottom"><img align="left" alt="Bloque &quot;envia o broadcast&quot;" src="../../img/proyectos/Bloqueenvia.png"></a></p>
+<p>inicia el script de procesamiento de eventos Websocket para manejar los eventos específicos. Observe el formato de <strong>uso especial del bloque de difusión</strong>. En lugar de un nombre de mensaje de difusión, estamos utilizando el nombre de un bloque personalizado que hemos definido. Esto tiene el efecto de iniciar la ejecución de un hilo independiente del script llamado.</p>
+<h3 id="process-event"><font color="#AA0000">process event</font><a class="headerlink" href="#process-event" title="Permanent link">¶</a></h3>
+<p>Este script tiene la responsabilidad de analizar <strong>tres tipos específicos</strong> de eventos: <strong>connected</strong> (conectado), <strong>disconnected</strong> (desconectado) y <strong>text message</strong> (mensaje de texto).</p>
+<p>En el caso de <strong>connected</strong> (conectado), actualizamos el clientList para indicar la conexión, y enviamos un mensaje a la conexión del cliente identificando el ID.</p>
+<p>En el caso de <strong>disconnected</strong> (desconectado), actualizamos la lista de clientes para indicar la desconexión.</p>
+<p>En el caso de <strong>text message</strong> (mensaje de texto), enviamos la carga útil (payload) y el ID de cliente al script responsable de procesar los comandos programados.</p>
+<h3 id="process-text"><font color="#AA0000">process text</font><a class="headerlink" href="#process-text" title="Permanent link">¶</a></h3>
+<p>Este script maneja todos los comandos programados que hemos diseñado en nuestro proyecto.</p>
+<p>Utilizamos una lista de <strong>acciones</strong> que representan todos los comandos que vamos a procesar:</p>
+<p><a class="glightbox" data-type="image" data-width="100%" data-height="auto" href="../../img/proyectos/Lista_comandos.png" data-desc-position="bottom"><img alt="Lista con todos los comandos" src="../../img/proyectos/Lista_comandos.png"></a><br>
+<em>Lista con todos los comandos</em></p>
+<p>El parámetro de la <strong>carga útil</strong> recibida se busca en la lista de acciones y, si se encuentra, llamamos a una <strong>función de bloque personalizada</strong> que hayamos programado con el mismo nombre que la carga útil. Por ejemplo: si recibimos la carga útil <strong>circle</strong>, buscamos circle en la lista de acciones. Como existe, el resultado de la búsqueda no es igual a -1 (-1, indica que no se ha encontrado). Entonces llamamos al bloque personalizado <strong>circle</strong>.</p>
+<p>Tenemos que manejar un comando especial <strong>LOOP</strong> como una característica para ayudarnos a depurar conexiones. Cuando una conexión cliente envía el comando LOOP, esa conexión se pone en modo loopback y todos los mensajes posteriores que lleguen serán devueltos al cliente. Esto permitirá al cliente verificar que la conexión existe y está activa. Mientras que esto es de poca utilidad cuando la APP móvil y el dispositivo controlado están en la misma habitación, puede ser de gran utilidad cuando se encuentran alejados el uno del otro, sólo conectados por el enlace a Internet.</p>
+<p>Si el payload no es LOOP, entonces también actualizamos el clientList para mostrar el nombre del comando que hemos recibido.</p>
+<p>Esto concluye las explicaciones de la lógica relacionada con WebSocket en el lado MicroBlocks de nuestro proyecto. Ahora pasamos a APP Inventor.</p>
+<h2 id="aplicacion-app-inventor"><font color="#007575"><strong>Aplicación APP Inventor</strong></font><a class="headerlink" href="#aplicacion-app-inventor" title="Permanent link">¶</a></h2>
+<p>Es una APP Android compañera del programa MicroBlocks GAMEPadWIFIRemote. Implementa una interfaz GAMEPad muy simple con 8 botones, un área de visualización de mensajes, y un campo de entrada de dirección IP WiFi.</p>
+<p>La imagen de abajo muestra la GUI (Graphical User Interface) de la APP al inicio del programa:</p>
+<p><a class="glightbox" data-type="image" data-width="100%" data-height="auto" href="../../img/proyectos/GUI_APP.png" data-desc-position="bottom"><img alt="GUI de la APP" src="../../img/proyectos/GUI_APP.png"></a><br>
+<em>GUI de la APP</em></p>
+<h3 id="interfaz-de-usuario-de-la-aplicacion"><font color="#AA0000">Interfaz de usuario de la aplicación</font><a class="headerlink" href="#interfaz-de-usuario-de-la-aplicacion" title="Permanent link">¶</a></h3>
+<p>La GUI de la APP consta de tres partes:</p>
+<ul>
+<li><strong>WIFI IP / Conectar / Desconectar:</strong> se utiliza para introducir la dirección IP de la ESP32 micro:STEAMakers y conectarse y desconectarse de la misma.</li>
+<li><strong>Área de controles GAMEPad:</strong> 8 botones de control implementados en dos grupos de cuatro.</li>
+<li><strong>Área de visualización de mensajes:</strong> Todos los <strong>intercambios del programa y cualquier mensaje de error</strong> se muestran en esta área de color naranja.</li>
+</ul>
+<h3 id="como-se-usa-la-aplicacion"><font color="#AA0000">Como se usa la aplicación</font><a class="headerlink" href="#como-se-usa-la-aplicacion" title="Permanent link">¶</a></h3>
+<p>La GUI de la APP proporciona una interfaz sencilla para todas las funciones del programa. Desglosémosla en varias tareas y probémosla:</p>
+<h4 id="conexion-con-el-servidor"><font color="#0000FF">Conexión con el servidor</font><a class="headerlink" href="#conexion-con-el-servidor" title="Permanent link">¶</a></h4>
+<p>Cuando inicies el programa MicroBlocks en la micro:STEAMakers, esta se conectará a la WiFi local y obtendrá una dirección IP; muy probablemente en el formato 192.168.n.n o similar dependiendo de la configuración de tu red.</p>
+<p><a class="glightbox" data-type="image" data-width="100%" data-height="auto" href="../../img/proyectos/IP_IDE_APP.png" data-desc-position="bottom"><img alt="IP obtenida en el IDE y escrita en la GUI de la APP" src="../../img/proyectos/IP_IDE_APP.png"></a><br>
+<em>IP obtenida en el IDE y escrita en la GUI de la APP</em></p>
+<p>Debes anotar esta dirección IP e introducirla en el área de direcciones IP de la APP del teléfono, en la parte superior de la pantalla. A continuación, pulsa el icono WiFi y observa cómo el teléfono establece una conexión WebSocket con el servidor.</p>
+<p>Si la conexión tiene éxito, la pantalla cambiará a este aspecto:</p>
+<p><a class="glightbox" data-type="image" data-width="100%" data-height="auto" href="../../img/proyectos/Conex_WS.png" data-desc-position="bottom"><img alt="Conexión con WebSocket establecida" src="../../img/proyectos/Conex_WS.png"></a><br>
+<em>Conexión con WebSocket establecida</em></p>
+<p>El área de mensajes de la parte inferior de la pantalla indica el número de identificación del cliente asignado:</p>
+<p><a class="glightbox" data-type="image" data-width="100%" data-height="auto" href="../../img/proyectos/N_cli_asig_Conex_WS.png" data-desc-position="bottom"><img alt="Número de identificación del cliente y estado de la conexión en la APP" src="../../img/proyectos/N_cli_asig_Conex_WS.png"></a><br>
+<em>Número de identificación del cliente y estado de la conexión en la APP</em></p>
+<p>En el IDE, la conexión tendrá el aspecto que se muestra a continuación:</p>
+<p><a class="glightbox" data-type="image" data-width="100%" data-height="auto" href="../../img/proyectos/N_cli_asig_Conex_WS_IDE.png" data-desc-position="bottom"><img alt="Número de identificación del cliente y estado de la conexión en el IDE" src="../../img/proyectos/N_cli_asig_Conex_WS_IDE.png"></a><br>
+<em>Número de identificación del cliente y estado de la conexión en el IDE</em></p>
+<p>Cuando hayas terminado, puedes tocar de nuevo el <strong>icono WiFi</strong> y finalizar la conexión.</p>
+<h4 id="uso-de-los-controles"><font color="#0000FF">Uso de los controles</font><a class="headerlink" href="#uso-de-los-controles" title="Permanent link">¶</a></h4>
+<p>Basta con pulsar los 8 botones de control para enviar los comandos programados al ESP32.</p>
+<p>Cualquier mensaje.</p>
+<h3 id="uso-de-websocket-en-app-inventor"><font color="#AA0000">Uso de WebSocket en APP Inventor</font><a class="headerlink" href="#uso-de-websocket-en-app-inventor" title="Permanent link">¶</a></h3>
+<p>Aquí, examinaremos el código de la APP en APP Inventor y veremos los detalles de implementación de WebSocket y comandos del proyecto. Se asume que el usuario está familiarizado con la programación en APP Inventor. El código lo vemos en la imagen:</p>
+<p><a class="glightbox" data-type="image" data-width="100%" data-height="auto" href="../../img/proyectos/GAMEPad_remoto_WiFi.png" data-desc-position="bottom"><img alt="GAMEPad remoto por WiFi" src="../../img/proyectos/GAMEPad_remoto_WiFi.png"></a><br>
+<em>GAMEPad remoto por WiFi</em></p>
+<p>Para usar WebSocket en la APP es necesario el uso de una extensión: <strong>WebSocketConnector</strong>.</p>
+<p><a class="glightbox" data-type="image" data-width="100%" data-height="auto" href="../../img/proyectos/Extension_WebSocketConnector.png" data-desc-position="bottom"><img alt="Extensión WebSocketConnector" src="../../img/proyectos/Extension_WebSocketConnector.png"></a><br>
+<em>Extensión WebSocketConnector</em></p>
+<p>Proporciona una interfaz de programación que admite los siguientes eventos:</p>
+<ul>
+<li>Conexión (Connection)</li>
+<li>Desconexión (Disconnection)</li>
+<li>Envío de mensajes (Message Sending)</li>
+<li>Recepción de mensajes (Message Reception)</li>
+<li>Errores (Errors)</li>
+</ul>
+<h4 id="conexion-ai2-websocket"><font color="#0000FF">Conexión AI2 WebSocket</font><a class="headerlink" href="#conexion-ai2-websocket" title="Permanent link">¶</a></h4>
+<p><a class="glightbox" data-type="image" data-width="100%" data-height="auto" href="../../img/proyectos/WebSocketConnector_Connector.png" data-desc-position="bottom"><img alt="WebSocketConnector.Connector" src="../../img/proyectos/WebSocketConnector_Connector.png"></a><br>
+<em>WebSocketConnector.Connector</em></p>
+<p>Para la conexión, utilizamos la dirección IP del servidor ESP32 micro:STEAMakers y el puerto Websocket número 81 de MicroBlocks: 192.168.1.48:81. La IP utilizada puede diferir para tu red debido a diferencias en la configuración WiFi.</p>
+<p>La dirección IP se extrae del campo de entrada Dirección IP en la parte superior de la GUI de la APP.</p>
+<p><a class="glightbox" data-type="image" data-width="100%" data-height="auto" href="../../img/proyectos/Direccion_IP_GUI_APP.png" data-desc-position="bottom"><img alt="Dirección IP en la GUI de la APP" src="../../img/proyectos/Direccion_IP_GUI_APP.png"></a><br>
+<em>Dirección IP en la GUI de la APP</em></p>
+<p>Cuando se toca el <strong>Icono WIFI</strong>, la APP inicia la conexión a través del script <strong>when WIFI.click</strong>.</p>
+<p><a class="glightbox" data-type="image" data-width="100%" data-height="auto" href="../../img/proyectos/evento_when_WIFI_click.png" data-desc-position="bottom"><img alt="Evento when WIFI.click" src="../../img/proyectos/evento_when_WIFI_click.png"></a><br>
+<em>Evento when WIFI.click</em></p>
+<p>El script anterior maneja el evento clic del botón WiFi. Es posible que uno genere inadvertidamente múltiples eventos de clic pulsando el icono una y otra vez. Esto normalmente causaría que se iniciaran múltiples conexiones; y crearía una situación problemática.</p>
+<p>Para evitar esto, se ha implementado un interruptor booleano <strong>WIFIclickActive</strong> que controla los clics del botón y sus respectivos manejadores de eventos. Inicialmente, esta variable se establece en false. Tan pronto como un botón es pulsado, establecemos esta variable a true y no la reseteamos hasta que todos los eventos de pulsación relacionados se hayan completado. Los eventos clic sólo se permiten mientras el interruptor está en false.</p>
+<p>Cuando se establece una conexión con éxito, se ejecuta el script <strong>when WebSocketConnector1 connected</strong>.</p>
+<p><a class="glightbox" data-type="image" data-width="100%" data-height="auto" href="../../img/proyectos/evento_when_WebSocketConnector1_connected.png" data-desc-position="bottom"><img alt="Evento when WebSocketConnector1 connected" src="../../img/proyectos/evento_when_WebSocketConnector1_connected.png"></a><br>
+<em>Evento when WebSocketConnector1 connected</em></p>
+<h4 id="desconexion-ai2-websocket"><font color="#0000FF">Desconexión AI2 WebSocket</font><a class="headerlink" href="#desconexion-ai2-websocket" title="Permanent link">¶</a></h4>
+<p><a class="glightbox" data-type="image" data-width="100%" data-height="auto" href="../../img/proyectos/Llamada_WebSocketConnector1_Disconnect.png" data-desc-position="bottom"><img alt="Llamada a WebSocketConnector1.Disconnect" src="../../img/proyectos/Llamada_WebSocketConnector1_Disconnect.png"></a><br>
+<em>Llamada a WebSocketConnector1.Disconnect</em></p>
+<p><strong>Una vez establecida la conexión</strong>, si se pulsa el <strong>icono WiFi</strong> por segunda vez, el enlace se desconecta. Véase más arriba el código del script <strong>when WIFI.click</strong>. El botón del icono WiFi actúa como un conmutador: si no hay una conexión WebSocket activa, entonces la conexión se realiza. Si la conexión está activa, entonces el enlace se desconecta.</p>
+<p>El bloque siguiente proporciona el estado de la conexión.</p>
+<p><a class="glightbox" data-type="image" data-width="100%" data-height="auto" href="../../img/proyectos/Llamada_WebSocketConnector1_IsConnected.png" data-desc-position="bottom"><img alt="Llamada a WebSocketConnector1.IsConnected" src="../../img/proyectos/Llamada_WebSocketConnector1_IsConnected.png"></a><br>
+<em>Llamada a WebSocketConnector1.IsConnected</em></p>
+<p>La desconexión del enlace WebSocket hará que se ejecute el script <strong>when WebSocketConnector1 disconnected</strong>.</p>
+<p><a class="glightbox" data-type="image" data-width="100%" data-height="auto" href="../../img/proyectos/Evento_when_WebSocketConnector1_disconnected.png" data-desc-position="bottom"><img alt="Evento when WebSocketConnector1 disconnected" src="../../img/proyectos/Evento_when_WebSocketConnector1_disconnected.png"></a><br>
+<em>Evento when WebSocketConnector1 disconnected</em></p>
+<h4 id="envio-de-mensajes-ai2-websocket"><font color="#0000FF">Envío de mensajes AI2 WebSocket</font><a class="headerlink" href="#envio-de-mensajes-ai2-websocket" title="Permanent link">¶</a></h4>
+<p><a class="glightbox" data-type="image" data-width="100%" data-height="auto" href="../../img/proyectos/Llamada_WebSocketConnector1_Message_Send.png" data-desc-position="bottom"><img alt="Llamada WebSocketConnector1.Message Send" src="../../img/proyectos/Llamada_WebSocketConnector1_Message_Send.png"></a><br>
+<em>Llamada WebSocketConnector1.Message Send</em></p>
+<p>Enviar un mensaje WebSocket es muy sencillo; sólo requiere un texto de mensaje.</p>
+<p>Dado que tenemos ocho mensajes diferentes que necesitamos enviar, hemos recurrido a una técnica para reducir el número de bloques que necesitamos codificar. En lugar de utilizar un enfoque estándar de <strong>escribir código para cada uno de los ocho botones de control</strong>, usaremos la <strong>técnica de código genérico</strong>.</p>
+<p><a class="glightbox" data-type="image" data-width="100%" data-height="auto" href="../../img/proyectos/Evento_when_any_button_click.png" data-desc-position="bottom"><img alt="Evento when any Button.clik" src="../../img/proyectos/Evento_when_any_button_click.png"></a><br>
+<em>Evento when any Button.clik</em></p>
+<p>Ya que todos nuestros comandos son activados por clicks de botones, usamos el evento genérico <strong>when any Button.Click</strong>. El código escrito en este script se aplica a cualquier botón pulsado. Y como todos nuestros botones de comandos hacen lo mismo, nos facilita la tarea.</p>
+<p>Para diferenciar las distintas acciones de los botones, hemos utilizado otra técnica, la de etiquetar los botones con sus nombres de acción: <strong>left, right, up, down, square, triangle, cross, circle (izquierda, derecha, arriba, abajo, cuadrado, triángulo, cruz, círculo)</strong>. Esto nos da la posibilidad de utilizar los nombres de los textos de los botones como el mensaje WebSocket que necesitamos enviar.</p>
+<h4 id="recepcion-de-mensajes-websocket-en-ai2"><font color="#0000FF">Recepción de mensajes WebSocket en AI2</font><a class="headerlink" href="#recepcion-de-mensajes-websocket-en-ai2" title="Permanent link">¶</a></h4>
+<p><a class="glightbox" data-type="image" data-width="100%" data-height="auto" href="../../img/proyectos/Evento_when_WebSocketConnector1_MessageReceive.png" data-desc-position="bottom"><img alt="Evento when WebSocketConnector1.MessageReceived" src="../../img/proyectos/Evento_when_WebSocketConnector1_MessageReceive.png"></a><br>
+<em>Evento when WebSocketConnector1.MessageReceived</em></p>
+<p>En este proyecto, no recibimos ningún mensaje en condiciones normales de funcionamiento. Sin embargo, es posible recibir mensajes de prueba durante el testeo del proyecto. Para acomodar ese caso, proporcionamos un manejador de eventos para mostrar cualquier mensaje entrante en el área de mensajes de la APP, en la parte inferior de la pantalla.</p>
+<h4 id="errores-websocket-ai2"><font color="#0000FF">Errores WebSocket AI2</font><a class="headerlink" href="#errores-websocket-ai2" title="Permanent link">¶</a></h4>
+<p><a class="glightbox" data-type="image" data-width="100%" data-height="auto" href="../../img/proyectos/Evento_when_WebSocketConnector1_ErrorOccurred.png" data-desc-position="bottom"><img alt="Evento when WebSocketConnector1.ErrorOccurred" src="../../img/proyectos/Evento_when_WebSocketConnector1_ErrorOccurred.png"></a><br>
+<em>Evento when WebSocketConnector1.ErrorOccurred</em></p>
+<p>En caso de que se produzca algún error durante la conexión o el funcionamiento normal de la APP, proporcionamos un controlador de eventos para mostrar cualquier mensaje de error en el área de mensajes de la APP, en la parte inferior de la pantalla.</p>
+<h2 id="crear-hotspot-propio"><font color="#007575"><strong>Crear HotSpot propio</strong></font><a class="headerlink" href="#crear-hotspot-propio" title="Permanent link">¶</a></h2>
+<p>Hemos mencionado anteriormente que pueden presentarse casos en los que el entorno en el que desea ejercer el control sobre dispositivos puede no tener una señal WiFi disponible. Especialmente, si estás en la naturaleza o en un lugar alejado de la civilización. No te preocupes, todavía serás capaz de experimentar con este tutorial siguiendo las instrucciones siguiente.</p>
+<h3 id="mi-propia-senal-wifi"><font color="#AA0000">Mi propia señal WiFi</font><a class="headerlink" href="#mi-propia-senal-wifi" title="Permanent link">¶</a></h3>
+<p>Veamos cómo podemos activar nuestra propia señal WiFi.</p>
+<p>Para crear nuestra propia señal WiFi, tendremos que pulsar el <strong>Botón A</strong> una vez iniciado el programa, o en cualquier momento que queramos <strong>activar la opción Hotspot</strong>.</p>
+<h3 id="como-funciona"><font color="#AA0000">Cómo funciona</font><a class="headerlink" href="#como-funciona" title="Permanent link">¶</a></h3>
+<p>Para visualizar mejor la configuración de HOTSpot, echemos un vistazo a la siguiente imagen.</p>
+<p><a class="glightbox" data-type="image" data-width="100%" data-height="auto" href="../../img/proyectos/Configuraci%C3%B3n_HOTSpot.png" data-desc-position="bottom"><img alt="Configuración de HOTSpot" src="../../img/proyectos/Configuraci%C3%B3n_HOTSpot.png"></a><br>
+<em>Configuración de HOTSpot</em></p>
+<p>La <strong>ESP32 micro:STEAMakers</strong> está ahora <strong>actuando como el proveedor del Hotspot WiFi</strong>. Está ejecutando el mismo programa MicroBlocks pero con la <strong>opción de inicio cuando se pulse el Botón A</strong>. El programa MicroBlocks por defecto tiene un <strong>hotspotName = ESP32AP</strong> y un <strong>hsPassword = 12345678</strong>. Siéntete libre de cambiar esto a los valores que quieras.</p>
+<p><a class="glightbox" data-type="image" data-width="100%" data-height="auto" href="../../img/proyectos/Script_pulsaA.png" data-desc-position="bottom"><img alt="Script cuando se pulsa el botón A" src="../../img/proyectos/Script_pulsaA.png"></a><br>
+<em>Script cuando se pulsa el botón A</em></p>
+<p>En el teléfono, sigues usando la misma APP.</p>
+<h3 id="activacion-de-la-nueva-red"><font color="#AA0000">Activación de la nueva Red</font><a class="headerlink" href="#activacion-de-la-nueva-red" title="Permanent link">¶</a></h3>
+<p>Cuando ESP32 micro:STEAMakers empiece a funcionar y pulses el botón A, se creará una <strong>red WiFi llamada ESP32AP</strong>. Puedes ver esto en el escaneo de redes WiFi de tu ordenador, así como en el escaneo WiFi de tu teléfono Android. Esto es lo que debes buscar:</p>
+<p><a class="glightbox" data-type="image" data-width="100%" data-height="auto" href="../../img/proyectos/escaneo_conex.png" data-desc-position="bottom"><img alt="Escaneo y conexión red WiFi" src="../../img/proyectos/escaneo_conex.png"></a><br>
+<em>Escaneo y conexión red WiFi</em></p>
+<p>En el teléfono Android, en la configuración de WiFi, es necesario <strong>identificarse en la nueva red: ESP32AP / 12345678</strong>.</p>
+<p>Ahora puedes empezar a utilizar la APP de la misma manera que antes. La dirección IP en la APP debe establecerse en la dirección IP del HotSpot: 192.168.4.1 . Es posible que tu hardware te asigne una IP diferente. Sea cual sea la que aparezca, utiliza esa.</p>
+<p><a class="glightbox" data-type="image" data-width="100%" data-height="auto" href="../../img/proyectos/IP_pulsarA.png" data-desc-position="bottom"><img alt="Dirección IP al pulsar el botón A" src="../../img/proyectos/IP_pulsarA.png"></a><br>
+<em>Dirección IP al pulsar el botón A</em></p>
+<div class="admonition warning">
+<p class="admonition-title"> </p>
+<p><strong>No hay acceso a internet mientras estás en el modo HOTSpot.</strong></p>
+<p><a class="glightbox" data-type="image" data-width="100%" data-height="auto" href="../../img/proyectos/sin_acceso_internet.png" data-desc-position="bottom"><img alt="Sin acceso a internet" src="../../img/proyectos/sin_acceso_internet.png"></a>  </p>
+<p>Si has creado un WiFi HotSpot y has probado todo con él, <strong>recuerda apagarlo e iniciar sesión con tus dispositivos y teléfono en tu red WiFi normal</strong>. De lo contrario, no estarás operando como antes de los ejercicios y te preguntarás por qué nada funciona como de costumbre.</p>
+</div>
+<h2 id="sin-telefono-android-usemos-piesocket-websocket-tester"><font color="#007575"><strong>Sin teléfono Android - Usemos PieSocket Websocket Tester</strong></font><a class="headerlink" href="#sin-telefono-android-usemos-piesocket-websocket-tester" title="Permanent link">¶</a></h2>
+<p><strong>PieSocket es una extensión del navegador Chromium o Chrome</strong>. Puedes instalarla desde el gestor de extensiones.</p>
+<p>Cuando lo ejecutes en el navegador, se verá como en la imagen de la izquierda, a excepción de los datos de localización:</p>
+<p><a class="glightbox" data-type="image" data-width="100%" data-height="auto" href="../../img/proyectos/PieSocket.png" data-desc-position="bottom"><img alt="PieSocket" src="../../img/proyectos/PieSocket.png"></a><br>
+<em>PieSocket</em></p>
+<p>Debes introducir la dirección IP del servidor en el formato del protocolo WebSocket en el campo Ubicación: <strong>ws://192.168.1.48:81</strong></p>
+<p>Cuando hagas clic en Conectar, aparecerá la imagen de la derecha. Observa el mensaje de respuesta de conexión enviado por el servidor: RECIBIDO : Cliente# 0 conectado.</p>
+<p>El número de identificación del cliente que se muestra es su número de identificación (0-4). Cuando observes las pantallas de actividad en el servidor, tus acciones se reflejarán en la línea con este número de Cliente.</p>
+<p>El <strong>proceso de prueba con el PieSocket</strong> es un poco diferente que usando el programa compañero APP Inventor. Ya que todas las funciones del Servidor son controladas a través de mensajes de texto directos (comandos), simplemente ingresa los comandos deseados de la lista de abajo en el área de Ubicación y haz clic en Enviar Mensaje ( Send Message).</p>
+<p>Aquí tienes una lista de todos los comandos que puedes escribir y lo que harán:</p>
+<ul>
+<li><strong>left, right, up, down, square, triangle, cross, circle (izquierda, derecha, arriba, abajo, cuadrado, triángulo, cruz, círculo)</strong> - Utiliza uno de estos cada vez. Ejecutarán las respectivas funciones programadas en el servidor.</li>
+<li><strong>LED</strong> - encenderá/apagará el LED de usuario en el servidor.</li>
+<li><strong>LOOP</strong> - pondrá tu puerto cliente en el servidor en modo Loopback. Para salir de él, envíalo de nuevo</li>
+<li><strong>cualquier mensaje de texto</strong> - cualquier cosa que no sean los comandos listados anteriormente se tratará como un mensaje normal y se mostrará en el IDE. Si la conexión está en modo Loopback, serán devueltos.</li>
+</ul>
+<h2 id="debate"><font color="#007575"><strong>Debate</strong></font><a class="headerlink" href="#debate" title="Permanent link">¶</a></h2>
+<p>Este entorno de trabajo o framework se proporciona como ejemplo de implementación de un controlador estilo GAMEPad en teléfonos Android.</p>
+<ul>
+<li>¿Qué tipo de proyectos crees que pueden utilizar esta interfaz de control?</li>
+<li>¿Qué pasa si el proyecto que queremos controlar tiene más de 8 comandos?</li>
+<li>Entendiendo cómo funciona la implementación WEBSocket en MicroBlocks, ¿pueden varias personas coordinar y utilizar los controles?</li>
+</ul>
+<p>La APP para Android está escrita en MIT App Inventor. Si estás familiarizado con MIT AI2, prueba los siguientes retos.</p>
+<ul>
+<li>Algunos mandos tienen un conjunto de cuatro botones de colores en lugar de los de forma geométrica. Modifica la interfaz para utilizar botones de colores.</li>
+<li>Amplía la interfaz del GAMEPad para que tenga dos botones adicionales.</li>
+</ul>
+<p>Los dos retos son de complejidad media y requieren un poco de conocimientos técnicos. Si consigues hacerlos funcionar, lo habrás hecho muy bien.</p>
+<h2 id="consejos-solucion-de-problemas"><font color="#007575"><strong>Consejos / Solución de problemas</strong></font><a class="headerlink" href="#consejos-solucion-de-problemas" title="Permanent link">¶</a></h2>
+<p>En el primer modo del tutorial, donde estás en tu red doméstica, normalmente verás direcciones de red doméstica en el rango de 192.168.1.nnn. Si por alguna razón has modificado el router de Internet de tu casa para asignar un rango diferente de direcciones IP, entonces puede que tengas direcciones con un aspecto diferente.</p>
+<p>Si está probando la versión HotSpot del tutorial, tendrá que ser consciente de las diferencias en las direcciones IP creadas y utilizadas.</p>
+<p>En el modo HotSpot del tutorial, el ESP32 creará una nueva red y repartirá un conjunto diferente de direcciones. Normalmente serán 192.168.4.1 para el router, y 192.168.4.2 y siguientes para los otros clientes, incluyendo tu teléfono Android.</p>
+<p>En el modo HotSpot del tutorial, recuerda activar primero la nueva red, en el ESP32 en nuestro ejemplo. Esto configurará el entorno listo para asignar direcciones a los dispositivos que se unan. Sólo debes conectar el WiFi de tu teléfono a la nueva red después de activarla. De lo contrario, el escáner WiFi de su teléfono no verá la red con el SSID = ESP32AP.</p>
+<p>Ten en cuenta que durante ambos modos de funcionamiento del tutorial, nunca estás accediendo a Internet. De hecho, en el modo Hotspot, ni siquiera hay conectividad a Internet disponible, como podrás comprobar en las pantallas de estado de las redes WiFi. Todo el intercambio de tráfico ocurre dentro del dominio privado de tu red doméstica y de la nueva red que creas con la opción HotSpot.</p>
+<p>Hay formas de acceder a Internet en ambos modos de funcionamiento. Sin embargo, ese es un tema muy complicado para entrar en los propósitos de este tutorial. Cualquiera que esté interesado puede investigar NAT (Network Address Translation), servicios Proxy, direcciones de Internet privadas y públicas y tratar de darle sentido a todo esto.</p>
+<p>Una buena manera de deshacerte de las entradas de red no deseadas en tu PC y en tu teléfono es seleccionar la opción WiFi para OLVIDAR esa red. Encontrarás esta opción en la sección de configuración de conectividad WiFi de tus dispositivos.</p>
+<h3 id="que-puede-fallar"><font color="#AA0000">Qué puede fallar</font><a class="headerlink" href="#que-puede-fallar" title="Permanent link">¶</a></h3>
+<p>El protocolo WebSocket tiene TIEMPOS DE ESPERA incorporados. Si no se produce ninguna actividad en el protocolo durante el tiempo de espera, la conexión se cerrará y los clientes se desconectarán. No hay manera de ajustar el tiempo de espera en el ámbito de este tutorial. Así que ten esto en cuenta y si empiezas a ver clientes desconectándose, simplemente establece la conexión de nuevo. El tiempo estimado para el tiempo de espera por defecto es de aproximadamente un minuto.</p>
+<p>El modo Loopback es un modo de operación muy interesante. Sin embargo, puede causar confusión al usuario si no se entienden exactamente los detalles de su funcionamiento. Piensa en él como un interruptor que se pone en ON o en OFF. Cuando está en ON, todo se envía a la parte solicitante. Hasta que lo apagues seleccionándolo de nuevo, permanecerá en modo Loopback.</p>
+<p>Y recuerda, en caso de problemas, la mejor manera de reiniciar todo es RESETAR todo.</p>
+<p>¡Que lo disfrutes!</p>
+<h2 id="descarga-del-proyecto"><font color="#007575"><strong>Descarga del proyecto</strong></font><a class="headerlink" href="#descarga-del-proyecto" title="Permanent link">¶</a></h2>
+<ul>
+<li><a href="../../program/actividadesmB/GAMEPadWiFiRemote.ubp">Programa MicroBlocks GAMEPadWiFiRemote.ubp DESCARGADO en enero de 2025 para este Tutorial</a> - Instalar en la micro:STEAMakers. Versión disponible en la fecha indicada con ligeras modificaciones respecto al original.</li>
+<li><a href="https://wiki.microblocks.fun/wifigamepad/gamepadwifiremote.ubp">Programa MicroBlocks GAMEPadWiFiRemote.ubp ORIGINAL para este Tutorial</a> - Instalar en la micro:STEAMakers.</li>
+</ul>
+<p><a href="../../program/AppInventor/GAMEPad_Remoto_WiFi.aia">Archivo fuente de la aplicación MIT AI2 para Android</a> - Personaliza la APP usando MIT AI2.</p>
+<p><a class="glightbox" data-type="image" data-width="100%" data-height="auto" href="../../img/proyectos/QR_APK_GAMEPad.png" data-desc-position="bottom"><img align="left" alt="Aplicación APK" src="../../img/proyectos/QR_APK_GAMEPad.png"></a> <br><a href="../../program/AppInventor/GAMEPad_Remoto_WiFi.apk">Aplicación APK MIT AI2 para Android</a> - Carga este archivo en su teléfono. Puede requerir permiso para instalar aplicaciones desconocidas.<br></p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright y copia; 2023 - 2035 Federico Coca
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        
+<div class="md-social">
+  
+    
+    
+    
+    
+    <a href="https://bsky.app/profile/fgcoca.bsky.social" target="_blank" rel="noopener" title="Bluesky de Federico Coca" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M407.8 294.7c-3.3-.4-6.7-.8-10-1.3 3.4.4 6.7.9 10 1.3M288 227.1c-26.1-50.7-97.1-145.2-163.1-191.8C61.6-9.4 37.5-1.7 21.6 5.5 3.3 13.8 0 41.9 0 58.4S9.1 194 15 213.9c19.5 65.7 89.1 87.9 153.2 80.7 3.3-.5 6.6-.9 10-1.4-3.3.5-6.6 1-10 1.4-93.9 14-177.3 48.2-67.9 169.9C220.6 589.1 265.1 437.8 288 361.1c22.9 76.7 49.2 222.5 185.6 103.4 102.4-103.4 28.1-156-65.8-169.9-3.3-.4-6.7-.8-10-1.3 3.4.4 6.7.9 10 1.3 64.1 7.1 133.6-15.1 153.2-80.7C566.9 194 576 75 576 58.4s-3.3-44.7-21.6-52.9c-15.8-7.1-40-14.9-103.2 29.8C385.1 81.9 314.1 176.4 288 227.1"></path></svg>
+    </a>
+  
+    
+    
+    
+    
+    <a href="https://github.com/fgcoca" target="_blank" rel="noopener" title="Github de Federico Coca" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"></path></svg>
+    </a>
+  
+    
+    
+    
+    
+    <a href="https://www.instagram.com/cocafederico/?hl=es" target="_blank" rel="noopener" title="Instagram de Federico Coca" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M194.4 211.7a53.3 53.3 0 1 0 59.2 88.6 53.3 53.3 0 1 0-59.2-88.6m142.3-68.4c-5.2-5.2-11.5-9.3-18.4-12-18.1-7.1-57.6-6.8-83.1-6.5-4.1 0-7.9.1-11.2.1s-7.2 0-11.4-.1c-25.5-.3-64.8-.7-82.9 6.5-6.9 2.7-13.1 6.8-18.4 12s-9.3 11.5-12 18.4c-7.1 18.1-6.7 57.7-6.5 83.2 0 4.1.1 7.9.1 11.1s0 7-.1 11.1c-.2 25.5-.6 65.1 6.5 83.2 2.7 6.9 6.8 13.1 12 18.4s11.5 9.3 18.4 12c18.1 7.1 57.6 6.8 83.1 6.5 4.1 0 7.9-.1 11.2-.1s7.2 0 11.4.1c25.5.3 64.8.7 82.9-6.5 6.9-2.7 13.1-6.8 18.4-12s9.3-11.5 12-18.4c7.2-18 6.8-57.4 6.5-83 0-4.2-.1-8.1-.1-11.4s0-7.1.1-11.4c.3-25.5.7-64.9-6.5-83-2.7-6.9-6.8-13.1-12-18.4zm-67.1 44.5c18.1 12.1 30.6 30.9 34.9 52.2s-.2 43.5-12.3 61.6c-6 9-13.7 16.6-22.6 22.6s-19 10.1-29.6 12.2c-21.3 4.2-43.5-.2-61.6-12.3s-30.6-30.9-34.9-52.2.2-43.5 12.2-61.6 30.9-30.6 52.2-34.9 43.5.2 61.6 12.2h.1zm29.2-1.3c-3.1-2.1-5.6-5.1-7.1-8.6s-1.8-7.3-1.1-11.1 2.6-7.1 5.2-9.8 6.1-4.5 9.8-5.2 7.6-.4 11.1 1.1 6.5 3.9 8.6 7 3.2 6.8 3.2 10.6c0 2.5-.5 5-1.4 7.3s-2.4 4.4-4.1 6.2-3.9 3.2-6.2 4.2-4.8 1.5-7.3 1.5c-3.8 0-7.5-1.1-10.6-3.2zM448 96c0-35.3-28.7-64-64-64H64C28.7 32 0 60.7 0 96v320c0 35.3 28.7 64 64 64h320c35.3 0 64-28.7 64-64zm-91 293c-18.7 18.7-41.4 24.6-67 25.9-26.4 1.5-105.6 1.5-132 0-25.6-1.3-48.3-7.2-67-25.9s-24.6-41.4-25.8-67c-1.5-26.4-1.5-105.6 0-132 1.3-25.6 7.1-48.3 25.8-67s41.5-24.6 67-25.8c26.4-1.5 105.6-1.5 132 0 25.6 1.3 48.3 7.1 67 25.8s24.6 41.4 25.8 67c1.5 26.3 1.5 105.4 0 131.9-1.3 25.6-7.1 48.3-25.8 67z"></path></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.tabs.sticky", "content.code.copy"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copiado al portapapeles", "clipboard.copy": "Copiar al portapapeles", "search.result.more.one": "1 m\u00e1s en esta p\u00e1gina", "search.result.more.other": "# m\u00e1s en esta p\u00e1gina", "search.result.none": "No se encontraron documentos", "search.result.one": "1 documento encontrado", "search.result.other": "# documentos encontrados", "search.result.placeholder": "Teclee para comenzar b\u00fasqueda", "search.result.term.missing": "Falta", "select.version": "Seleccionar versi\u00f3n"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="../../plugins/mathjax.js"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  
+<script id="init-glightbox">const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});
+document$.subscribe(()=>{ lightbox.reload(); });
+</script></body></html>

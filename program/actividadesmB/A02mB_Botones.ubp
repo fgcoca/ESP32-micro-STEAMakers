@@ -1,0 +1,907 @@
+module main
+author unknown
+version 1 0 
+description ''
+variables _sb_neoPixels _toneLoopOverhead S1 _ms_MPU6050_add _sb_pca9685_st_steps _toneNoteNames _ms_aht20_data _ms_MPU6050_on _stop_scrolling_text _tonePin _ms_aht20_on _ms_neoPixels _toneArezzoNotes _ms_aht20_reading _ms_neoPixels_scale _toneFrequencies _ms_energyReading _ms_scrolling_stopped _toneInitalized _ms_energySum 
+
+script 150 50 {
+whenCondition true
+if (buttonA) {
+  sayIt 'Boton A pulsado'
+  displayCharacter 'A'
+  waitMillis 1000
+} (buttonB) {
+  sayIt 'Boton B pulsado'
+  displayCharacter 'B'
+  waitMillis 1000
+} (ms_touching) {
+  sayIt 'Boton Tactil pulsado'
+  displayCharacter 'T'
+  waitMillis 1000
+} else {
+  sayIt 'Pulsa el boton A, el B o el tactil'
+  ms_clear_display
+}
+}
+
+script 388 57 {
+whenStarted
+ms_setGlobalBrightnessScale 10
+'set display color' (colorSwatch 255 0 174 255)
+}
+
+
+module 'Basic Sensors' Input
+author MicroBlocks
+version 1 1 
+tags tilt acceleration light sensor 
+choices accelerometerRange '1' '2' '4' '8' 
+description 'Provides blocks to read tilt in the three axes, acceleration, temperature and light level. Many boards come with this particular set of sensors, such as the micro:bit, the Circuit Playground Express, the Calliope or the Citilab ED1.'
+
+  spec 'r' '[sensors:tiltX]' 'tilt x'
+  spec 'r' '[sensors:tiltY]' 'tilt y'
+  spec 'r' '[sensors:tiltZ]' 'tilt z'
+  spec 'r' '[sensors:acceleration]' 'acceleration'
+  spec 'r' '[display:lightLevel]' 'light level'
+  spec 'r' '[sensors:temperature]' 'temperature (°C)'
+  spec 'r' '[sensors:magneticField]' 'magnetic field'
+  spec ' ' '_setAccelRange' 'set acceleration range _ g = 100' 'menu.accelerometerRange' '1'
+
+to '_setAccelRange' n {
+  '[sensors:setAccelerometerRange]' (0 + n)
+}
+
+
+module Color Operators
+author MicroBlocks
+version 1 1 
+description 'Support for color operations, Work with color hue, saturation, and brightness (HSV).'
+
+  spec 'r' 'color_colorSwatch' '_' 'color'
+  spec 'r' 'color_RGB' 'color r _ g _ b _ (0-255)' 'num num num' 0 100 100
+  spec 'r' 'color_gray' 'gray _ %' 'num' 50
+  spec 'r' 'color_random' 'random color'
+  space
+  spec 'r' 'color_red' 'red _' 'color'
+  spec 'r' 'color_green' 'green _' 'color'
+  spec 'r' 'color_blue' 'blue _' 'color'
+  space
+  spec 'r' '[misc:hsvColor]' 'color hue _ (0-360) saturation _ % brightness _ %' 'num num num' 0 90 100
+  spec 'r' '[misc:hue]' 'hue _' 'color'
+  spec 'r' '[misc:saturation]' 'saturation _' 'color'
+  spec 'r' '[misc:brightness]' 'brightness _' 'color'
+  space
+  spec 'r' 'color_withHue' '_ with hue _ (0-360)' 'color num' nil 60
+  spec 'r' 'color_withSaturation' '_ with saturation _ %' 'color num' nil 100
+  spec 'r' 'color_withBrightness' '_ with brightness _ %' 'color num' nil 100
+
+to color_RGB r g b {
+  r = (maximum 0 (minimum r 255))
+  g = (maximum 0 (minimum g 255))
+  b = (maximum 0 (minimum b 255))
+  return ((r << 16) | ((g << 8) | b))
+}
+
+to color_blue color {
+  return (color & 255)
+}
+
+to color_colorSwatch color {
+  return color
+}
+
+to color_gray percent {
+  gray = ((percent * 255) / 100)
+  gray = (maximum 0 (minimum gray 255))
+  return ((gray << 16) | ((gray << 8) | gray))
+}
+
+to color_green color {
+  return ((color >> 8) & 255)
+}
+
+to color_random {
+  local 'n1' (random 100 200)
+  local 'n2' (random 0 100)
+  if (1 == (random 1 3)) {
+    return ((n1 << 16) | (n2 << 8))
+  } (1 == (random 1 2)) {
+    return ((n2 << 16) | n1)
+  } else {
+    return ((n1 << 8) | n2)
+  }
+}
+
+to color_red color {
+  return ((color >> 16) & 255)
+}
+
+to color_withBrightness color brightness {
+  return ('[misc:hsvColor]' ('[misc:hue]' color) ('[misc:saturation]' color) brightness)
+}
+
+to color_withHue color hue {
+  return ('[misc:hsvColor]' hue ('[misc:saturation]' color) ('[misc:brightness]' color))
+}
+
+to color_withSaturation color saturation {
+  return ('[misc:hsvColor]' ('[misc:hue]' color) saturation ('[misc:brightness]' color))
+}
+
+
+module 'HTTP client' Comm
+author MicroBlocks
+version 1 4 
+depends WiFi 
+tags http network get post put delete 
+choices requestTypes GET POST PUT DELETE 
+description 'Send HTTP requests and get responses back. You can use this library to fetch or store data in online servers, or to control other Wifi-enabled boards.
+'
+
+  spec 'r' '_http_body_start' '_http_body_start _' 'auto' ''
+  spec 'r' '_http_header_text' '_http_header_text _' 'auto' ''
+  spec 'r' '_http_status_text' '_http_status_text _' 'auto' ''
+  spec 'r' '_http_header' '_header _ of response _' 'auto auto' 'content-length' ''
+  spec 'r' '_http_status' '_status of response _' 'auto' ''
+  spec 'r' '_line_end' '_line_end'
+  spec 'r' '_lowercase' '_lowercase _' 'auto' 'ABC Def gH'
+  spec 'r' '_request_url' '_request_url _ method _ body _ : port _' 'str menu.requestTypes str num' '' 'GET' '' 80
+  spec 'r' '_readHTTPResponse' '_readHTTPResponse'
+  spec 'r' 'http܃//' 'http #SVG#colon-double-slash _ : port _' 'auto num' 'microblocks.fun/example.txt' 80
+  spec ' ' 'request' '_ data _ to http #SVG#colon-double-slash _ : port _' 'menu.requestTypes str str num' 'POST' 'MicroBlocks is fun' 'microblocks.fun' 80
+
+to '_http_body_start' response {
+  return (('[data:find]' ('[data:unicodeString]' ('[data:makeList]' 13 10 13 10)) response) + 4)
+}
+
+to '_http_header' header response {
+  local 'header text' ('_http_header_text' response)
+  header = ('_lowercase' header)
+  repeatUntil ((size (v 'header text')) < 3) {
+    local 'key' ('[data:copyFromTo]' (v 'header text') 1 (('[data:find]' ':' (v 'header text')) - 1))
+    if (('_lowercase' key) == header) {
+      return ('[data:copyFromTo]' (v 'header text') (('[data:find]' ':' (v 'header text')) + 2) (('[data:find]' ('_line_end') (v 'header text')) - 1))
+    }
+    'header text' = ('[data:copyFromTo]' (v 'header text') (('[data:find]' ('_line_end') (v 'header text')) + 2))
+  }
+  return (booleanConstant false)
+}
+
+to '_http_header_text' response {
+  local 'headersStart' (('[data:find]' ('_line_end') response) + 2)
+  return ('[data:copyFromTo]' response headersStart (('_http_body_start' response) + 2))
+}
+
+to '_http_status' response {
+  return (('[data:copyFromTo]' ('_http_status_text' response) 1 4) + 0)
+}
+
+to '_http_status_text' response {
+  return ('[data:copyFromTo]' response ('[data:find]' ' ' response) ('[data:find]' ('_line_end') response))
+}
+
+to '_line_end' {
+  return ('[data:unicodeString]' ('[data:makeList]' 13 10))
+}
+
+to '_lowercase' string {
+  local 'lowercased' ''
+  local 'char code' ''
+  for c (size string) {
+    'char code' = ('[data:unicodeAt]' c string)
+    if (and ((v 'char code') >= 65) ((v 'char code') <= 90)) {
+      'char code' = ((v 'char code') + 32)
+    }
+    lowercased = ('[data:join]' lowercased ('[data:unicodeString]' (v 'char code')))
+  }
+  return lowercased
+}
+
+to '_readHTTPResponse' {
+  local 'response' ''
+  local 'lastChunkTime' (millisOp)
+  repeatUntil (not ('[net:httpIsConnected]')) {
+    local 'chunk' ('[net:httpResponse]')
+    if ((size chunk) > 0) {
+      response = ('[data:join]' response chunk)
+      lastChunkTime = (millisOp)
+    } (((millisOp) - lastChunkTime) > 10000) {
+      return response
+    }
+    waitMillis 20
+  }
+  response = ('[data:join]' response ('[net:httpResponse]'))
+  return response
+}
+
+to '_request_url' url method body optionalPort {
+  local 'port' 80
+  if ((pushArgCount) > 3) {
+    port = optionalPort
+  }
+  local 'host' ''
+  local 'path' ''
+  local 'slashPosition' ('[data:find]' '/' url)
+  if (slashPosition > 0) {
+    host = ('[data:copyFromTo]' url 1 (slashPosition - 1))
+    path = ('[data:copyFromTo]' url (slashPosition + 1))
+  } else {
+    host = url
+  }
+  if (('[net:wifiStatus]') != 'Connected') {
+    return ('[data:join]' '0 Not Connected' ('_line_end'))
+  }
+  '[net:httpConnect]' host port
+  if (not ('[net:httpIsConnected]')) {
+    return ('[data:join]' '0 Could not connect to server' ('_line_end'))
+  }
+  '[net:httpRequest]' method host path
+  return ('_readHTTPResponse')
+}
+
+to 'http܃//' url optionalPort {
+  local 'port' 80
+  if ((pushArgCount) > 1) {
+    port = optionalPort
+  }
+  local 'response' ('_request_url' url 'GET' '' port)
+  if (response != '') {
+    if (('_http_status' response) == 200) {
+      return ('[data:copyFromTo]' response ('_http_body_start' response))
+    } else {
+      return ('_http_status_text' response)
+    }
+  } else {
+    return 'Failed to get response'
+  }
+}
+
+to request method data url optionalPort {
+  local 'port' 80
+  if ((pushArgCount) > 3) {
+    port = optionalPort
+  }
+  local 'response' ('_request_url' url method data port)
+  if (response != '') {
+    local 'status' ('_http_status' response)
+    local 'body start' ('_http_body_start' response)
+    if (and (200 == status) ((v 'body start') > 0)) {
+      sayIt ('[data:copyFromTo]' response (v 'body start'))
+    } else {
+      sayIt ('_http_status_text' response)
+    }
+  } else {
+    sayIt 'Failed to get response'
+  }
+}
+
+
+module 'LED Display' Output
+author MicroBlocks
+version 1 9 
+choices led_imageMenu heart 'small heart' yes no happy sad confused angry asleep surprised silly fabulous meh 't-shirt' 'roller skate' duck house tortoise butterfly 'stick figure' ghost sword giraffe skull umbrella snake rabbit cow 'quarter note' 'eight note' pitchfork target triangle 'left triangle' 'chess board' diamond 'small diamond' square 'small square' scissors 
+description 'Display primitives for the 5x5 LED display on the BBC micro:bit, Calliope mini and M5Atom Matrix. Boards with TFT displays (such as the Citilab ED1 or the M5Stack family) support these primitives with a simulated "fat pixel" display.'
+variables _stop_scrolling_text 
+
+  spec ' ' '[display:mbDisplay]' 'display _' 'microbitDisplay' 15237440
+  spec ' ' 'led_displayImage' 'display image _ : x _ y _' 'menu.led_imageMenu num num' 'happy' 1 1
+  spec ' ' '[display:mbDisplayOff]' 'clear display'
+  space
+  spec ' ' '[display:mbPlot]' 'plot x _ y _' 'num num' 3 3
+  spec ' ' '[display:mbUnplot]' 'unplot x _ y _' 'num num' 3 3
+  space
+  spec ' ' 'displayCharacter' 'display character _' 'str' 'A'
+  spec ' ' 'scroll_text' 'scroll text _ : pausing _ ms' 'str num' 'HELLO ROSA!' 100
+  spec ' ' 'stopScrollingText' 'stop scrolling'
+  space
+  spec 'r' '_led_image' 'led image _' 'microbitDisplay' 15237440
+  spec 'r' '_led_namedImage' '_led_namedImage _' 'menu.led_imageMenu' 'happy'
+  spec 'r' '_led_imageData' '_led_imageData'
+  spec ' ' 'set display color' 'set display color _' 'color'
+
+to '_led_image' twentyFiveBitInt {
+  comment 'An LED image is a 25-bit integer'
+  return twentyFiveBitInt
+}
+
+to '_led_imageData' {
+  return 'heart:4685802,small heart:145728,yes:2269696,no:18157905,happy:15237440,sad:18284864,confused:22348096,angry:23036241,asleep:459616,surprised:4526090,silly:25984017,fabulous:15008639,meh:2236443,t-shirt:15154043,roller skate:11534104,duck:489702,house:10976708,tortoise:359872,butterfly:29332475,stick figure:18158564,ghost:23068334,sword:4657284,giraffe:10946627,skull:15171246,umbrella:6460398,snake:469859,rabbit:16104613,cow:4685361,quarter note:7573636,eight note:7590276,pitchfork:4357813,target:4681156,triangle:1026176,left triangle:32805985,chess board:11184810,diamond:4539716,small diamond:141440,square:33080895,small square:469440,scissors:20287859,'
+}
+
+to '_led_namedImage' name {
+  local 'data' ('_led_imageData')
+  local 'i' ('[data:find]' name data)
+  if (i == -1) {
+    comment 'Name not found'
+    return 0
+  }
+  local 'start' (('[data:find]' ':' data i) + 1)
+  local 'end' (('[data:find]' ',' data i) - 1)
+  return ('[data:convertType]' ('[data:copyFromTo]' data start end) 'number')
+}
+
+to displayCharacter s {
+  s = ('[data:join]' '' s)
+  if ((size s) == 0) {
+    '[display:mbDisplayOff]'
+    return 0
+  }
+  '[display:mbDrawShape]' ('[display:mbShapeForLetter]' (at 1 s))
+}
+
+to led_displayImage imageName optionalX optionalY {
+  local 'image' imageName
+  if (isType image 'string') {
+    image = ('_led_namedImage' imageName)
+  }
+  '[display:mbDrawShape]' image (argOrDefault 2 1) (argOrDefault 3 1)
+}
+
+to scroll_text text optionalDelay {
+  text = ('[data:join]' '' text)
+  local 'delay' 100
+  if ((pushArgCount) > 1) {
+    delay = optionalDelay
+  }
+  _stop_scrolling_text = (booleanConstant false)
+  if ('Pico:ed' == (boardType)) {
+    for position (((size text) * 6) + 18) {
+      if _stop_scrolling_text {return 0}
+      '[display:mbDisplayOff]'
+      '[tft:text]' text (17 - position) 0 (colorSwatch 125 125 125 255) 1 true
+      waitMillis (delay / 2)
+    }
+  } else {
+    for position (((size text) * 6) + 6) {
+      if _stop_scrolling_text {return 0}
+      for i (size text) {
+        '[display:mbDrawShape]' ('[display:mbShapeForLetter]' ('[data:unicodeAt]' i text)) (((i * 6) + 2) - position) 1
+      }
+      waitMillis delay
+    }
+  }
+}
+
+to 'set display color' color {
+  callCustomCommand '[display:mbSetColor]' ('[data:makeList]' color)
+}
+
+to stopScrollingText {
+  _stop_scrolling_text = (booleanConstant true)
+  waitMillis 10
+  '[display:mbDisplayOff]'
+}
+
+
+module Tone Output
+author MicroBlocks
+version 1 9 
+tags tone sound music audio note speaker 
+choices tone_NoteName 'nt;c' 'nt;c#' 'nt;d' 'nt;d#' 'nt;e' 'nt;f' 'nt;f#' 'nt;g' 'nt;g#' 'nt;a' 'nt;a#' 'nt;b' 
+description 'Audio tone generation. Make music with MicroBlocks!
+'
+variables _tonePin _toneInitalized _toneLoopOverhead _toneNoteNames _toneArezzoNotes _toneFrequencies 
+
+  spec ' ' 'play tone' 'play note _ octave _ for _ ms' 'str.tone_NoteName num num' 'nt;c' 0 500
+  spec ' ' 'playMIDIKey' 'play midi key _ for _ ms' 'num num' 60 500
+  spec ' ' 'play frequency' 'play frequency _ for _ ms' 'num num' 261 500
+  space
+  spec ' ' 'startTone' 'start tone _ Hz' 'num' 440
+  spec ' ' 'stopTone' 'stop tone'
+  space
+  spec ' ' 'attach buzzer to pin' 'attach buzzer to pin _' 'auto' ''
+  space
+  spec 'r' '_measureLoopOverhead' '_measureLoopOverhead'
+  spec 'r' '_baseFreqForNote' '_baseFreqForNote _' 'auto' 'c'
+  spec 'r' '_baseFreqForSemitone' '_baseFreqForSemitone _' 'num' 0
+  spec ' ' '_toneLoop' '_toneLoop _ for _ ms' 'num num' 440000 100
+  spec 'r' '_trimmedLowercase' '_trimmedLowercase _' 'str' 'A. b C...'
+  spec ' ' '_tone init note names' '_tone init note names'
+
+to '_baseFreqForNote' note {
+  comment 'Return the frequency for the given note in the middle-C octave
+scaled by 1000. For example, return 440000 (440Hz) for A.
+Note names may be upper or lower case. Note names
+may be followed by # for a sharp or b for a flat.'
+  local 'normalized note' ('_trimmedLowercase' note)
+  'normalized note' = (ifExpression ((at 1 (v 'normalized note')) == 'n') (v 'normalized note') ('[data:join]' 'nt;' (v 'normalized note')))
+  '_tone init note names'
+  if (('[data:find]' (v 'normalized note') _toneArezzoNotes) > 0) {
+    return ('_baseFreqForSemitone' ('[data:find]' (v 'normalized note') _toneArezzoNotes))
+  } else {
+    return ('_baseFreqForSemitone' ('[data:find]' (v 'normalized note') _toneNoteNames))
+  }
+}
+
+to '_baseFreqForSemitone' semitone {
+  if (_toneFrequencies == 0) {_toneFrequencies = ('[data:makeList]' 261626 277183 293665 311127 329628 349228 369994 391995 415305 440000 466164 493883 246942 277183 277183 311127 311127 349228 329628 369994 369994 415305 415305 466164 466164 523252)}
+  if (and (1 <= semitone) (semitone <= (size _toneFrequencies))) {
+    return (at semitone _toneFrequencies)
+  } else {
+    comment 'Bad note name; return 10 Hz'
+    return 10000
+  }
+}
+
+to '_measureLoopOverhead' {
+  comment 'Measure the loop overhead on this device'
+  local 'halfCycle' 100
+  local 'startT' (microsOp)
+  repeat 100 {
+    digitalWriteOp _tonePin false
+    waitMicros halfCycle
+    digitalWriteOp _tonePin false
+    waitMicros halfCycle
+  }
+  local 'usecs' ((microsOp) - startT)
+  return ((usecs - 20000) / 200)
+}
+
+to '_tone init note names' {
+  if (_toneNoteNames == 0) {
+    _toneNoteNames = ('[data:makeList]' 'nt;c' 'nt;c#' 'nt;d' 'nt;d#' 'nt;e' 'nt;f' 'nt;f#' 'nt;g' 'nt;g#' 'nt;a' 'nt;a#' 'nt;b' 'nt;c_' 'nt;db' 'nt;d_' 'nt;eb' 'nt;e_' 'nt;e#' 'nt;f_' 'nt;gb' 'nt;g_' 'nt;ab' 'nt;a_' 'nt;bb' 'nt;b_' 'nt;b#')
+    _toneArezzoNotes = ('[data:makeList]' 'nt;do' 'nt;do#' 'nt;re' 'nt;re#' 'nt;mi' 'nt;fa' 'nt;fa#' 'nt;sol' 'nt;sol#' 'nt;la' 'nt;la#' 'nt;si' 'nt;do_' 'nt;dob' 'nt;re_' 'nt;reb' 'nt;mi_' 'nt;mi#' 'nt;fa_' 'nt;solb' 'nt;sol_' 'nt;lab' 'nt;la_' 'nt;sib' 'nt;si_' 'nt;si#')
+  }
+}
+
+to '_toneLoop' scaledFreq ms {
+  if (_toneInitalized == 0) {'attach buzzer to pin' ''}
+  if ('[io:hasTone]') {
+    '[io:playTone]' _tonePin (scaledFreq / 1000)
+    waitMillis ms
+    '[io:playTone]' _tonePin 0
+  } else {
+    local 'halfCycle' ((500000000 / scaledFreq) - _toneLoopOverhead)
+    local 'cycles' ((ms * 500) / halfCycle)
+    repeat cycles {
+      digitalWriteOp _tonePin true
+      waitMicros halfCycle
+      digitalWriteOp _tonePin false
+      waitMicros halfCycle
+    }
+  }
+}
+
+to '_trimmedLowercase' s {
+  comment 'Return a copy of the given string without whitespace
+or periods and all lowercase.'
+  local 'result' (newList (size s))
+  '[data:delete]' 'all' result
+  for i (size s) {
+    local 'ch' ('[data:unicodeAt]' i s)
+    if (and (ch > 32) (ch != 46)) {
+      if (and (65 <= ch) (ch <= 90)) {ch = (ch + 32)}
+      '[data:addLast]' ch result
+    }
+  }
+  return ('[data:unicodeString]' result)
+}
+
+to 'attach buzzer to pin' pinNumber {
+  if (pinNumber == '') {
+    comment 'Pin number not specified; use default pin for this device'
+    if ((boardType) == 'Citilab ED1') {
+      _tonePin = 26
+    } ((boardType) == 'M5Stack-Core') {
+      _tonePin = 25
+    } ((boardType) == 'M5StickC') {
+      _tonePin = 26
+    } ((boardType) == 'Calliope') {
+      digitalWriteOp 23 true
+      digitalWriteOp 24 true
+      _tonePin = 25
+    } ((boardType) == 'D1-Mini') {
+      _tonePin = 12
+    } else {
+      _tonePin = -1
+    }
+  } else {
+    _tonePin = pinNumber
+  }
+  _toneLoopOverhead = ('_measureLoopOverhead')
+  _toneInitalized = (booleanConstant true)
+}
+
+to 'play frequency' freq ms {
+  '_toneLoop' (freq * 1000) ms
+}
+
+to 'play tone' note octave ms {
+  local 'freq' ('_baseFreqForNote' note)
+  if (freq <= 10000) {
+    waitMillis ms
+    return 0
+  }
+  if (octave < 0) {
+    repeat (absoluteValue octave) {
+      freq = (freq / 2)
+    }
+  }
+  repeat octave {
+    freq = (freq * 2)
+  }
+  '_toneLoop' freq ms
+}
+
+to playMIDIKey key ms {
+  local 'freq' ('_baseFreqForSemitone' ((key % 12) + 1))
+  local 'octave' ((key / 12) - 5)
+  if (octave < 0) {
+    repeat (absoluteValue octave) {
+      freq = (freq / 2)
+    }
+  }
+  repeat octave {
+    freq = (freq * 2)
+  }
+  '_toneLoop' freq ms
+}
+
+to startTone freq {
+  if (_toneInitalized == 0) {'attach buzzer to pin' ''}
+  if ('[io:hasTone]') {'[io:playTone]' _tonePin freq}
+}
+
+to stopTone {
+  startTone 0
+}
+
+
+module WiFi Comm
+author MicroBlocks
+version 1 8 
+tags communication network 
+description 'Connect to a WiFi network. Used in conjunction with other network libraries, such as HTTP client, HTTP server or Web Thing.
+'
+
+  spec ' ' 'wifiConnect' 'wifi connect to _ password _ : IP _ gateway _ subnet _' 'str str auto auto auto' 'Network_Name' '' '192.168.1.42' '192.168.1.1' '255.255.255.0'
+  spec ' ' 'wifiCreateHotspot' 'wifi create hotspot _ password _' 'str str' 'Network_Name' 'Network_Password'
+  space
+  spec 'r' 'getIPAddress' 'IP address'
+  spec 'r' '[net:myMAC]' 'MAC address'
+  space
+  spec ' ' '[net:allowWiFiAndBLE]' 'allow WiFi while using BLE _' 'bool' true
+
+to getIPAddress {
+  return ('[net:myIPAddress]')
+}
+
+to wifiConnect ssid password fixedIP gatewayIP subnetIP {
+  if (not ('[net:hasWiFi]')) {return}
+  '[net:stopWiFi]'
+  if ((pushArgCount) < 5) {
+    '[net:startWiFi]' ssid password
+  } else {
+    '[net:startWiFi]' ssid password false fixedIP gatewayIP subnetIP
+  }
+  local 'startMSecs' (millisOp)
+  repeatUntil (('[net:myIPAddress]') != '0.0.0.0') {
+    comment 'Timeout after N seconds'
+    if (((millisOp) - startMSecs) > 30000) {
+      sayIt 'Could not connect'
+      return 0
+    }
+    comment 'Slow blink while trying to connect'
+    setUserLED true
+    waitMillis 300
+    setUserLED false
+    waitMillis 300
+  }
+  repeat 6 {
+    comment 'Quick blinks when connected'
+    setUserLED true
+    waitMillis 50
+    setUserLED false
+    waitMillis 50
+  }
+  sayIt 'My IP address is:' ('[net:myIPAddress]')
+}
+
+to wifiCreateHotspot ssid password {
+  if (not ('[net:hasWiFi]')) {return}
+  if ((size password) < 8) {
+    sayIt 'Password must be at least 8 characters'
+    return 0
+  }
+  '[net:startWiFi]' ssid password true
+  if ('Connected' != ('[net:wifiStatus]')) {
+    sayIt 'Could not create hotspot'
+    return 0
+  }
+  repeat 6 {
+    comment 'Quick blinks when connected'
+    setUserLED true
+    waitMillis 50
+    setUserLED false
+    waitMillis 50
+  }
+  sayIt 'My IP address is:' ('[net:myIPAddress]')
+}
+
+
+module microSTEAMakers
+author 'Joan Guillén'
+version 1 6 
+depends Tone Color 
+tags keyestudio steam 
+choices ms_led_imageMenu heart 'small heart' yes no happy sad confused angry asleep surprised silly fabulous meh 't-shirt' 'roller skate' duck house tortoise butterfly 'stick figure' ghost sword giraffe skull umbrella snake rabbit cow 'quarter note' 'eight note' pitchfork target triangle 'left triangle' 'chess board' diamond 'small diamond' square 'small square' scissors 
+choices ms_inclination 'ms;down' x y 
+choices ms_accel x y z 
+choices ms_energy mA mV mW 
+choices ms_energyMeter 'ms;start' 'ms;stop' 'ms;reset' 
+description 'Provides custom blocks for the micro:STEAMakers, an ESP32 board with WiFi, BLE, 5x5 RGB LED matrix, 2 buttons, touch, light, sound, temperature and humidity sensors, six-axis accelerometer/gyroscope, energy control, and GPIO and I2C pins for additional extensions.
+'
+variables _ms_neoPixels _ms_neoPixels_scale _ms_scrolling_stopped _ms_energyReading _ms_energySum _ms_aht20_on _ms_aht20_reading _ms_aht20_data _ms_MPU6050_on _ms_MPU6050_add 
+
+  spec ' ' 'ms_display' 'ms display #BR# _ _ _ _ _ #BR# _ _ _ _ _ #BR# _ _ _ _ _ #BR# _ _ _ _ _ #BR# _ _ _ _ _' 'color color color color color color color color color color color color color color color color color color color color color color color color color'
+  spec ' ' 'ms_clear_display' 'ms clear display'
+  spec ' ' 'ms_setGlobalBrightnessScale' 'ms scale brightness to _ %' 'num' 100
+  spec ' ' 'ms_plot' 'ms plot x _ y _ with _' 'num num color' 3 3
+  spec ' ' 'ms_unplot' 'ms unplot x _ y _' 'num num' 3 3
+  space
+  spec 'r' 'ms_touching' 'ms touching ?'
+  spec 'r' 'ms_light' 'ms light'
+  spec 'r' 'ms_sound' 'ms sound'
+  spec 'r' 'ms_temperature' 'ms temperature ºC'
+  spec 'r' 'ms_humidity' 'ms humidity %'
+  space
+  spec 'r' 'ms_accel' 'ms accel _ m/s2' 'menu.ms_accel' 'x'
+  spec 'r' 'ms_gyro' 'ms gyro _ deg/s' 'menu.ms_accel' 'x'
+  spec 'r' 'ms_inclination' 'ms inclination towards _ º' 'menu.ms_inclination' 'ms;down'
+  space
+  spec 'r' 'ms_energy' 'ms energy _' 'menu.ms_energy' 'mW'
+  spec ' ' 'ms_energyMeter' 'ms _ energy meter' 'menu.ms_energyMeter' 'ms;start'
+  spec 'r' 'ms_energyConsumption' 'ms energy consumption (µWh)'
+  space
+  spec ' ' '_ms_neoPixels_setup' '_ms_neoPixels_setup'
+  spec ' ' '_ms_neoPixels_update' '_ms_neoPixels_update'
+  spec 'r' '_ms_imageNames' '_ms_imageNames'
+  spec ' ' '_ms_aht20_setup' '_ms_aht20_setup'
+  spec ' ' '_ms_aht20_getData' '_ms_aht20_getData'
+  spec ' ' '_ms_MPU6050_setup' '_ms_MPU6050_setup'
+  spec ' ' '_ms_energy_read_loop' '_ms_energy_read_loop'
+
+to '_ms_MPU6050_setup' {
+  _ms_MPU6050_add = (hexToInt '68')
+  comment 'setclockSource  0x01'
+  local 'value' (i2cGet _ms_MPU6050_add (hexToInt '6b'))
+  value = (value & (hexToInt 'F8'))
+  value = (value | (hexToInt '01'))
+  '[sensors:i2cWrite]' _ms_MPU6050_add ('[data:makeList]' (hexToInt '6B') value)
+  comment 'setScale amb MPU6050_SCALE_2000DPS -> 0x03'
+  comment 'dpsPerDigit = .060975f'
+  local 'value' (i2cGet _ms_MPU6050_add (hexToInt '1B'))
+  value = (value & (hexToInt 'E7'))
+  value = (value | (3 << 3))
+  '[sensors:i2cWrite]' _ms_MPU6050_add ('[data:makeList]' (hexToInt '1B') value)
+  comment 'setRange amb MPU6050_RANGE_2G -> 0x00'
+  comment 'rangePerDigit = .000061f'
+  local 'value' (i2cGet _ms_MPU6050_add (hexToInt '1C'))
+  value = (value & (hexToInt 'E7'))
+  value = (value | (0 << 3))
+  '[sensors:i2cWrite]' _ms_MPU6050_add ('[data:makeList]' (hexToInt '1C') value)
+  comment 'setSleepEnabled -> false'
+  comment 'registerBit (0x6B,6)'
+  local 'value' (i2cGet _ms_MPU6050_add (hexToInt '6B'))
+  value = (value & ('~' (1 << 6)))
+  '[sensors:i2cWrite]' _ms_MPU6050_add ('[data:makeList]' (hexToInt '6B') value)
+}
+
+to '_ms_aht20_getData' {
+  if (not _ms_aht20_on) {'_ms_aht20_setup'}
+  _ms_aht20_reading = (booleanConstant true)
+  local 'aht20_read' (newList 6)
+  '[sensors:i2cWrite]' (hexToInt '38') ('[data:makeList]' (hexToInt 'AC') (hexToInt '33') (hexToInt '00'))
+  waitMillis 75
+  '[sensors:i2cRead]' (hexToInt '38') aht20_read
+  _ms_aht20_data = aht20_read
+  _ms_aht20_reading = (booleanConstant false)
+}
+
+to '_ms_aht20_setup' {
+  '[sensors:i2cWrite]' (hexToInt '38') ('[data:makeList]' (hexToInt 'BE') (hexToInt '08') (hexToInt '00'))
+  '[sensors:i2cWrite]' (hexToInt '38') ('[data:makeList]' (hexToInt 'AC') (hexToInt '33') (hexToInt '00'))
+  _ms_aht20_on = (booleanConstant true)
+  waitMillis 75
+}
+
+to '_ms_energy_read_loop' {
+  repeatUntil (not _ms_energyReading) {
+    _ms_energySum = (_ms_energySum + (ms_energy 'mA'))
+    waitMillis 1000
+  }
+}
+
+to '_ms_imageNames' {
+  return '{"heart":4685802, "small heart":145728, "yes":2269696, "no":18157905, "happy":15237440, "sad":18284864, "confused":22348096, "angry":23036241, "asleep":459616, "surprised":4526090, "silly":25984017, "fabulous":15008639, "meh":2236443, "t-shirt":15154043, "roller skate":11534104, "duck":489702, "house":10976708, "tortoise":359872, "butterfly":29332475, "stick figure":18158564, "ghost":23068334, "sword":4657284, "giraffe":10946627, "skull":15171246, "umbrella":6460398, "snake":469859, "rabbit":16104613, "cow":4685361, "quarter note":7573636, "eight note":7590276, "pitchfork":4357813, "target":4681156, "triangle":1026176, "left triangle":32805985, "chess board":11184810, "diamond":4539716, "small diamond":141440, "square":33080895, "small square":469440, "scissors":20287859}'
+}
+
+to '_ms_neoPixels_setup' {
+  '[display:mbDisplayOff]'
+  waitMicros 300
+  if (_ms_neoPixels == 0) {
+    _ms_neoPixels = (newList 25 0)
+  }
+  _ms_neoPixels_scale = 100
+}
+
+to '_ms_neoPixels_update' {
+  comment 'Alway set the NeoPixel pin; may have been changed by another library.'
+  '[display:neoPixelSetPin]' 3 false
+  if (100 == _ms_neoPixels_scale) {
+    '[display:neoPixelSend]' _ms_neoPixels
+  } else {
+    local 'currentPixels' (newList 25)
+    local 'adjustedScale' ('[misc:rescale]' _ms_neoPixels_scale 0 100 31 100)
+    adjustedScale = (maximum 0 (minimum adjustedScale 100))
+    for pix 25 {
+      atPut pix currentPixels ('[misc:hsvColor]' ('[misc:hue]' (at pix _ms_neoPixels)) ('[misc:saturation]' (at pix _ms_neoPixels)) ((('[misc:brightness]' (at pix _ms_neoPixels)) * adjustedScale) / 100))
+    }
+    '[display:neoPixelSend]' currentPixels
+  }
+  waitMicros 300
+}
+
+to ms_accel axis {
+  if (not _ms_MPU6050_on) {'_ms_MPU6050_setup'}
+  '[sensors:i2cWrite]' _ms_MPU6050_add ('[data:makeList]' (hexToInt '3B'))
+  local 'reading' (newList 6)
+  '[sensors:i2cRead]' _ms_MPU6050_add reading
+  local 'msB' 3
+  local 'lsB' 4
+  local 'direction' -1
+  if (axis == 'y') {
+    msB = 1
+    lsB = 2
+    direction = 1
+  }
+  if (axis == 'z') {
+    msB = 5
+    lsB = 6
+    direction = 1
+  }
+  local 'result' (at msB reading)
+  if ((result >> 7) == 1) {
+    result = (-1 * (('~' result) & 127))
+  }
+  return (direction * (((result << 8) | (at lsB reading)) / 1672))
+}
+
+to ms_clear_display {
+  '_ms_neoPixels_setup'
+  atPut 'all' _ms_neoPixels 0
+  '_ms_neoPixels_update'
+  '[display:mbDisplayOff]'
+}
+
+to ms_display c1 c2 c3 c4 c5 c6 c7 c8 c9 c10 c11 c12 c13 c14 c15 c16 c17 c18 c19 c20 c21 c22 c23 c24 c25 {
+  '_ms_neoPixels_setup'
+  for i 25 {
+    atPut i _ms_neoPixels (argOrDefault i 0)
+  }
+  '_ms_neoPixels_update'
+}
+
+to ms_energy op {
+  if (op == 'mV') {return 3300}
+  local 'ampCounter' 0
+  for i 500 {
+    ampCounter = (ampCounter + (analogReadOp 23))
+  }
+  ampCounter = (ampCounter * 2)
+  ampCounter = ((ampCounter * 428) + 43560611)
+  ampCounter = (ampCounter / 1000000)
+  if (op == 'mA') {
+    return ampCounter
+  } (op == 'mW') {
+    return ((ampCounter * 3300) / 1000)
+  } else {
+    return
+  }
+}
+
+to ms_energyConsumption {
+  return ((_ms_energySum * 33) / 36)
+}
+
+to ms_energyMeter op {
+  if (op == 'ms;start') {
+    _ms_energyReading = (booleanConstant true)
+    sendBroadcast '_ms_energy_read_loop'
+  } (op == 'stop') {
+    _ms_energyReading = (booleanConstant false)
+  } (op == 'reset') {
+    _ms_energySum = 0
+  }
+}
+
+to ms_gyro axis {
+  if (not _ms_MPU6050_on) {'_ms_MPU6050_setup'}
+  '[sensors:i2cWrite]' _ms_MPU6050_add ('[data:makeList]' (hexToInt '43'))
+  local 'reading' (newList 6)
+  '[sensors:i2cRead]' _ms_MPU6050_add reading
+  local 'msB' 3
+  local 'lsB' 4
+  local 'direction' 1
+  if (axis == 'y') {
+    msB = 1
+    lsB = 2
+    direction = -1
+  }
+  if (axis == 'z') {
+    msB = 5
+    lsB = 6
+    direction = -1
+  }
+  local 'result' (at msB reading)
+  if ((result >> 7) == 1) {
+    result = (-1 * (('~' result) & 127))
+  }
+  return ((10 * direction) * (((result << 8) | (at lsB reading)) / 164))
+}
+
+to ms_humidity {
+  if (not _ms_aht20_reading) {'_ms_aht20_getData'}
+  local 'rawData' _ms_aht20_data
+  local 'calc' 0
+  calc = (at 2 rawData)
+  calc = (calc << 8)
+  calc = (calc + (at 3 rawData))
+  calc = (calc << 4)
+  calc = (calc + ((at 4 rawData) >> 4))
+  return ((calc * 100) / 1048576)
+}
+
+to ms_inclination op {
+  if (not _ms_MPU6050_on) {'_ms_MPU6050_setup'}
+  if (op == 'x') {return ((ms_accel 'x') * 9)}
+  if (op == 'y') {return ((ms_accel 'y') * 9)}
+  return (((ms_accel 'z') + 10) * 9)
+}
+
+to ms_light {
+  return (analogReadOp 24)
+}
+
+to ms_plot x y color {
+  '_ms_neoPixels_setup'
+  if (and (0 < x) (and (0 < y) (and (6 > x) (6 > y)))) {
+    atPut (x + ((y - 1) * 5)) _ms_neoPixels color
+    '_ms_neoPixels_update'
+  }
+}
+
+to ms_setGlobalBrightnessScale scale {
+  '_ms_neoPixels_setup'
+  _ms_neoPixels_scale = scale
+  '_ms_neoPixels_update'
+}
+
+to ms_sound {
+  return (analogReadOp 22)
+}
+
+to ms_temperature {
+  if (not _ms_aht20_reading) {'_ms_aht20_getData'}
+  local 'rawData' _ms_aht20_data
+  local 'calc' 0
+  calc = ((at 4 rawData) & (hexToInt '0f'))
+  calc = (calc << 8)
+  calc = (calc + (at 5 rawData))
+  calc = (calc << 8)
+  calc = (calc + (at 6 rawData))
+  return (((calc * 200) / 1048576) - 50)
+}
+
+to ms_touching {
+  return (('[sensors:touchRead]' 27) < 35)
+}
+
+to ms_unplot x y {
+  '_ms_neoPixels_setup'
+  if (and (0 < x) (and (0 < y) (and (6 > x) (6 > y)))) {
+    atPut (x + ((y - 1) * 5)) _ms_neoPixels 0
+    '_ms_neoPixels_update'
+  }
+}
+
