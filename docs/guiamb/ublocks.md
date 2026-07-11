@@ -1905,10 +1905,6 @@ Este programa está basado en el programa de ejemplo proporcionado en el Fichero
 
 
 ![Ejemplo BLE Scanner Demo mejorado](../img/guias/uB/BLE_Scanner_Demo.png)  
-*Ejemplo BLE Scanner Demo mejorado*  
-[Descargar programa](../program/uB/BLE_Scanner_Demo.ubp)
-
-
 
 ## <FONT COLOR=#007575>**Comunicación BLE bidireccional básica**</font>
 Veamos algunos ejemplos de uso de Bluetooth para comunicarnos con la placa desde un móvil. Utilizaremos la APP [Serial Bluetooth Terminal](http://127.0.0.1:8000/....https://fgcoca.github.io/ESP32-micro-STEAMakers/bt/#serial-bluetooth-terminal) vista.
@@ -1930,10 +1926,6 @@ Desde MicroBlocks creamos y llevamos a la placa el siguiente programa:
 
 
 ![Comunicación bidireccional básica](../img/guias/uB/com_bi_base.png)  
-*Comunicación bidireccional básica*  
-[Descargar programa](../program/uB/comunicacion_bidireccional_base.ubp)
-
-
 
 El programa realiza un desplazamiento de la cadena de texto recibida en la pantalla de la micro:STEAMakers y envia la cadena que se muestra al pulsar el botón A. El intercambio de mensajes se realiza desde la APP citada.
 

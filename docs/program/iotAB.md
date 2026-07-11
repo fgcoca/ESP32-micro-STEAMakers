@@ -72,8 +72,6 @@ A veces puede resultar tedioso y lento el subir los datos uno a uno. En arduinob
 
 * **Thingspeak multi publish Field**. Permite definir el valor y el campo en el que se publicará. Debemos usarlo en conjunto con el anterior: **Thingspeak multi publish Values**
 
-
-
 ![Thingspeak multi publish Field](../img/prog/iotAB/Thingspeak_multi_publish_Field.png)  
 
-En la actividad [A04-Temperatura y Humedad con Thingspeak](../actividadesMOD/A04MOD.md) se utilizan estos bloques.
+En la actividad [A04-Temperatura y Humedad con Thingspeak](https://fgcoca.github.io/ESP32-micro-STEAMakers/actividadesAB/act_ava/#a04-temperatura-y-humedad-con-thingspeak) se utilizan estos bloques.
